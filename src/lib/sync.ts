@@ -1,4 +1,4 @@
-import { buildCatalog, listFromWorker, type CatalogState } from './catalog';
+import { buildCatalog, listFromWorker, saveCatalog, type CatalogState } from './catalog';
 import { parseSales } from './sales';
 import type { Settings } from './types';
 
@@ -31,7 +31,7 @@ export interface SyncResult {
 export async function syncLibrary(s: Settings, onProgress: (msg: string, frac: number) => void): Promise<SyncResult> {
   const base = catalogSource(s);
   onProgress('Checking product library', 0);
-  const { refs, salesUrl, detectorUrl } = await listFromWorker(base);
+  const { refs, salesUrl, detectorUrl, version } = await listFromWorker(base);
   if (!refs.length) throw new Error('The product library is empty.');
   let salesCsv: string | null = null;
   if (salesUrl) {
@@ -42,5 +42,20 @@ export async function syncLibrary(s: Settings, onProgress: (msg: string, frac: n
     }
   }
   const catalog = await buildCatalog(refs, s.embedderId, base, onProgress);
+  catalog.version = version;
+  await saveCatalog(catalog);
   return { catalog, salesCsv, detectorUrl };
+}
+
+/** Cheap check (manifest only) whether the published library changed since the last sync. */
+export async function libraryChanged(catalog: CatalogState, s: Settings): Promise<boolean> {
+  try {
+    const base = catalogSource(s).replace(/\/+$/, '');
+    const res = await fetch(new URL(`${base}/manifest.json`, location.href).toString(), { cache: 'no-store' });
+    if (!res.ok) return false;
+    const m = (await res.json()) as { generated?: string };
+    return !!m.generated && m.generated !== catalog.version;
+  } catch {
+    return false; // offline: keep using the cached library
+  }
 }

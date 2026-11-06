@@ -1,10 +1,25 @@
-import { AlertTriangle, ArrowDownCircle, ArrowLeftRight, CheckCircle2, ChevronDown, CircleHelp, PackageOpen, Square, Trophy } from 'lucide-react';
+import { AlertTriangle, ArrowDownCircle, ArrowLeftRight, Check, CheckCircle2, ChevronDown, CircleHelp, ListPlus, PackageOpen, Plus, Square, Trophy } from 'lucide-react';
 import { useState } from 'react';
-import type { Recommendation, ShelfSummary, TopSellerCheck } from '../lib/recommend';
+import type { Recommendation, ShelfSummary, TopSellerCheck, TopSellerItem } from '../lib/recommend';
+import type { ShoppingList } from '../lib/shopping';
 import { STATUS_STYLE } from '../lib/settings';
 
 /** The headline: which top sellers belong on this bay but aren't on it. */
-export function TopSellerPanel({ check, onShowUnsure }: { check: TopSellerCheck; onShowUnsure: () => void }) {
+function ListButton({ item, list }: { item: TopSellerItem; list: ShoppingList }) {
+  const added = list.has(item.name);
+  return (
+    <button
+      className={`list-btn ${added ? 'added' : ''}`}
+      onClick={() => (added ? list.remove(item.name) : list.add([{ name: item.name, category: item.category, rank: item.categoryRank }]))}
+      aria-label={added ? `Remove ${item.name} from shopping list` : `Add ${item.name} to shopping list`}
+    >
+      {added ? <Check size={14} strokeWidth={3} /> : <Plus size={14} strokeWidth={3} />}
+      {added ? 'On list' : 'List'}
+    </button>
+  );
+}
+
+export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSellerCheck; onShowUnsure: () => void; list: ShoppingList }) {
   const [showPresent, setShowPresent] = useState(false);
   if (!check.hasSales) {
     return (
@@ -64,10 +79,21 @@ export function TopSellerPanel({ check, onShowUnsure }: { check: TopSellerCheck;
                 {m.name}
                 {m.category && <small>{m.category}</small>}
               </span>
-              <span className="pill bad">Not on shelf</span>
+              <ListButton item={m} list={list} />
             </li>
           ))}
         </ul>
+      )}
+
+      {definite.length > 0 && (
+        <button
+          className="btn add-all"
+          disabled={definite.every((m) => list.has(m.name))}
+          onClick={() => list.add(definite.map((m) => ({ name: m.name, category: m.category, rank: m.categoryRank })))}
+        >
+          <ListPlus size={18} />
+          {definite.every((m) => list.has(m.name)) ? 'All on your shopping list' : `Add ${definite.length > 1 ? `all ${definite.length}` : 'it'} to shopping list`}
+        </button>
       )}
 
       {possible.length > 0 && (
@@ -86,6 +112,7 @@ export function TopSellerPanel({ check, onShowUnsure }: { check: TopSellerCheck;
                 <button className="pill warn" onClick={onShowUnsure}>
                   Check
                 </button>
+                <ListButton item={m} list={list} />
               </li>
             ))}
           </ul>

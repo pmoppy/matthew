@@ -5,10 +5,11 @@ import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
 import { enterAdminMode, leaveAdminMode, readAdminMode } from './lib/admin';
 import { checkForApkUpdate, type UpdateInfo } from './lib/update';
+import { useShoppingList } from './lib/shopping';
 import { loadCatalog, loadSales, saveSales, type CatalogState, type StoredSales } from './lib/catalog';
 import { classifySales, parseSales } from './lib/sales';
 import { loadSettings, saveSettings } from './lib/settings';
-import { needsSync, syncLibrary } from './lib/sync';
+import { libraryChanged, needsSync, syncLibrary } from './lib/sync';
 import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from './lib/types';
 
 type Tab = 'scan' | 'catalog' | 'settings';
@@ -27,6 +28,7 @@ export default function App() {
   const [sales, setSalesState] = useState<StoredSales | null>(null);
   const [library, setLibrary] = useState<LibraryStatus>({ state: 'loading', msg: 'Loading product library', frac: 0 });
   const syncing = useRef(false);
+  const list = useShoppingList();
   const [update, setUpdate] = useState<UpdateInfo | null>(null);
   const taps = useRef<number[]>([]);
 
@@ -63,7 +65,8 @@ export default function App() {
       if (current) setCatalog(current);
       const storedSales = await loadSalesSafe();
       if (storedSales) setSalesState(storedSales);
-      const need = force ? 'full' : needsSync(current, s);
+      let need = force ? 'full' : needsSync(current, s);
+      if (!need && current && (await libraryChanged(current, s))) need = 'refresh';
       if (!need) {
         setLibrary({ state: 'ready' });
         syncing.current = false;
@@ -147,7 +150,7 @@ export default function App() {
         </div>
       )}
       <main>
-        {tab === 'scan' && <ScanView settings={settings} catalog={catalog} setCatalog={setCatalog} sales={salesMap} library={library} />}
+        {tab === 'scan' && <ScanView settings={settings} catalog={catalog} setCatalog={setCatalog} sales={salesMap} library={library} list={list} />}
         {admin && tab === 'catalog' && (
           <CatalogView
             settings={settings}

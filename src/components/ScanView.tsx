@@ -1,4 +1,4 @@
-import { Camera, Hand, ImageUp, Loader2, Maximize, RotateCcw, ScanLine, Sun } from 'lucide-react';
+import { Camera, Hand, ImageUp, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { analyseShelf, type AnalysisResult } from '../lib/analyse';
 import { addCorrection, type CatalogState } from '../lib/catalog';
@@ -6,10 +6,12 @@ import { checkQuality, cropCanvas, loadImageToCanvas, type QualityReport } from 
 import { recommend, statusFor, summarise, topSellerCheck } from '../lib/recommend';
 import { normName, type SalesInfo } from '../lib/sales';
 import { STATUS_STYLE } from '../lib/settings';
+import type { ShoppingList } from '../lib/shopping';
 import type { Facing, Settings, Status } from '../lib/types';
 import { CorrectionSheet } from './CorrectionSheet';
 import { ProductTable, RecommendationList, TopSellerPanel } from './Recommendations';
 import { ShelfCanvas } from './ShelfCanvas';
+import { ShoppingListCard } from './ShoppingListCard';
 
 export interface LibraryStatus {
   state: 'loading' | 'ready' | 'error';
@@ -23,11 +25,12 @@ interface Props {
   setCatalog: (c: CatalogState) => void;
   sales: Map<string, SalesInfo> | null;
   library: LibraryStatus;
+  list: ShoppingList;
 }
 
 const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'unsure', 'unknown', 'gap'];
 
-export function ScanView({ settings, catalog, setCatalog, sales, library }: Props) {
+export function ScanView({ settings, catalog, setCatalog, sales, library, list }: Props) {
   const camRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
   const shelfRef = useRef<HTMLDivElement>(null);
@@ -219,6 +222,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library }: Prop
             </div>
           )}
 
+          <ShoppingListCard list={list} />
+
           <section className="card tips">
             <h3>For the best results</h3>
             <ul>
@@ -236,8 +241,25 @@ export function ScanView({ settings, catalog, setCatalog, sales, library }: Prop
         </>
       ) : (
         <div className="toolbar">
+          <button
+            className="btn ghost icon-only"
+            onClick={() => {
+              setImage(null);
+              setResult(null);
+              setFacings([]);
+              setQuality(null);
+              setError(null);
+              setWaiting(false);
+              window.scrollTo({ top: 0 });
+            }}
+            disabled={busy}
+            aria-label="Back to home"
+            title="Back to home"
+          >
+            <X size={18} />
+          </button>
           <button className="btn" onClick={() => camRef.current?.click()} disabled={busy}>
-            <Camera size={18} /> New photo
+            <Camera size={18} /> Camera
           </button>
           <button className="btn" onClick={() => uploadRef.current?.click()} disabled={busy}>
             <ImageUp size={18} /> Upload
@@ -283,7 +305,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library }: Prop
 
       {result && result.warnings.map((w) => <div key={w} className="notice warn">{w}</div>)}
 
-      {result && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} />}
+      {result && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} />}
 
       {image && (
         <div ref={shelfRef} className="shelf-block">

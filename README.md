@@ -119,8 +119,8 @@ Ranked products with no photos are listed on the admin Catalogue screen. They ca
 
 Until your R2 catalogue is live, the app uses `public/starter/` (48 products, 104 photos, 1.5 MB). It's built with `scripts/starter/build_starter.py`:
 
-- **25 ranked lines** in four categories (Energy, Sports, Cola, Flavoured), e.g. Red Bull 250ml, Red Bull Sugarfree 250ml, Monster Original/Ultra White/Mango Loco/Pipeline Punch, Lucozade Sport Orange/Raspberry, Coca-Cola 500ml and 330ml, Pepsi Max, Diet Coke, Coke Zero, Fanta, Dr Pepper.
-- **23 other products** seen on the sample chiller (Rockstar, Red Bull Editions, Boost, Purdey's, V, Carabao, Emerge…), so they're recognised as themselves.
+- **87 products / 170 photos**, including **25 ranked lines** in four categories (Energy, Sports, Cola, Flavoured), e.g. Red Bull 250ml, Red Bull Sugarfree 250ml, Monster Original/Ultra White/Mango Loco/Pipeline Punch, Lucozade Sport Orange/Raspberry, Coca-Cola 500ml and 330ml, Pepsi Max, Diet Coke, Coke Zero, Fanta, Dr Pepper.
+- **62 other products** so they're recognised as themselves instead of being mistaken for a top seller: more Monster, Red Bull Edition, Lucozade (Energy, Zero, Alert), Prime, Boost, Relentless, Carabao, Reign, Rockstar, Emerge and C4 lines, plus own-label cans seen on the sample chiller.
 - Pack shots come from [Open Food Facts](https://world.openfoodfacts.org) (CC BY-SA, credits in `public/starter/ATTRIBUTION.md`), hand-checked and auto-cropped, plus crops from a real chiller photo.
 
 **The starter ranking is an estimate, not sales data.** Published UK convenience data is mostly at brand level (e.g. Coca-Cola is the #1 soft drink brand; Red Bull is the top sports & energy brand and holds that sub-category's top three SKUs; energy is convenience's biggest soft-drinks segment). SKU-level rankings (NIQ/Circana) are paywalled, so the order within each category is a judgement call. **Replace `sales.csv` with your EPOS data.** The starter list has no delist candidates, because red boxes need real sales data.

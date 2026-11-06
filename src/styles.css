@@ -183,7 +183,7 @@ code {
   justify-content: space-between;
   gap: 10px;
   padding: calc(env(safe-area-inset-top) + 10px) 16px 10px;
-  background: var(--surface-glass);
+  background: var(--surface);
   backdrop-filter: saturate(180%) blur(18px);
   -webkit-backdrop-filter: saturate(180%) blur(18px);
   border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
@@ -1284,4 +1284,119 @@ details[open] summary::after {
 .update-banner .btn {
   padding: 8px 12px;
   flex: none;
+}
+
+/* Shopping list -------------------------------------------------------------- */
+.list-btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--brand);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.list-btn.added {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+.btn.add-all {
+  width: 100%;
+  margin-top: 10px;
+  color: var(--brand);
+  background: var(--brand-soft);
+  border-color: transparent;
+}
+.shop-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.shop-head h3 {
+  margin: 0;
+}
+.shop-head p {
+  margin: 0;
+}
+.shop-head .btn {
+  margin-left: auto;
+}
+.shop-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+.shop.empty {
+  box-shadow: none;
+  background: transparent;
+  border-style: dashed;
+}
+.shop-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  border-radius: 16px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.shop-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 12px;
+}
+.shop-list li + li {
+  border-top: 1px solid var(--border);
+}
+.shop-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: #fff;
+  cursor: pointer;
+}
+.shop-list li.done .shop-check {
+  background: var(--green);
+  border-color: var(--green);
+}
+.shop-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 650;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.shop-name small {
+  display: block;
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.shop-list li.done .shop-name {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.shop-remove {
+  flex: none;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  padding: 4px;
+  cursor: pointer;
 }

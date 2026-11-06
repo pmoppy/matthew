@@ -197,3 +197,15 @@ describe('detectShelfGrid', () => {
     expect(dets.length).toBeLessThanOrEqual(26);
   });
 });
+
+describe('edge fragments', () => {
+  it('drops narrow boxes cut off by the photo edge but keeps full packs', async () => {
+    const { dropEdgeFragments } = await import('../analyse');
+    const row = [0, 1, 2, 3].map((i) => det(100 + i * 50, 0, 140 + i * 50, 100));
+    const sliver = det(0, 0, 12, 100); // cut off at the left edge
+    const fullAtEdge = det(560, 0, 600, 100); // touches the right edge but full width
+    const out = dropEdgeFragments([...row, sliver, fullAtEdge], 600);
+    expect(out).toHaveLength(5);
+    expect(out).not.toContain(sliver);
+  });
+});

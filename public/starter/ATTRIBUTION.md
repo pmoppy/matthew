@@ -20,6 +20,7 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060517882976
 - Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060947546080
 - Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060639126095
+- Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060896623368
 - Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060639122899
 - Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060751215721
 - Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060639126682
@@ -29,6 +30,7 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Boost Energy Original 250ml: https://world.openfoodfacts.org/product/5056079901583
 - Lucozade Energy Original 380ml: https://world.openfoodfacts.org/product/5054267000438
 - Lucozade Energy Original 380ml: https://world.openfoodfacts.org/product/6164003477475
+- Lucozade Energy Original 380ml: https://world.openfoodfacts.org/product/5054267014237
 - Lucozade Sport Orange 500ml: https://world.openfoodfacts.org/product/5054267000681
 - Lucozade Sport Raspberry 500ml: https://world.openfoodfacts.org/product/5054267000704
 - Coca-Cola Original Taste 500ml: https://world.openfoodfacts.org/product/5000112663952
@@ -53,3 +55,49 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Irn-Bru 500ml: https://world.openfoodfacts.org/product/50271511
 - Irn-Bru 500ml: https://world.openfoodfacts.org/product/5000382112686
 - Irn-Bru 500ml: https://world.openfoodfacts.org/product/0058997004181
+- Lucozade Alert Cherry Blast 500ml: https://world.openfoodfacts.org/product/5054267011458
+- Lucozade Energy Wild Cherry 380ml: https://world.openfoodfacts.org/product/5054267009431
+- Lucozade Energy Wild Cherry 380ml: https://world.openfoodfacts.org/product/5054267007123
+- Lucozade Energy Caribbean Crush 380ml: https://world.openfoodfacts.org/product/5054267008052
+- Lucozade Energy Caribbean Crush 380ml: https://world.openfoodfacts.org/product/5054267009424
+- Lucozade Energy Caribbean Crush 380ml: https://world.openfoodfacts.org/product/5054267010741
+- Lucozade Sport Caribbean Burst 500ml: https://world.openfoodfacts.org/product/5054267009363
+- Lucozade Zero Pink Lemonade 380ml: https://world.openfoodfacts.org/product/5054267004825
+- Lucozade Zero Pink Lemonade 380ml: https://world.openfoodfacts.org/product/5054267005051
+- Lucozade Zero Pink Lemonade 380ml: https://world.openfoodfacts.org/product/5054267013322
+- Lucozade Energy Pink Lemonade 380ml: https://world.openfoodfacts.org/product/5054267009455
+- Lucozade Energy Pink Lemonade 380ml: https://world.openfoodfacts.org/product/5000347010804
+- Lucozade Energy Citrus Chill 380ml: https://world.openfoodfacts.org/product/5054267009288
+- Lucozade Energy Apple Blast 380ml: https://world.openfoodfacts.org/product/5054267009493
+- Lucozade Energy Apple Blast 380ml: https://world.openfoodfacts.org/product/5054267007048
+- Lucozade Energy Orange 380ml: https://world.openfoodfacts.org/product/5054267014220
+- Lucozade Energy Orange 380ml: https://world.openfoodfacts.org/product/5054267010710
+- Lucozade Zero Orange 380ml: https://world.openfoodfacts.org/product/5054267004900
+- Lucozade Alert Tropical Burst 500ml: https://world.openfoodfacts.org/product/5054267011465
+- Emerge Energy Original 250ml: https://world.openfoodfacts.org/product/5000177498858
+- Emerge Energy Original 250ml: https://world.openfoodfacts.org/product/5000177449638
+- Emerge Impact Sugar Free 250ml: https://world.openfoodfacts.org/product/5000177481331
+- Boost Energy Sugar Free 250ml: https://world.openfoodfacts.org/product/5056079900524
+- Boost Energy Mango 250ml: https://world.openfoodfacts.org/product/5056079901194
+- Boost Energy Red Berry 250ml: https://world.openfoodfacts.org/product/5000177482116
+- Boost Sport Orange 500ml: https://world.openfoodfacts.org/product/5056079901279
+- Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/0850040427066
+- Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/9781035012084
+- Prime Hydration Strawberry Banana 500ml: https://world.openfoodfacts.org/product/0810116124015
+- Prime Hydration Blue Raspberry 500ml: https://world.openfoodfacts.org/product/0850040427561
+- Prime Hydration Lemon Lime 500ml: https://world.openfoodfacts.org/product/6690143041790
+- Prime Hydration Lemon Lime 500ml: https://world.openfoodfacts.org/product/0850003560694
+- Prime Hydration Tropical Punch 500ml: https://world.openfoodfacts.org/product/32085761
+- Prime Hydration Meta Moon 500ml: https://world.openfoodfacts.org/product/0850040427110
+- Monster Ultra Gold 500ml: https://world.openfoodfacts.org/product/5060896623894
+- Monster Ultra Rosa 500ml: https://world.openfoodfacts.org/product/5060896629193
+- Monster Reserve Watermelon 500ml: https://world.openfoodfacts.org/product/5060896628790
+- Monster Khaotic 500ml: https://world.openfoodfacts.org/product/5060896621760
+- Red Bull Red Edition 250ml: https://world.openfoodfacts.org/product/90446412
+- Rockstar Juiced Mango Orange Passion 500ml: https://world.openfoodfacts.org/product/5000382022411
+- Relentless Tropical Juiced 500ml: https://world.openfoodfacts.org/product/5449000956552
+- Relentless Mango 500ml: https://world.openfoodfacts.org/product/5060466517806
+- Carabao Green Apple 330ml: https://world.openfoodfacts.org/product/8855790000783
+- Carabao Orange Blast 330ml: https://world.openfoodfacts.org/product/8855790001155
+- Carabao Mixed Berry 330ml: https://world.openfoodfacts.org/product/8855790001759
+- Reign Mang-O-Matic 500ml: https://world.openfoodfacts.org/product/5060895742510

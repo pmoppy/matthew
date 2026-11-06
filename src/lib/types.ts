@@ -28,6 +28,8 @@ export interface Facing extends Det {
   status: Status;
   /** True once a person has confirmed or corrected the label. */
   corrected?: boolean;
+  /** Label taken from an almost identical, confidently identified neighbouring facing. */
+  viaNeighbour?: boolean;
 }
 
 export interface SalesRow {

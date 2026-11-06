@@ -1,7 +1,7 @@
 import { matchCrop, type CatalogState } from './catalog';
 import { detectShelfGrid } from './detect/heuristic';
 import { detectYolo } from './detect/yolo';
-import { colorHist, embedCrops } from './embed';
+import { colorHist, cosine, embedCrops, histSimilarity } from './embed';
 import { cropCanvas, scaledImageData } from './image';
 import { statusFor } from './recommend';
 import type { SalesInfo } from './sales';
@@ -42,6 +42,7 @@ export async function analyseShelf(
     onProgress('Finding products', 0.1);
     dets = gridDetect(img);
   }
+  dets = dropEdgeFragments(dets, img.width);
   // Reading order: top shelf first, left to right.
   dets.sort((a, b) => {
     const ra = (a.y1 + a.y2) / 2, rb = (b.y1 + b.y2) / 2;
@@ -80,6 +81,7 @@ export async function analyseShelf(
     }
   }
   for (const f of facings) f.status = statusFor(f, sales, settings);
+  propagateFromNeighbours(facings, features, sales, settings);
   const t2 = performance.now();
   return { facings, features, detector, timings: { detect: t1 - t0, recognise: t2 - t1 }, warnings };
 }
@@ -88,4 +90,70 @@ function gridDetect(img: HTMLCanvasElement): Det[] {
   const small = scaledImageData(img, 800);
   const inv = 1 / small.scale;
   return detectShelfGrid(small).map((d) => ({ ...d, x1: d.x1 * inv, y1: d.y1 * inv, x2: d.x2 * inv, y2: d.y2 * inv }));
+}
+
+/**
+ * Packs cut off by the left/right edge of the photo can't be identified
+ * reliably, and they are counted properly in the next bay's photo. Drop
+ * detections that touch the side edge and are much narrower than their row.
+ */
+export function dropEdgeFragments(dets: Det[], imageWidth: number): Det[] {
+  const margin = imageWidth * 0.012;
+  return dets.filter((d) => {
+    const atEdge = d.x1 <= margin || d.x2 >= imageWidth - margin;
+    if (!atEdge || d.kind !== 'product') return true;
+    const h = d.y2 - d.y1;
+    const row = dets.filter((o) => o !== d && Math.abs((o.y1 + o.y2) / 2 - (d.y1 + d.y2) / 2) < h * 0.4);
+    if (row.length < 3) return true;
+    const widths = row.map((o) => o.x2 - o.x1).sort((a, b) => a - b);
+    const median = widths[widths.length >> 1];
+    return d.x2 - d.x1 >= median * 0.6;
+  });
+}
+
+/**
+ * Shelves are merchandised in blocks of the same SKU. If an unclear facing is
+ * almost identical to a confidently identified neighbour in the same row, and
+ * that product was already one of its own candidates, adopt the label.
+ * Threshold 0.92: on real shelf data identical neighbours scored 0.81-0.97 and
+ * different flavours of the same range up to 0.90.
+ */
+export function propagateFromNeighbours(
+  facings: Facing[],
+  features: AnalysisResult['features'],
+  sales: Map<string, SalesInfo> | null,
+  settings: Settings,
+) {
+  const sim = (a: Facing, b: Facing) => {
+    const fa = features.get(a.id), fb = features.get(b.id);
+    if (!fa?.emb || !fb?.emb) return 0;
+    return 0.85 * cosine(fa.emb, fb.emb) + 0.15 * histSimilarity(fa.hist, fb.hist);
+  };
+  const neighbours = (f: Facing) => {
+    const h = f.y2 - f.y1, w = f.x2 - f.x1;
+    return facings.filter(
+      (o) =>
+        o !== f &&
+        o.kind === 'product' &&
+        Math.abs((o.y1 + o.y2) / 2 - (f.y1 + f.y2) / 2) < h * 0.35 &&
+        Math.min(Math.abs(o.x1 - f.x2), Math.abs(f.x1 - o.x2)) < w * 0.35,
+    );
+  };
+  for (let pass = 0; pass < 4; pass++) {
+    let changed = false;
+    for (const f of facings) {
+      if (f.status !== 'unsure') continue;
+      for (const n of neighbours(f)) {
+        if (n.status === 'unsure' || n.status === 'unknown' || !n.product) continue;
+        if (!f.candidates.slice(0, 3).some((c) => c.product === n.product)) continue;
+        if (sim(f, n) < 0.92) continue;
+        f.product = n.product;
+        f.viaNeighbour = true;
+        f.status = statusFor(f, sales, settings);
+        changed = true;
+        break;
+      }
+    }
+    if (!changed) break;
+  }
 }

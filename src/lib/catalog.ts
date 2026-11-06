@@ -27,6 +27,8 @@ export interface CatalogState {
   embedderId: string;
   source: string;
   updatedAt: number;
+  /** Manifest version (its "generated" stamp) the library was built from. */
+  version?: string;
 }
 
 export interface WorkerManifest {
@@ -51,7 +53,7 @@ function absolute(u: string) {
 }
 
 /** Read the product list from the catalogue Worker (folders of images in R2). */
-export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; salesUrl?: string; detectorUrl?: string }> {
+export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; salesUrl?: string; detectorUrl?: string; version?: string }> {
   const res = await fetch(absolute(`${trimBase(base)}/manifest.json`), { cache: 'no-store' });
   if (!res.ok) throw new Error(`Catalogue server returned ${res.status}. Check the URL.`);
   const m = (await res.json()) as WorkerManifest;
@@ -71,6 +73,7 @@ export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; 
     }
   }
   return {
+    version: (m as WorkerManifest & { generated?: string }).generated,
     refs,
     salesUrl: m.sales ? absolute(fileUrl(base, m.sales)) : undefined,
     detectorUrl: m.detector ? absolute(fileUrl(base, m.detector)) : undefined,
