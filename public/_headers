@@ -1,0 +1,6 @@
+# Cloudflare Pages headers. Cross-origin isolation enables multi-threaded WASM
+# inference (2-4x faster on phones). "credentialless" still allows loading
+# models and catalogue images from other origins (R2 Worker, Hugging Face).
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: credentialless

@@ -1,0 +1,40 @@
+{
+  "name": "shelfscan",
+  "version": "1.0.0",
+  "description": "Installable web app that analyses retail shelf photos and recommends top-seller ranging changes",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmoppy/matthew.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/pmoppy/matthew/issues"
+  },
+  "homepage": "https://github.com/pmoppy/matthew#readme",
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "idb-keyval": "^6.3.0",
+    "onnxruntime-web": "^1.31.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.0"
+  },
+  "private": true,
+  "type": "module"
+}

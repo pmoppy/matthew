@@ -1,0 +1,10 @@
+# Your own labelled shelf photos in YOLO format:
+#   datasets/my_shelves/images/train/*.jpg   + labels/train/*.txt
+#   datasets/my_shelves/images/val/*.jpg     + labels/val/*.txt
+# Each label line: "0 cx cy w h" (normalised 0-1), one line per pack facing.
+# Label every visible facing, including partly hidden ones at the row ends.
+path: datasets/my_shelves
+train: images/train
+val: images/val
+names:
+  0: product

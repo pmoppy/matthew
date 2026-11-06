@@ -1,0 +1,9 @@
+node_modules
+dist
+dev-dist
+.wrangler
+*.onnx
+*.pt
+training/runs
+training/datasets
+.DS_Store
