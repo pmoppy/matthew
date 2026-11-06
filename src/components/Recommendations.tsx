@@ -1,37 +1,36 @@
+import { ArrowDownCircle, ArrowLeftRight, CheckCircle2, HelpCircle, Info, Layers, PackageOpen, Percent, Square, Star, Trophy } from 'lucide-react';
 import type { Recommendation, ShelfSummary } from '../lib/recommend';
 import { STATUS_STYLE } from '../lib/settings';
 
-const ICON: Record<Recommendation['kind'], string> = {
-  missing: '★',
-  delist: '↓',
-  facings: '⇄',
-  gap: '▢',
-  unsure: '?',
-  info: 'i',
-  good: '✓',
+const ICON: Record<Recommendation['kind'], typeof Star> = {
+  missing: Star,
+  delist: ArrowDownCircle,
+  facings: ArrowLeftRight,
+  gap: Square,
+  unsure: HelpCircle,
+  info: Info,
+  good: CheckCircle2,
 };
 
 export function SummaryBar({ s }: { s: ShelfSummary }) {
+  const pct = s.facings ? Math.round((s.identified / s.facings) * 100) : 0;
+  const tiles = [
+    { Icon: Layers, value: s.facings, label: 'Facings', tone: 'blue' },
+    { Icon: Percent, value: `${pct}%`, label: 'Identified', tone: 'violet' },
+    { Icon: Trophy, value: `${s.topSellersPresent}/${s.topSellersTotal || '–'}`, label: 'Top sellers', tone: 'green' },
+    { Icon: PackageOpen, value: s.gaps, label: 'Gaps', tone: 'purple' },
+  ];
   return (
     <div className="stats">
-      <div className="stat">
-        <b>{s.facings}</b>
-        <span>facings</span>
-      </div>
-      <div className="stat">
-        <b>{s.facings ? Math.round((s.identified / s.facings) * 100) : 0}%</b>
-        <span>identified</span>
-      </div>
-      <div className="stat">
-        <b>
-          {s.topSellersPresent}/{s.topSellersTotal || '–'}
-        </b>
-        <span>top sellers</span>
-      </div>
-      <div className="stat">
-        <b>{s.gaps}</b>
-        <span>gaps</span>
-      </div>
+      {tiles.map(({ Icon, value, label, tone }) => (
+        <div key={label} className={`stat tone-${tone}`}>
+          <span className="stat-icon">
+            <Icon size={16} />
+          </span>
+          <b>{value}</b>
+          <span>{label}</span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -39,35 +38,43 @@ export function SummaryBar({ s }: { s: ShelfSummary }) {
 export function RecommendationList({ recs }: { recs: Recommendation[] }) {
   if (!recs.length) return null;
   return (
-    <div className="recs">
-      {recs.map((r, i) => (
-        <div key={i} className={`rec rec-${r.kind}`}>
-          <div className="rec-icon">{ICON[r.kind]}</div>
-          <div className="rec-body">
-            <div className="rec-title">{r.title}</div>
-            {r.detail && <div className="rec-detail">{r.detail}</div>}
-            {r.items && (
-              <ul>
-                {r.items.map((it) => (
-                  <li key={it.name}>
-                    {it.name}
-                    {it.note && <span className="muted"> · {it.note}</span>}
-                  </li>
-                ))}
-              </ul>
-            )}
+    <section className="recs">
+      <h2 className="section-title">Recommendations</h2>
+      {recs.map((r, i) => {
+        const Icon = ICON[r.kind];
+        return (
+          <div key={i} className={`rec rec-${r.kind}`}>
+            <div className="rec-icon">
+              <Icon size={18} />
+            </div>
+            <div className="rec-body">
+              <div className="rec-title">{r.title}</div>
+              {r.detail && <div className="rec-detail">{r.detail}</div>}
+              {r.items && (
+                <ul className="rec-items">
+                  {r.items.map((it) => (
+                    <li key={it.name}>
+                      <span>{it.name}</span>
+                      {it.note && <span className="rec-note">{it.note}</span>}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        );
+      })}
+    </section>
   );
 }
 
 export function ProductTable({ s }: { s: ShelfSummary }) {
   if (!s.products.length) return null;
   return (
-    <details className="card">
-      <summary>Products on shelf ({s.products.length})</summary>
+    <details className="card table-card">
+      <summary>
+        Products on shelf <span className="chip-count">{s.products.length}</span>
+      </summary>
       <table className="ptable">
         <thead>
           <tr>

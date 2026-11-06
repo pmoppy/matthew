@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState } from 'react';
+import { Camera, ImageUp, Lightbulb, Loader2, RotateCcw, ScanLine, Sun, Maximize, Hand } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { analyseShelf, type AnalysisResult } from '../lib/analyse';
 import { addCorrection, type CatalogState } from '../lib/catalog';
 import { checkQuality, cropCanvas, loadImageToCanvas, type QualityReport } from '../lib/image';
@@ -15,11 +16,12 @@ interface Props {
   catalog: CatalogState | null;
   setCatalog: (c: CatalogState) => void;
   sales: Map<string, SalesInfo> | null;
+  goToCatalog: () => void;
 }
 
-export function ScanView({ settings, catalog, setCatalog, sales }: Props) {
+export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: Props) {
   const camRef = useRef<HTMLInputElement>(null);
-  const libRef = useRef<HTMLInputElement>(null);
+  const uploadRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<HTMLCanvasElement | null>(null);
   const [quality, setQuality] = useState<QualityReport | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -28,12 +30,18 @@ export function ScanView({ settings, catalog, setCatalog, sales }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Facing | null>(null);
   const [hidden, setHidden] = useState<Set<Status>>(new Set());
+  const [dragging, setDragging] = useState(false);
 
-  const onFile = async (file: File | undefined) => {
+  const onFile = async (file: File | undefined | null) => {
     if (!file) return;
+    if (file.type && !file.type.startsWith('image/')) {
+      setError('That file is not an image. Choose a JPG, PNG or HEIC photo.');
+      return;
+    }
     setError(null);
     setResult(null);
     setFacings([]);
+    setSelected(null);
     try {
       const c = await loadImageToCanvas(file);
       setImage(c);
@@ -44,6 +52,16 @@ export function ScanView({ settings, catalog, setCatalog, sales }: Props) {
       setError(`Could not open that image: ${(e as Error).message}`);
     }
   };
+
+  // Paste a photo from the clipboard (handy on desktop).
+  useEffect(() => {
+    const onPaste = (e: ClipboardEvent) => {
+      const f = [...(e.clipboardData?.files ?? [])].find((x) => x.type.startsWith('image/'));
+      if (f) onFile(f);
+    };
+    window.addEventListener('paste', onPaste);
+    return () => window.removeEventListener('paste', onPaste);
+  });
 
   const run = async (img = image) => {
     if (!img) return;
@@ -101,34 +119,100 @@ export function ScanView({ settings, catalog, setCatalog, sales }: Props) {
     });
 
   const presentStatuses = useMemo(() => [...new Set(facings.map((f) => f.status))], [facings]);
+  const busy = !!progress;
+
+  const dropProps = {
+    onDragOver: (e: React.DragEvent) => {
+      e.preventDefault();
+      setDragging(true);
+    },
+    onDragLeave: () => setDragging(false),
+    onDrop: (e: React.DragEvent) => {
+      e.preventDefault();
+      setDragging(false);
+      onFile(e.dataTransfer.files?.[0]);
+    },
+  };
 
   return (
-    <div className="view">
-      <input ref={camRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => onFile(e.target.files?.[0])} />
-      <input ref={libRef} type="file" accept="image/*" hidden onChange={(e) => onFile(e.target.files?.[0])} />
+    <div className="view" {...dropProps}>
+      <input ref={camRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ''; }} />
+      <input ref={uploadRef} type="file" accept="image/*" hidden onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ''; }} />
 
-      {!image && (
-        <div className="hero card">
-          <h2>Scan a shelf</h2>
-          <p className="muted">
-            Stand square-on to one bay, fit the whole bay in frame, and avoid glare. The app finds every product, highlights top
-            sellers in <b style={{ color: STATUS_STYLE.top.color }}>green</b> and delist candidates in{' '}
-            <b style={{ color: STATUS_STYLE.delist.color }}>red</b>, then lists what is missing.
-          </p>
+      {!image ? (
+        <>
+          <section className="hero">
+            <div className="hero-badge">
+              <ScanLine size={16} /> Shelf check
+            </div>
+            <h1>
+              Snap a shelf.
+              <br />
+              <span className="grad-text">Spot the top sellers.</span>
+            </h1>
+            <p>
+              ShelfScan finds every product, highlights top sellers in <b className="c-top">green</b> and delist candidates in{' '}
+              <b className="c-delist">red</b>, then tells you what's missing.
+            </p>
+          </section>
+
+          <div className={`capture ${dragging ? 'dragging' : ''}`}>
+            <button className="capture-tile primary" onClick={() => camRef.current?.click()}>
+              <span className="capture-icon">
+                <Camera size={26} />
+              </span>
+              <span className="capture-title">Take photo</span>
+              <span className="capture-sub">Use your camera</span>
+            </button>
+            <button className="capture-tile" onClick={() => uploadRef.current?.click()}>
+              <span className="capture-icon">
+                <ImageUp size={26} />
+              </span>
+              <span className="capture-title">Upload photo</span>
+              <span className="capture-sub">From gallery or files</span>
+            </button>
+            <p className="capture-hint">or drag & drop / paste an image here</p>
+          </div>
+
           {!catalog?.entries.length && (
-            <p className="notice">No product catalogue loaded yet. You can still scan to count facings, but SKUs won't be identified.</p>
+            <button className="notice notice-action" onClick={goToCatalog}>
+              <Lightbulb size={18} />
+              <span>
+                <b>No product catalogue loaded yet.</b> You can still count facings, but SKUs won't be identified. Set one up →
+              </span>
+            </button>
+          )}
+
+          <section className="card tips">
+            <h3>For the best results</h3>
+            <ul>
+              <li>
+                <Maximize size={18} /> One bay per photo, the whole bay in frame
+              </li>
+              <li>
+                <Hand size={18} /> Stand square-on and hold steady
+              </li>
+              <li>
+                <Sun size={18} /> Avoid glare from lights and fridge doors
+              </li>
+            </ul>
+          </section>
+        </>
+      ) : (
+        <div className="toolbar">
+          <button className="btn" onClick={() => camRef.current?.click()} disabled={busy}>
+            <Camera size={18} /> New photo
+          </button>
+          <button className="btn" onClick={() => uploadRef.current?.click()} disabled={busy}>
+            <ImageUp size={18} /> Upload
+          </button>
+          {result && (
+            <button className="btn ghost icon-only" onClick={() => run()} disabled={busy} aria-label="Analyse again" title="Analyse again">
+              <RotateCcw size={18} />
+            </button>
           )}
         </div>
       )}
-
-      <div className="actions">
-        <button className="btn primary big" onClick={() => camRef.current?.click()} disabled={!!progress}>
-          📷 Take photo
-        </button>
-        <button className="btn big" onClick={() => libRef.current?.click()} disabled={!!progress}>
-          🖼 Choose photo
-        </button>
-      </div>
 
       {error && <div className="notice error">{error}</div>}
 
@@ -149,8 +233,12 @@ export function ScanView({ settings, catalog, setCatalog, sales }: Props) {
       )}
 
       {progress && (
-        <div className="progress card">
-          <div>{progress.msg}</div>
+        <div className="card progress">
+          <div className="progress-head">
+            <Loader2 size={18} className="spin" />
+            <span>{progress.msg}</span>
+            <span className="muted">{Math.round(progress.frac * 100)}%</span>
+          </div>
           <div className="bar">
             <div style={{ width: `${Math.round(progress.frac * 100)}%` }} />
           </div>
@@ -168,15 +256,16 @@ export function ScanView({ settings, catalog, setCatalog, sales }: Props) {
               {presentStatuses.map((s) => (
                 <button key={s} className={`chip ${hidden.has(s) ? 'off' : ''}`} onClick={() => toggle(s)}>
                   <span className="dot" style={{ background: STATUS_STYLE[s].color }} />
-                  {STATUS_STYLE[s].label} ({facings.filter((f) => f.status === s).length})
+                  {STATUS_STYLE[s].label}
+                  <span className="chip-count">{facings.filter((f) => f.status === s).length}</span>
                 </button>
               ))}
             </div>
           )}
           {result && (
-            <p className="muted small">
-              {result.detector === 'model' ? 'Detector model' : 'Basic shelf-grid detector (no model configured)'} ·{' '}
-              {(result.timings.detect / 1000).toFixed(1)}s detect · {(result.timings.recognise / 1000).toFixed(1)}s recognise
+            <p className="meta">
+              {result.detector === 'model' ? 'SKU-110K detector' : 'Basic shelf-grid detector'} ·{' '}
+              {(result.timings.detect / 1000).toFixed(1)}s detect · {(result.timings.recognise / 1000).toFixed(1)}s recognise · tap any box to check it
             </p>
           )}
           {result && <RecommendationList recs={recs} />}

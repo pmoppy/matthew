@@ -29,7 +29,7 @@ Low-confidence matches are shown in **amber** rather than guessed. When a rep ta
 
 | Tab | What it does |
 |---|---|
-| **Scan** | Take or choose a photo. A quality check catches blur, darkness and low resolution. You then see boxes, a legend (tap to hide categories), summary stats, recommendations and a product table. Tap any box to confirm or correct it. |
+| **Scan** | **Take photo** (camera) or **Upload photo** (gallery / files; on desktop you can also drag & drop or paste). A quality check catches blur, darkness and low resolution. You then see boxes, a legend (tap to hide categories), summary stats, recommendations and a product table. Tap any box to confirm or correct it. |
 | **Catalogue** | Sync product photos from your Cloudflare Worker URL, or pick a local folder. Upload the sales CSV. Export corrections. |
 | **Settings** | Model URLs, detector input size and confidence, match thresholds, and top-seller and delist percentages. |
 

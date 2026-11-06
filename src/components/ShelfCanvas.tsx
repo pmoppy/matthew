@@ -67,11 +67,27 @@ export function ShelfCanvas({ image, facings, hidden, selectedId, onSelect }: Pr
         if (!best || (f.x2 - f.x1) * (f.y2 - f.y1) < (best.x2 - best.x1) * (best.y2 - best.y1)) best = f;
       }
     }
+    // Detector boxes are tight, so taps often land in the gap between packs.
+    // Fall back to the nearest box within a finger-width.
+    if (!best) {
+      const reach = (24 / rect.width) * image.width;
+      let bestD = reach;
+      for (const f of facings) {
+        if (hidden.has(f.status)) continue;
+        const dx = Math.max(f.x1 - x, 0, x - f.x2);
+        const dy = Math.max(f.y1 - y, 0, y - f.y2);
+        const d = Math.hypot(dx, dy);
+        if (d < bestD) {
+          bestD = d;
+          best = f;
+        }
+      }
+    }
     if (best) onSelect(best);
   };
 
   return (
-    <div className="shelf-wrap">
+    <div className="shelf-wrap card">
       <div className="shelf-scroll">
         <canvas ref={ref} onClick={onClick} style={{ width: `${zoom * 100}%` }} className="shelf-canvas" />
       </div>

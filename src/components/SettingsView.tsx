@@ -24,6 +24,10 @@ export function SettingsView({ settings, setSettings }: Props) {
 
   return (
     <div className="view">
+      <header className="page-head">
+        <h1>Settings</h1>
+        <p>Detection models, match confidence and the sales rules behind the colours.</p>
+      </header>
       <div className="card">
         <h2>Models</h2>
         <label className="field">

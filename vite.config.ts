@@ -23,8 +23,8 @@ export default defineConfig({
         name: 'ShelfScan – shelf & top-seller checker',
         short_name: 'ShelfScan',
         description: 'Photograph a shelf, identify every product and get top-seller recommendations.',
-        theme_color: '#0f172a',
-        background_color: '#0f172a',
+        theme_color: '#6366f1',
+        background_color: '#f6f7fb',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
@@ -35,7 +35,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
         // The ONNX Runtime WASM binaries are large; cache them at runtime instead of precaching.
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         runtimeCaching: [

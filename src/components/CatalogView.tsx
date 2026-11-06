@@ -1,3 +1,4 @@
+import { Download, FileSpreadsheet, FolderOpen, Loader2, RefreshCw, Trash2 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import {
   buildCatalog,
@@ -115,6 +116,10 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
 
   return (
     <div className="view">
+      <header className="page-head">
+        <h1>Catalogue</h1>
+        <p>Product photos, sales data and the corrections your team has made.</p>
+      </header>
       <div className="card">
         <h2>Product catalogue</h2>
         {catalog ? (
@@ -138,7 +143,7 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
         <div className="row">
           <input className="input" placeholder="https://shelfscan-catalog.example.workers.dev" value={url} onChange={(e) => setUrl(e.target.value)} />
           <button className="btn primary" onClick={syncWorker} disabled={!!busy || !url.trim()}>
-            Sync
+            <RefreshCw size={18} /> Sync
           </button>
         </div>
 
@@ -153,12 +158,15 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
           onChange={(e) => loadFolder(e.target.files)}
         />
         <button className="btn" onClick={() => folderRef.current?.click()} disabled={!!busy}>
-          📁 Choose catalogue folder
+          <FolderOpen size={18} /> Choose catalogue folder
         </button>
 
         {busy && (
           <div className="progress">
-            <div>{busy.msg}</div>
+            <div className="progress-head">
+              <Loader2 size={18} className="spin" />
+              <span>{busy.msg}</span>
+            </div>
             <div className="bar">
               <div style={{ width: `${Math.round(busy.frac * 100)}%` }} />
             </div>
@@ -178,7 +186,7 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
         <input ref={csvRef} type="file" accept=".csv,text/csv" hidden onChange={(e) => loadCsv(e.target.files?.[0])} />
         <div className="row">
           <button className="btn" onClick={() => csvRef.current?.click()}>
-            Upload sales CSV
+            <FileSpreadsheet size={18} /> Upload sales CSV
           </button>
           {salesRows.length > 0 && (
             <button className="btn ghost" onClick={() => setSalesCsv(null)}>
@@ -219,7 +227,7 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
         </p>
         <div className="row">
           <button className="btn" onClick={download} disabled={!corrections}>
-            Download ZIP
+            <Download size={18} /> Download ZIP
           </button>
           <button
             className="btn ghost"
@@ -231,7 +239,7 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
               }
             }}
           >
-            Clear
+            <Trash2 size={18} /> Clear
           </button>
         </div>
       </div>

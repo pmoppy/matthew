@@ -1,3 +1,4 @@
+import { Check, PackageX, Search, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { STATUS_STYLE } from '../lib/settings';
 import type { Facing } from '../lib/types';
@@ -36,6 +37,7 @@ export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onM
   return (
     <div className="sheet-backdrop" onClick={onClose}>
       <div className="sheet" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Check product">
+        <div className="sheet-handle" />
         <div className="sheet-head">
           <div ref={imgRef} className="crop-host" />
           <div className="sheet-info">
@@ -52,13 +54,13 @@ export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onM
             )}
           </div>
           <button className="icon-btn" onClick={onClose} aria-label="Close">
-            ✕
+            <X size={18} />
           </button>
         </div>
 
         {facing.product && !facing.corrected && (
           <button className="btn primary full" onClick={() => onPick(facing.product!)}>
-            ✓ Yes, this is {facing.product}
+            <Check size={18} /> Yes, this is {facing.product}
           </button>
         )}
 
@@ -76,12 +78,15 @@ export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onM
         )}
 
         <h4>Pick the correct product</h4>
-        <input
-          className="input"
-          placeholder={products.length ? `Search ${products.length} products…` : 'No catalogue loaded'}
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
+        <div className="search">
+          <Search size={18} />
+          <input
+            className="input"
+            placeholder={products.length ? `Search ${products.length} products…` : 'No catalogue loaded'}
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+        </div>
         <div className="pick-list">
           {filtered.map((p) => (
             <button key={p} className="pick-item" onClick={() => onPick(p)}>
@@ -91,7 +96,7 @@ export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onM
           ))}
         </div>
         <button className="btn ghost full" onClick={onMarkGap}>
-          This is an empty space / not a product
+          <PackageX size={18} /> This is an empty space / not a product
         </button>
       </div>
     </div>
