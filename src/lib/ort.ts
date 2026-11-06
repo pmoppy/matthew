@@ -50,20 +50,26 @@ export async function fetchModel(url: string, onProgress?: (frac: number) => voi
   return bytes;
 }
 
-export function getSession(url: string, onProgress?: (frac: number) => void): Promise<ort.InferenceSession> {
+export function getSession(url: string, onProgress?: (frac: number) => void, dataUrl?: string): Promise<ort.InferenceSession> {
   let s = sessions.get(url);
   if (!s) {
     s = (async () => {
-      const bytes = await fetchModel(url, onProgress);
+      const bytes = await fetchModel(url, dataUrl ? undefined : onProgress);
+      const base: ort.InferenceSession.SessionOptions = {};
+      if (dataUrl) {
+        // Large models keep their weights in a side file; the graph refers to it by file name.
+        const data = await fetchModel(dataUrl, onProgress);
+        base.externalData = [{ path: dataUrl.split('/').pop()!.split('?')[0], data }];
+      }
       const hasGpu = typeof navigator !== 'undefined' && 'gpu' in navigator;
       if (hasGpu) {
         try {
-          return await ort.InferenceSession.create(bytes, { executionProviders: ['webgpu'] });
+          return await ort.InferenceSession.create(bytes, { ...base, executionProviders: ['webgpu'] });
         } catch (e) {
           console.warn('WebGPU session failed, falling back to WASM', e);
         }
       }
-      return ort.InferenceSession.create(bytes, { executionProviders: ['wasm'] });
+      return ort.InferenceSession.create(bytes, { ...base, executionProviders: ['wasm'] });
     })();
     s.catch(() => sessions.delete(url));
     sessions.set(url, s);

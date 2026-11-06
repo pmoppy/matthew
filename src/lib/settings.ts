@@ -25,7 +25,7 @@ export const STATUS_STYLE: Record<string, { color: string; label: string; dash?:
   delist: { color: '#dc2626', label: 'Consider delisting' },
   unsure: { color: '#f59e0b', label: 'Unsure, tap to check' },
   core: { color: '#3b82f6', label: 'Core range' },
-  nodata: { color: '#64748b', label: 'No sales data' },
+  nodata: { color: '#64748b', label: 'Other product' },
   unknown: { color: '#e2e8f0', label: 'Not identified', dash: true },
   gap: { color: '#a855f7', label: 'Empty space', dash: true },
 };

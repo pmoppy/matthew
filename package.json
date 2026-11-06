@@ -1,7 +1,7 @@
 {
   "name": "shelfscan",
   "version": "1.0.0",
-  "description": "Installable web app that analyses retail shelf photos and recommends top-seller ranging changes",
+  "description": "Installable web app that finds missing top-selling SKUs from a shelf photo",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc --noEmit && vite build",

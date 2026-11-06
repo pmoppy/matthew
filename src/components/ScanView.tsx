@@ -1,27 +1,36 @@
-import { Camera, ImageUp, Lightbulb, Loader2, RotateCcw, ScanLine, Sun, Maximize, Hand } from 'lucide-react';
+import { Camera, Hand, ImageUp, Loader2, Maximize, RotateCcw, ScanLine, Sun } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { analyseShelf, type AnalysisResult } from '../lib/analyse';
 import { addCorrection, type CatalogState } from '../lib/catalog';
 import { checkQuality, cropCanvas, loadImageToCanvas, type QualityReport } from '../lib/image';
-import { recommend, statusFor, summarise } from '../lib/recommend';
+import { recommend, statusFor, summarise, topSellerCheck } from '../lib/recommend';
 import { normName, type SalesInfo } from '../lib/sales';
 import { STATUS_STYLE } from '../lib/settings';
 import type { Facing, Settings, Status } from '../lib/types';
 import { CorrectionSheet } from './CorrectionSheet';
-import { ProductTable, RecommendationList, SummaryBar } from './Recommendations';
+import { ProductTable, RecommendationList, TopSellerPanel } from './Recommendations';
 import { ShelfCanvas } from './ShelfCanvas';
+
+export interface LibraryStatus {
+  state: 'loading' | 'ready' | 'error';
+  msg?: string;
+  frac?: number;
+}
 
 interface Props {
   settings: Settings;
   catalog: CatalogState | null;
   setCatalog: (c: CatalogState) => void;
   sales: Map<string, SalesInfo> | null;
-  goToCatalog: () => void;
+  library: LibraryStatus;
 }
 
-export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: Props) {
+const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'unsure', 'unknown', 'gap'];
+
+export function ScanView({ settings, catalog, setCatalog, sales, library }: Props) {
   const camRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
+  const shelfRef = useRef<HTMLDivElement>(null);
   const [image, setImage] = useState<HTMLCanvasElement | null>(null);
   const [quality, setQuality] = useState<QualityReport | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -31,6 +40,9 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
   const [selected, setSelected] = useState<Facing | null>(null);
   const [hidden, setHidden] = useState<Set<Status>>(new Set());
   const [dragging, setDragging] = useState(false);
+  const [waiting, setWaiting] = useState(false);
+
+  const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
 
   const onFile = async (file: File | undefined | null) => {
     if (!file) return;
@@ -42,16 +54,29 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
     setResult(null);
     setFacings([]);
     setSelected(null);
+    setHidden(new Set());
     try {
       const c = await loadImageToCanvas(file);
       setImage(c);
       const q = checkQuality(c);
       setQuality(q);
-      if (q.ok) await run(c);
+      if (q.ok) {
+        if (libraryReady) await run(c);
+        else setWaiting(true);
+      }
     } catch (e) {
       setError(`Could not open that image: ${(e as Error).message}`);
     }
   };
+
+  // If a photo was taken while the product library was still loading, analyse it once ready.
+  useEffect(() => {
+    if (waiting && libraryReady && image) {
+      setWaiting(false);
+      run(image);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [waiting, libraryReady, image]);
 
   // Paste a photo from the clipboard (handy on desktop).
   useEffect(() => {
@@ -79,8 +104,9 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
     }
   };
 
-  const summary = useMemo(() => summarise(facings, sales, catalog?.products), [facings, sales, catalog]);
-  const recs = useMemo(() => recommend(facings, sales, catalog?.products ?? []), [facings, sales, catalog]);
+  const summary = useMemo(() => summarise(facings, sales), [facings, sales]);
+  const check = useMemo(() => topSellerCheck(facings, sales, catalog?.products ?? []), [facings, sales, catalog]);
+  const recs = useMemo(() => recommend(facings, sales), [facings, sales]);
 
   const updateFacing = (id: number, patch: Partial<Facing>) => {
     setFacings((fs) =>
@@ -98,11 +124,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
     const f = selected;
     updateFacing(f.id, { product, corrected: true, kind: 'product', confidence: 1 });
     setSelected(null);
-    // Feed the confirmed crop back into the catalogue so the next scan recognises it.
+    // Confirmed crops are kept as extra reference photos (and exported for the admin).
     const feat = result.features.get(f.id);
     if (feat && catalog) {
       try {
-        const entry = await addCorrection(product, cropCanvas(image, f), feat.emb, feat.hist, catalog.embedderUrl);
+        const entry = await addCorrection(product, cropCanvas(image, f), feat.emb, feat.hist, catalog.embedderId);
         if (entry) setCatalog({ ...catalog, entries: [...catalog.entries, entry] });
       } catch (e) {
         console.warn('Could not save correction', e);
@@ -118,7 +144,12 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
       return n;
     });
 
-  const presentStatuses = useMemo(() => [...new Set(facings.map((f) => f.status))], [facings]);
+  const showOnlyUnsure = () => {
+    setHidden(new Set(ALL_STATUSES.filter((s) => s !== 'unsure')));
+    shelfRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const presentStatuses = useMemo(() => ALL_STATUSES.filter((s) => facings.some((f) => f.status === s)), [facings]);
   const busy = !!progress;
 
   const dropProps = {
@@ -143,16 +174,16 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
         <>
           <section className="hero">
             <div className="hero-badge">
-              <ScanLine size={16} /> Shelf check
+              <ScanLine size={16} /> Top-seller check
             </div>
             <h1>
               Snap a shelf.
               <br />
-              <span className="grad-text">Spot the top sellers.</span>
+              <span className="grad-text">Find missing top sellers.</span>
             </h1>
             <p>
-              ShelfScan finds every product, highlights top sellers in <b className="c-top">green</b> and delist candidates in{' '}
-              <b className="c-delist">red</b>, then tells you what's missing.
+              Take a photo of a bay and ShelfScan tells you which best-selling lines aren't on it, highlights top sellers in{' '}
+              <b className="c-top">green</b> and slow sellers in <b className="c-delist">red</b>.
             </p>
           </section>
 
@@ -174,13 +205,18 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
             <p className="capture-hint">or drag & drop / paste an image here</p>
           </div>
 
-          {!catalog?.entries.length && (
-            <button className="notice notice-action" onClick={goToCatalog}>
-              <Lightbulb size={18} />
-              <span>
-                <b>No product catalogue loaded yet.</b> You can still count facings, but SKUs won't be identified. Set one up →
-              </span>
-            </button>
+          {library.state === 'loading' && !catalog && (
+            <div className="card progress soft">
+              <div className="progress-head">
+                <Loader2 size={18} className="spin" />
+                <span>Getting ready for first use…</span>
+                <span className="muted">{Math.round((library.frac ?? 0) * 100)}%</span>
+              </div>
+              <div className="bar">
+                <div style={{ width: `${Math.round((library.frac ?? 0) * 100)}%` }} />
+              </div>
+              <p className="muted small">One-off download of the recognition models. After this the app works offline.</p>
+            </div>
           )}
 
           <section className="card tips">
@@ -216,7 +252,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
 
       {error && <div className="notice error">{error}</div>}
 
-      {quality && !quality.ok && !result && !progress && (
+      {quality && !quality.ok && !result && !progress && !waiting && (
         <div className="notice warn">
           {quality.warnings.map((w) => (
             <div key={w}>{w}</div>
@@ -225,31 +261,32 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
             <button className="btn" onClick={() => camRef.current?.click()}>
               Retake
             </button>
-            <button className="btn primary" onClick={() => run()}>
+            <button className="btn primary" onClick={() => (libraryReady ? run() : setWaiting(true))}>
               Analyse anyway
             </button>
           </div>
         </div>
       )}
 
-      {progress && (
+      {(progress || waiting) && (
         <div className="card progress">
           <div className="progress-head">
             <Loader2 size={18} className="spin" />
-            <span>{progress.msg}</span>
-            <span className="muted">{Math.round(progress.frac * 100)}%</span>
+            <span>{waiting ? library.msg ?? 'Preparing product library' : progress!.msg}</span>
+            <span className="muted">{Math.round((waiting ? library.frac ?? 0 : progress!.frac) * 100)}%</span>
           </div>
           <div className="bar">
-            <div style={{ width: `${Math.round(progress.frac * 100)}%` }} />
+            <div style={{ width: `${Math.round((waiting ? library.frac ?? 0 : progress!.frac) * 100)}%` }} />
           </div>
         </div>
       )}
 
       {result && result.warnings.map((w) => <div key={w} className="notice warn">{w}</div>)}
 
+      {result && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} />}
+
       {image && (
-        <>
-          {result && <SummaryBar s={summary} />}
+        <div ref={shelfRef} className="shelf-block">
           <ShelfCanvas image={image} facings={facings} hidden={hidden} selectedId={selected?.id ?? null} onSelect={setSelected} />
           {result && (
             <div className="legend">
@@ -260,18 +297,24 @@ export function ScanView({ settings, catalog, setCatalog, sales, goToCatalog }: 
                   <span className="chip-count">{facings.filter((f) => f.status === s).length}</span>
                 </button>
               ))}
+              {hidden.size > 0 && (
+                <button className="chip" onClick={() => setHidden(new Set())}>
+                  Show all
+                </button>
+              )}
             </div>
           )}
           {result && (
             <p className="meta">
-              {result.detector === 'model' ? 'SKU-110K detector' : 'Basic shelf-grid detector'} ·{' '}
-              {(result.timings.detect / 1000).toFixed(1)}s detect · {(result.timings.recognise / 1000).toFixed(1)}s recognise · tap any box to check it
+              {summary.facings} products found · {summary.unsure ? `${summary.unsure} unclear (tap an amber box to confirm) · ` : ''}
+              {((result.timings.detect + result.timings.recognise) / 1000).toFixed(1)}s
             </p>
           )}
-          {result && <RecommendationList recs={recs} />}
-          {result && <ProductTable s={summary} />}
-        </>
+        </div>
       )}
+
+      {result && <RecommendationList recs={recs} />}
+      {result && <ProductTable s={summary} />}
 
       {selected && image && (
         <CorrectionSheet

@@ -6,11 +6,13 @@ import {
   countCorrections,
   exportCorrectionsZip,
   listFromFiles,
-  listFromWorker,
   type CatalogState,
+  type StoredSales,
 } from '../lib/catalog';
-import { parseSales } from '../lib/sales';
-import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from '../lib/types';
+import { normName, parseSales } from '../lib/sales';
+import { catalogSource, DEFAULT_CATALOG_URL } from '../lib/sync';
+import { getEmbedder, type SalesRow, type Settings } from '../lib/types';
+import type { LibraryStatus } from './ScanView';
 
 interface Props {
   settings: Settings;
@@ -18,10 +20,14 @@ interface Props {
   catalog: CatalogState | null;
   setCatalog: (c: CatalogState) => void;
   salesRows: SalesRow[];
-  setSalesCsv: (text: string | null) => void;
+  sales: StoredSales | null;
+  setSales: (v: StoredSales | null) => void;
+  library: LibraryStatus;
+  onSync: (s: Settings) => void;
 }
 
-export function CatalogView({ settings, setSettings, catalog, setCatalog, salesRows, setSalesCsv }: Props) {
+/** Admin-only: where the product library and sales ranking come from. */
+export function CatalogView({ settings, setSettings, catalog, setCatalog, salesRows, sales, setSales, library, onSync }: Props) {
   const folderRef = useRef<HTMLInputElement>(null);
   const csvRef = useRef<HTMLInputElement>(null);
   const [url, setUrl] = useState(settings.catalogUrl);
@@ -33,37 +39,11 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
     countCorrections().then(setCorrections).catch(() => {});
   }, [catalog]);
 
-  const progress = (m: string, f: number) => setBusy({ msg: m, frac: f });
-
-  const syncWorker = async () => {
+  const syncNow = () => {
     setMsg(null);
-    const base = url.trim();
-    if (!base) return;
-    setBusy({ msg: 'Reading catalogue…', frac: 0 });
-    try {
-      const { refs, salesUrl, detectorUrl } = await listFromWorker(base);
-      const next = { ...settings, catalogUrl: base };
-      // A detector stored in the bucket (your own trained model) replaces the
-      // default one, unless a different URL was entered manually.
-      if (detectorUrl && (!settings.detectorUrl || settings.detectorUrl === DEFAULT_DETECTOR_URL)) next.detectorUrl = detectorUrl;
-      setSettings(next);
-      if (salesUrl) {
-        const r = await fetch(salesUrl, { cache: 'no-store' });
-        if (r.ok) {
-          const text = await r.text();
-          parseSales(text);
-          setSalesCsv(text);
-        }
-      }
-      if (!refs.length) throw new Error('No product images found. Expected folders named by product, with images inside.');
-      const c = await buildCatalog(refs, settings.embedderUrl, base, progress);
-      setCatalog(c);
-      setMsg({ kind: 'ok', text: `Loaded ${c.products.length} products from ${refs.length} images.` });
-    } catch (e) {
-      setMsg({ kind: 'error', text: (e as Error).message });
-    } finally {
-      setBusy(null);
-    }
+    const next = { ...settings, catalogUrl: url.trim() };
+    setSettings(next);
+    onSync(next);
   };
 
   const loadFolder = async (files: FileList | null) => {
@@ -75,12 +55,12 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
       if (salesFile) {
         const text = await salesFile.text();
         parseSales(text);
-        setSalesCsv(text);
+        setSales({ text, source: 'manual' });
       }
       if (!refs.length) throw new Error('No images found. Pick the folder that contains one sub-folder per product.');
-      const c = await buildCatalog(refs, settings.embedderUrl, 'Local folder', progress);
+      const c = await buildCatalog(refs, settings.embedderId, 'Local folder', (m, f) => setBusy({ msg: m, frac: f }));
       setCatalog(c);
-      setMsg({ kind: 'ok', text: `Loaded ${c.products.length} products from ${refs.length} images.` });
+      setMsg({ kind: 'ok', text: `Loaded ${c.products.length} products from ${refs.length} images (this device only).` });
     } catch (e) {
       setMsg({ kind: 'error', text: (e as Error).message });
     } finally {
@@ -93,8 +73,8 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
     try {
       const text = await file.text();
       const rows = parseSales(text);
-      setSalesCsv(text);
-      setMsg({ kind: 'ok', text: `Loaded sales for ${rows.length} products.` });
+      setSales({ text, source: 'manual' });
+      setMsg({ kind: 'ok', text: `Loaded sales for ${rows.length} products (overrides the library's sales.csv on this device).` });
     } catch (e) {
       setMsg({ kind: 'error', text: (e as Error).message });
     }
@@ -110,44 +90,48 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
     setTimeout(() => URL.revokeObjectURL(a.href), 5000);
   };
 
-  const unmatchedSales = catalog
-    ? salesRows.filter((r) => !catalog.products.some((p) => p.toLowerCase().replace(/[^a-z0-9]/g, '') === r.product.toLowerCase().replace(/[^a-z0-9]/g, '')))
-    : [];
+  const products = new Set((catalog?.products ?? []).map(normName));
+  const unmatchedSales = catalog ? salesRows.filter((r) => !products.has(normName(r.product))) : [];
+  const categories = [...new Set(salesRows.map((r) => r.category).filter(Boolean))];
+  const progress = busy ?? (library.state === 'loading' ? { msg: library.msg ?? 'Syncing', frac: library.frac ?? 0 } : null);
 
   return (
     <div className="view">
       <header className="page-head">
         <h1>Catalogue</h1>
-        <p>Product photos, sales data and the corrections your team has made.</p>
+        <p>Admin only. Field users never see this screen. Everything here syncs to their phones automatically.</p>
       </header>
+
       <div className="card">
-        <h2>Product catalogue</h2>
+        <h2>Product library</h2>
         {catalog ? (
           <p>
-            <b>{catalog.products.length}</b> products · {catalog.entries.filter((e) => e.source === 'catalog').length} reference images ·{' '}
-            {catalog.entries.filter((e) => e.source === 'correction').length} learned from corrections
+            <b>{catalog.products.length}</b> products · {catalog.entries.filter((e) => e.source === 'catalog').length} reference photos ·{' '}
+            {catalog.entries.filter((e) => e.source === 'correction').length} from in-store corrections
             <br />
             <span className="muted small">
-              Source: {catalog.source} · updated {new Date(catalog.updatedAt).toLocaleString()}
+              {catalog.source} · {getEmbedder(catalog.embedderId).label} · synced {new Date(catalog.updatedAt).toLocaleString()}
             </span>
           </p>
         ) : (
-          <p className="muted">No catalogue loaded.</p>
+          <p className="muted">Not loaded yet.</p>
         )}
+        {library.state === 'error' && <div className="notice error">{library.msg}</div>}
 
-        <h3>From your image bucket</h3>
+        <h3>Library source</h3>
         <p className="muted small">
-          The URL of the ShelfScan catalogue Worker in front of your Cloudflare R2 bucket. The bucket should contain one folder per
-          product with photos inside, plus an optional <code>sales.csv</code> and <code>models/detector.onnx</code>.
+          URL of your catalogue Worker in front of the R2 bucket. Leave blank to use the build default (
+          <code>{DEFAULT_CATALOG_URL}</code>). To change it for every user, set <code>VITE_CATALOG_URL</code> when deploying.
         </p>
         <div className="row">
-          <input className="input" placeholder="https://shelfscan-catalog.example.workers.dev" value={url} onChange={(e) => setUrl(e.target.value)} />
-          <button className="btn primary" onClick={syncWorker} disabled={!!busy || !url.trim()}>
+          <input className="input" placeholder={DEFAULT_CATALOG_URL} value={url} onChange={(e) => setUrl(e.target.value)} />
+          <button className="btn primary" onClick={syncNow} disabled={!!progress}>
             <RefreshCw size={18} /> Sync
           </button>
         </div>
+        <p className="muted small">Currently using: {catalogSource(settings)}</p>
 
-        <h3>Or from a folder on this device</h3>
+        <h3>Test a folder on this device</h3>
         <input
           ref={folderRef}
           type="file"
@@ -157,70 +141,77 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
           webkitdirectory=""
           onChange={(e) => loadFolder(e.target.files)}
         />
-        <button className="btn" onClick={() => folderRef.current?.click()} disabled={!!busy}>
+        <button className="btn" onClick={() => folderRef.current?.click()} disabled={!!progress}>
           <FolderOpen size={18} /> Choose catalogue folder
         </button>
 
-        {busy && (
+        {progress && (
           <div className="progress">
             <div className="progress-head">
               <Loader2 size={18} className="spin" />
-              <span>{busy.msg}</span>
+              <span>{progress.msg}</span>
+              <span className="muted">{Math.round(progress.frac * 100)}%</span>
             </div>
             <div className="bar">
-              <div style={{ width: `${Math.round(busy.frac * 100)}%` }} />
+              <div style={{ width: `${Math.round(progress.frac * 100)}%` }} />
             </div>
-            <p className="muted small">The first sync downloads the recognition model (~90 MB) and learns each image. Later syncs only process new images.</p>
           </div>
         )}
         {msg && <div className={`notice ${msg.kind === 'error' ? 'error' : 'ok'}`}>{msg.text}</div>}
       </div>
 
       <div className="card">
-        <h2>Sales data</h2>
+        <h2>Sales ranking</h2>
         <p className="muted small">
-          CSV with a <code>product</code> column (matching the folder names) and <code>units</code> and/or <code>rank</code>. Top{' '}
-          {settings.topSellerPercent}% count as top sellers and bottom {settings.delistPercent}% as delist candidates (change this in
-          Settings).
+          Comes from <code>sales.csv</code> in the library. Columns: <code>product</code> (matching the folder names), <code>units</code>{' '}
+          and/or <code>rank</code>, plus optional <code>category</code> (so each bay is judged against its own category) and{' '}
+          <code>status</code> (top / core / delist) to hand-pick must-stock lines.
         </p>
+        {salesRows.length > 0 ? (
+          <p>
+            <b>{salesRows.length}</b> products ranked{categories.length ? ` in ${categories.length} categories (${categories.join(', ')})` : ''} ·
+            source: {sales?.source === 'manual' ? 'uploaded on this device' : 'library'}
+          </p>
+        ) : (
+          <p className="muted">No sales ranking loaded.</p>
+        )}
         <input ref={csvRef} type="file" accept=".csv,text/csv" hidden onChange={(e) => loadCsv(e.target.files?.[0])} />
-        <div className="row">
+        <div className="row wrap">
           <button className="btn" onClick={() => csvRef.current?.click()}>
-            <FileSpreadsheet size={18} /> Upload sales CSV
+            <FileSpreadsheet size={18} /> Upload override CSV
           </button>
-          {salesRows.length > 0 && (
-            <button className="btn ghost" onClick={() => setSalesCsv(null)}>
-              Remove
+          {sales?.source === 'manual' && (
+            <button
+              className="btn ghost"
+              onClick={() => {
+                setSales(null);
+                onSync(settings);
+              }}
+            >
+              Use library sales
             </button>
           )}
         </div>
-        {salesRows.length > 0 && (
-          <>
-            <p>
-              <b>{salesRows.length}</b> products ranked. Best seller: {salesRows[0].product}
-            </p>
-            {catalog && unmatchedSales.length > 0 && (
-              <details>
-                <summary className="warn-text">{unmatchedSales.length} products in the sales file have no catalogue images</summary>
-                <p className="muted small">These can't be recognised, so they won't be reported as missing. Add a folder for each one.</p>
-                <ul className="small">
-                  {unmatchedSales.slice(0, 40).map((r) => (
-                    <li key={r.product}>
-                      #{r.rank} {r.product}
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            )}
-          </>
+        {catalog && unmatchedSales.length > 0 && (
+          <details className="small" style={{ marginTop: 10 }}>
+            <summary className="warn-text">{unmatchedSales.length} ranked products have no photos in the library</summary>
+            <p className="muted">They can't be recognised, so they're never reported as missing. Add a folder of photos for each.</p>
+            <ul>
+              {unmatchedSales.slice(0, 60).map((r) => (
+                <li key={r.product}>
+                  #{r.rank} {r.product}
+                </li>
+              ))}
+            </ul>
+          </details>
         )}
       </div>
 
       <div className="card">
-        <h2>Corrections</h2>
+        <h2>In-store corrections</h2>
         <p className="muted small">
-          Each product you confirm or correct is saved as a labelled photo. Download them and add them to your bucket folders, or use them
-          to train the detector. Real shelf photos improve accuracy more than anything else.
+          When reps confirm an unclear product, the photo is saved on their phone. Download them here and add them to the matching bucket
+          folders. Real shelf photos improve recognition more than anything else.
         </p>
         <p>
           <b>{corrections}</b> saved on this device

@@ -1,6 +1,7 @@
 import { createStore, get, set, del, keys, getMany } from 'idb-keyval';
 import { colorHist, cosine, embedCrops, histSimilarity } from './embed';
 import { canvasToBlob, loadImageToCanvas } from './image';
+import { getEmbedder } from './types';
 
 const embStore = createStore('shelfscan-embeddings', 'v1');
 const appStore = createStore('shelfscan-app', 'v1');
@@ -23,7 +24,7 @@ export interface CatalogEntry {
 export interface CatalogState {
   products: string[];
   entries: CatalogEntry[];
-  embedderUrl: string;
+  embedderId: string;
   source: string;
   updatedAt: number;
 }
@@ -44,15 +45,20 @@ export function fileUrl(base: string, path: string) {
   return `${trimBase(base)}/file/${path.split('/').map(encodeURIComponent).join('/')}`;
 }
 
+/** Make a manifest-relative URL absolute (works for "/starter" and full Worker URLs). */
+function absolute(u: string) {
+  return new URL(u, location.href).toString();
+}
+
 /** Read the product list from the catalogue Worker (folders of images in R2). */
 export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; salesUrl?: string; detectorUrl?: string }> {
-  const res = await fetch(`${trimBase(base)}/manifest.json`, { cache: 'no-store' });
+  const res = await fetch(absolute(`${trimBase(base)}/manifest.json`), { cache: 'no-store' });
   if (!res.ok) throw new Error(`Catalogue server returned ${res.status}. Check the URL.`);
   const m = (await res.json()) as WorkerManifest;
   const refs: RefImage[] = [];
   for (const p of m.products) {
     for (const img of p.images) {
-      const url = fileUrl(base, img);
+      const url = absolute(fileUrl(base, img));
       refs.push({
         product: p.name,
         key: url,
@@ -66,8 +72,8 @@ export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; 
   }
   return {
     refs,
-    salesUrl: m.sales ? fileUrl(base, m.sales) : undefined,
-    detectorUrl: m.detector ? fileUrl(base, m.detector) : undefined,
+    salesUrl: m.sales ? absolute(fileUrl(base, m.sales)) : undefined,
+    detectorUrl: m.detector ? absolute(fileUrl(base, m.detector)) : undefined,
   };
 }
 
@@ -94,12 +100,12 @@ export function listFromFiles(files: FileList | File[]): { refs: RefImage[]; sal
 /** Embed all reference images (cached per image + model, so re-syncs are fast). */
 export async function buildCatalog(
   refs: RefImage[],
-  embedderUrl: string,
+  embedderId: string,
   source: string,
   onProgress: (msg: string, frac: number) => void,
 ): Promise<CatalogState> {
   const entries: CatalogEntry[] = [];
-  const cacheKeys = refs.map((r) => `${embedderUrl}::${r.key}`);
+  const cacheKeys = refs.map((r) => `${embedderId}::${r.key}`);
   const cached = (await getMany(cacheKeys, embStore)) as ({ emb: Float32Array; hist: Float32Array } | undefined)[];
   const todo: number[] = [];
   refs.forEach((r, i) => {
@@ -124,7 +130,7 @@ export async function buildCatalog(
     const good = loaded.filter((x): x is { i: number; canvas: HTMLCanvasElement } => !!x);
     const ok = good.map((g) => g.i);
     const canvases = good.map((g) => g.canvas);
-    const embs = await embedCrops(canvases, embedderUrl, (msg, f) => {
+    const embs = await embedCrops(canvases, getEmbedder(embedderId), (msg, f) => {
       if (msg.startsWith('Downloading')) onProgress(msg, f);
     });
     for (let k = 0; k < ok.length; k++) {
@@ -137,12 +143,12 @@ export async function buildCatalog(
   }
   if (failures.length) console.warn('Some reference images failed to load', failures);
   // Keep any corrections made in-store.
-  const corrections = await loadCorrectionEntries(embedderUrl);
+  const corrections = await loadCorrectionEntries(embedderId);
   const all = [...entries, ...corrections];
   const state: CatalogState = {
     products: [...new Set(refs.map((r) => r.product))].sort((a, b) => a.localeCompare(b)),
     entries: all,
-    embedderUrl,
+    embedderId,
     source,
     updatedAt: Date.now(),
   };
@@ -160,12 +166,18 @@ export async function clearCatalog() {
   await del('catalog', appStore);
 }
 
-export async function saveSalesCsv(text: string | null) {
-  if (text === null) await del('salesCsv', appStore);
-  else await set('salesCsv', text, appStore);
+export interface StoredSales {
+  text: string;
+  /** "library" = published with the catalogue; "manual" = uploaded by the admin on this device. */
+  source: 'library' | 'manual';
 }
-export async function loadSalesCsv(): Promise<string | null> {
-  return ((await get('salesCsv', appStore)) as string | undefined) ?? null;
+
+export async function saveSales(v: StoredSales | null) {
+  if (v === null) await del('sales', appStore);
+  else await set('sales', v, appStore);
+}
+export async function loadSales(): Promise<StoredSales | null> {
+  return ((await get('sales', appStore)) as StoredSales | undefined) ?? null;
 }
 
 export interface Match {
@@ -198,7 +210,7 @@ interface StoredCorrection {
   blob: Blob;
   emb: Float32Array;
   hist: Float32Array;
-  embedderUrl: string;
+  embedderId: string;
   at: number;
 }
 
@@ -207,21 +219,21 @@ export async function addCorrection(
   crop: HTMLCanvasElement,
   emb: Float32Array | undefined,
   hist: Float32Array,
-  embedderUrl: string,
+  embedderId: string,
 ): Promise<CatalogEntry | null> {
   const blob = await canvasToBlob(crop, 'image/jpeg', 0.92);
   const at = Date.now();
   const key = `correction:${at}:${Math.random().toString(36).slice(2, 8)}`;
-  await set(key, { product, blob, emb, hist, embedderUrl, at } satisfies Partial<StoredCorrection>, corrStore);
+  await set(key, { product, blob, emb, hist, embedderId, at } satisfies Partial<StoredCorrection>, corrStore);
   return emb ? { product, key, emb, hist, source: 'correction' } : null;
 }
 
-async function loadCorrectionEntries(embedderUrl: string): Promise<CatalogEntry[]> {
+async function loadCorrectionEntries(embedderId: string): Promise<CatalogEntry[]> {
   const ks = await keys(corrStore);
   const vals = (await getMany(ks, corrStore)) as StoredCorrection[];
   return vals
     .map((v, i) => ({ v, k: String(ks[i]) }))
-    .filter(({ v }) => v && v.emb && v.embedderUrl === embedderUrl)
+    .filter(({ v }) => v && v.emb && v.embedderId === embedderId)
     .map(({ v, k }) => ({ product: v.product, key: k, emb: v.emb, hist: v.hist, source: 'correction' as const }));
 }
 

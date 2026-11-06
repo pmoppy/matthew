@@ -5,7 +5,7 @@ import { colorHist, embedCrops } from './embed';
 import { cropCanvas, scaledImageData } from './image';
 import { statusFor } from './recommend';
 import type { SalesInfo } from './sales';
-import type { Det, Facing, Settings } from './types';
+import { getEmbedder, type Det, type Facing, type Settings } from './types';
 
 export interface AnalysisResult {
   facings: Facing[];
@@ -65,7 +65,7 @@ export async function analyseShelf(
 
   if (catalog && catalog.entries.length && crops.length) {
     try {
-      const embs = await embedCrops(crops, catalog.embedderUrl, onProgress);
+      const embs = await embedCrops(crops, getEmbedder(catalog.embedderId), onProgress);
       products.forEach((f, i) => {
         const feat = features.get(f.id)!;
         feat.emb = embs[i];

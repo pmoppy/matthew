@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { detectShelfGrid } from '../detect/heuristic';
 import { nms } from '../detect/nms';
 import { decodeYolo, makeTiles } from '../detect/yolo';
-import { recommend, statusFor, summarise } from '../recommend';
+import { recommend, statusFor, summarise, topSellerCheck } from '../recommend';
 import { classifySales, normName, parseCsv, parseSales } from '../sales';
 import type { Det, Facing } from '../types';
 
@@ -96,15 +96,15 @@ describe('sales', () => {
   });
 });
 
-describe('recommendations', () => {
+describe('top-seller check', () => {
   const sales = classifySales(parseSales('product,units\nA,100\nB,90\nC,50\nD,40\nE,30\nF,5\n'), {
     topSellerPercent: 33,
     delistPercent: 20,
   });
   const s = { matchThreshold: 0.8, marginThreshold: 0.02 };
-  const mk = (id: number, product: string | null, confidence = 0.95, kind: Det['kind'] = 'product'): Facing => {
-    const f: Facing = { ...det(id * 10, 0, id * 10 + 9, 20), kind, id, product, confidence, candidates: product ? [{ product, score: confidence }] : [], status: 'unknown' };
-    f.status = statusFor(f, sales, s);
+  const mk = (id: number, product: string | null, confidence = 0.95, kind: Det['kind'] = 'product', sm = sales, cands?: Facing['candidates']): Facing => {
+    const f: Facing = { ...det(id * 10, 0, id * 10 + 9, 20), kind, id, product, confidence, candidates: cands ?? (product ? [{ product, score: confidence }] : []), status: 'unknown' };
+    f.status = statusFor(f, sm, s);
     return f;
   };
 
@@ -116,21 +116,47 @@ describe('recommendations', () => {
     expect(mk(4, null, 0, 'gap').status).toBe('gap');
   });
 
-  it('reports missing top sellers, delist candidates and gaps', () => {
+  it('reports missing top sellers, present ones and secondary advice', () => {
     const facings = [mk(0, 'A'), mk(1, 'F'), mk(2, 'F'), mk(3, 'C'), mk(4, null, 0, 'gap')];
-    const recs = recommend(facings, sales, ['A', 'B', 'C', 'D', 'E', 'F']);
-    const missing = recs.find((r) => r.kind === 'missing');
-    expect(missing?.items?.map((i) => i.name)).toEqual(['B']);
+    const check = topSellerCheck(facings, sales, ['A', 'B', 'C', 'D', 'E', 'F']);
+    expect(check.missing.map((m) => [m.name, m.possible])).toEqual([['B', false]]);
+    expect(check.present.map((m) => m.name)).toEqual(['A']);
+    const recs = recommend(facings, sales);
     expect(recs.find((r) => r.kind === 'delist')?.items?.[0].name).toBe('F');
     expect(recs.find((r) => r.kind === 'gap')).toBeTruthy();
-    const sum = summarise(facings, sales);
-    expect(sum).toMatchObject({ facings: 4, gaps: 1, topSellersPresent: 1, topSellersTotal: 2 });
+    expect(summarise(facings, sales)).toMatchObject({ facings: 4, gaps: 1 });
+  });
+
+  it('marks a missing top seller as "possible" when an unclear box might be it', () => {
+    const unclear = mk(5, 'C', 0.5, 'product', sales, [
+      { product: 'C', score: 0.5 },
+      { product: 'B', score: 0.49 },
+    ]);
+    const check = topSellerCheck([mk(0, 'A'), unclear], sales, []);
+    expect(check.missing).toEqual([expect.objectContaining({ name: 'B', possible: true })]);
   });
 
   it('does not report top sellers as missing when they are not in the catalogue', () => {
-    const recs = recommend([mk(0, 'A')], sales, ['A', 'C']);
-    expect(recs.find((r) => r.kind === 'missing')).toBeUndefined();
-    expect(summarise([mk(0, 'A')], sales, ['A', 'C'])).toMatchObject({ topSellersPresent: 1, topSellersTotal: 1 });
+    expect(topSellerCheck([mk(0, 'A')], sales, ['A', 'C']).missing).toEqual([]);
+  });
+
+  it('only checks top sellers from the categories on the bay', () => {
+    const cat = classifySales(
+      parseSales('product,units,category\nCola 1,100,Cola\nCola 2,90,Cola\nCola 3,10,Cola\nEnergy 1,80,Energy\nEnergy 2,70,Energy\nEnergy 3,5,Energy\n'),
+      { topSellerPercent: 34, delistPercent: 0 },
+    );
+    // An energy bay with Energy 1 on it: Energy 2 is missing, the cola top sellers are not this bay's business.
+    const facings = [mk(0, 'Energy 1', 0.95, 'product', cat), mk(1, 'Energy 1', 0.95, 'product', cat), mk(2, 'Energy 3', 0.95, 'product', cat)];
+    const check = topSellerCheck(facings, cat, []);
+    expect(check.categories).toEqual(['Energy']);
+    expect(check.missing.map((m) => m.name)).toEqual(['Energy 2']);
+    expect(check.present.map((m) => m.name)).toEqual(['Energy 1']);
+  });
+
+  it('honours an explicit status column', () => {
+    const m = classifySales(parseSales('product,units,status\nX,100,core\nY,1,top\n'), { topSellerPercent: 50, delistPercent: 0 });
+    expect(m.get('x')?.status).toBe('core');
+    expect(m.get('y')?.status).toBe('top');
   });
 });
 

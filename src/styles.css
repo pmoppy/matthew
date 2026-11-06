@@ -1075,3 +1075,193 @@ details[open] summary::after {
     transition: none !important;
   }
 }
+
+/* Top-seller check (the headline result) ------------------------------------ */
+.ts-panel {
+  --tone: var(--green);
+  --tone-soft: var(--green-soft);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 5px solid var(--tone);
+  border-radius: var(--r-lg);
+  padding: 16px 18px 14px;
+  box-shadow: var(--shadow);
+}
+.ts-panel.bad {
+  --tone: var(--red);
+  --tone-soft: var(--red-soft);
+}
+.ts-panel.warn {
+  --tone: var(--amber);
+  --tone-soft: var(--amber-soft);
+}
+.ts-panel.neutral {
+  --tone: var(--brand);
+  --tone-soft: var(--violet-soft);
+}
+.ts-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ts-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  background: var(--tone-soft);
+  color: var(--tone);
+}
+.ts-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.ts-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.ts-score {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.ts-score b {
+  font-size: 1.5rem;
+  color: var(--text);
+}
+.ts-meter {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--tone-soft);
+  overflow: hidden;
+  margin: 14px 0 4px;
+}
+.ts-meter div {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--green);
+}
+.ts-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  border-radius: 16px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.ts-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+}
+.ts-list li + li {
+  border-top: 1px solid var(--border);
+}
+.ts-rank {
+  flex: none;
+  min-width: 34px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--surface);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.ts-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 650;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+.ts-name small {
+  display: block;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+.ts-subhead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 14px 2px 0;
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--amber);
+}
+.ts-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px 2px 2px;
+  border: 0;
+  border-top: 1px solid var(--border);
+  background: none;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.ts-toggle svg:last-child {
+  margin-left: auto;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.ts-toggle .rot {
+  transform: rotate(180deg);
+}
+.pill {
+  flex: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.pill.bad {
+  background: var(--red-soft);
+  color: var(--red);
+}
+.pill.warn {
+  background: var(--amber-soft);
+  color: var(--amber);
+  cursor: pointer;
+}
+.pill.good {
+  background: var(--green-soft);
+  color: var(--green);
+}
+.shelf-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-margin-top: 80px;
+}
+.progress.soft {
+  box-shadow: none;
+}
+.progress.soft p {
+  margin: 8px 0 0;
+}
+.status-pill.admin {
+  color: var(--brand);
+  background: var(--brand-soft);
+  border-color: transparent;
+}
+.app:not(.is-admin) main {
+  padding-bottom: calc(32px + env(safe-area-inset-bottom));
+}

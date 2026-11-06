@@ -1,14 +1,12 @@
 import { getSession, ort } from './ort';
+import type { EmbedderSpec } from './types';
 
 const SIZE = 224;
-// CLIP normalisation (also fine for most ImageNet-style backbones).
-const MEAN = [0.48145466, 0.4578275, 0.40821073];
-const STD = [0.26862954, 0.26130258, 0.27577711];
 
 const work = typeof document !== 'undefined' ? document.createElement('canvas') : null;
 
 /** Letterbox a crop into a square (packs are tall; centre-cropping would cut the brand off). */
-function toTensorData(c: HTMLCanvasElement, out: Float32Array, offset: number) {
+function toTensorData(c: HTMLCanvasElement, out: Float32Array, offset: number, MEAN: number[], STD: number[]) {
   const w = work!;
   w.width = SIZE;
   w.height = SIZE;
@@ -40,19 +38,20 @@ let batchOk = true;
 /** Embed image crops into L2-normalised vectors using the configured ONNX vision model. */
 export async function embedCrops(
   crops: HTMLCanvasElement[],
-  url: string,
+  spec: EmbedderSpec,
   onProgress?: (msg: string, frac: number) => void,
 ): Promise<Float32Array[]> {
-  const session = await getSession(url, (f) => onProgress?.('Downloading recognition model', f));
+  const session = await getSession(spec.url, (f) => onProgress?.('Downloading recognition model', f), spec.dataUrl);
   const inputName = session.inputNames.includes('pixel_values') ? 'pixel_values' : session.inputNames[0];
-  const outName = session.outputNames.includes('image_embeds') ? 'image_embeds' : session.outputNames[0];
+  const outName =
+    ['image_embeds', 'pooler_output'].find((n) => session.outputNames.includes(n)) ?? session.outputNames[0];
   const plane = 3 * SIZE * SIZE;
   const results: Float32Array[] = [];
   const B = 8;
   for (let i = 0; i < crops.length; ) {
     const n = batchOk ? Math.min(B, crops.length - i) : 1;
     const data = new Float32Array(n * plane);
-    for (let k = 0; k < n; k++) toTensorData(crops[i + k], data, k * plane);
+    for (let k = 0; k < n; k++) toTensorData(crops[i + k], data, k * plane, spec.mean, spec.std);
     let res: ort.InferenceSession.OnnxValueMapType;
     try {
       res = await session.run({ [inputName]: new ort.Tensor('float32', data, [n, 3, SIZE, SIZE]) });

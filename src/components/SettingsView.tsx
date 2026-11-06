@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { clearCatalog, clearEmbeddingCache } from '../lib/catalog';
 import { clearModelCache, getSession } from '../lib/ort';
-import { DEFAULT_SETTINGS, type Settings } from '../lib/types';
+import { DEFAULT_SETTINGS, EMBEDDERS, getEmbedder, type Settings } from '../lib/types';
 
 interface Props {
   settings: Settings;
@@ -12,10 +12,10 @@ export function SettingsView({ settings, setSettings }: Props) {
   const [test, setTest] = useState<string | null>(null);
   const upd = <K extends keyof Settings>(k: K, v: Settings[K]) => setSettings({ ...settings, [k]: v });
 
-  const testModel = async (url: string) => {
+  const testModel = async (url: string, dataUrl?: string) => {
     setTest('Loading…');
     try {
-      const s = await getSession(url, (f) => setTest(`Downloading ${Math.round(f * 100)}%`));
+      const s = await getSession(url, (f) => setTest(`Downloading ${Math.round(f * 100)}%`), dataUrl);
       setTest(`OK · inputs: ${s.inputNames.join(', ')} · outputs: ${s.outputNames.join(', ')}`);
     } catch (e) {
       setTest(`Failed: ${(e as Error).message}`);
@@ -58,11 +58,25 @@ export function SettingsView({ settings, setSettings }: Props) {
           </button>
         )}
         <label className="field">
-          <span>Recognition model (image embedding ONNX URL)</span>
-          <input className="input" value={settings.embedderUrl} onChange={(e) => upd('embedderUrl', e.target.value.trim())} />
+          <span>SKU recognition model</span>
+          <select
+            className="input"
+            value={settings.embedderId}
+            onChange={(e) => {
+              const spec = getEmbedder(e.target.value);
+              // Each model has its own calibrated confidence rule.
+              setSettings({ ...settings, embedderId: spec.id, matchThreshold: spec.matchThreshold, marginThreshold: spec.marginThreshold });
+            }}
+          >
+            {EMBEDDERS.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.label} · {m.sizeMb} MB · {m.licence}
+              </option>
+            ))}
+          </select>
         </label>
-        <p className="muted small">Changing the recognition model means re-syncing the catalogue.</p>
-        <button className="btn" onClick={() => testModel(settings.embedderUrl)}>
+        <p className="muted small">Changing it re-learns the product library on every phone (one-off download of the new model).</p>
+        <button className="btn" onClick={() => testModel(getEmbedder(settings.embedderId).url, getEmbedder(settings.embedderId).dataUrl)}>
           Test recognition model
         </button>
         {test && <p className="small mono">{test}</p>}

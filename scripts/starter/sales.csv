@@ -1,0 +1,26 @@
+product,rank,category,status
+Red Bull Energy Drink 250ml,1,Energy,top
+Red Bull Sugarfree 250ml,2,Energy,top
+Monster Energy Original 500ml,3,Energy,top
+Monster Ultra White 500ml,4,Energy,top
+Red Bull Energy Drink 355ml,5,Energy,top
+Monster Mango Loco 500ml,6,Energy,top
+Monster Pipeline Punch 500ml,7,Energy,top
+Lucozade Energy Original 380ml,8,Energy,top
+Boost Energy Original 250ml,9,Energy,core
+Red Bull Tropical Edition 250ml,10,Energy,core
+Monster Pacific Punch 500ml,11,Energy,core
+Relentless Original 500ml,12,Energy,core
+Lucozade Sport Orange 500ml,1,Sports,top
+Lucozade Sport Raspberry 500ml,2,Sports,top
+Lucozade Sport Mango & Passion Fruit 500ml,3,Sports,core
+Coca-Cola Original Taste 500ml,1,Cola,top
+Pepsi Max 500ml,2,Cola,top
+Diet Coke 500ml,3,Cola,top
+Coca-Cola Zero Sugar 500ml,4,Cola,top
+Coca-Cola Original Taste 330ml,5,Cola,top
+Pepsi Max 330ml,6,Cola,core
+Fanta Orange 500ml,1,Flavoured,top
+Dr Pepper 500ml,2,Flavoured,top
+Sprite 500ml,3,Flavoured,core
+Irn-Bru 500ml,4,Flavoured,core

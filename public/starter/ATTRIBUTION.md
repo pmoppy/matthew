@@ -1,0 +1,55 @@
+# Starter library image credits
+
+Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors, licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), cropped. Files named `shelf-*.jpg` are crops from field photos.
+
+- Red Bull Energy Drink 250ml: https://world.openfoodfacts.org/product/9002490205973
+- Red Bull Sugarfree 250ml: https://world.openfoodfacts.org/product/9002490212209
+- Red Bull Sugarfree 250ml: https://world.openfoodfacts.org/product/9002490200220
+- Red Bull Sugarfree 250ml: https://world.openfoodfacts.org/product/9002490215415
+- Red Bull Energy Drink 355ml: https://world.openfoodfacts.org/product/9002490206840
+- Red Bull Tropical Edition 250ml: https://world.openfoodfacts.org/product/90415845
+- Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060166690007
+- Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060335632302
+- Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060166690380
+- Monster Ultra White 500ml: https://world.openfoodfacts.org/product/5060335635174
+- Monster Ultra White 500ml: https://world.openfoodfacts.org/product/5060639126545
+- Monster Ultra White 500ml: https://world.openfoodfacts.org/product/5060947543201
+- Monster Mango Loco 500ml: https://world.openfoodfacts.org/product/5060639127498
+- Monster Mango Loco 500ml: https://world.openfoodfacts.org/product/5060896623214
+- Monster Mango Loco 500ml: https://world.openfoodfacts.org/product/5060517888510
+- Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060517882976
+- Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060947546080
+- Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060639126095
+- Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060639122899
+- Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060751215721
+- Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060639126682
+- Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060896622361
+- Relentless Original 500ml: https://world.openfoodfacts.org/product/5060466510210
+- Relentless Original 500ml: https://world.openfoodfacts.org/product/5060466510296
+- Boost Energy Original 250ml: https://world.openfoodfacts.org/product/5056079901583
+- Lucozade Energy Original 380ml: https://world.openfoodfacts.org/product/5054267000438
+- Lucozade Energy Original 380ml: https://world.openfoodfacts.org/product/6164003477475
+- Lucozade Sport Orange 500ml: https://world.openfoodfacts.org/product/5054267000681
+- Lucozade Sport Raspberry 500ml: https://world.openfoodfacts.org/product/5054267000704
+- Coca-Cola Original Taste 500ml: https://world.openfoodfacts.org/product/5000112663952
+- Coca-Cola Original Taste 330ml: https://world.openfoodfacts.org/product/5000112630633
+- Coca-Cola Original Taste 330ml: https://world.openfoodfacts.org/product/40907000
+- Diet Coke 500ml: https://world.openfoodfacts.org/product/54491496
+- Diet Coke 500ml: https://world.openfoodfacts.org/product/4864467414963
+- Diet Coke 500ml: https://world.openfoodfacts.org/product/5000112663969
+- Coca-Cola Zero Sugar 500ml: https://world.openfoodfacts.org/product/5000112606386
+- Pepsi Max 500ml: https://world.openfoodfacts.org/product/87170788
+- Pepsi Max 500ml: https://world.openfoodfacts.org/product/3800747001837
+- Pepsi Max 330ml: https://world.openfoodfacts.org/product/4060800104045
+- Pepsi Max 330ml: https://world.openfoodfacts.org/product/87170146
+- Pepsi Max 330ml: https://world.openfoodfacts.org/product/5290047000940
+- Fanta Orange 500ml: https://world.openfoodfacts.org/product/0067000011627
+- Fanta Orange 500ml: https://world.openfoodfacts.org/product/5000112664249
+- Sprite 500ml: https://world.openfoodfacts.org/product/5449000205537
+- Sprite 500ml: https://world.openfoodfacts.org/product/06746500
+- Dr Pepper 500ml: https://world.openfoodfacts.org/product/5000193034559
+- Dr Pepper 500ml: https://world.openfoodfacts.org/product/5000112599442
+- Dr Pepper 500ml: https://world.openfoodfacts.org/product/90494581
+- Irn-Bru 500ml: https://world.openfoodfacts.org/product/50271511
+- Irn-Bru 500ml: https://world.openfoodfacts.org/product/5000382112686
+- Irn-Bru 500ml: https://world.openfoodfacts.org/product/0058997004181

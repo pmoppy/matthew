@@ -1,21 +1,44 @@
 # ShelfScan
 
-An installable web app for retailers and sales reps. Take a photo of a shelf, and the app:
+An installable phone app for retailers and sales reps. Its one job: **take a photo of a bay and find the top-selling SKUs that aren't on it.**
 
-1. **finds every product facing** on the shelf,
-2. **identifies each SKU** by comparing it with your catalogue photos,
-3. draws **green boxes on top sellers**, **red boxes on delist candidates** and **amber boxes where it isn't sure**,
-4. lists **missing top sellers**, **slow sellers to remove**, **facing changes** and **empty spaces**.
+1. It **finds every product facing** on the shelf (SKU-110K YOLO11 detector).
+2. It **identifies each SKU** by comparing it with reference photos (DINOv3 image recognition plus colour).
+3. It works out **which category the bay is** (energy, sports, cola…) and checks it against **that category's top sellers**.
+4. It shows **"N top sellers missing"** first, then the shelf with **green boxes on top sellers**, **red boxes on slow sellers** and **amber boxes where it isn't sure**, then secondary advice (slow sellers taking space, facings, empty gaps).
 
-It runs entirely on the phone (ONNX Runtime Web, WebGPU with WASM fallback). Once loaded, it works offline in-store, and photos never leave the device. There are no accounts.
+Field users only ever see the Scan screen. The product library, sales ranking and models are managed by the admin and sync to every phone automatically. Everything runs on the phone (ONNX Runtime Web, WebGPU with WASM fallback). After the first run it works offline in-store, and photos never leave the device.
+
+## Get it on your phone
+
+ShelfScan is a **web app you install from the browser**, not an APK. There's nothing to download from GitHub: you host it once (free) and open the link on each phone.
+
+**1. Host it on Cloudflare Pages (one-off, about 5 minutes)**
+
+1. Merge this branch into `main` on GitHub.
+2. In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**, pick `pmoppy/matthew`.
+3. Build settings: framework preset **None**, build command `npm run build`, output directory `dist`.
+4. *(Optional, once your R2 catalogue exists)* under **Environment variables**, add `VITE_CATALOG_URL = https://<your-catalogue-worker>.workers.dev`. Without it the app uses the built-in starter library.
+5. **Save and Deploy.** You get a URL such as `https://shelfscan.pages.dev`. Every push to `main` redeploys automatically.
+
+**2. Install on each phone**
+
+- **iPhone (Safari):** open the URL → Share button → **Add to Home Screen**.
+- **Android (Chrome):** open the URL → ⋮ menu → **Install app** (or **Add to Home screen**).
+
+It then opens full-screen from its own icon like a normal app. The first launch downloads the models (about 125 MB, so ideally on Wi-Fi). After that it works offline.
+
+> **Need a real APK / Play Store listing later?** Paste the Pages URL into [PWABuilder](https://www.pwabuilder.com), which packages the same app as an Android APK/AAB (and an iOS project) without code changes.
+
+**Admin mode:** open `https://<your-app>/?admin=1` once on your own phone or computer to show the **Catalogue** and **Settings** screens (`?admin=0` or the "Admin · exit" button hides them). This is a convenience switch, not security. To restrict it properly, put the site behind Cloudflare Access.
 
 ## How recognition works (and why it isn't OCR)
 
 ```
 photo ──► 1. DETECT: where is every pack?      ──► 2. RECOGNISE: which SKU is each pack?  ──► 3. ADVISE
-          YOLO product detector (ONNX), run         image embedding of each crop compared       sales rank →
-          on overlapping tiles so small packs       with your catalogue photos (nearest         green / red / amber,
-          on dense shelves are not lost             neighbour + colour histogram)              missing top sellers
+          SKU-110K YOLO11 detector (ONNX),          DINOv3 embedding of each crop compared      bay category + sales rank →
+          on overlapping tiles so small packs       with the library photos (nearest            missing top sellers,
+          on dense shelves are not lost             neighbour + colour histogram)              green / red / amber
 ```
 
 - **OCR** reads text, but energy-drink and soft-drink cans use stylised logos on curved surfaces, and flavours of the same brand share the same words. That's why OCR-based apps are unreliable on shelves like these.
@@ -23,28 +46,23 @@ photo ──► 1. DETECT: where is every pack?      ──► 2. RECOGNISE: whi
 - **The two-stage approach** used here separates the problems. The detector only learns "this is a pack". Identification compares how the pack looks with reference photos. **Adding a new SKU means adding a folder of photos, with no retraining.** Colour is blended into the score because many SKUs, such as flavour variants of the same brand, differ mainly by colour.
 - **ONNX is how the models run, not where accuracy comes from.** It lets the same trained model run in the browser, on a server or natively, with GPU acceleration and quantisation. Accuracy comes from the detector's training data and the quality of your catalogue photos.
 
-Low-confidence matches are shown in **amber** rather than guessed. When a rep taps a box and confirms or corrects it, that crop is saved and **immediately added to the catalogue**, so the app recognises that product better on the next scan. Corrections can be exported as a ZIP in the same folder layout as the bucket.
+Low-confidence matches are shown in **amber** rather than guessed. If a missing top seller could be one of the amber boxes, it's listed as **"Check"** instead of "Not on shelf", so reps aren't sent after false alarms. Reps can tap a box to confirm it. The crop is kept on their phone and exported from the admin Catalogue screen as labelled photos.
 
 ## Using the app
 
-| Tab | What it does |
-|---|---|
-| **Scan** | **Take photo** (camera) or **Upload photo** (gallery / files; on desktop you can also drag & drop or paste). A quality check catches blur, darkness and low resolution. You then see boxes, a legend (tap to hide categories), summary stats, recommendations and a product table. Tap any box to confirm or correct it. |
-| **Catalogue** | Sync product photos from your Cloudflare Worker URL, or pick a local folder. Upload the sales CSV. Export corrections. |
-| **Settings** | Model URLs, detector input size and confidence, match thresholds, and top-seller and delist percentages. |
+| Screen | Who | What it does |
+|---|---|---|
+| **Scan** | Everyone | **Take photo** (camera) or **Upload photo** (gallery/files; drag & drop or paste on desktop). It shows the top-seller check first, then the annotated shelf, then secondary advice. Tap any box to see or confirm what it is |
+| **Catalogue** | Admin | Library source URL and sync status, sales ranking (with an on-device override), and an export of in-store corrections |
+| **Settings** | Admin | Detector and recognition model, the confident-match rule, and top-seller and delist percentages |
 
-**Photo tips for reps:** shoot one bay at a time, square-on, with the whole bay in frame. Avoid glare from lights and fridge doors, and use the camera rather than screenshots.
-
-### Install on a phone
-
-Open the deployed URL, then:
-
-- **iPhone (Safari):** Share → *Add to Home Screen*
-- **Android (Chrome):** ⋮ → *Install app* / *Add to Home screen*
+**Photo tips for reps:** one bay per photo, square-on, whole bay in frame, no glare.
 
 ## Your catalogue (Cloudflare R2)
 
 Put one folder per product in an R2 bucket. The folder name is the product name the app shows, and it must match the name in the sales CSV.
+
+> **Include every product in the category, not just the top sellers.** If a slow seller isn't in the library, the app may confidently mistake it for its closest look-alike. That could hide a missing top seller. In testing, about a third of out-of-library products were matched to a look-alike, versus none of the in-library ones. Products with photos but no sales row simply show as "Other product".
 
 ```
 shelfscan-catalogue/
@@ -70,13 +88,30 @@ shelfscan-catalogue/
 ### Sales CSV
 
 ```csv
-product,units
-Monster Energy Original 500ml,18250
-Red Bull Sugarfree 250ml,15400
-Monster Ultra White 500ml,14980
+product,units,category,status
+Red Bull Energy Drink 250ml,18250,Energy,
+Monster Energy Original 500ml,15400,Energy,
+Monster Ultra White 500ml,14980,Energy,
+Coca-Cola Original Taste 500ml,22100,Cola,
+Some Must-Stock Line 500ml,900,Energy,top
 ```
 
-Header names are flexible (`product`/`name`/`sku`, `units`/`sales`/`value`, or a `rank` column). By default, the top 20% of products are top sellers and the bottom 15% are delist candidates. Both can be changed in Settings. Products in the CSV with no catalogue folder are listed on the Catalogue tab. They can't be recognised, so they're never reported as "missing".
+- `product` must match the folder name. Use `units` (or `sales`/`value`) and/or `rank`.
+- `category` (optional, recommended): each bay is judged only against the top sellers of the categories detected on it, so an energy bay never reports Coca-Cola as missing. Percentages apply within each category.
+- `status` (optional): `top` / `core` / `delist` overrides the percentages, which is useful for must-stock lines and planned delists.
+- Defaults: top 25% of each category are top sellers and the bottom 15% are delist candidates (Settings).
+
+Ranked products with no photos are listed on the admin Catalogue screen. They can't be recognised, so they're never reported as missing.
+
+### Built-in starter library
+
+Until your R2 catalogue is live, the app uses `public/starter/` (48 products, 104 photos, 1.5 MB). It's built with `scripts/starter/build_starter.py`:
+
+- **25 ranked lines** in four categories (Energy, Sports, Cola, Flavoured), e.g. Red Bull 250ml, Red Bull Sugarfree 250ml, Monster Original/Ultra White/Mango Loco/Pipeline Punch, Lucozade Sport Orange/Raspberry, Coca-Cola 500ml and 330ml, Pepsi Max, Diet Coke, Coke Zero, Fanta, Dr Pepper.
+- **23 other products** seen on the sample chiller (Rockstar, Red Bull Editions, Boost, Purdey's, V, Carabao, Emerge…), so they're recognised as themselves.
+- Pack shots come from [Open Food Facts](https://world.openfoodfacts.org) (CC BY-SA, credits in `public/starter/ATTRIBUTION.md`), hand-checked and auto-cropped, plus crops from a real chiller photo.
+
+**The starter ranking is an estimate, not sales data.** Published UK convenience data is mostly at brand level (e.g. Coca-Cola is the #1 soft drink brand; Red Bull is the top sports & energy brand and holds that sub-category's top three SKUs; energy is convenience's biggest soft-drinks segment). SKU-level rankings (NIQ/Circana) are paywalled, so the order within each category is a judgement call. **Replace `sales.csv` with your EPOS data.** The starter list has no delist candidates, because red boxes need real sales data.
 
 ### Deploy the catalogue Worker
 
@@ -89,9 +124,9 @@ npm install
 npx wrangler deploy
 ```
 
-Paste the Worker URL into **Catalogue → From your image bucket** and tap **Sync**. The first sync downloads the recognition model (~90 MB) and processes every image. Results are cached on the device, so later syncs only process new images.
+Then point the app at the Worker URL. For everyone: set `VITE_CATALOG_URL` in Cloudflare Pages and redeploy. Just for your device: **Admin → Catalogue → Library source → Sync**. Phones re-check the library every 6 hours (and on launch), and only learn new photos. Recognition results are cached on the device.
 
-## Deploy the app (Cloudflare Pages)
+## Deploy the app from the command line (alternative)
 
 ```bash
 npm install
@@ -99,7 +134,7 @@ npm run build        # outputs dist/
 npx wrangler pages deploy dist --project-name shelfscan
 ```
 
-Or connect the GitHub repo in the Cloudflare Pages dashboard with build command `npm run build` and output directory `dist`. `public/_headers` turns on cross-origin isolation, which enables multi-threaded WASM (2–4× faster on phones without WebGPU).
+Set `VITE_CATALOG_URL` in the environment before `npm run build` to bake in your catalogue. `public/_headers` turns on cross-origin isolation, which enables multi-threaded WASM (2–4× faster on phones without WebGPU).
 
 Local development: `npm run dev`, then open the printed URL. `--host` is set, so you can open it from your phone on the same Wi-Fi.
 
@@ -108,9 +143,22 @@ Local development: `npm run dev`, then open the printed URL. `--host` is set, so
 | Model | Default | Notes |
 |---|---|---|
 | Detector | **YOLO11s trained on SKU-110K** ([`chistopat/sku110k-yolo11-object-detector`](https://huggingface.co/chistopat/sku110k-yolo11-object-detector), `sku110k-yolo11-s640.onnx`, 38 MB) | Single "object" class, fixed 640×640 input. SKU-110K test set (2,935 images): precision 0.913, recall 0.867, mAP50 0.927, mAP50-95 0.577. A `models/detector.onnx` in your bucket replaces it on sync |
-| Recognition | CLIP ViT-B/32 vision encoder ([`Xenova/clip-vit-base-patch32`](https://huggingface.co/Xenova/clip-vit-base-patch32), quantised, 89 MB) | Any ONNX image encoder works: `[batch,3,224,224]` in, `[batch,dim]` or `[batch,tokens,dim]` out. DINOv2-small is a good alternative for fine-grained packs |
+| Recognition | **DINOv3 ViT-S/16** ([`onnx-community/dinov3-vits16-pretrain-lvd1689m-ONNX`](https://huggingface.co/onnx-community/dinov3-vits16-pretrain-lvd1689m-ONNX), 86 MB) + colour histogram | Chosen by benchmark (below). SigLIP2 and CLIP are selectable in admin Settings |
 
 Both are downloaded by the phone on first use and cached for offline use.
+
+### Why this recognition model
+
+Benchmarked on 33 pairs of identical SKUs labelled from a real UK chiller photo, including the hardest cases: Red Bull Editions (same can, different colour), Monster Juiced/Punch flavours, Boost and Lucozade Sport flavours. 19 extra look-alike products were added as distractors. **"Other-photo"** degrades the reference photos (lower resolution, lighting, white balance, blur, JPEG, tilt) to mimic matching against photos from a different store.
+
+| Model (+ colour histogram) | Same-photo top-1 | Other-photo top-1 | Size |
+|---|---|---|---|
+| **DINOv3-S/16 (chosen)** | **98.5%** | **94.4%** | 86 MB |
+| SigLIP2-B/16 | 98.5% | 88.9% | 95 MB |
+| CLIP B/32 (previous default) | 97.0% | 83.3% | 89 MB |
+| SigLIP2 + DINOv3 ensemble | 100% | 92.9% | 181 MB |
+
+Without the colour histogram, the other-photo scores are DINOv3 85.9%, SigLIP2 81.3%, DINOv2-S 64.1%, CLIP B/16 59.6% and CLIP B/32 64.6%. The confident-match rule (score ≥ 0.68 and a 0.03 lead over the runner-up) accepts about 91% of correct matches, with no confident wrong matches among in-library products. Licence: DINOv3 is under Meta's DINOv3 License. Read it before a commercial launch; SigLIP2 (Apache-2.0) is the fallback.
 
 ### Why this detector
 
@@ -159,7 +207,11 @@ src/
   lib/sales.ts              sales CSV parsing + top-seller classification
   lib/recommend.ts          box status + recommendations
   lib/analyse.ts            pipeline: detect → recognise → classify
+  lib/sync.ts               keeps the on-device library in step with the published catalogue
+  lib/admin.ts              hidden admin mode (?admin=1)
   components/               React UI
+public/starter/             built-in starter library (manifest.json, photos, sales.csv)
+scripts/starter/            builds the starter library (Open Food Facts + shelf crops)
 worker/                     Cloudflare Worker for the R2 catalogue
 training/                   detector training + ONNX export
 ```

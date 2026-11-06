@@ -1,0 +1,351 @@
+{
+ "generated": "2026-11-06T21:37:50Z",
+ "products": [
+  {
+   "name": "Boost Energy Cherry 250ml",
+   "images": [
+    "Boost Energy Cherry 250ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Boost Energy Mango 250ml",
+   "images": [
+    "Boost Energy Mango 250ml/shelf-1.jpg",
+    "Boost Energy Mango 250ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Boost Energy Original 250ml",
+   "images": [
+    "Boost Energy Original 250ml/off-5056079901583.jpg",
+    "Boost Energy Original 250ml/shelf-1.jpg",
+    "Boost Energy Original 250ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Boost Juic'd Watermelon & Lime 500ml",
+   "images": [
+    "Boost Juic'd Watermelon & Lime 500ml/shelf-1.jpg",
+    "Boost Juic'd Watermelon & Lime 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Boost Sport Citrus 500ml",
+   "images": [
+    "Boost Sport Citrus 500ml/shelf-1.jpg",
+    "Boost Sport Citrus 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Boost Sport Raspberry & Mango 500ml",
+   "images": [
+    "Boost Sport Raspberry & Mango 500ml/shelf-1.jpg",
+    "Boost Sport Raspberry & Mango 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Boost Sport Tropical Berry 500ml",
+   "images": [
+    "Boost Sport Tropical Berry 500ml/shelf-1.jpg",
+    "Boost Sport Tropical Berry 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Carabao Green Apple 330ml",
+   "images": [
+    "Carabao Green Apple 330ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Coca-Cola Original Taste 330ml",
+   "images": [
+    "Coca-Cola Original Taste 330ml/off-40907000.jpg",
+    "Coca-Cola Original Taste 330ml/off-5000112630633.jpg"
+   ]
+  },
+  {
+   "name": "Coca-Cola Original Taste 500ml",
+   "images": [
+    "Coca-Cola Original Taste 500ml/off-5000112663952.jpg"
+   ]
+  },
+  {
+   "name": "Coca-Cola Zero Sugar 500ml",
+   "images": [
+    "Coca-Cola Zero Sugar 500ml/off-5000112606386.jpg"
+   ]
+  },
+  {
+   "name": "Diet Coke 500ml",
+   "images": [
+    "Diet Coke 500ml/off-4864467414963.jpg",
+    "Diet Coke 500ml/off-5000112663969.jpg",
+    "Diet Coke 500ml/off-54491496.jpg"
+   ]
+  },
+  {
+   "name": "Dr Pepper 500ml",
+   "images": [
+    "Dr Pepper 500ml/off-5000112599442.jpg",
+    "Dr Pepper 500ml/off-5000193034559.jpg",
+    "Dr Pepper 500ml/off-90494581.jpg"
+   ]
+  },
+  {
+   "name": "Emerge Mixed Berry 500ml",
+   "images": [
+    "Emerge Mixed Berry 500ml/shelf-1.jpg",
+    "Emerge Mixed Berry 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Fanta Orange 500ml",
+   "images": [
+    "Fanta Orange 500ml/off-0067000011627.jpg",
+    "Fanta Orange 500ml/off-5000112664249.jpg"
+   ]
+  },
+  {
+   "name": "Irn-Bru 500ml",
+   "images": [
+    "Irn-Bru 500ml/off-0058997004181.jpg",
+    "Irn-Bru 500ml/off-5000382112686.jpg",
+    "Irn-Bru 500ml/off-50271511.jpg"
+   ]
+  },
+  {
+   "name": "Levi Roots Caribbean Crush 500ml",
+   "images": [
+    "Levi Roots Caribbean Crush 500ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Levi Roots Jamaican Sunset 500ml",
+   "images": [
+    "Levi Roots Jamaican Sunset 500ml/shelf-1.jpg",
+    "Levi Roots Jamaican Sunset 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Lucozade Energy Original 380ml",
+   "images": [
+    "Lucozade Energy Original 380ml/off-5054267000438.jpg",
+    "Lucozade Energy Original 380ml/off-6164003477475.jpg"
+   ]
+  },
+  {
+   "name": "Lucozade Sport Mango & Passion Fruit 500ml",
+   "images": [
+    "Lucozade Sport Mango & Passion Fruit 500ml/shelf-1.jpg",
+    "Lucozade Sport Mango & Passion Fruit 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Lucozade Sport Orange 500ml",
+   "images": [
+    "Lucozade Sport Orange 500ml/off-5054267000681.jpg"
+   ]
+  },
+  {
+   "name": "Lucozade Sport Raspberry 500ml",
+   "images": [
+    "Lucozade Sport Raspberry 500ml/off-5054267000704.jpg",
+    "Lucozade Sport Raspberry 500ml/shelf-1.jpg",
+    "Lucozade Sport Raspberry 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Monster Bad Apple 500ml",
+   "images": [
+    "Monster Bad Apple 500ml/shelf-1.jpg",
+    "Monster Bad Apple 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Monster Energy Original 500ml",
+   "images": [
+    "Monster Energy Original 500ml/off-5060166690007.jpg",
+    "Monster Energy Original 500ml/off-5060166690380.jpg",
+    "Monster Energy Original 500ml/off-5060335632302.jpg",
+    "Monster Energy Original 500ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Monster Mango Loco 500ml",
+   "images": [
+    "Monster Mango Loco 500ml/off-5060517888510.jpg",
+    "Monster Mango Loco 500ml/off-5060639127498.jpg",
+    "Monster Mango Loco 500ml/off-5060896623214.jpg",
+    "Monster Mango Loco 500ml/shelf-1.jpg",
+    "Monster Mango Loco 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Monster Mixxd Punch 500ml",
+   "images": [
+    "Monster Mixxd Punch 500ml/shelf-1.jpg",
+    "Monster Mixxd Punch 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Monster Monarch 500ml",
+   "images": [
+    "Monster Monarch 500ml/shelf-1.jpg",
+    "Monster Monarch 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Monster Nitro 500ml",
+   "images": [
+    "Monster Nitro 500ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Monster Pacific Punch 500ml",
+   "images": [
+    "Monster Pacific Punch 500ml/off-5060639122899.jpg",
+    "Monster Pacific Punch 500ml/off-5060639126682.jpg",
+    "Monster Pacific Punch 500ml/off-5060751215721.jpg",
+    "Monster Pacific Punch 500ml/off-5060896622361.jpg",
+    "Monster Pacific Punch 500ml/shelf-1.jpg",
+    "Monster Pacific Punch 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Monster Pipeline Punch 500ml",
+   "images": [
+    "Monster Pipeline Punch 500ml/off-5060517882976.jpg",
+    "Monster Pipeline Punch 500ml/off-5060639126095.jpg",
+    "Monster Pipeline Punch 500ml/off-5060947546080.jpg",
+    "Monster Pipeline Punch 500ml/shelf-1.jpg",
+    "Monster Pipeline Punch 500ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Monster Ultra White 500ml",
+   "images": [
+    "Monster Ultra White 500ml/off-5060335635174.jpg",
+    "Monster Ultra White 500ml/off-5060639126545.jpg",
+    "Monster Ultra White 500ml/off-5060947543201.jpg",
+    "Monster Ultra White 500ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Pepsi Max 330ml",
+   "images": [
+    "Pepsi Max 330ml/off-4060800104045.jpg",
+    "Pepsi Max 330ml/off-5290047000940.jpg",
+    "Pepsi Max 330ml/off-87170146.jpg"
+   ]
+  },
+  {
+   "name": "Pepsi Max 500ml",
+   "images": [
+    "Pepsi Max 500ml/off-3800747001837.jpg",
+    "Pepsi Max 500ml/off-87170788.jpg"
+   ]
+  },
+  {
+   "name": "Purdey's Refocus 330ml",
+   "images": [
+    "Purdey's Refocus 330ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Purdey's Rejuvenate 330ml",
+   "images": [
+    "Purdey's Rejuvenate 330ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Red Bull Blue Edition 250ml",
+   "images": [
+    "Red Bull Blue Edition 250ml/shelf-1.jpg",
+    "Red Bull Blue Edition 250ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Red Bull Coconut Edition 250ml",
+   "images": [
+    "Red Bull Coconut Edition 250ml/shelf-1.jpg",
+    "Red Bull Coconut Edition 250ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Red Bull Energy Drink 250ml",
+   "images": [
+    "Red Bull Energy Drink 250ml/off-9002490205973.jpg"
+   ]
+  },
+  {
+   "name": "Red Bull Energy Drink 355ml",
+   "images": [
+    "Red Bull Energy Drink 355ml/off-9002490206840.jpg"
+   ]
+  },
+  {
+   "name": "Red Bull Green Edition 250ml",
+   "images": [
+    "Red Bull Green Edition 250ml/shelf-1.jpg",
+    "Red Bull Green Edition 250ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Red Bull Sugarfree 250ml",
+   "images": [
+    "Red Bull Sugarfree 250ml/off-9002490200220.jpg",
+    "Red Bull Sugarfree 250ml/off-9002490212209.jpg",
+    "Red Bull Sugarfree 250ml/off-9002490215415.jpg"
+   ]
+  },
+  {
+   "name": "Red Bull Tropical Edition 250ml",
+   "images": [
+    "Red Bull Tropical Edition 250ml/off-90415845.jpg",
+    "Red Bull Tropical Edition 250ml/shelf-1.jpg",
+    "Red Bull Tropical Edition 250ml/shelf-2.jpg"
+   ]
+  },
+  {
+   "name": "Relentless Original 500ml",
+   "images": [
+    "Relentless Original 500ml/off-5060466510210.jpg",
+    "Relentless Original 500ml/off-5060466510296.jpg"
+   ]
+  },
+  {
+   "name": "Rockstar Original 500ml",
+   "images": [
+    "Rockstar Original 500ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Rockstar Tropical Guava 500ml",
+   "images": [
+    "Rockstar Tropical Guava 500ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Rumble Energy 500ml",
+   "images": [
+    "Rumble Energy 500ml/shelf-1.jpg"
+   ]
+  },
+  {
+   "name": "Sprite 500ml",
+   "images": [
+    "Sprite 500ml/off-06746500.jpg",
+    "Sprite 500ml/off-5449000205537.jpg"
+   ]
+  },
+  {
+   "name": "V Energy 250ml",
+   "images": [
+    "V Energy 250ml/shelf-1.jpg",
+    "V Energy 250ml/shelf-2.jpg"
+   ]
+  }
+ ],
+ "sales": "sales.csv",
+ "detector": null
+}

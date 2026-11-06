@@ -42,6 +42,8 @@ export function parseCsv(text: string): string[][] {
 const NAME_COLS = ['product', 'productname', 'name', 'description', 'item', 'sku', 'skuname', 'folder'];
 const UNIT_COLS = ['units', 'unitsales', 'sales', 'qty', 'quantity', 'volume', 'value', 'revenue', 'salesvalue', 'rsv'];
 const RANK_COLS = ['rank', 'ranking', 'position'];
+const CAT_COLS = ['category', 'subcategory', 'segment', 'department'];
+const STATUS_COLS = ['status', 'flag', 'role'];
 
 /**
  * Accepts a CSV with a product column (matching the catalogue folder names)
@@ -61,6 +63,8 @@ export function parseSales(text: string): SalesRow[] {
   const ni = find(NAME_COLS);
   const ui = find(UNIT_COLS);
   const ri = find(RANK_COLS);
+  const ci = header.findIndex((h) => CAT_COLS.includes(h));
+  const si = header.findIndex((h) => STATUS_COLS.includes(h));
   if (ni < 0) throw new Error('Could not find a product name column (e.g. "product").');
   if (ui < 0 && ri < 0) throw new Error('Could not find a "units" or "rank" column.');
   const num = (s: string | undefined) => Number(String(s ?? '').replace(/[£$€,\s]/g, ''));
@@ -70,7 +74,10 @@ export function parseSales(text: string): SalesRow[] {
     if (!product) continue;
     const units = ui >= 0 ? num(r[ui]) : NaN;
     const rank = ri >= 0 ? num(r[ri]) : NaN;
-    out.push({ product, units: Number.isFinite(units) ? units : 0, rank: Number.isFinite(rank) ? rank : 0 });
+    const category = ci >= 0 ? (r[ci] ?? '').trim() || undefined : undefined;
+    const st = si >= 0 ? normName(r[si] ?? '') : '';
+    const status = st.startsWith('top') || st === 'mustcarry' || st === 'muststock' ? 'top' : st.startsWith('delist') ? 'delist' : st === 'core' ? 'core' : undefined;
+    out.push({ product, units: Number.isFinite(units) ? units : 0, rank: Number.isFinite(rank) ? rank : 0, category, status });
   }
   // Derive rank from units when not supplied (1 = best seller).
   if (ri < 0) {
@@ -83,21 +90,39 @@ export function parseSales(text: string): SalesRow[] {
 
 export interface SalesInfo {
   rank: number;
+  /** Rank within its category (equals rank when there are no categories). */
+  categoryRank: number;
   units: number;
   status: Extract<Status, 'top' | 'core' | 'delist'>;
   name: string;
+  category?: string;
 }
 
-/** Classify every product in the sales data as top seller / core / delist candidate. */
+/**
+ * Classify every product as top seller / core / delist candidate. When the
+ * data has categories, the percentages apply within each category, so an
+ * energy bay is judged against the best energy drinks, not against cola.
+ */
 export function classifySales(rows: SalesRow[], s: Pick<Settings, 'topSellerPercent' | 'delistPercent'>): Map<string, SalesInfo> {
-  const n = rows.length;
-  const topN = Math.max(1, Math.ceil((n * s.topSellerPercent) / 100));
-  const delistN = Math.floor((n * s.delistPercent) / 100);
+  const groups = new Map<string, SalesRow[]>();
+  for (const r of rows) {
+    const k = r.category ? normName(r.category) : '';
+    const g = groups.get(k) ?? [];
+    g.push(r);
+    groups.set(k, g);
+  }
   const m = new Map<string, SalesInfo>();
-  rows.forEach((r, i) => {
-    const pos = i + 1;
-    const status = pos <= topN ? 'top' : pos > n - delistN ? 'delist' : 'core';
-    m.set(normName(r.product), { rank: r.rank || pos, units: r.units, status, name: r.product });
-  });
+  for (const g of groups.values()) {
+    const sorted = [...g].sort((a, b) => a.rank - b.rank);
+    const n = sorted.length;
+    const topN = Math.max(1, Math.ceil((n * s.topSellerPercent) / 100));
+    const delistN = Math.floor((n * s.delistPercent) / 100);
+    sorted.forEach((r, i) => {
+      const pos = i + 1;
+      // An explicit status column (top / core / delist) overrides the percentages.
+      const status = r.status ?? (pos <= topN ? 'top' : pos > n - delistN ? 'delist' : 'core');
+      m.set(normName(r.product), { rank: r.rank || pos, categoryRank: pos, units: r.units, status, name: r.product, category: r.category });
+    });
+  }
   return m;
 }
