@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ShelfScan</string>
+    <string name="title_activity_main">ShelfScan</string>
+    <string name="package_name">com.shelfscan.app</string>
+    <string name="custom_url_scheme">com.shelfscan.app</string>
+</resources>

@@ -1,9 +1,10 @@
-import { FolderOpen, ScanLine, ShieldCheck, SlidersHorizontal } from 'lucide-react';
+import { Download, FolderOpen, ScanLine, ShieldCheck, SlidersHorizontal } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CatalogView } from './components/CatalogView';
 import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
-import { leaveAdminMode, readAdminMode } from './lib/admin';
+import { enterAdminMode, leaveAdminMode, readAdminMode } from './lib/admin';
+import { checkForApkUpdate, type UpdateInfo } from './lib/update';
 import { loadCatalog, loadSales, saveSales, type CatalogState, type StoredSales } from './lib/catalog';
 import { classifySales, parseSales } from './lib/sales';
 import { loadSettings, saveSettings } from './lib/settings';
@@ -26,6 +27,23 @@ export default function App() {
   const [sales, setSalesState] = useState<StoredSales | null>(null);
   const [library, setLibrary] = useState<LibraryStatus>({ state: 'loading', msg: 'Loading product library', frac: 0 });
   const syncing = useRef(false);
+  const [update, setUpdate] = useState<UpdateInfo | null>(null);
+  const taps = useRef<number[]>([]);
+
+  useEffect(() => {
+    checkForApkUpdate().then(setUpdate);
+  }, []);
+
+  // Hidden admin switch for the APK (no address bar for ?admin=1): tap the logo 7 times within 3 seconds.
+  const onLogoTap = () => {
+    const now = Date.now();
+    taps.current = [...taps.current.filter((t) => now - t < 3000), now];
+    if (taps.current.length >= 7 && !admin) {
+      taps.current = [];
+      enterAdminMode();
+      setAdmin(true);
+    }
+  };
 
   const setSettings = (s: Settings) => {
     setSettingsState(s);
@@ -96,7 +114,7 @@ export default function App() {
   return (
     <div className={`app ${admin ? 'is-admin' : ''}`}>
       <header className="topbar">
-        <div className="brand">
+        <div className="brand" onClick={onLogoTap}>
           <img src="/icon.svg" alt="" width={32} height={32} />
           <span>ShelfScan</span>
         </div>
@@ -118,6 +136,16 @@ export default function App() {
           </span>
         ) : null}
       </header>
+      {update && (
+        <div className="update-banner">
+          <span>
+            <b>New version available</b> (build {update.build})
+          </span>
+          <button className="btn primary" onClick={() => (window.location.href = update.url)}>
+            <Download size={16} /> Download
+          </button>
+        </div>
+      )}
       <main>
         {tab === 'scan' && <ScanView settings={settings} catalog={catalog} setCatalog={setCatalog} sales={salesMap} library={library} />}
         {admin && tab === 'catalog' && (

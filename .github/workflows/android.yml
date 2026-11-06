@@ -1,0 +1,72 @@
+name: Android APK
+
+# Builds the Android app on every push and publishes it as a GitHub Release.
+# Stable download link for phones:
+#   https://github.com/<owner>/<repo>/releases/latest/download/shelfscan.apk
+
+on:
+  push:
+    branches: [main, 'claude/app-planning-development-x0ak8y']
+    paths-ignore: ['**.md', 'training/**', 'worker/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-apk
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build web app for Android and sync into the native project
+        run: npm run build:android
+        env:
+          VITE_BUILD_NUMBER: ${{ github.run_number }}
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Build APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
+        env:
+          SHELFSCAN_BUILD: ${{ github.run_number }}
+
+      - name: Collect APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk shelfscan.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shelfscan-apk-build-${{ github.run_number }}
+          path: shelfscan.apk
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "build-${{ github.run_number }}" shelfscan.apk \
+            --target "${{ github.sha }}" \
+            --title "ShelfScan build ${{ github.run_number }}" \
+            --notes "Android test build ${{ github.run_number }} from \`${{ github.ref_name }}\` (${GITHUB_SHA::7}). Install over the previous version – your data is kept." \
+            --latest

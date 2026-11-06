@@ -11,6 +11,18 @@ Field users only ever see the Scan screen. The product library, sales ranking an
 
 ## Get it on your phone
 
+### Option A: Android APK (built by GitHub, no hosting needed)
+
+Every push builds an APK with GitHub Actions (`.github/workflows/android.yml`) and publishes it as a GitHub Release.
+
+1. On the Android phone, open **https://github.com/pmoppy/matthew/releases/latest/download/shelfscan.apk** (or the repo's **Releases** page) and download the APK.
+2. Open the downloaded file. The first time, Android asks you to allow your browser or Files app to **install unknown apps**. Allow it, go back, and tap **Install**.
+3. Open **ShelfScan**. The first launch downloads the recognition models (about 125 MB, ideally on Wi-Fi), then it works offline.
+
+**Updates:** when a newer build exists, the app shows a **"New version available → Download"** banner on launch. Tap it and install over the top. Your data and downloaded models are kept, because every build is signed with the same test key (`android/keystore`, testing only). **Admin mode in the APK:** tap the ShelfScan logo 7 times.
+
+### Option B: install from the browser (iPhone and Android)
+
 ShelfScan is a **web app you install from the browser**, not an APK. There's nothing to download from GitHub: you host it once (free) and open the link on each phone.
 
 **1. Host it on Cloudflare Pages (one-off, about 5 minutes)**

@@ -1,7 +1,8 @@
 import * as ort from 'onnxruntime-web/webgpu';
 
 declare const __ORT_WASM_BASE__: string;
-ort.env.wasm.wasmPaths = __ORT_WASM_BASE__;
+// Web build: WASM from the CDN (cached by the service worker). APK: bundled in the app.
+if (__ORT_WASM_BASE__) ort.env.wasm.wasmPaths = __ORT_WASM_BASE__;
 // Single-threaded WASM unless the page is cross-origin isolated (see public/_headers).
 ort.env.wasm.numThreads = globalThis.crossOriginIsolated ? Math.min(4, navigator.hardwareConcurrency || 2) : 1;
 

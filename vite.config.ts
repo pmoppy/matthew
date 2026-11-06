@@ -13,10 +13,15 @@ const isolation = {
   'Cross-Origin-Embedder-Policy': 'credentialless',
 };
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  // "capacitor" = the Android APK build: everything is bundled inside the app,
+  // so the ONNX Runtime WASM ships locally and no service worker is needed.
+  const native = mode === 'capacitor';
+  return {
   plugins: [
     react(),
     VitePWA({
+      disable: native,
       registerType: 'autoUpdate',
       includeAssets: ['icon.svg', 'apple-touch-icon.png'],
       manifest: {
@@ -52,15 +57,23 @@ export default defineConfig({
   // dist (Cloudflare Pages caps files at 25 MB). It is fetched from jsDelivr on
   // first use and cached by the service worker for offline use.
   resolve: {
-    alias: [
-      {
-        find: /^onnxruntime-web\/webgpu$/,
-        replacement: fileURLToPath(new URL('./node_modules/onnxruntime-web/dist/ort.webgpu.min.mjs', import.meta.url)),
-      },
-    ],
+    alias: native
+      ? []
+      : [
+          {
+            find: /^onnxruntime-web\/webgpu$/,
+            replacement: fileURLToPath(new URL('./node_modules/onnxruntime-web/dist/ort.webgpu.min.mjs', import.meta.url)),
+          },
+        ],
   },
-  define: { __ORT_WASM_BASE__: JSON.stringify(`https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortVersion}/dist/`) },
+  define: {
+    __ORT_WASM_BASE__: JSON.stringify(native ? '' : `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortVersion}/dist/`),
+    __NATIVE__: JSON.stringify(native),
+    __BUILD_NUMBER__: JSON.stringify(Number(process.env.VITE_BUILD_NUMBER || 0)),
+    __REPO__: JSON.stringify(process.env.GITHUB_REPOSITORY || 'pmoppy/matthew'),
+  },
   optimizeDeps: { exclude: ['onnxruntime-web'] },
   server: { headers: isolation },
   preview: { headers: isolation },
+};
 });

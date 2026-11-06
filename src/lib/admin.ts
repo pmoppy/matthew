@@ -2,7 +2,8 @@ const KEY = 'shelfscan.admin';
 
 /**
  * Admin mode shows the Catalogue and Settings screens. Field users never see
- * them. Turn it on by opening the app once with ?admin=1 (and off with ?admin=0).
+ * them. Turn it on by opening the app once with ?admin=1 (and off with ?admin=0),
+ * or in the Android app by tapping the logo 7 times.
  */
 export function readAdminMode(): boolean {
   try {
@@ -23,6 +24,14 @@ export function readAdminMode(): boolean {
 export function leaveAdminMode() {
   try {
     localStorage.removeItem(KEY);
+  } catch {
+    /* ignore */
+  }
+}
+
+export function enterAdminMode() {
+  try {
+    localStorage.setItem(KEY, '1');
   } catch {
     /* ignore */
   }

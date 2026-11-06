@@ -1265,3 +1265,23 @@ details[open] summary::after {
 .app:not(.is-admin) main {
   padding-bottom: calc(32px + env(safe-area-inset-bottom));
 }
+
+.update-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  max-width: 760px;
+  margin: 12px auto 0;
+  width: calc(100% - 32px);
+  padding: 10px 10px 10px 16px;
+  border-radius: var(--r);
+  background: var(--violet-soft);
+  border: 1px solid color-mix(in srgb, var(--brand) 25%, transparent);
+  font-size: 0.88rem;
+  color: var(--text-2);
+}
+.update-banner .btn {
+  padding: 8px 12px;
+  flex: none;
+}

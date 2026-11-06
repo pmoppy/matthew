@@ -121,6 +121,10 @@ export function SettingsView({ settings, setSettings }: Props) {
           </button>
         </div>
         <p className="muted small">Everything (photos, catalogue, corrections) stays on this device. Nothing is uploaded.</p>
+        <p className="muted small">
+          {__NATIVE__ ? 'Android app' : 'Web app'}
+          {__BUILD_NUMBER__ ? ` · build ${__BUILD_NUMBER__}` : ''}
+        </p>
       </div>
     </div>
   );

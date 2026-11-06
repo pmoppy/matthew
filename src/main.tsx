@@ -5,7 +5,8 @@ import App from './App';
 import '@fontsource-variable/plus-jakarta-sans';
 import './styles.css';
 
-registerSW({ immediate: true });
+// The installed web app updates itself via its service worker; the APK checks GitHub Releases instead.
+if (!__NATIVE__) registerSW({ immediate: true });
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
