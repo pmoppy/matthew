@@ -1,4 +1,4 @@
-import { getSession, ort } from '../ort';
+import { getSession, ort, runModel } from '../ort';
 import type { Det } from '../types';
 import { nms } from './nms';
 
@@ -108,7 +108,7 @@ export async function detectYolo(
       input[i + 2 * plane] = px[p + 2] / 255;
     }
     const feeds = { [inputName]: new ort.Tensor('float32', input, [1, 3, inputSize, inputSize]) };
-    const res = await session.run(feeds);
+    const res = await runModel(url, feeds);
     const outT = res[session.outputNames[0]];
     const dets = decodeYolo(outT.data as Float32Array, outT.dims, conf);
     for (const d of dets) {

@@ -71,11 +71,13 @@ async function manifest(env: Env): Promise<Response> {
   const products = new Map<string, string[]>();
   let sales: string | null = null;
   let detector: string | null = null;
+  const indexKeys: string[] = [];
   for (const o of objects) {
     const rel = o.key.slice(prefix.length);
     const parts = rel.split('/').filter(Boolean);
     if (parts.length === 1 && /^sales\.csv$/i.test(parts[0])) sales = rel;
     if (rel === 'models/detector.onnx') detector = rel;
+    if (parts.length === 1 && /^index-[\w-]+\.json$/.test(parts[0])) indexKeys.push(o.key);
     if (parts.length < 2 || !IMG.test(rel) || o.size === 0) continue;
     if (parts[0] === 'models' || parts.some((p) => p.startsWith('_') || p.startsWith('.'))) continue;
     // Product = the folder the image sits in (allows e.g. Brand/Product/img.jpg).
@@ -84,8 +86,24 @@ async function manifest(env: Env): Promise<Response> {
     list.push(rel);
     products.set(product, list);
   }
+  // Pre-computed fingerprints (scripts/build_index.py) let phones skip downloading every photo.
+  const indexes: Record<string, unknown> = {};
+  for (const key of indexKeys) {
+    const obj = await env.BUCKET.get(key);
+    if (!obj) continue;
+    try {
+      const info = JSON.parse(await new Response(obj.body).text());
+      indexes[key.slice(prefix.length).replace(/^index-|\.json$/g, '')] = info;
+    } catch {
+      /* ignore malformed index */
+    }
+  }
+  // Version changes whenever photos or indexes change, so phones know to re-sync.
+  let h = 0;
+  for (const o of objects) for (const ch of `${o.key}:${o.size}:${o.httpEtag}`) h = (Math.imul(h, 31) + ch.charCodeAt(0)) | 0;
   const body = {
-    generated: new Date().toISOString(),
+    generated: `v${(h >>> 0).toString(16)}`,
+    indexes,
     products: [...products.entries()]
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([name, images]) => ({ name, images: images.sort() })),

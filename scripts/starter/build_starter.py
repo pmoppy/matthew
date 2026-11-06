@@ -234,7 +234,14 @@ def save(im, path):
     im.save(path, quality=88)
 
 
+def slug(name):
+    """Folder-safe name: some static servers mishandle '&', apostrophes etc. in URLs."""
+    import re
+    return re.sub(r'[^A-Za-z0-9]+', '-', name.replace('&', 'and')).strip('-')
+
+
 def main(detector):
+    names = {}  # folder -> display name
     sess = ort.InferenceSession(detector)
     shutil.rmtree(os.path.join(OUT, 'file'), ignore_errors=True)
     attribution = []
@@ -243,19 +250,21 @@ def main(detector):
             meta = json.loads(get(f'https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=image_front_url'))
             url = meta['product']['image_front_url']
             im = Image.open(io.BytesIO(get(url))).convert('RGB')
-            save(detect_main_pack(sess, im), os.path.join(OUT, 'file', product, f'off-{code}.jpg'))
+            names[slug(product)] = product
+            save(detect_main_pack(sess, im), os.path.join(OUT, 'file', slug(product), f'off-{code}.jpg'))
             attribution.append(f'- {product}: https://world.openfoodfacts.org/product/{code}')
         print('✓', product)
     crops = os.path.join(HERE, 'shelf_crops')
     for product in sorted(os.listdir(crops)) if os.path.isdir(crops) else []:
         for f in sorted(os.listdir(os.path.join(crops, product))):
-            shutil.copy(os.path.join(crops, product, f), os.path.join(OUT, 'file', product, f) if os.path.isdir(os.path.join(OUT, 'file', product)) else _mk(os.path.join(OUT, 'file', product), f))
+            names[slug(product)] = product
+            shutil.copy(os.path.join(crops, product, f), _mk(os.path.join(OUT, 'file', slug(product)), f))
     shutil.copy(os.path.join(HERE, 'sales.csv'), os.path.join(OUT, 'file', 'sales.csv'))
-    products = []
+    products = []  # display names may contain '&' etc.; folders use slugs
     for p in sorted(os.listdir(os.path.join(OUT, 'file'))):
         d = os.path.join(OUT, 'file', p)
         if os.path.isdir(d):
-            products.append({'name': p, 'images': [f'{p}/{f}' for f in sorted(os.listdir(d))]})
+            products.append({'name': names.get(p, p), 'images': [f'{p}/{f}' for f in sorted(os.listdir(d))]})
     manifest = {'generated': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'products': products, 'sales': 'sales.csv', 'detector': None}
     json.dump(manifest, open(os.path.join(OUT, 'manifest.json'), 'w'), indent=1)
     with open(os.path.join(OUT, 'ATTRIBUTION.md'), 'w') as f:
@@ -263,6 +272,9 @@ def main(detector):
                 'licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), cropped. Files named `shelf-*.jpg` are '
                 'crops from field photos.\n\n' + '\n'.join(attribution) + '\n')
     print(len(products), 'products,', sum(len(p['images']) for p in products), 'images')
+    # Pre-compute recognition fingerprints so phones don't have to.
+    import subprocess
+    subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'build_index.py'), OUT], check=True)
 
 
 def _mk(d, f):

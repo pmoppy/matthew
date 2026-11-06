@@ -69,15 +69,18 @@ export function listAsText(items: ShoppingItem[]): string {
 
 /** Share via the Android share sheet in the app, the Web Share API, or copy to the clipboard. */
 export async function shareList(items: ShoppingItem[]): Promise<'shared' | 'copied' | 'failed'> {
-  const text = listAsText(items);
+  return shareText('Shopping list', listAsText(items));
+}
+
+export async function shareText(title: string, text: string): Promise<'shared' | 'copied' | 'failed'> {
   try {
     if (Capacitor.isNativePlatform()) {
       const { Share } = await import('@capacitor/share');
-      await Share.share({ title: 'Shopping list', text, dialogTitle: 'Share shopping list' });
+      await Share.share({ title, text, dialogTitle: `Share ${title.toLowerCase()}` });
       return 'shared';
     }
     if (navigator.share) {
-      await navigator.share({ title: 'Shopping list', text });
+      await navigator.share({ title, text });
       return 'shared';
     }
     await navigator.clipboard.writeText(text);

@@ -125,6 +125,24 @@ Until your R2 catalogue is live, the app uses `public/starter/` (48 products, 10
 
 **The starter ranking is an estimate, not sales data.** Published UK convenience data is mostly at brand level (e.g. Coca-Cola is the #1 soft drink brand; Red Bull is the top sports & energy brand and holds that sub-category's top three SKUs; energy is convenience's biggest soft-drinks segment). SKU-level rankings (NIQ/Circana) are paywalled, so the order within each category is a judgement call. **Replace `sales.csv` with your EPOS data.** The starter list has no delist candidates, because red boxes need real sales data.
 
+### Growing the library without bloating the app
+
+Phones don't download your product photos. `scripts/build_index.py` turns every photo into a small recognition "fingerprint" (0.4 KB instead of ~20 KB), and phones download just those:
+
+```bash
+pip install onnxruntime pillow numpy
+python scripts/build_index.py path/to/bucket-folder     # writes index-dinov3-s.bin + .json next to the product folders
+# then upload the folder (photos + index files) to R2
+```
+
+| Library size | Fingerprint download | Matching time per scan* |
+|---|---|---|
+| 300 photos (starter) | 120 KB | instant |
+| 3,000 photos | 1.2 MB | ~0.1 s |
+| 30,000 photos | 12 MB | ~1 s |
+
+\*110 products per photo, on a phone CPU. The APK only bundles the small starter library. Your real library lives in R2 and is fetched (as fingerprints) on sync, so the app itself doesn't grow. Photos added later without re-running the script still work, because the phone learns just those photos itself. Re-run the script occasionally to keep things fast.
+
 ### Deploy the catalogue Worker
 
 The app can't list an R2 bucket directly, so a small Worker (`worker/`) serves `/manifest.json` and the files with CORS:
@@ -206,7 +224,7 @@ python train_detector.py --data my_shelves.yaml --weights sku110k-yolo11-s640.pt
 
 The detector is single-class ("product"), so labelling is quick: draw a box round every facing. Tools such as CVAT, Label Studio or Roboflow export YOLO format directly. Even 50–100 of your own photos on top of SKU-110K makes a noticeable difference.
 
-**Licences:** Ultralytics YOLO11 is **AGPL-3.0**, and the default detector's model card lists its licence as "other", deferring to the SKU-110K dataset terms. Using it in a closed-source commercial product requires an Ultralytics Enterprise licence. The app accepts any YOLO-format ONNX output (`[1, 4+classes, N]` or NMS-free `[1, N, 6]`), so Apache-2.0 detectors such as YOLOX, RT-DETR or D-FINE can be swapped in. Check the SKU-110K dataset terms before commercial use as well.
+**Licences:** DINOv3 is under Meta's DINOv3 License, which allows commercial use but requires showing "Built with DINOv3" (done on the home screen and in Settings → About). Ultralytics YOLO11 is **AGPL-3.0**, and the default detector's model card lists its licence as "other", deferring to the SKU-110K dataset terms. Using it in a closed-source commercial product requires an Ultralytics Enterprise licence. The app accepts any YOLO-format ONNX output (`[1, 4+classes, N]` or NMS-free `[1, N, 6]`), so Apache-2.0 detectors such as YOLOX, RT-DETR or D-FINE can be swapped in. Check the SKU-110K dataset terms before commercial use as well.
 
 ## Project layout
 

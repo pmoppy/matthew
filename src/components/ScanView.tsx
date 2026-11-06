@@ -26,11 +26,13 @@ interface Props {
   sales: Map<string, SalesInfo> | null;
   library: LibraryStatus;
   list: ShoppingList;
+  /** App-level Android back button asks the scan screen to step back first. */
+  backRef?: React.MutableRefObject<(() => boolean) | null>;
 }
 
 const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'unsure', 'unknown', 'gap'];
 
-export function ScanView({ settings, catalog, setCatalog, sales, library, list }: Props) {
+export function ScanView({ settings, catalog, setCatalog, sales, library, list, backRef }: Props) {
   const camRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
   const shelfRef = useRef<HTMLDivElement>(null);
@@ -46,6 +48,33 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list }
   const [waiting, setWaiting] = useState(false);
 
   const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
+
+  const goHome = () => {
+    setImage(null);
+    setResult(null);
+    setFacings([]);
+    setQuality(null);
+    setError(null);
+    setWaiting(false);
+    setSelected(null);
+    window.scrollTo({ top: 0 });
+  };
+
+  // Android back: close the sheet, then leave the results; only exit from home.
+  useEffect(() => {
+    if (!backRef) return;
+    backRef.current = () => {
+      if (selected) {
+        setSelected(null);
+        return true;
+      }
+      if (image && !progress) {
+        goHome();
+        return true;
+      }
+      return false;
+    };
+  });
 
   const onFile = async (file: File | undefined | null) => {
     if (!file) return;
@@ -152,6 +181,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list }
     shelfRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const selectedCrop = useMemo(() => (selected && image ? cropCanvas(image, selected, 0.05) : null), [selected, image]);
   const presentStatuses = useMemo(() => ALL_STATUSES.filter((s) => facings.some((f) => f.status === s)), [facings]);
   const busy = !!progress;
 
@@ -208,11 +238,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list }
             <p className="capture-hint">or drag & drop / paste an image here</p>
           </div>
 
-          {library.state === 'loading' && !catalog && (
+          {library.state === 'loading' && (
             <div className="card progress soft">
               <div className="progress-head">
                 <Loader2 size={18} className="spin" />
-                <span>Getting ready for first use…</span>
+                <span>{catalog ? library.msg ?? 'Updating product library' : 'Getting ready for first use…'}</span>
                 <span className="muted">{Math.round((library.frac ?? 0) * 100)}%</span>
               </div>
               <div className="bar">
@@ -238,20 +268,13 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list }
               </li>
             </ul>
           </section>
+          <p className="footnote">Built with DINOv3 · runs on your phone, photos never leave it</p>
         </>
       ) : (
         <div className="toolbar">
           <button
             className="btn ghost icon-only"
-            onClick={() => {
-              setImage(null);
-              setResult(null);
-              setFacings([]);
-              setQuality(null);
-              setError(null);
-              setWaiting(false);
-              window.scrollTo({ top: 0 });
-            }}
+            onClick={goHome}
             disabled={busy}
             aria-label="Back to home"
             title="Back to home"
@@ -309,7 +332,14 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list }
 
       {image && (
         <div ref={shelfRef} className="shelf-block">
-          <ShelfCanvas image={image} facings={facings} hidden={hidden} selectedId={selected?.id ?? null} onSelect={setSelected} />
+          <ShelfCanvas
+            image={image}
+            facings={facings}
+            hidden={hidden}
+            selectedId={selected?.id ?? null}
+            onSelect={setSelected}
+            scanning={!!progress || waiting}
+          />
           {result && (
             <div className="legend">
               {presentStatuses.map((s) => (
@@ -341,7 +371,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list }
       {selected && image && (
         <CorrectionSheet
           facing={selected}
-          crop={cropCanvas(image, selected, 0.05)}
+          crop={selectedCrop!}
           products={catalog?.products ?? []}
           salesRank={(n) => sales?.get(normName(n))?.rank}
           onPick={onPick}

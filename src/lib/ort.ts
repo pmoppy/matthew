@@ -8,6 +8,9 @@ ort.env.wasm.numThreads = globalThis.crossOriginIsolated ? Math.min(4, navigator
 
 const MODEL_CACHE = 'shelfscan-models-v1';
 const sessions = new Map<string, Promise<ort.InferenceSession>>();
+/** Which backend each model ended up on (shown in admin diagnostics). */
+export const backends = new Map<string, 'webgpu' | 'wasm'>();
+const forceWasm = new Set<string>();
 
 /** Download a model once and keep it in Cache Storage so the app works offline in-store. */
 export async function fetchModel(url: string, onProgress?: (frac: number) => void): Promise<Uint8Array> {
@@ -62,20 +65,59 @@ export function getSession(url: string, onProgress?: (frac: number) => void, dat
         const data = await fetchModel(dataUrl, onProgress);
         base.externalData = [{ path: dataUrl.split('/').pop()!.split('?')[0], data }];
       }
-      const hasGpu = typeof navigator !== 'undefined' && 'gpu' in navigator;
+      const hasGpu = typeof navigator !== 'undefined' && 'gpu' in navigator && !forceWasm.has(url);
       if (hasGpu) {
         try {
-          return await ort.InferenceSession.create(bytes, { ...base, executionProviders: ['webgpu'] });
+          const sess = await ort.InferenceSession.create(bytes, { ...base, executionProviders: ['webgpu'] });
+          backends.set(url, 'webgpu');
+          return sess;
         } catch (e) {
           console.warn('WebGPU session failed, falling back to WASM', e);
         }
       }
-      return ort.InferenceSession.create(bytes, { ...base, executionProviders: ['wasm'] });
+      const sess = await ort.InferenceSession.create(bytes, { ...base, executionProviders: ['wasm'] });
+      backends.set(url, 'wasm');
+      return sess;
     })();
     s.catch(() => sessions.delete(url));
     sessions.set(url, s);
   }
   return s;
+}
+
+/**
+ * Run a model, and if it fails on the GPU (some phones expose WebGPU but
+ * can't run every operator), rebuild it on the CPU and try once more.
+ */
+export async function runModel(
+  url: string,
+  feeds: Record<string, ort.Tensor>,
+  dataUrl?: string,
+): Promise<ort.InferenceSession.OnnxValueMapType> {
+  const session = await getSession(url, undefined, dataUrl);
+  try {
+    return await session.run(feeds);
+  } catch (e) {
+    if (backends.get(url) !== 'webgpu') throw e;
+    console.warn('GPU inference failed, switching this model to CPU', e);
+    forceWasm.add(url);
+    sessions.delete(url);
+    return (await getSession(url, undefined, dataUrl)).run(feeds);
+  }
+}
+
+export function diagnostics(): string {
+  const gpu = typeof navigator !== 'undefined' && 'gpu' in navigator;
+  const used = [...new Set(backends.values())].join('+') || 'not loaded yet';
+  return `AI runs on: ${used} · WebGPU ${gpu ? 'available' : 'not available'} · CPU threads ${ort.env.wasm.numThreads}`;
+}
+
+export async function isModelCached(url: string): Promise<boolean> {
+  try {
+    return !!(await (await caches.open(MODEL_CACHE)).match(url));
+  } catch {
+    return false;
+  }
 }
 
 export async function clearModelCache(): Promise<void> {

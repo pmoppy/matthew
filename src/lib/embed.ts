@@ -1,4 +1,4 @@
-import { getSession, ort } from './ort';
+import { getSession, ort, runModel } from './ort';
 import type { EmbedderSpec } from './types';
 
 const SIZE = 224;
@@ -54,7 +54,7 @@ export async function embedCrops(
     for (let k = 0; k < n; k++) toTensorData(crops[i + k], data, k * plane, spec.mean, spec.std);
     let res: ort.InferenceSession.OnnxValueMapType;
     try {
-      res = await session.run({ [inputName]: new ort.Tensor('float32', data, [n, 3, SIZE, SIZE]) });
+      res = await runModel(spec.url, { [inputName]: new ort.Tensor('float32', data, [n, 3, SIZE, SIZE]) }, spec.dataUrl);
     } catch (e) {
       if (batchOk && n > 1) {
         batchOk = false; // model exported with a fixed batch of 1
@@ -89,37 +89,37 @@ export const HIST_BINS = 12 * 3 + 4;
  * general-purpose embeddings are weakest, so this is blended into the score.
  */
 export function colorHist(c: HTMLCanvasElement): Float32Array {
-  const w = work!;
-  const S = 48;
-  w.width = S;
-  w.height = S;
-  const ctx = w.getContext('2d', { willReadFrequently: true })!;
-  // Central 70% to reduce bleed from neighbouring packs.
-  const sx = c.width * 0.15, sy = c.height * 0.1;
-  ctx.drawImage(c, sx, sy, c.width * 0.7, c.height * 0.8, 0, 0, S, S);
-  const px = ctx.getImageData(0, 0, S, S).data;
-  const h = new Float32Array(HIST_BINS);
-  for (let p = 0; p < px.length; p += 4) {
-    const r = px[p] / 255, g = px[p + 1] / 255, b = px[p + 2] / 255;
-    const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
-    const d = mx - mn;
-    const sat = mx ? d / mx : 0;
-    if (sat < 0.2 || mx < 0.12) {
-      // achromatic: bin by brightness
-      h[36 + Math.min(3, Math.floor(mx * 4))]++;
-      continue;
+  // Sample the original pixels of the central region (no resizing), so the
+  // result is the same whether computed here or by scripts/build_index.py.
+  const x0 = Math.floor(c.width * 0.15), y0 = Math.floor(c.height * 0.1);
+  const w = Math.max(1, Math.floor(c.width * 0.7)), h = Math.max(1, Math.floor(c.height * 0.8));
+  const px = c.getContext('2d', { willReadFrequently: true })!.getImageData(x0, y0, w, h).data;
+  const step = Math.max(1, Math.floor(Math.sqrt((w * h) / 4096)));
+  const hist = new Float32Array(HIST_BINS);
+  let n = 0;
+  for (let y = 0; y < h; y += step) {
+    for (let x = 0; x < w; x += step) {
+      const p = (y * w + x) * 4;
+      const r = px[p] / 255, g = px[p + 1] / 255, b = px[p + 2] / 255;
+      const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+      const d = mx - mn;
+      const sat = mx ? d / mx : 0;
+      n++;
+      if (sat < 0.2 || mx < 0.12) {
+        hist[36 + Math.min(3, Math.floor(mx * 4))]++; // achromatic: bin by brightness
+        continue;
+      }
+      let hue = 0;
+      if (mx === r) hue = ((g - b) / d + 6) % 6;
+      else if (mx === g) hue = (b - r) / d + 2;
+      else hue = (r - g) / d + 4;
+      const hb = Math.min(11, Math.floor((hue / 6) * 12));
+      const sb = sat < 0.45 ? 0 : sat < 0.75 ? 1 : 2;
+      hist[hb * 3 + sb]++;
     }
-    let hue = 0;
-    if (mx === r) hue = ((g - b) / d + 6) % 6;
-    else if (mx === g) hue = (b - r) / d + 2;
-    else hue = (r - g) / d + 4;
-    const hb = Math.min(11, Math.floor((hue / 6) * 12));
-    const sb = sat < 0.45 ? 0 : sat < 0.75 ? 1 : 2;
-    h[hb * 3 + sb]++;
   }
-  const total = (S * S) || 1;
-  for (let i = 0; i < h.length; i++) h[i] /= total;
-  return h;
+  for (let i = 0; i < hist.length; i++) hist[i] /= n || 1;
+  return hist;
 }
 
 export function histSimilarity(a: Float32Array, b: Float32Array): number {

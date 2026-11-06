@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { clearCatalog, clearEmbeddingCache } from '../lib/catalog';
-import { clearModelCache, getSession } from '../lib/ort';
+import { clearModelCache, diagnostics, getSession } from '../lib/ort';
 import { DEFAULT_SETTINGS, EMBEDDERS, getEmbedder, type Settings } from '../lib/types';
 
 interface Props {
@@ -121,10 +121,39 @@ export function SettingsView({ settings, setSettings }: Props) {
           </button>
         </div>
         <p className="muted small">Everything (photos, catalogue, corrections) stays on this device. Nothing is uploaded.</p>
+        <p className="muted small">{diagnostics()}</p>
         <p className="muted small">
           {__NATIVE__ ? 'Android app' : 'Web app'}
           {__BUILD_NUMBER__ ? ` · build ${__BUILD_NUMBER__}` : ''}
         </p>
+      </div>
+
+      <div className="card">
+        <h2>About & credits</h2>
+        <ul className="small credits">
+          <li>
+            SKU recognition: <b>Built with DINOv3</b> (Meta), used under the{' '}
+            <a href="https://ai.meta.com/resources/models-and-libraries/dinov3-license" target="_blank" rel="noreferrer">
+              DINOv3 License
+            </a>
+            .
+          </li>
+          <li>
+            Product detection: YOLO11s trained on SKU-110K by{' '}
+            <a href="https://huggingface.co/chistopat/sku110k-yolo11-object-detector" target="_blank" rel="noreferrer">
+              chistopat
+            </a>{' '}
+            (Ultralytics YOLO, AGPL-3.0).
+          </li>
+          <li>
+            Starter pack shots:{' '}
+            <a href="https://world.openfoodfacts.org" target="_blank" rel="noreferrer">
+              Open Food Facts
+            </a>{' '}
+            contributors, CC BY-SA.
+          </li>
+          <li>On-device AI: ONNX Runtime Web (MIT).</li>
+        </ul>
       </div>
     </div>
   );

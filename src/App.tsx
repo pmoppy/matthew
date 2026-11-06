@@ -6,10 +6,11 @@ import { SettingsView } from './components/SettingsView';
 import { enterAdminMode, leaveAdminMode, readAdminMode } from './lib/admin';
 import { checkForApkUpdate, type UpdateInfo } from './lib/update';
 import { useShoppingList } from './lib/shopping';
+import { Capacitor } from '@capacitor/core';
 import { loadCatalog, loadSales, saveSales, type CatalogState, type StoredSales } from './lib/catalog';
 import { classifySales, parseSales } from './lib/sales';
 import { loadSettings, saveSettings } from './lib/settings';
-import { libraryChanged, needsSync, syncLibrary } from './lib/sync';
+import { libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
 import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from './lib/types';
 
 type Tab = 'scan' | 'catalog' | 'settings';
@@ -29,6 +30,22 @@ export default function App() {
   const [library, setLibrary] = useState<LibraryStatus>({ state: 'loading', msg: 'Loading product library', frac: 0 });
   const syncing = useRef(false);
   const list = useShoppingList();
+  const scanBack = useRef<(() => boolean) | null>(null);
+  const tabRef = useRef(tab);
+  tabRef.current = tab;
+
+  // Android hardware/gesture back button (APK only).
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+    let remove: (() => void) | undefined;
+    import('@capacitor/app').then(({ App: CapApp }) =>
+      CapApp.addListener('backButton', () => {
+        if (tabRef.current !== 'scan') setTab('scan');
+        else if (!scanBack.current?.()) CapApp.exitApp();
+      }).then((h) => (remove = () => h.remove())),
+    );
+    return () => remove?.();
+  }, []);
   const [update, setUpdate] = useState<UpdateInfo | null>(null);
   const taps = useRef<number[]>([]);
 
@@ -70,6 +87,7 @@ export default function App() {
       if (!need) {
         setLibrary({ state: 'ready' });
         syncing.current = false;
+        warmUp(s);
         return;
       }
       setLibrary({ state: 'loading', msg: 'Preparing product library', frac: 0 });
@@ -82,7 +100,12 @@ export default function App() {
         if (res.detectorUrl && (!s.detectorUrl || s.detectorUrl === DEFAULT_DETECTOR_URL) && res.detectorUrl !== s.detectorUrl) {
           setSettings({ ...s, detectorUrl: res.detectorUrl });
         }
+        // First run: fetch the models now (with progress) rather than on the first scan.
+        if (!(await modelsCached(s).catch(() => true))) {
+          await prepareModels(s, (msg, frac) => setLibrary({ state: 'loading', msg, frac })).catch((e) => console.warn(e));
+        }
         setLibrary({ state: 'ready' });
+        warmUp(s);
       } catch (e) {
         console.error('Library sync failed', e);
         // Keep working with the cached library if there is one (e.g. offline in-store).
@@ -97,6 +120,16 @@ export default function App() {
 
   useEffect(() => {
     sync();
+    // Re-check the library when the app returns to the foreground (at most every 30 min).
+    let last = Date.now();
+    const onVisible = () => {
+      if (document.visibilityState === 'visible' && Date.now() - last > 30 * 60 * 1000) {
+        last = Date.now();
+        sync();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -150,7 +183,7 @@ export default function App() {
         </div>
       )}
       <main>
-        {tab === 'scan' && <ScanView settings={settings} catalog={catalog} setCatalog={setCatalog} sales={salesMap} library={library} list={list} />}
+        {tab === 'scan' && <ScanView settings={settings} catalog={catalog} setCatalog={setCatalog} sales={salesMap} library={library} list={list} backRef={scanBack} />}
         {admin && tab === 'catalog' && (
           <CatalogView
             settings={settings}
@@ -192,6 +225,13 @@ export default function App() {
       )}
     </div>
   );
+}
+
+/** Load already-downloaded models in the background so the first scan starts instantly. */
+function warmUp(s: Settings) {
+  modelsCached(s)
+    .then((ok) => (ok ? prepareModels(s, () => {}) : undefined))
+    .catch(() => {});
 }
 
 async function loadSalesSafe() {

@@ -8,8 +8,17 @@ export function normName(s: string): string {
     .replace(/[^a-z0-9]+/g, '');
 }
 
-/** Minimal RFC-4180 CSV parser (quoted fields, commas, CRLF). */
+/** The separator the file actually uses (Excel exports ; in some locales, or tabs). */
+function detectDelimiter(text: string): string {
+  const firstLine = text.split(/\r?\n/, 1)[0].replace(/"[^"]*"/g, '');
+  const counts = [',', ';', '\t'].map((d) => [d, firstLine.split(d).length - 1] as const);
+  counts.sort((a, b) => b[1] - a[1]);
+  return counts[0][1] > 0 ? counts[0][0] : ',';
+}
+
+/** Minimal RFC-4180 CSV parser (quoted fields, CRLF, auto-detected delimiter). */
 export function parseCsv(text: string): string[][] {
+  const delim = detectDelimiter(text);
   const rows: string[][] = [];
   let row: string[] = [];
   let f = '';
@@ -23,7 +32,7 @@ export function parseCsv(text: string): string[][] {
       } else if (c === '"') q = false;
       else f += c;
     } else if (c === '"') q = true;
-    else if (c === ',' || c === ';' || c === '\t') {
+    else if (c === delim) {
       row.push(f);
       f = '';
     } else if (c === '\n' || c === '\r') {

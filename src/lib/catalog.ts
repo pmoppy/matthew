@@ -10,6 +10,8 @@ const corrStore = createStore('shelfscan-corrections', 'v1');
 export interface RefImage {
   product: string;
   key: string;
+  /** Path inside the library (as listed in the manifest), used to look up pre-computed fingerprints. */
+  path?: string;
   load: () => Promise<Blob>;
 }
 
@@ -31,10 +33,21 @@ export interface CatalogState {
   version?: string;
 }
 
+export interface IndexInfo {
+  file: string;
+  dim: number;
+  hist: number;
+  /** Library paths of the fingerprinted photos, in file order. */
+  images: string[];
+}
+
 export interface WorkerManifest {
+  generated?: string;
   products: { name: string; images: string[] }[];
   sales?: string | null;
   detector?: string | null;
+  /** Pre-computed fingerprints per recognition model (scripts/build_index.py). */
+  indexes?: Record<string, IndexInfo>;
 }
 
 const IMG_EXT = /\.(jpe?g|png|webp|avif|gif|bmp)$/i;
@@ -53,7 +66,15 @@ function absolute(u: string) {
 }
 
 /** Read the product list from the catalogue Worker (folders of images in R2). */
-export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; salesUrl?: string; detectorUrl?: string; version?: string }> {
+export interface LibraryListing {
+  refs: RefImage[];
+  salesUrl?: string;
+  detectorUrl?: string;
+  version?: string;
+  indexes: Record<string, IndexInfo & { url: string }>;
+}
+
+export async function listFromWorker(base: string): Promise<LibraryListing> {
   const res = await fetch(absolute(`${trimBase(base)}/manifest.json`), { cache: 'no-store' });
   if (!res.ok) throw new Error(`Catalogue server returned ${res.status}. Check the URL.`);
   const m = (await res.json()) as WorkerManifest;
@@ -64,6 +85,7 @@ export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; 
       refs.push({
         product: p.name,
         key: url,
+        path: img,
         load: async () => {
           const r = await fetch(url);
           if (!r.ok) throw new Error(`Image ${img} returned ${r.status}`);
@@ -72,8 +94,11 @@ export async function listFromWorker(base: string): Promise<{ refs: RefImage[]; 
       });
     }
   }
+  const indexes: LibraryListing['indexes'] = {};
+  for (const [id, info] of Object.entries(m.indexes ?? {})) indexes[id] = { ...info, url: absolute(fileUrl(base, info.file)) };
   return {
-    version: (m as WorkerManifest & { generated?: string }).generated,
+    version: m.generated,
+    indexes,
     refs,
     salesUrl: m.sales ? absolute(fileUrl(base, m.sales)) : undefined,
     detectorUrl: m.detector ? absolute(fileUrl(base, m.detector)) : undefined,
@@ -100,13 +125,8 @@ export function listFromFiles(files: FileList | File[]): { refs: RefImage[]; sal
   return { refs, salesFile };
 }
 
-/** Embed all reference images (cached per image + model, so re-syncs are fast). */
-export async function buildCatalog(
-  refs: RefImage[],
-  embedderId: string,
-  source: string,
-  onProgress: (msg: string, frac: number) => void,
-): Promise<CatalogState> {
+/** Embed reference images on the device (cached per image + model, so re-syncs are fast). */
+async function learnRefs(refs: RefImage[], embedderId: string, onProgress: (msg: string, frac: number) => void): Promise<CatalogEntry[]> {
   const entries: CatalogEntry[] = [];
   const cacheKeys = refs.map((r) => `${embedderId}::${r.key}`);
   const cached = (await getMany(cacheKeys, embStore)) as ({ emb: Float32Array; hist: Float32Array } | undefined)[];
@@ -116,7 +136,6 @@ export async function buildCatalog(
     if (c) entries.push({ product: r.product, key: r.key, emb: c.emb, hist: c.hist, source: 'catalog' });
     else todo.push(i);
   });
-  const failures: string[] = [];
   const CHUNK = 16;
   for (let s = 0; s < todo.length; s += CHUNK) {
     const idx = todo.slice(s, s + CHUNK);
@@ -125,38 +144,98 @@ export async function buildCatalog(
         try {
           return { i, canvas: await loadImageToCanvas(await refs[i].load(), 512) };
         } catch (e) {
-          failures.push(`${refs[i].product}: ${(e as Error).message}`);
+          console.warn(`Reference image failed: ${refs[i].product}`, e);
           return null;
         }
       }),
     );
     const good = loaded.filter((x): x is { i: number; canvas: HTMLCanvasElement } => !!x);
-    const ok = good.map((g) => g.i);
-    const canvases = good.map((g) => g.canvas);
-    const embs = await embedCrops(canvases, getEmbedder(embedderId), (msg, f) => {
-      if (msg.startsWith('Downloading')) onProgress(msg, f);
-    });
-    for (let k = 0; k < ok.length; k++) {
-      const r = refs[ok[k]];
-      const hist = colorHist(canvases[k]);
+    const embs = await embedCrops(
+      good.map((g) => g.canvas),
+      getEmbedder(embedderId),
+      (msg, f) => {
+        if (msg.startsWith('Downloading')) onProgress(msg, f);
+      },
+    );
+    for (let k = 0; k < good.length; k++) {
+      const r = refs[good[k].i];
+      const hist = colorHist(good[k].canvas);
       entries.push({ product: r.product, key: r.key, emb: embs[k], hist, source: 'catalog' });
-      await set(cacheKeys[ok[k]], { emb: embs[k], hist }, embStore);
+      await set(cacheKeys[good[k].i], { emb: embs[k], hist }, embStore);
     }
     onProgress(`Learning product images (${Math.min(todo.length, s + CHUNK)}/${todo.length})`, (s + CHUNK) / todo.length);
   }
-  if (failures.length) console.warn('Some reference images failed to load', failures);
-  // Keep any corrections made in-store.
+  return entries;
+}
+
+async function finishCatalog(refs: RefImage[], entries: CatalogEntry[], embedderId: string, source: string): Promise<CatalogState> {
   const corrections = await loadCorrectionEntries(embedderId);
-  const all = [...entries, ...corrections];
   const state: CatalogState = {
     products: [...new Set(refs.map((r) => r.product))].sort((a, b) => a.localeCompare(b)),
-    entries: all,
+    entries: [...entries, ...corrections],
     embedderId,
     source,
     updatedAt: Date.now(),
   };
   await saveCatalog(state);
   return state;
+}
+
+/** Learn every reference photo on the device (no pre-computed index available). */
+export async function buildCatalog(
+  refs: RefImage[],
+  embedderId: string,
+  source: string,
+  onProgress: (msg: string, frac: number) => void,
+): Promise<CatalogState> {
+  return finishCatalog(refs, await learnRefs(refs, embedderId, onProgress), embedderId, source);
+}
+
+/**
+ * Build the catalogue from pre-computed fingerprints (scripts/build_index.py):
+ * one small download instead of fetching and processing every photo on the
+ * phone. Photos added since the index was built are learned on the device.
+ * Layout per photo: dim x int8 embedding, then hist x uint8 histogram.
+ */
+export async function catalogFromIndex(
+  refs: RefImage[],
+  index: IndexInfo & { url: string },
+  embedderId: string,
+  source: string,
+  onProgress: (msg: string, frac: number) => void,
+): Promise<CatalogState> {
+  onProgress('Downloading product fingerprints', 0.1);
+  const res = await fetch(index.url);
+  if (!res.ok) throw new Error(`Fingerprint index returned ${res.status}`);
+  const buf = new Uint8Array(await res.arrayBuffer());
+  const stride = index.dim + index.hist;
+  if (buf.length !== stride * index.images.length) throw new Error('Fingerprint index is corrupt');
+  const signed = new Int8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+  const row = new Map(index.images.map((p, i) => [p, i]));
+  const entries: CatalogEntry[] = [];
+  const missing: RefImage[] = [];
+  for (const r of refs) {
+    const i = r.path !== undefined ? row.get(r.path) : undefined;
+    if (i === undefined) {
+      missing.push(r);
+      continue;
+    }
+    const o = i * stride;
+    const emb = new Float32Array(index.dim);
+    let n = 0;
+    for (let d = 0; d < index.dim; d++) {
+      emb[d] = signed[o + d] / 127;
+      n += emb[d] * emb[d];
+    }
+    n = Math.sqrt(n) || 1;
+    for (let d = 0; d < index.dim; d++) emb[d] /= n;
+    const hist = new Float32Array(index.hist);
+    for (let h = 0; h < index.hist; h++) hist[h] = buf[o + index.dim + h] / 255;
+    entries.push({ product: r.product, key: r.key, emb, hist, source: 'catalog' });
+  }
+  if (missing.length) entries.push(...(await learnRefs(missing, embedderId, onProgress)));
+  onProgress('Product library ready', 1);
+  return finishCatalog(refs, entries, embedderId, source);
 }
 
 export async function saveCatalog(c: CatalogState) {

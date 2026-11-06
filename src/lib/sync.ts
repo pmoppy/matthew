@@ -1,6 +1,7 @@
-import { buildCatalog, listFromWorker, saveCatalog, type CatalogState } from './catalog';
+import { buildCatalog, catalogFromIndex, listFromWorker, saveCatalog, type CatalogState } from './catalog';
 import { parseSales } from './sales';
-import type { Settings } from './types';
+import { getSession, isModelCached } from './ort';
+import { getEmbedder, type Settings } from './types';
 
 /**
  * Where the product library comes from. Set VITE_CATALOG_URL at build time
@@ -31,7 +32,7 @@ export interface SyncResult {
 export async function syncLibrary(s: Settings, onProgress: (msg: string, frac: number) => void): Promise<SyncResult> {
   const base = catalogSource(s);
   onProgress('Checking product library', 0);
-  const { refs, salesUrl, detectorUrl, version } = await listFromWorker(base);
+  const { refs, salesUrl, detectorUrl, version, indexes } = await listFromWorker(base);
   if (!refs.length) throw new Error('The product library is empty.');
   let salesCsv: string | null = null;
   if (salesUrl) {
@@ -41,7 +42,16 @@ export async function syncLibrary(s: Settings, onProgress: (msg: string, frac: n
       parseSales(salesCsv); // validate
     }
   }
-  const catalog = await buildCatalog(refs, s.embedderId, base, onProgress);
+  // Prefer pre-computed fingerprints; fall back to learning each photo on the device.
+  const index = indexes[s.embedderId];
+  let catalog: CatalogState;
+  try {
+    if (!index) throw new Error('no index');
+    catalog = await catalogFromIndex(refs, index, s.embedderId, base, onProgress);
+  } catch (e) {
+    if (index) console.warn('Fingerprint index unusable, learning photos on device', e);
+    catalog = await buildCatalog(refs, s.embedderId, base, onProgress);
+  }
   catalog.version = version;
   await saveCatalog(catalog);
   return { catalog, salesCsv, detectorUrl };
@@ -58,4 +68,24 @@ export async function libraryChanged(catalog: CatalogState, s: Settings): Promis
   } catch {
     return false; // offline: keep using the cached library
   }
+}
+
+/**
+ * Download (first run) and load the detector + recognition models up front,
+ * so the first scan is fast and works offline in-store.
+ */
+export async function prepareModels(s: Settings, onProgress: (msg: string, frac: number) => void): Promise<void> {
+  const emb = getEmbedder(s.embedderId);
+  const jobs: { label: string; run: (p: (f: number) => void) => Promise<unknown> }[] = [];
+  if (s.detectorUrl) jobs.push({ label: 'product detector', run: (p) => getSession(s.detectorUrl, p) });
+  jobs.push({ label: 'recognition model', run: (p) => getSession(emb.url, p, emb.dataUrl) });
+  for (let i = 0; i < jobs.length; i++) {
+    await jobs[i].run((f) => onProgress(`Downloading ${jobs[i].label}`, (i + f) / jobs.length));
+  }
+}
+
+export async function modelsCached(s: Settings): Promise<boolean> {
+  const emb = getEmbedder(s.embedderId);
+  const urls = [s.detectorUrl, emb.dataUrl ?? emb.url].filter(Boolean) as string[];
+  return (await Promise.all(urls.map(isModelCached))).every(Boolean);
 }

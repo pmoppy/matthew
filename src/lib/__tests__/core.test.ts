@@ -68,6 +68,14 @@ describe('sales', () => {
     ]);
   });
 
+  it('detects semicolon and tab separated files without splitting on commas inside names', () => {
+    expect(parseCsv('product;units\nFoo, Bar 500ml;10\n')).toEqual([
+      ['product', 'units'],
+      ['Foo, Bar 500ml', '10'],
+    ]);
+    expect(parseCsv('product\tunits\nA;B\t3\n')[1]).toEqual(['A;B', '3']);
+  });
+
   it('derives rank from units and flexible headers', () => {
     const rows = parseSales('Product Name,Unit Sales\nB,"1,000"\nA,5000\nC,10\n');
     expect(rows.map((r) => [r.product, r.rank])).toEqual([

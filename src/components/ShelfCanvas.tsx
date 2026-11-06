@@ -8,10 +8,12 @@ interface Props {
   hidden: Set<Status>;
   selectedId: number | null;
   onSelect: (f: Facing) => void;
+  /** Show the scanning animation while the photo is being analysed. */
+  scanning?: boolean;
 }
 
 /** Shelf photo with colour-coded boxes. Tap a box to inspect or correct it. */
-export function ShelfCanvas({ image, facings, hidden, selectedId, onSelect }: Props) {
+export function ShelfCanvas({ image, facings, hidden, selectedId, onSelect, scanning }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const [zoom, setZoom] = useState(1);
 
@@ -90,6 +92,7 @@ export function ShelfCanvas({ image, facings, hidden, selectedId, onSelect }: Pr
     <div className="shelf-wrap card">
       <div className="shelf-scroll">
         <canvas ref={ref} onClick={onClick} style={{ width: `${zoom * 100}%` }} className="shelf-canvas" />
+        {scanning && <div className="scan-overlay" aria-hidden />}
       </div>
       <div className="zoom-controls">
         {[1, 2, 3].map((z) => (
