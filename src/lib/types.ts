@@ -55,10 +55,15 @@ export interface Settings {
   delistPercent: number;
 }
 
+export const DEFAULT_DETECTOR_URL =
+  'https://huggingface.co/chistopat/sku110k-yolo11-object-detector/resolve/main/weights/sku110k-yolo11-s640.onnx';
+
 export const DEFAULT_SETTINGS: Settings = {
   catalogUrl: '',
-  detectorUrl: '',
-  detectorInputSize: 1024,
+  // YOLO11s trained on SKU-110K (single "product" class, fixed 640x640 input),
+  // test mAP50 0.927 / mAP50-95 0.577. Downloaded once (~38 MB) and cached.
+  detectorUrl: DEFAULT_DETECTOR_URL,
+  detectorInputSize: 640,
   detectorConfidence: 0.35,
   embedderUrl:
     'https://huggingface.co/Xenova/clip-vit-base-patch32/resolve/main/onnx/vision_model_quantized.onnx',

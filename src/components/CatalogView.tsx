@@ -9,7 +9,7 @@ import {
   type CatalogState,
 } from '../lib/catalog';
 import { parseSales } from '../lib/sales';
-import type { SalesRow, Settings } from '../lib/types';
+import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from '../lib/types';
 
 interface Props {
   settings: Settings;
@@ -42,8 +42,9 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
     try {
       const { refs, salesUrl, detectorUrl } = await listFromWorker(base);
       const next = { ...settings, catalogUrl: base };
-      // Use the detector stored in the bucket unless one was set manually.
-      if (detectorUrl && !settings.detectorUrl) next.detectorUrl = detectorUrl;
+      // A detector stored in the bucket (your own trained model) replaces the
+      // default one, unless a different URL was entered manually.
+      if (detectorUrl && (!settings.detectorUrl || settings.detectorUrl === DEFAULT_DETECTOR_URL)) next.detectorUrl = detectorUrl;
       setSettings(next);
       if (salesUrl) {
         const r = await fetch(salesUrl, { cache: 'no-store' });

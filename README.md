@@ -107,30 +107,46 @@ Local development: `npm run dev`, then open the printed URL. `--host` is set, so
 
 | Model | Default | Notes |
 |---|---|---|
-| Detector | *none*: built-in shelf-grid fallback | Train your own (below) and upload it as `models/detector.onnx` |
-| Recognition | CLIP ViT-B/32 vision encoder (quantised, Hugging Face) | Any ONNX image encoder works: `[batch,3,224,224]` in, `[batch,dim]` or `[batch,tokens,dim]` out. DINOv2-small is a good alternative for fine-grained packs |
+| Detector | **YOLO11s trained on SKU-110K** ([`chistopat/sku110k-yolo11-object-detector`](https://huggingface.co/chistopat/sku110k-yolo11-object-detector), `sku110k-yolo11-s640.onnx`, 38 MB) | Single "object" class, fixed 640×640 input. SKU-110K test set (2,935 images): precision 0.913, recall 0.867, mAP50 0.927, mAP50-95 0.577. A `models/detector.onnx` in your bucket replaces it on sync |
+| Recognition | CLIP ViT-B/32 vision encoder ([`Xenova/clip-vit-base-patch32`](https://huggingface.co/Xenova/clip-vit-base-patch32), quantised, 89 MB) | Any ONNX image encoder works: `[batch,3,224,224]` in, `[batch,dim]` or `[batch,tokens,dim]` out. DINOv2-small is a good alternative for fine-grained packs |
+
+Both are downloaded by the phone on first use and cached for offline use.
+
+### Why this detector
+
+Public SKU-110K detectors compared (November 2026):
+
+| Candidate | Arch | SKU-110K test mAP50 / mAP50-95 | Format | Notes |
+|---|---|---|---|---|
+| **chistopat YOLO11s** (chosen) | YOLO11s | **0.927 / 0.577** | ONNX + .pt | Full test split, ready-made ONNX that the app can load directly |
+| chistopat YOLO11n | YOLO11n | 0.906 / 0.550 | ONNX + .pt | 10 MB alternative for older phones |
+| samusafe/YOLOv8 "Nano SKU-110K v3.0" | YOLOv8n | 0.900 / 0.555 | .pt | Academic-use only, no licence |
+| Htet-ThuAung/sku110k-yolov8-shelf-detector | YOLOv8n | 0.876 / 0.548 | .pt | 20 epochs at batch 2 |
+
+On the sample energy-drink chiller photo, YOLO11s boxed nearly every can and bottle (110 facings) in about 5 s on a laptop CPU without WebGPU. Zooming tiles in further (2 tiles across) made results worse because it broke packs into fragments, so the app keeps the model's native scale. The model card describes the weights as research and development artifacts. Validate them on your own shelves before relying on them, and fine-tune with your photos (below) for production.
 
 ### The built-in fallback detector
 
-Until a trained detector is configured, the app uses a classical computer-vision fallback. It finds product rows by colour and edge density, then splits each row into packs using the regular spacing of pack edges. It works reasonably on neat, front-facing rows of same-size packs and also flags empty gaps, but it is **not** reliable on mixed pack sizes, angled photos or untidy shelves. It exists so the full flow works on day one.
+If the detector URL is cleared, or the model can't be downloaded, the app uses a classical computer-vision fallback. It finds product rows by colour and edge density, then splits each row into packs using the regular spacing of pack edges. It works reasonably on neat, front-facing rows of same-size packs and also flags empty gaps, but it is **not** reliable on mixed pack sizes, angled photos or untidy shelves. It exists so the full flow works on day one.
 
-### Train the real detector (recommended next step)
+### Fine-tune the detector on your own shelves
 
 Everything is in `training/`. A free Google Colab T4 GPU is enough.
 
 ```bash
 cd training
 pip install -r requirements.txt
-# 1. pre-train on SKU-110K (11k dense retail-shelf photos, auto-downloaded)
-python train_detector.py --data SKU-110K.yaml --epochs 50 --name sku110k
-# 2. fine-tune on your own labelled photos (copy my_shelves.example.yaml)
-python train_detector.py --data my_shelves.yaml --weights runs/detect/sku110k/weights/best.pt --name mine
+# start from the published SKU-110K YOLO11s weights (skips the multi-hour pre-training)
+wget https://huggingface.co/chistopat/sku110k-yolo11-object-detector/resolve/main/weights/sku110k-yolo11-s640.pt
+# fine-tune on your own labelled photos (copy my_shelves.example.yaml); keep imgsz 640 or set the app to match
+python train_detector.py --data my_shelves.yaml --weights sku110k-yolo11-s640.pt --imgsz 640 --name mine
+# (or pre-train from scratch: python train_detector.py --data SKU-110K.yaml --epochs 50 --name sku110k)
 # 3. upload runs/detect/mine/weights/best.onnx to the bucket as models/detector.onnx
 ```
 
 The detector is single-class ("product"), so labelling is quick: draw a box round every facing. Tools such as CVAT, Label Studio or Roboflow export YOLO format directly. Even 50–100 of your own photos on top of SKU-110K makes a noticeable difference.
 
-**Licences:** Ultralytics YOLO11 is **AGPL-3.0**. Using it in a closed-source commercial product requires an Ultralytics Enterprise licence. The app accepts any YOLO-format ONNX output (`[1, 4+classes, N]` or NMS-free `[1, N, 6]`), so Apache-2.0 detectors such as YOLOX, RT-DETR or D-FINE can be swapped in. Check the SKU-110K dataset terms before commercial use as well.
+**Licences:** Ultralytics YOLO11 is **AGPL-3.0**, and the default detector's model card lists its licence as "other", deferring to the SKU-110K dataset terms. Using it in a closed-source commercial product requires an Ultralytics Enterprise licence. The app accepts any YOLO-format ONNX output (`[1, 4+classes, N]` or NMS-free `[1, N, 6]`), so Apache-2.0 detectors such as YOLOX, RT-DETR or D-FINE can be swapped in. Check the SKU-110K dataset terms before commercial use as well.
 
 ## Project layout
 

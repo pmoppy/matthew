@@ -30,6 +30,10 @@ export function SettingsView({ settings, setSettings }: Props) {
           <span>Product detector (YOLO ONNX URL)</span>
           <input className="input" value={settings.detectorUrl} placeholder="Blank = basic shelf-grid detector" onChange={(e) => upd('detectorUrl', e.target.value.trim())} />
         </label>
+        <p className="muted small">
+          Default: YOLO11s trained on SKU-110K (input size 640). A <code>models/detector.onnx</code> in your bucket replaces it on sync.
+          Clear the field to use the basic built-in detector.
+        </p>
         <div className="row">
           <label className="field">
             <span>Detector input size</span>

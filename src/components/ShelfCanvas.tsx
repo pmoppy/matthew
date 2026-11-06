@@ -29,7 +29,13 @@ export function ShelfCanvas({ image, facings, hidden, selectedId, onSelect }: Pr
       if (hidden.has(f.status)) continue;
       const st = STATUS_STYLE[f.status];
       const x = f.x1 * scale, y = f.y1 * scale, w = (f.x2 - f.x1) * scale, h = (f.y2 - f.y1) * scale;
-      ctx.lineWidth = f.id === selectedId ? lw * 2.2 : lw;
+      const width = f.id === selectedId ? lw * 2.2 : lw;
+      // Dark halo so boxes stay visible on any packaging colour.
+      ctx.setLineDash([]);
+      ctx.lineWidth = width + 2;
+      ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+      ctx.strokeRect(x + lw / 2, y + lw / 2, w - lw, h - lw);
+      ctx.lineWidth = width;
       ctx.strokeStyle = st.color;
       ctx.setLineDash(st.dash ? [lw * 3, lw * 2] : []);
       ctx.strokeRect(x + lw / 2, y + lw / 2, w - lw, h - lw);

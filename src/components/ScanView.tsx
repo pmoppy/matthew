@@ -61,7 +61,7 @@ export function ScanView({ settings, catalog, setCatalog, sales }: Props) {
     }
   };
 
-  const summary = useMemo(() => summarise(facings, sales), [facings, sales]);
+  const summary = useMemo(() => summarise(facings, sales, catalog?.products), [facings, sales, catalog]);
   const recs = useMemo(() => recommend(facings, sales, catalog?.products ?? []), [facings, sales, catalog]);
 
   const updateFacing = (id: number, patch: Partial<Facing>) => {

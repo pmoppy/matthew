@@ -34,7 +34,11 @@ export function statusFor(
   return sales.get(normName(f.product))?.status ?? 'nodata';
 }
 
-export function summarise(facings: Facing[], sales: Map<string, SalesInfo> | null): ShelfSummary {
+/**
+ * `catalogProducts` limits top-seller counts to products the app can
+ * recognise; a top seller with no catalogue photos can never be "found".
+ */
+export function summarise(facings: Facing[], sales: Map<string, SalesInfo> | null, catalogProducts?: string[]): ShelfSummary {
   const counts = new Map<string, { facings: number; status: Status }>();
   let identified = 0, unsure = 0, gaps = 0, products = 0;
   for (const f of facings) {
@@ -58,7 +62,8 @@ export function summarise(facings: Facing[], sales: Map<string, SalesInfo> | nul
     rank: sales?.get(normName(name))?.rank,
   }));
   list.sort((a, b) => (a.rank ?? 1e9) - (b.rank ?? 1e9) || b.facings - a.facings);
-  const tops = sales ? [...sales.values()].filter((v) => v.status === 'top') : [];
+  const known = catalogProducts?.length ? new Set(catalogProducts.map(normName)) : null;
+  const tops = sales ? [...sales.values()].filter((v) => v.status === 'top' && (!known || known.has(normName(v.name)))) : [];
   const present = new Set(list.map((p) => normName(p.name)));
   return {
     facings: products,
@@ -78,7 +83,7 @@ export function recommend(
   catalogProducts: string[],
 ): Recommendation[] {
   const recs: Recommendation[] = [];
-  const sum = summarise(facings, sales);
+  const sum = summarise(facings, sales, catalogProducts);
   const present = new Map(sum.products.map((p) => [normName(p.name), p]));
 
   if (!catalogProducts.length) {

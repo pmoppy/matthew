@@ -130,6 +130,7 @@ describe('recommendations', () => {
   it('does not report top sellers as missing when they are not in the catalogue', () => {
     const recs = recommend([mk(0, 'A')], sales, ['A', 'C']);
     expect(recs.find((r) => r.kind === 'missing')).toBeUndefined();
+    expect(summarise([mk(0, 'A')], sales, ['A', 'C'])).toMatchObject({ topSellersPresent: 1, topSellersTotal: 1 });
   });
 });
 

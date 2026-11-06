@@ -26,6 +26,6 @@ export const STATUS_STYLE: Record<string, { color: string; label: string; dash?:
   unsure: { color: '#f59e0b', label: 'Unsure, tap to check' },
   core: { color: '#3b82f6', label: 'Core range' },
   nodata: { color: '#64748b', label: 'No sales data' },
-  unknown: { color: '#94a3b8', label: 'Not identified', dash: true },
+  unknown: { color: '#e2e8f0', label: 'Not identified', dash: true },
   gap: { color: '#a855f7', label: 'Empty space', dash: true },
 };
