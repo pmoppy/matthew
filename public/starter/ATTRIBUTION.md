@@ -7,20 +7,26 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Red Bull Sugarfree 250ml: https://world.openfoodfacts.org/product/9002490200220
 - Red Bull Sugarfree 250ml: https://world.openfoodfacts.org/product/9002490215415
 - Red Bull Energy Drink 355ml: https://world.openfoodfacts.org/product/9002490206840
+- Red Bull Energy Drink 355ml: https://world.openfoodfacts.org/product/9002490239565
 - Red Bull Tropical Edition 250ml: https://world.openfoodfacts.org/product/90415845
 - Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060166690007
 - Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060335632302
 - Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060166690380
+- Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060166694777
+- Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060896623122
 - Monster Ultra White 500ml: https://world.openfoodfacts.org/product/5060335635174
 - Monster Ultra White 500ml: https://world.openfoodfacts.org/product/5060639126545
 - Monster Ultra White 500ml: https://world.openfoodfacts.org/product/5060947543201
+- Monster Ultra White 500ml: https://world.openfoodfacts.org/product/5060947545724
 - Monster Mango Loco 500ml: https://world.openfoodfacts.org/product/5060639127498
 - Monster Mango Loco 500ml: https://world.openfoodfacts.org/product/5060896623214
 - Monster Mango Loco 500ml: https://world.openfoodfacts.org/product/5060517888510
+- Monster Mango Loco 500ml: https://world.openfoodfacts.org/product/5060639121823
 - Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060517882976
 - Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060947546080
 - Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060639126095
 - Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060896623368
+- Monster Pipeline Punch 500ml: https://world.openfoodfacts.org/product/5060517883003
 - Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060639122899
 - Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060751215721
 - Monster Pacific Punch 500ml: https://world.openfoodfacts.org/product/5060639126682
@@ -36,6 +42,7 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Coca-Cola Original Taste 500ml: https://world.openfoodfacts.org/product/5000112663952
 - Coca-Cola Original Taste 330ml: https://world.openfoodfacts.org/product/5000112630633
 - Coca-Cola Original Taste 330ml: https://world.openfoodfacts.org/product/40907000
+- Coca-Cola Original Taste 330ml: https://world.openfoodfacts.org/product/5449000000996
 - Diet Coke 500ml: https://world.openfoodfacts.org/product/54491496
 - Diet Coke 500ml: https://world.openfoodfacts.org/product/4864467414963
 - Diet Coke 500ml: https://world.openfoodfacts.org/product/5000112663969
@@ -47,14 +54,18 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Pepsi Max 330ml: https://world.openfoodfacts.org/product/5290047000940
 - Fanta Orange 500ml: https://world.openfoodfacts.org/product/0067000011627
 - Fanta Orange 500ml: https://world.openfoodfacts.org/product/5000112664249
+- Fanta Orange 500ml: https://world.openfoodfacts.org/product/5000112644869
 - Sprite 500ml: https://world.openfoodfacts.org/product/5449000205537
 - Sprite 500ml: https://world.openfoodfacts.org/product/06746500
+- Sprite 500ml: https://world.openfoodfacts.org/product/5000112658149
 - Dr Pepper 500ml: https://world.openfoodfacts.org/product/5000193034559
 - Dr Pepper 500ml: https://world.openfoodfacts.org/product/5000112599442
 - Dr Pepper 500ml: https://world.openfoodfacts.org/product/90494581
+- Dr Pepper 500ml: https://world.openfoodfacts.org/product/5000112664270
 - Irn-Bru 500ml: https://world.openfoodfacts.org/product/50271511
 - Irn-Bru 500ml: https://world.openfoodfacts.org/product/5000382112686
 - Irn-Bru 500ml: https://world.openfoodfacts.org/product/0058997004181
+- Irn-Bru 500ml: https://world.openfoodfacts.org/product/5000382111856
 - Lucozade Alert Cherry Blast 500ml: https://world.openfoodfacts.org/product/5054267011458
 - Lucozade Energy Wild Cherry 380ml: https://world.openfoodfacts.org/product/5054267009431
 - Lucozade Energy Wild Cherry 380ml: https://world.openfoodfacts.org/product/5054267007123
@@ -83,17 +94,21 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Boost Sport Orange 500ml: https://world.openfoodfacts.org/product/5056079901279
 - Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/0850040427066
 - Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/9781035012084
+- Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/6814440827066
 - Prime Hydration Strawberry Banana 500ml: https://world.openfoodfacts.org/product/0810116124015
 - Prime Hydration Blue Raspberry 500ml: https://world.openfoodfacts.org/product/0850040427561
+- Prime Hydration Blue Raspberry 500ml: https://world.openfoodfacts.org/product/0850003560670
 - Prime Hydration Lemon Lime 500ml: https://world.openfoodfacts.org/product/6690143041790
 - Prime Hydration Lemon Lime 500ml: https://world.openfoodfacts.org/product/0850003560694
 - Prime Hydration Tropical Punch 500ml: https://world.openfoodfacts.org/product/32085761
 - Prime Hydration Meta Moon 500ml: https://world.openfoodfacts.org/product/0850040427110
 - Monster Ultra Gold 500ml: https://world.openfoodfacts.org/product/5060896623894
 - Monster Ultra Rosa 500ml: https://world.openfoodfacts.org/product/5060896629193
+- Monster Ultra Rosa 500ml: https://world.openfoodfacts.org/product/5060947541245
 - Monster Reserve Watermelon 500ml: https://world.openfoodfacts.org/product/5060896628790
 - Monster Khaotic 500ml: https://world.openfoodfacts.org/product/5060896621760
 - Red Bull Red Edition 250ml: https://world.openfoodfacts.org/product/90446412
+- Red Bull Red Edition 250ml: https://world.openfoodfacts.org/product/90456657
 - Rockstar Juiced Mango Orange Passion 500ml: https://world.openfoodfacts.org/product/5000382022411
 - Relentless Tropical Juiced 500ml: https://world.openfoodfacts.org/product/5449000956552
 - Relentless Mango 500ml: https://world.openfoodfacts.org/product/5060466517806
@@ -101,3 +116,107 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Carabao Orange Blast 330ml: https://world.openfoodfacts.org/product/8855790001155
 - Carabao Mixed Berry 330ml: https://world.openfoodfacts.org/product/8855790001759
 - Reign Mang-O-Matic 500ml: https://world.openfoodfacts.org/product/5060895742510
+- Monster Aussie Lemonade 500ml: https://world.openfoodfacts.org/product/5060947541986
+- Monster Lewis Hamilton 500ml: https://world.openfoodfacts.org/product/5060947546233
+- Monster Monarch 500ml: https://world.openfoodfacts.org/product/5060751213383
+- Monster Ultra Watermelon 500ml: https://world.openfoodfacts.org/product/5060947546141
+- Monster Energy Zero Sugar 500ml: https://world.openfoodfacts.org/product/5060947549715
+- Monster Ultra Fiesta 500ml: https://world.openfoodfacts.org/product/5060608747658
+- Monster Ultra White 553ml: https://world.openfoodfacts.org/product/5060517883560
+- Monster The Doctor 500ml: https://world.openfoodfacts.org/product/5060335632777
+- Monster Hydrosport 650ml: https://world.openfoodfacts.org/product/5060639123964
+- Red Bull Energy Drink 473ml: https://world.openfoodfacts.org/product/9002490210991
+- Red Bull Coconut Edition 250ml: https://world.openfoodfacts.org/product/90435348
+- Red Bull Winter Edition 250ml: https://world.openfoodfacts.org/product/90457432
+- Rockstar XD Power 500ml: https://world.openfoodfacts.org/product/5000382108870
+- Reign Peach Fizz 500ml: https://world.openfoodfacts.org/product/5060608748402
+- Tenzing Pineapple & Passionfruit 330ml: https://world.openfoodfacts.org/product/5060444850093
+- Tenzing Raspberry & Yuzu 250ml: https://world.openfoodfacts.org/product/5060444850208
+- Tenzing Original 250ml: https://world.openfoodfacts.org/product/96126080
+- Tenzing Original 250ml: https://world.openfoodfacts.org/product/5060444850116
+- Tenzing Raspberry & Yuzu 330ml: https://world.openfoodfacts.org/product/5060444850802
+- Tenzing Lime & Mint 330ml: https://world.openfoodfacts.org/product/5060444851038
+- Lucozade Sport Zero Passion Fruit 500ml: https://world.openfoodfacts.org/product/5054267012509
+- Lucozade Energy Orange 330ml: https://world.openfoodfacts.org/product/5054267001299
+- Lucozade Energy Original 900ml: https://world.openfoodfacts.org/product/10542675
+- Prime Hydration Strawberry Watermelon 500ml: https://world.openfoodfacts.org/product/0850003560991
+- Prime Hydration KSI Orange & Mango 500ml: https://world.openfoodfacts.org/product/0810116120765
+- Prime Hydration Orange 500ml: https://world.openfoodfacts.org/product/0850003560700
+- Prime Energy Tropical Punch 330ml: https://world.openfoodfacts.org/product/0850040427554
+- Prime Hydration Grape 500ml: https://world.openfoodfacts.org/product/5999036108420
+- Coca-Cola Original Taste 1.25L: https://world.openfoodfacts.org/product/5449000267412
+- Coca-Cola Original Taste 1.5L: https://world.openfoodfacts.org/product/5449000000439
+- Coca-Cola Original Taste 150ml: https://world.openfoodfacts.org/product/54491014
+- Coca-Cola Original Taste 1.75L: https://world.openfoodfacts.org/product/5449000130389
+- Diet Coke 330ml: https://world.openfoodfacts.org/product/5449000053879
+- Coca-Cola Zero Sugar 2L: https://world.openfoodfacts.org/product/5449000669902
+- Dr Pepper Zero 500ml: https://world.openfoodfacts.org/product/5449000121134
+- Coca-Cola Zero Sugar Vanilla 500ml: https://world.openfoodfacts.org/product/5449000226457
+- Diet Coke 1.75L: https://world.openfoodfacts.org/product/5000112583915
+- Diet Coke Caffeine Free 500ml: https://world.openfoodfacts.org/product/54492134
+- Coca-Cola Zero Sugar Cherry 500ml: https://world.openfoodfacts.org/product/5449000214744
+- Sprite 1.75L: https://world.openfoodfacts.org/product/5449000132505
+- Pepsi Max Cherry 500ml: https://world.openfoodfacts.org/product/4060800172396
+- Pepsi Max 1.25L: https://world.openfoodfacts.org/product/4060800178008
+- Pepsi Regular 330ml: https://world.openfoodfacts.org/product/4060800308399
+- Pepsi Max Cherry 2L: https://world.openfoodfacts.org/product/4060800166531
+- Pepsi Regular 2L: https://world.openfoodfacts.org/product/4060800001771
+- Pepsi Regular 500ml: https://world.openfoodfacts.org/product/87170801
+- Pepsi Max 250ml: https://world.openfoodfacts.org/product/4060800177155
+- Pepsi Max 600ml: https://world.openfoodfacts.org/product/4060800134943
+- Pepsi Max Lime 500ml: https://world.openfoodfacts.org/product/4060800306982
+- Pepsi Max Cherry 330ml: https://world.openfoodfacts.org/product/4060800173621
+- Pepsi Max Raspberry 330ml: https://world.openfoodfacts.org/product/4060800302694
+- Pepsi Max Raspberry 600ml: https://world.openfoodfacts.org/product/4060800302724
+- Fanta Orange 330ml: https://world.openfoodfacts.org/product/5449000011527
+- Fanta Fruit Twist 500ml: https://world.openfoodfacts.org/product/54493957
+- Fanta Fruit Twist 2L: https://world.openfoodfacts.org/product/5449000042156
+- Fanta Raspberry Zero 250ml: https://world.openfoodfacts.org/product/5000112519877
+- Sprite 330ml: https://world.openfoodfacts.org/product/5449000014535
+- Sprite 2L: https://world.openfoodfacts.org/product/5000112575071
+- 7UP Lemon & Lime 330ml: https://world.openfoodfacts.org/product/4060800304360
+- 7UP Lemon & Lime 500ml: https://world.openfoodfacts.org/product/4060800109781
+- Tango Strawberry & Watermelon Sugar Free 1.5L: https://world.openfoodfacts.org/product/5010102242067
+- Tango Orange 1.5L: https://world.openfoodfacts.org/product/5010102003422
+- Tango Dark Berry Sugar Free 330ml: https://world.openfoodfacts.org/product/5010102243125
+- Tango Orange 2L: https://world.openfoodfacts.org/product/5010102003804
+- Tango Dark Berry Sugar Free 2L: https://world.openfoodfacts.org/product/5010102243088
+- Tango Apple 330ml: https://world.openfoodfacts.org/product/5010102003507
+- Tango Mango Sugar Free 500ml: https://world.openfoodfacts.org/product/5010102341609
+- Irn-Bru Xtra 2L: https://world.openfoodfacts.org/product/5000382102496
+- Irn-Bru Sugar Free 2L: https://world.openfoodfacts.org/product/50382811
+- Irn-Bru Xtra 500ml: https://world.openfoodfacts.org/product/5000382112723
+- Irn-Bru 2L: https://world.openfoodfacts.org/product/5000382023197
+- Irn-Bru Xtra Wild Berry Slush 330ml: https://world.openfoodfacts.org/product/5000382122401
+- Dr Pepper 330ml: https://world.openfoodfacts.org/product/5010102100015
+- Dr Pepper 2L: https://world.openfoodfacts.org/product/5015672006903
+- Rubicon Still Mango 1L: https://world.openfoodfacts.org/product/5011898007014
+- Rubicon Still Lychee 288ml: https://world.openfoodfacts.org/product/5011898002125
+- Rubicon Still Guava 1L: https://world.openfoodfacts.org/product/5000382104957
+- Rubicon Still Passion Fruit 288ml: https://world.openfoodfacts.org/product/5011898002620
+- Rubicon Sparkling Mango 330ml: https://world.openfoodfacts.org/product/5000382107712
+- Rubicon Sparkling Mango 500ml: https://world.openfoodfacts.org/product/5000382112464
+- Rubicon Still Lychee 1L: https://world.openfoodfacts.org/product/5000382039495
+- Rubicon Still Watermelon 1L: https://world.openfoodfacts.org/product/5000382109433
+- Rubicon Still Pineapple 288ml: https://world.openfoodfacts.org/product/5000382113836
+- Rubicon Light & Fruity Mango Lime & Mint 1L: https://world.openfoodfacts.org/product/5000382102748
+- Rubicon Sparkling Raspberry & Pineapple 330ml: https://world.openfoodfacts.org/product/5000382112600
+- Rubicon Spring Black Cherry & Raspberry 330ml: https://world.openfoodfacts.org/product/5000382120285
+- Rubicon Raw Energy 500ml: https://world.openfoodfacts.org/product/5000382111429
+- Oasis Blackcurrant & Apple 500ml: https://world.openfoodfacts.org/product/5449000122650
+- Oasis Citrus Punch 375ml: https://world.openfoodfacts.org/product/90490125
+- Oasis Citrus Punch 500ml: https://world.openfoodfacts.org/product/5000112630084
+- Ribena Blackcurrant 250ml: https://world.openfoodfacts.org/product/5054267006102
+- Ribena Blackcurrant 500ml: https://world.openfoodfacts.org/product/5054267002333
+- Ribena Blackcurrant 500ml: https://world.openfoodfacts.org/product/5054267007895
+- Ribena Light Pineapple & Passion Fruit 500ml: https://world.openfoodfacts.org/product/5054267013193
+- Ribena Strawberry 250ml: https://world.openfoodfacts.org/product/5054267006119
+- Ribena Blackcurrant 1L: https://world.openfoodfacts.org/product/5000347007590
+- Ribena Sparkling Raspberry 330ml: https://world.openfoodfacts.org/product/5054267010031
+- Vimto Fizzy Zero 330ml: https://world.openfoodfacts.org/product/5010438007767
+- Vimto Fizzy 330ml: https://world.openfoodfacts.org/product/5010438020186
+- Vimto Zero 500ml: https://world.openfoodfacts.org/product/5010438011924
+- Vimto Orange Strawberry & Lime 2L: https://world.openfoodfacts.org/product/5010438017544
+- Vimto Fizzy 2L: https://world.openfoodfacts.org/product/5010438017346
+- Vimto Energy 500ml: https://world.openfoodfacts.org/product/5010438021428
+- Schweppes Slimline Lemonade 2L: https://world.openfoodfacts.org/product/5000193730574
