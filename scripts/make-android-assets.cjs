@@ -6,7 +6,7 @@ const path = require('node:path');
 const res = path.join(__dirname, '..', 'android', 'app', 'src', 'main', 'res');
 const svg = fs.readFileSync(path.join(__dirname, '..', 'public', 'icon.svg'), 'utf8');
 const art = svg.replace(/<rect width="512" height="512"[^>]*\/>/, ''); // icon without its background
-const BG = 'linear-gradient(135deg,#6366f1,#8b5cf6)';
+const BG = 'linear-gradient(135deg,#4f46e5,#a855f7)';
 const densities = { mdpi: 1, hdpi: 1.5, xhdpi: 2, xxhdpi: 3, xxxhdpi: 4 };
 (async () => {
   const browser = await chromium.launch();

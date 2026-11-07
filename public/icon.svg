@@ -1,17 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6366f1"/>
-      <stop offset="1" stop-color="#8b5cf6"/>
-    </linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+    <linearGradient id="can" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#eef0ff"/><stop offset="1" stop-color="#c7cbff"/></linearGradient>
   </defs>
-  <rect width="512" height="512" rx="128" fill="url(#g)"/>
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M150 104h-22a24 24 0 0 0-24 24v22M362 104h22a24 24 0 0 1 24 24v22M150 408h-22a24 24 0 0 1-24-24v-22M362 408h22a24 24 0 0 0 24-24v-22" stroke="#fff" stroke-opacity=".9" stroke-width="22"/>
-    <rect x="160" y="160" width="52" height="84" rx="14" stroke="#4ade80" stroke-width="16"/>
-    <rect x="230" y="160" width="52" height="84" rx="14" stroke="#4ade80" stroke-width="16"/>
-    <rect x="300" y="160" width="52" height="84" rx="14" stroke="#fff" stroke-opacity=".85" stroke-width="16"/>
-    <rect x="195" y="268" width="52" height="84" rx="14" stroke="#fff" stroke-opacity=".85" stroke-width="16"/>
-    <rect x="265" y="268" width="52" height="84" rx="14" stroke="#fb7185" stroke-width="16"/>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <g fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity=".95">
+    <path d="M118 182v-38a26 26 0 0 1 26-26h38M330 118h38a26 26 0 0 1 26 26v38M394 330v38a26 26 0 0 1-26 26h-38M182 394h-38a26 26 0 0 1-26-26v-38"/>
   </g>
+  <rect x="206" y="150" width="100" height="212" rx="30" fill="url(#can)"/>
+  <rect x="206" y="222" width="100" height="58" fill="#6366f1" opacity=".35"/>
+  <circle cx="330" cy="338" r="54" fill="#22c55e" stroke="#fff" stroke-width="12"/>
+  <path d="M305 338l17 17 32-34" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
