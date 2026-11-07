@@ -20,12 +20,23 @@ export interface HistoryMeta {
   total: number;
   missing: number;
   facings: number;
+  /** Number of photos in this bay scan (older entries: 1). */
+  photos?: number;
   /** Small JPEG for the list. */
   thumb: Blob;
 }
 
+/** One saved bay: one or more photos, each with its boxes and labels. */
 interface HistoryData {
-  photo: Blob;
+  photos?: Blob[];
+  shots?: Facing[][];
+  /** Older single-photo entries. */
+  photo?: Blob;
+  facings?: Facing[];
+}
+
+export interface SavedShot {
+  image: HTMLCanvasElement;
   facings: Facing[];
 }
 
@@ -40,49 +51,38 @@ function scaleCanvas(src: HTMLCanvasElement, maxSide: number): { canvas: HTMLCan
   return { canvas: c, scale };
 }
 
+function scaleFacings(facings: Facing[], factor: number): Facing[] {
+  return facings.map((f) => ({ ...f, x1: f.x1 * factor, y1: f.y1 * factor, x2: f.x2 * factor, y2: f.y2 * factor }));
+}
+
+/** Save a bay scan (all its photos) and return its id; pass id to overwrite an existing entry. */
 export async function saveScan(
-  image: HTMLCanvasElement,
-  facings: Facing[],
+  shots: SavedShot[],
   info: Pick<HistoryMeta, 'bay' | 'present' | 'total' | 'missing'>,
   id?: string,
 ): Promise<string> {
-  const { canvas, scale } = scaleCanvas(image, PHOTO_MAX_SIDE);
-  const scaled = facings.map((f) => ({ ...f, x1: f.x1 * scale, y1: f.y1 * scale, x2: f.x2 * scale, y2: f.y2 * scale }));
   const entryId = id ?? `${Date.now()}`;
   const existing = id ? ((await get(id, metaStore)) as HistoryMeta | undefined) : undefined;
-  const [photo, thumb] = await Promise.all([
-    canvasToBlob(canvas, 'image/jpeg', 0.82),
-    canvasToBlob(scaleCanvas(image, 240).canvas, 'image/jpeg', 0.7),
-  ]);
+  const photos: Blob[] = [];
+  const saved: Facing[][] = [];
+  for (const shot of shots) {
+    const { canvas, scale } = scaleCanvas(shot.image, PHOTO_MAX_SIDE);
+    photos.push(await canvasToBlob(canvas, 'image/jpeg', 0.82));
+    saved.push(scaleFacings(shot.facings, scale));
+  }
+  const thumb = await canvasToBlob(scaleCanvas(shots[0].image, 240).canvas, 'image/jpeg', 0.7);
   const meta: HistoryMeta = {
     id: entryId,
     at: existing?.at ?? Date.now(),
-    facings: facings.filter((f) => f.kind === 'product').length,
+    facings: shots.reduce((n, s) => n + s.facings.filter((f) => f.kind === 'product').length, 0),
+    photos: shots.length,
     thumb,
     ...info,
   };
-  await set(entryId, { photo, facings: scaled } satisfies HistoryData, dataStore);
+  await set(entryId, { photos, shots: saved } satisfies HistoryData, dataStore);
   await set(entryId, meta, metaStore);
   await trim();
   return entryId;
-}
-
-/** Update the labels of a saved scan after the rep confirms or corrects boxes. */
-export async function updateScanFacings(
-  id: string,
-  image: HTMLCanvasElement,
-  facings: Facing[],
-  info: Pick<HistoryMeta, 'bay' | 'present' | 'total' | 'missing'>,
-) {
-  const data = (await get(id, dataStore)) as HistoryData | undefined;
-  const meta = (await get(id, metaStore)) as HistoryMeta | undefined;
-  if (!data || !meta) return;
-  const scale = Math.min(1, PHOTO_MAX_SIDE / Math.max(image.width, image.height));
-  // The image on screen may be the full photo (fresh scan) or the stored one (reopened).
-  const factor = image.width <= PHOTO_MAX_SIDE && image.height <= PHOTO_MAX_SIDE ? 1 : scale;
-  data.facings = facings.map((f) => ({ ...f, x1: f.x1 * factor, y1: f.y1 * factor, x2: f.x2 * factor, y2: f.y2 * factor }));
-  await set(id, data, dataStore);
-  await set(id, { ...meta, ...info }, metaStore);
 }
 
 export async function listScans(): Promise<HistoryMeta[]> {
@@ -91,16 +91,22 @@ export async function listScans(): Promise<HistoryMeta[]> {
   return metas.sort((a, b) => b.at - a.at);
 }
 
-export async function loadScan(id: string): Promise<{ image: HTMLCanvasElement; facings: Facing[] } | null> {
+export async function loadScan(id: string): Promise<SavedShot[] | null> {
   const data = (await get(id, dataStore)) as HistoryData | undefined;
   if (!data) return null;
-  const bmp = await createImageBitmap(data.photo);
-  const c = document.createElement('canvas');
-  c.width = bmp.width;
-  c.height = bmp.height;
-  c.getContext('2d')!.drawImage(bmp, 0, 0);
-  bmp.close();
-  return { image: c, facings: data.facings };
+  const photos = data.photos ?? (data.photo ? [data.photo] : []);
+  const shots = data.shots ?? (data.facings ? [data.facings] : []);
+  const out: SavedShot[] = [];
+  for (let i = 0; i < photos.length; i++) {
+    const bmp = await createImageBitmap(photos[i]);
+    const c = document.createElement('canvas');
+    c.width = bmp.width;
+    c.height = bmp.height;
+    c.getContext('2d')!.drawImage(bmp, 0, 0);
+    bmp.close();
+    out.push({ image: c, facings: shots[i] ?? [] });
+  }
+  return out;
 }
 
 export async function deleteScan(id: string) {

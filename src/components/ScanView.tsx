@@ -1,4 +1,4 @@
-import { Camera, Hand, ImageUp, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
+import { Camera, Hand, ImageUp, ImagePlus, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { analyseShelf, type AnalysisResult } from '../lib/analyse';
 import { addCorrection, type CatalogState } from '../lib/catalog';
@@ -13,7 +13,7 @@ import { ProductTable, RecommendationList, TopSellerPanel } from './Recommendati
 import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
-import { listScans, loadScan, saveScan, updateScanFacings } from '../lib/history';
+import { listScans, loadScan, saveScan } from '../lib/history';
 
 export interface LibraryStatus {
   state: 'loading' | 'ready' | 'error';
@@ -33,15 +33,34 @@ interface Props {
 }
 
 const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'unsure', 'unknown', 'gap'];
+const NO_FACINGS: Facing[] = [];
+
+/** One photo of the bay. A bay scan can have several (closer shots, more angles). */
+interface Shot {
+  image: HTMLCanvasElement;
+  result: AnalysisResult | null;
+  facings: Facing[];
+}
 
 export function ScanView({ settings, catalog, setCatalog, sales, library, list, backRef }: Props) {
   const camRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
+  const addCamRef = useRef<HTMLInputElement>(null);
+  const addUploadRef = useRef<HTMLInputElement>(null);
   const shelfRef = useRef<HTMLDivElement>(null);
-  const [image, setImage] = useState<HTMLCanvasElement | null>(null);
+  const [shots, setShots] = useState<Shot[]>([]);
+  const [active, setActive] = useState(0);
   const [quality, setQuality] = useState<QualityReport | null>(null);
-  const [result, setResult] = useState<AnalysisResult | null>(null);
-  const [facings, setFacings] = useState<Facing[]>([]);
+  const cur = shots[active];
+  const image = cur?.image ?? null;
+  const result = cur?.result ?? null;
+  const facings = cur?.facings ?? NO_FACINGS;
+  const anyResult = shots.some((sh) => sh.result);
+  const patchShot = (i: number, fn: (sh: Shot) => Partial<Shot>) => setShots((ss) => ss.map((sh, j) => (j === i ? { ...sh, ...fn(sh) } : sh)));
+  const setFacings = (fn: Facing[] | ((fs: Facing[]) => Facing[])) => {
+    const i = active;
+    patchShot(i, (sh) => ({ facings: typeof fn === 'function' ? fn(sh.facings) : fn }));
+  };
   const [progress, setProgress] = useState<{ msg: string; frac: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Facing | null>(null);
@@ -53,13 +72,14 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const [reopenedAt, setReopenedAt] = useState<number | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
   const saving = useRef<Promise<unknown> | null>(null);
+  const historyIdRef = useRef<string | null>(null);
+  historyIdRef.current = historyId;
 
   const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
 
   const goHome = () => {
-    setImage(null);
-    setResult(null);
-    setFacings([]);
+    setShots([]);
+    setActive(0);
     setQuality(null);
     setError(null);
     setWaiting(false);
@@ -72,15 +92,18 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
 
   const openScan = async (id: string) => {
     const [scan, metas] = await Promise.all([loadScan(id), listScans()]);
-    if (!scan) return;
-    const fs = scan.facings.map((f) => ({ ...f, status: statusFor(f, sales, settings) }));
+    if (!scan?.length) return;
     setError(null);
     setQuality(null);
     setSelected(null);
     setHidden(new Set());
-    setImage(scan.image);
-    setFacings(fs);
-    setResult({ facings: fs, features: new Map(), detector: 'model', timings: { detect: 0, recognise: 0 }, warnings: [] });
+    setShots(
+      scan.map((sh) => {
+        const fs = sh.facings.map((f) => ({ ...f, status: statusFor(f, sales, settings) }));
+        return { image: sh.image, facings: fs, result: { facings: fs, features: new Map(), detector: 'model', timings: { detect: 0, recognise: 0 }, warnings: [] } };
+      }),
+    );
+    setActive(0);
     setHistoryId(id);
     setReopenedAt(metas.find((m) => m.id === id)?.at ?? null);
     window.scrollTo({ top: 0 });
@@ -102,26 +125,30 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     };
   });
 
-  const onFile = async (file: File | undefined | null) => {
+  /** add = another photo of the same bay; otherwise start a new bay scan. */
+  const onFile = async (file: File | undefined | null, add = false) => {
     if (!file) return;
     if (file.type && !file.type.startsWith('image/')) {
       setError('That file is not an image. Choose a JPG, PNG or HEIC photo.');
       return;
     }
     setError(null);
-    setResult(null);
-    setFacings([]);
     setSelected(null);
     setHidden(new Set());
-    setHistoryId(null);
-    setReopenedAt(null);
+    if (!add) {
+      setHistoryId(null);
+      setReopenedAt(null);
+    }
     try {
       const c = await loadImageToCanvas(file);
-      setImage(c);
+      const idx = add ? shots.length : 0;
+      const shot: Shot = { image: c, result: null, facings: [] };
+      setShots((ss) => (add ? [...ss, shot] : [shot]));
+      setActive(idx);
       const q = checkQuality(c);
       setQuality(q);
       if (q.ok) {
-        if (libraryReady) await run(c);
+        if (libraryReady) await run(c, idx);
         else setWaiting(true);
       }
     } catch (e) {
@@ -133,7 +160,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   useEffect(() => {
     if (waiting && libraryReady && image) {
       setWaiting(false);
-      run(image);
+      run(image, active);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [waiting, libraryReady, image]);
@@ -148,14 +175,13 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     return () => window.removeEventListener('paste', onPaste);
   });
 
-  const run = async (img = image) => {
+  const run = async (img = image, idx = active) => {
     if (!img) return;
     setError(null);
     setProgress({ msg: 'Starting…', frac: 0 });
     try {
       const r = await analyseShelf(img, catalog, sales, settings, (msg, frac) => setProgress({ msg, frac }));
-      setResult(r);
-      setFacings(r.facings);
+      patchShot(idx, () => ({ result: r, facings: r.facings }));
     } catch (e) {
       console.error(e);
       setError((e as Error).message);
@@ -164,36 +190,41 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     }
   };
 
-  const summary = useMemo(() => summarise(facings, sales), [facings, sales]);
-  const check = useMemo(
-    () => topSellerCheck(facings, sales, catalog?.products ?? [], (n) => catalog?.categories?.[n]),
-    [facings, sales, catalog],
+  // Bay-level results combine every photo: a top seller is only missing if it's in none of them.
+  const allFacings = useMemo(
+    () => shots.flatMap((sh, si) => sh.facings.map((f) => ({ ...f, id: si * 100000 + f.id }))),
+    [shots],
   );
-  const recs = useMemo(() => recommend(facings, sales), [facings, sales]);
+  const summary = useMemo(() => summarise(allFacings, sales), [allFacings, sales]);
+  const check = useMemo(
+    () => topSellerCheck(allFacings, sales, catalog?.products ?? [], (n) => catalog?.categories?.[n]),
+    [allFacings, sales, catalog],
+  );
+  const recs = useMemo(() => recommend(allFacings, sales), [allFacings, sales]);
 
-  // Save each finished scan to history, and keep it up to date as boxes are confirmed.
+  // Save each finished bay scan to history, and keep it up to date as photos are added or boxes confirmed.
   useEffect(() => {
-    if (!result || !image || progress || !facings.length) return;
+    if (!anyResult || progress || shots.some((sh) => !sh.result)) return;
     const info = {
       bay: check.categories.length ? `${check.categories.join(' & ')} bay` : 'Shelf',
       present: check.present.length,
       total: check.present.length + check.missing.length,
       missing: check.missing.filter((m) => !m.possible).length,
     };
+    const snapshot = shots.map((sh) => ({ image: sh.image, facings: sh.facings }));
     const t = setTimeout(() => {
       const prev = saving.current ?? Promise.resolve();
       saving.current = prev.then(async () => {
         try {
-          if (historyId) await updateScanFacings(historyId, image, facings, info);
-          else setHistoryId(await saveScan(image, facings, info));
+          setHistoryId(await saveScan(snapshot, info, historyIdRef.current ?? undefined));
         } catch (e) {
           console.warn('Could not save scan to history', e);
         }
       });
-    }, 500);
+    }, 600);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result, facings, progress]);
+  }, [shots, progress]);
 
   const updateFacing = (id: number, patch: Partial<Facing>) => {
     setFacings((fs) =>
@@ -279,6 +310,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     <div className="view" {...dropProps}>
       <input ref={camRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ''; }} />
       <input ref={uploadRef} type="file" accept="image/*" hidden onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ''; }} />
+      <input ref={addCamRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { onFile(e.target.files?.[0], true); e.target.value = ''; }} />
+      <input ref={addUploadRef} type="file" accept="image/*" hidden onChange={(e) => { onFile(e.target.files?.[0], true); e.target.value = ''; }} />
 
       {!image ? (
         <>
@@ -412,10 +445,46 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       )}
       {result && result.warnings.map((w) => <div key={w} className="notice warn">{w}</div>)}
 
-      {result && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} slow={slow} onShowSlow={() => showOnly('delist')} />}
+      {anyResult && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} slow={slow} onShowSlow={() => showOnly('delist')} />}
 
       {image && (
         <div ref={shelfRef} className="shelf-block">
+          {anyResult && (
+            <div className="shots">
+              {shots.map((sh, i) => (
+                <div key={i} className={`shot ${i === active ? 'active' : ''}`}>
+                  <button className="shot-btn" onClick={() => { setActive(i); setSelected(null); }} aria-label={`Photo ${i + 1}`}>
+                    <ShotThumb canvas={sh.image} />
+                    <span>{sh.result ? `Photo ${i + 1}` : 'Analysing…'}</span>
+                  </button>
+                  {shots.length > 1 && !busy && (
+                    <button
+                      className="shot-remove"
+                      aria-label={`Remove photo ${i + 1}`}
+                      onClick={() => {
+                        setShots((ss) => ss.filter((_, j) => j !== i));
+                        setActive((a) => (a > i ? a - 1 : a === i ? Math.max(0, i - 1) : a));
+                        setSelected(null);
+                      }}
+                    >
+                      <X size={12} />
+                    </button>
+                  )}
+                </div>
+              ))}
+              {shots.length < 6 && (
+                <div className="shot-add">
+                  <button className="shot-add-btn" onClick={() => addCamRef.current?.click()} disabled={busy}>
+                    <ImagePlus size={18} />
+                    <span>Add photo</span>
+                  </button>
+                  <button className="shot-add-link" onClick={() => addUploadRef.current?.click()} disabled={busy}>
+                    or upload
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
           <ShelfCanvas
             image={image}
             facings={facings}
@@ -442,15 +511,17 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           )}
           {result && (
             <p className="meta">
-              {summary.facings} products found{summary.unsure ? ` · ${summary.unsure} unclear (tap an amber box to confirm)` : ''}
-              {reopenedAt ? '' : ` · ${((result.timings.detect + result.timings.recognise) / 1000).toFixed(1)}s`}
+              {summary.facings} products found{shots.length > 1 ? ` across ${shots.length} photos` : ''}
+              {summary.unsure ? ` · ${summary.unsure} unclear (tap an amber box to confirm)` : ''}
+              {reopenedAt || shots.length > 1 ? '' : ` · ${((result.timings.detect + result.timings.recognise) / 1000).toFixed(1)}s`}
+              {shots.length === 1 ? ' · Big bay? Add a closer photo of each half for better results.' : ''}
             </p>
           )}
         </div>
       )}
 
-      {result && <RecommendationList recs={recs} />}
-      {result && <ProductTable s={summary} />}
+      {anyResult && <RecommendationList recs={recs} />}
+      {anyResult && <ProductTable s={summary} />}
 
       {selected && image && (
         <CorrectionSheet
@@ -469,4 +540,16 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       )}
     </div>
   );
+}
+
+function ShotThumb({ canvas }: { canvas: HTMLCanvasElement }) {
+  const url = useMemo(() => {
+    const c = document.createElement('canvas');
+    const k = 96 / Math.max(canvas.width, canvas.height);
+    c.width = Math.round(canvas.width * k);
+    c.height = Math.round(canvas.height * k);
+    c.getContext('2d')!.drawImage(canvas, 0, 0, c.width, c.height);
+    return c.toDataURL('image/jpeg', 0.7);
+  }, [canvas]);
+  return <img src={url} alt="" />;
 }

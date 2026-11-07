@@ -1573,3 +1573,85 @@ details[open] summary::after {
   color: var(--muted);
   font-weight: 500;
 }
+
+/* Multi-photo bay scan ------------------------------------------------------- */
+.shots {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 4px;
+  scrollbar-width: none;
+}
+.shot {
+  position: relative;
+  flex: none;
+}
+.shot-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 4px 4px 6px;
+  cursor: pointer;
+  color: var(--text-2);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+.shot.active .shot-btn {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.shot-btn img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.shot-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: var(--text);
+  color: var(--bg);
+  cursor: pointer;
+}
+.shot-add {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.shot-add-btn {
+  width: 68px;
+  height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 2px dashed color-mix(in srgb, var(--brand) 55%, transparent);
+  background: var(--brand-soft);
+  color: var(--brand);
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.shot-add-link {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 2px;
+}

@@ -54,6 +54,7 @@ export function HistoryCard({ onOpen, refreshKey }: { onOpen: (id: string) => vo
                 <b>{m.bay}</b>
                 <small>
                   {when(m.at)} · {m.total ? `${m.present}/${m.total} top sellers` : `${m.facings} products`}
+                  {m.photos && m.photos > 1 ? ` · ${m.photos} photos` : ''}
                 </small>
               </span>
               {m.total > 0 && <span className={`pill ${m.missing ? 'bad' : 'good'}`}>{m.missing ? `${m.missing} missing` : 'All in'}</span>}
