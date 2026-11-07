@@ -67,8 +67,11 @@
     color-scheme: dark;
   }
 }
+/* Same palette when dark mode is chosen manually in the app. */
 :root[data-theme='dark'] {
   --bg: #0b0e17;
+  --bg-glow: radial-gradient(1200px 500px at 85% -10%, rgba(139, 92, 246, 0.18), transparent 60%),
+    radial-gradient(900px 420px at -10% 0%, rgba(99, 102, 241, 0.14), transparent 60%);
   --surface: #141826;
   --surface-2: #1c2133;
   --surface-glass: rgba(20, 24, 38, 0.92);
@@ -77,6 +80,14 @@
   --muted: #8d93ad;
   --border: #252b3f;
   --brand-soft: #222552;
+  --green-soft: #10291b;
+  --red-soft: #33141d;
+  --amber-soft: #32240c;
+  --blue-soft: #132143;
+  --purple-soft: #27163b;
+  --violet-soft: #221d47;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
   color-scheme: dark;
 }
 
@@ -1442,4 +1453,23 @@ details[open] summary::after {
   to {
     background-position: 0 -10%;
   }
+}
+
+.theme-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

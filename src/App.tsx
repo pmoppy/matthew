@@ -1,4 +1,4 @@
-import { Download, FolderOpen, ScanLine, ShieldCheck, SlidersHorizontal } from 'lucide-react';
+import { Download, FolderOpen, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CatalogView } from './components/CatalogView';
 import { ScanView, type LibraryStatus } from './components/ScanView';
@@ -6,6 +6,7 @@ import { SettingsView } from './components/SettingsView';
 import { enterAdminMode, leaveAdminMode, readAdminMode } from './lib/admin';
 import { checkForApkUpdate, type UpdateInfo } from './lib/update';
 import { useShoppingList } from './lib/shopping';
+import { applyTheme, loadTheme, NEXT_THEME, type ThemeChoice } from './lib/theme';
 import { Capacitor } from '@capacitor/core';
 import { loadCatalog, loadSales, saveSales, type CatalogState, type StoredSales } from './lib/catalog';
 import { classifySales, parseSales } from './lib/sales';
@@ -30,6 +31,8 @@ export default function App() {
   const [library, setLibrary] = useState<LibraryStatus>({ state: 'loading', msg: 'Loading product library', frac: 0 });
   const syncing = useRef(false);
   const list = useShoppingList();
+  const [theme, setTheme] = useState<ThemeChoice>(loadTheme);
+  useEffect(() => applyTheme(theme), [theme]);
   const scanBack = useRef<(() => boolean) | null>(null);
   const tabRef = useRef(tab);
   tabRef.current = tab;
@@ -154,23 +157,34 @@ export default function App() {
           <img src="/icon.svg" alt="" width={32} height={32} />
           <span>ShelfScan</span>
         </div>
-        {admin ? (
+        <div className="topbar-actions">
           <button
-            className="status-pill admin"
-            onClick={() => {
-              leaveAdminMode();
-              setAdmin(false);
-              setTab('scan');
-            }}
-            title="Leave admin mode"
+            className="theme-btn"
+            onClick={() => setTheme(NEXT_THEME[theme])}
+            aria-label={`Theme: ${theme}. Tap to change`}
+            title="Light / dark mode"
           >
-            <ShieldCheck size={14} /> Admin · exit
+            {theme === 'light' ? <Sun size={15} /> : theme === 'dark' ? <Moon size={15} /> : <Monitor size={15} />}
+            {theme === 'light' ? 'Light' : theme === 'dark' ? 'Dark' : 'Auto'}
           </button>
-        ) : library.state === 'error' ? (
-          <span className="status-pill">
-            <span className="status-dot" /> Offline
-          </span>
-        ) : null}
+          {admin ? (
+            <button
+              className="status-pill admin"
+              onClick={() => {
+                leaveAdminMode();
+                setAdmin(false);
+                setTab('scan');
+              }}
+              title="Leave admin mode"
+            >
+              <ShieldCheck size={14} /> Admin · exit
+            </button>
+          ) : library.state === 'error' ? (
+            <span className="status-pill">
+              <span className="status-dot" /> Offline
+            </span>
+          ) : null}
+        </div>
       </header>
       {update && (
         <div className="update-banner">

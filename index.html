@@ -13,6 +13,13 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>ShelfScan</title>
+    <script>
+      // Apply the saved light/dark choice before first paint (no flash).
+      try {
+        var t = localStorage.getItem('shelfscan.theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
