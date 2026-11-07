@@ -7472,6 +7472,30 @@
   "off_tag": "en:energy-drinks"
  },
  {
+  "name": "Perfect Ted Healthy Energy Juicy Peach 250ml",
+  "category": "Energy",
+  "code": "5060941970263",
+  "image": "https://images.openfoodfacts.org/images/products/506/094/197/0263/front_en.15.400.jpg",
+  "scans": 0,
+  "off_tag": "en:energy-drinks"
+ },
+ {
+  "name": "Monster Energy Zero Sugar 500ml",
+  "category": "Energy",
+  "code": "5060947549715",
+  "image": "https://images.openfoodfacts.org/images/products/506/094/754/9715/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:energy-drinks"
+ },
+ {
+  "name": "Monster Energy Bad Apple 500ml",
+  "category": "Energy",
+  "code": "5061013944809",
+  "image": "https://images.openfoodfacts.org/images/products/506/101/394/4809/front_de.7.400.jpg",
+  "scans": 0,
+  "off_tag": "en:energy-drinks"
+ },
+ {
   "name": "Coca-Cola Coke Cola 500ml",
   "category": "Soft drinks",
   "code": "54491472",
@@ -8624,6 +8648,742 @@
   "off_tag": "en:sodas"
  },
  {
+  "name": "Living Things Peach & Blood Orange 330ml",
+  "category": "Soft drinks",
+  "code": "5070002633501",
+  "image": "https://images.openfoodfacts.org/images/products/507/000/263/3501/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Paul Brassac Apple Pomegranate Flavor Organic Sparkl 750ml",
+  "category": "Soft drinks",
+  "code": "3271470758549",
+  "image": "https://images.openfoodfacts.org/images/products/327/147/075/8549/front_en.13.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Freeway Tropical Crush Can 330ml",
+  "category": "Soft drinks",
+  "code": "4056489686958",
+  "image": "https://images.openfoodfacts.org/images/products/405/648/968/6958/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Freeway Cola Diet Can 330ml",
+  "category": "Soft drinks",
+  "code": "4335619009851",
+  "image": "https://images.openfoodfacts.org/images/products/433/561/900/9851/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Britvic Tango Mango Sugar Free 500ml",
+  "category": "Soft drinks",
+  "code": "5010102341609",
+  "image": "https://images.openfoodfacts.org/images/products/501/010/234/1609/front_en.4.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Coca-Cola Coke Zero Suger - Lemon Flavour 500ml",
+  "category": "Soft drinks",
+  "code": "5000112669794",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/266/9794/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "IRN BRU Wild Berry Slush 330ml",
+  "category": "Soft drinks",
+  "code": "5000382122401",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/212/2401/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Lucozade Zero Pink Lemonade 380ml",
+  "category": "Soft drinks",
+  "code": "5054267004825",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/700/4825/front_en.11.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Huel Watermelon Daily A-Z Vitamins 100mg Caffeine 330ml",
+  "category": "Soft drinks",
+  "code": "0056947562064",
+  "image": "https://images.openfoodfacts.org/images/products/005/694/756/2064/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "The Craft Tea Brew Co Lightning Mcgreen 330ml",
+  "category": "Soft drinks",
+  "code": "0745110122227",
+  "image": "https://images.openfoodfacts.org/images/products/074/511/012/2227/front_en.4.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Dalston Cola Raw Fiyah Ginger Beer 275ml",
+  "category": "Soft drinks",
+  "code": "2000000013846",
+  "image": "https://images.openfoodfacts.org/images/products/200/000/001/3846/front_en.6.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Britvic Indian Tonic Water 160ml",
+  "category": "Soft drinks",
+  "code": "50413409",
+  "image": "https://images.openfoodfacts.org/images/products/50413409/front_en.7.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Summer House Drinks Hint o'Mint Lemonade 250ml",
+  "category": "Soft drinks",
+  "code": "5060180700324",
+  "image": "https://images.openfoodfacts.org/images/products/506/018/070/0324/front_en.6.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Dunn's Soda & Lime 750ml",
+  "category": "Soft drinks",
+  "code": "5010395000085",
+  "image": "https://images.openfoodfacts.org/images/products/501/039/500/0085/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Dalston's Raspberry Probiotic Soda 250ml",
+  "category": "Soft drinks",
+  "code": "5060494810665",
+  "image": "https://images.openfoodfacts.org/images/products/506/049/481/0665/front_en.7.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Coca-Cola Coca Cola Limited Edition Oreo 250ml",
+  "category": "Soft drinks",
+  "code": "5449000329691",
+  "image": "https://images.openfoodfacts.org/images/products/544/900/032/9691/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Just Drink ALOE Lychee 500ml",
+  "category": "Soft drinks",
+  "code": "5060358090028",
+  "image": "https://images.openfoodfacts.org/images/products/506/035/809/0028/front_en.8.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Baba Roots Energy Beverage 148ml",
+  "category": "Soft drinks",
+  "code": "0851246000008",
+  "image": "https://images.openfoodfacts.org/images/products/085/124/600/0008/front_en.19.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Freeway Diet Lemonade 330ml",
+  "category": "Soft drinks",
+  "code": "4056489723479",
+  "image": "https://images.openfoodfacts.org/images/products/405/648/972/3479/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Schweppes Tonic Water 200ml",
+  "category": "Soft drinks",
+  "code": "42099475",
+  "image": "https://images.openfoodfacts.org/images/products/42099475/front_en.6.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Luscombe Sparkling Dring Orange Lemon 320ml",
+  "category": "Soft drinks",
+  "code": "5029212126334",
+  "image": "https://images.openfoodfacts.org/images/products/502/921/212/6334/front_en.15.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Ubuntu Cola 330ml",
+  "category": "Soft drinks",
+  "code": "5060155610146",
+  "image": "https://images.openfoodfacts.org/images/products/506/015/561/0146/front_en.15.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "KOJI Lemon & Ginger 330ml",
+  "category": "Soft drinks",
+  "code": "5060233130009",
+  "image": "https://images.openfoodfacts.org/images/products/506/023/313/0009/front_en.6.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Nutrein Pink Lemonade 250ml",
+  "category": "Soft drinks",
+  "code": "5060981610211",
+  "image": "https://images.openfoodfacts.org/images/products/506/098/161/0211/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Pepsi Max Mango 500ml",
+  "category": "Soft drinks",
+  "code": "4060800309112",
+  "image": "https://images.openfoodfacts.org/images/products/406/080/030/9112/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:sodas"
+ },
+ {
+  "name": "Evian PET 1.5L",
+  "category": "Soft drinks",
+  "code": "3068320084602",
+  "image": "https://images.openfoodfacts.org/images/products/306/832/008/4602/front_de.58.400.jpg",
+  "scans": 89,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "San Pellegrino Carbonated Natural Mineral Water 500ml",
+  "category": "Soft drinks",
+  "code": "8002270000515",
+  "image": "https://images.openfoodfacts.org/images/products/800/227/000/0515/front_en.8.400.jpg",
+  "scans": 45,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Appletizer Appletiser 250ml",
+  "category": "Soft drinks",
+  "code": "5449000227409",
+  "image": "https://images.openfoodfacts.org/images/products/544/900/022/7409/front_en.3.400.jpg",
+  "scans": 36,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Trip CBD Infused Elderflower Mint 250ml",
+  "category": "Soft drinks",
+  "code": "5070000120706",
+  "image": "https://images.openfoodfacts.org/images/products/507/000/012/0706/front_en.8.400.jpg",
+  "scans": 28,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Volvic Natural Mineral Water 1.5L",
+  "category": "Soft drinks",
+  "code": "3057640100178",
+  "image": "https://images.openfoodfacts.org/images/products/305/764/010/0178/front_en.5.400.jpg",
+  "scans": 26,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Sanpellegrino Natural Mineral Water 1L",
+  "category": "Soft drinks",
+  "code": "8002270018213",
+  "image": "https://images.openfoodfacts.org/images/products/800/227/001/8213/front_en.3.400.jpg",
+  "scans": 24,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "DASH Water Peaches Sparkling 330ml",
+  "category": "Soft drinks",
+  "code": "5060489730206",
+  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0206/front_en.23.400.jpg",
+  "scans": 21,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Saskia Sparkling Natural Mineral Water 2L",
+  "category": "Soft drinks",
+  "code": "20080525",
+  "image": "https://images.openfoodfacts.org/images/products/20080525/front_en.12.400.jpg",
+  "scans": 18,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "AQUA Carpatica Flavoured Sparkling Beverage With Nat 330ml",
+  "category": "Soft drinks",
+  "code": "5942326401947",
+  "image": "https://images.openfoodfacts.org/images/products/594/232/640/1947/front_en.11.400.jpg",
+  "scans": 16,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Vimto Cordial 1L",
+  "category": "Soft drinks",
+  "code": "5010438013027",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/801/3027/front_en.26.400.jpg",
+  "scans": 14,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Evian Sparkling 330ml",
+  "category": "Soft drinks",
+  "code": "3068320127842",
+  "image": "https://images.openfoodfacts.org/images/products/306/832/012/7842/front_en.11.400.jpg",
+  "scans": 13,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "DASH Water Mango Sparkling 330ml",
+  "category": "Soft drinks",
+  "code": "5060489730503",
+  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0503/front_en.3.400.jpg",
+  "scans": 12,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "IKEA Iskub Elderflower Drink 500ml",
+  "category": "Soft drinks",
+  "code": "1905480620009",
+  "image": "https://images.openfoodfacts.org/images/products/190/548/062/0009/front_en.3.400.jpg",
+  "scans": 11,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "DASH Lime Sparkling Water 330ml",
+  "category": "Soft drinks",
+  "code": "5060489730657",
+  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0657/front_en.19.400.jpg",
+  "scans": 7,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Cawston Press Ginger Beer 330ml",
+  "category": "Soft drinks",
+  "code": "5060054131193",
+  "image": "https://images.openfoodfacts.org/images/products/506/005/413/1193/front_en.3.400.jpg",
+  "scans": 6,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Barr Irn Bru 1901 750ml",
+  "category": "Soft drinks",
+  "code": "5000382109549",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/210/9549/front_en.34.400.jpg",
+  "scans": 5,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Appletiser Lightly Sparkling 150ml",
+  "category": "Soft drinks",
+  "code": "54008083",
+  "image": "https://images.openfoodfacts.org/images/products/54008083/front_en.15.400.jpg",
+  "scans": 5,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Highland Spring Spk500ml 500ml",
+  "category": "Soft drinks",
+  "code": "5010459005179",
+  "image": "https://images.openfoodfacts.org/images/products/501/045/900/5179/front_en.21.400.jpg",
+  "scans": 5,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Sanpellegrino San Pellegrino Sparkling Mineral Water 500ml",
+  "category": "Soft drinks",
+  "code": "8002270011023",
+  "image": "https://images.openfoodfacts.org/images/products/800/227/001/1023/front_en.42.400.jpg",
+  "scans": 5,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Buxton Natural Mineral Water 1.5L",
+  "category": "Soft drinks",
+  "code": "5015552555132",
+  "image": "https://images.openfoodfacts.org/images/products/501/555/255/5132/front_en.3.400.jpg",
+  "scans": 4,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Punchy Blood Orange Bitters And Cardamom 250ml",
+  "category": "Soft drinks",
+  "code": "5060602580237",
+  "image": "https://images.openfoodfacts.org/images/products/506/060/258/0237/front_en.3.400.jpg",
+  "scans": 4,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Bee Zen Parfum Peche 250ml",
+  "category": "Soft drinks",
+  "code": "3770001910000",
+  "image": "https://images.openfoodfacts.org/images/products/377/000/191/0000/front_fr.43.400.jpg",
+  "scans": 4,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Princes Gate Sparkling Spring Water 500ml",
+  "category": "Soft drinks",
+  "code": "5024616003069",
+  "image": "https://images.openfoodfacts.org/images/products/502/461/600/3069/front_es.13.400.jpg",
+  "scans": 3,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Lemonaid Blood Orange 330ml",
+  "category": "Soft drinks",
+  "code": "42282297",
+  "image": "https://images.openfoodfacts.org/images/products/42282297/front_en.5.400.jpg",
+  "scans": 3,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Green Sour Cherry 330ml",
+  "category": "Soft drinks",
+  "code": "5060499150971",
+  "image": "https://images.openfoodfacts.org/images/products/506/049/915/0971/front_en.3.400.jpg",
+  "scans": 3,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "KA Sparkling Black Grape Can 330ml",
+  "category": "Soft drinks",
+  "code": "5010889010040",
+  "image": "https://images.openfoodfacts.org/images/products/501/088/901/0040/front_en.14.400.jpg",
+  "scans": 2,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Brecon Carreg Sparkling Natural Mineral Water 500ml",
+  "category": "Soft drinks",
+  "code": "5030341511007",
+  "image": "https://images.openfoodfacts.org/images/products/503/034/151/1007/front_en.22.400.jpg",
+  "scans": 2,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Fever-Tree Premium Lemonade 200ml",
+  "category": "Soft drinks",
+  "code": "5060108450164",
+  "image": "https://images.openfoodfacts.org/images/products/506/010/845/0164/front_en.8.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "CanO Water Sparkling Spring 330ml",
+  "category": "Soft drinks",
+  "code": "0787099226954",
+  "image": "https://images.openfoodfacts.org/images/products/078/709/922/6954/front_en.5.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "J2O Spritz Apple And Watermelon Flavour 750ml",
+  "category": "Soft drinks",
+  "code": "5010102118102",
+  "image": "https://images.openfoodfacts.org/images/products/501/010/211/8102/front_en.14.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Goodrays Sparkling Passionfruit And Pomelo 250ml",
+  "category": "Soft drinks",
+  "code": "5060859910542",
+  "image": "https://images.openfoodfacts.org/images/products/506/085/991/0542/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Fever-tree Sparkling Mexican Lime Soda 250ml",
+  "category": "Soft drinks",
+  "code": "5060108455237",
+  "image": "https://images.openfoodfacts.org/images/products/506/010/845/5237/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Candy Can Sparkling Toffee Apple Drink 330ml",
+  "category": "Soft drinks",
+  "code": "8718858613809",
+  "image": "https://images.openfoodfacts.org/images/products/871/885/861/3809/front_en.21.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Strathmore Sparkling Scottish Spring Water 500ml",
+  "category": "Soft drinks",
+  "code": "5012058009329",
+  "image": "https://images.openfoodfacts.org/images/products/501/205/800/9329/front_en.7.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Sant Aniol Sparkling Water 500ml",
+  "category": "Soft drinks",
+  "code": "8424372001526",
+  "image": "https://images.openfoodfacts.org/images/products/842/437/200/1526/front_en.5.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Bundaberg Root Bear 375ml",
+  "category": "Soft drinks",
+  "code": "9311493003296",
+  "image": "https://images.openfoodfacts.org/images/products/931/149/300/3296/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Da-sh Soda Water 200ml",
+  "category": "Soft drinks",
+  "code": "5060489730398",
+  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0398/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Liquid Death Mango Chainsaw Flavoured Sparkling Wate 500ml",
+  "category": "Soft drinks",
+  "code": "0850031700727",
+  "image": "https://images.openfoodfacts.org/images/products/085/003/170/0727/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Rio Light Tropical 330ml",
+  "category": "Soft drinks",
+  "code": "5010437021870",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/702/1870/front_en.14.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Ugly Strawberry Water 330ml",
+  "category": "Soft drinks",
+  "code": "5060595630254",
+  "image": "https://images.openfoodfacts.org/images/products/506/059/563/0254/front_en.22.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Bonaqua Telemark Med Kullsyre Smak Av Sitron 500ml",
+  "category": "Soft drinks",
+  "code": "90490620",
+  "image": "https://images.openfoodfacts.org/images/products/90490620/front_nb.11.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Franklin & Sons Franklon Ginger Ale 200ml",
+  "category": "Soft drinks",
+  "code": "5032678004993",
+  "image": "https://images.openfoodfacts.org/images/products/503/267/800/4993/front_en.23.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Buxton Natural Sparkling Mineral Water 500ml",
+  "category": "Soft drinks",
+  "code": "7613032806446",
+  "image": "https://images.openfoodfacts.org/images/products/761/303/280/6446/front_fr.4.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Coca-Cola Coca Cola 1.5L",
+  "category": "Soft drinks",
+  "code": "5000112641981",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/264/1981/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Vimto Zero 500ml",
+  "category": "Soft drinks",
+  "code": "5010438011924",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/801/1924/front_fr.7.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "F&N Ayam 100 Plus Drink 325ml",
+  "category": "Soft drinks",
+  "code": "8888200900274",
+  "image": "https://images.openfoodfacts.org/images/products/888/820/090/0274/front_en.22.400.jpg",
+  "scans": 1,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "-196 Grapefruit Vodka Shochu Seltzer 330ml",
+  "category": "Soft drinks",
+  "code": "5054267014756",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/701/4756/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Dr Funk Immune Edition - Lemon & Elderflower 330ml",
+  "category": "Soft drinks",
+  "code": "0664918706203",
+  "image": "https://images.openfoodfacts.org/images/products/066/491/870/6203/front_en.24.400.jpg",
+  "scans": 0,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Decantae Natural Mineral Water - Sparkling 500ml",
+  "category": "Soft drinks",
+  "code": "5015301000234",
+  "image": "https://images.openfoodfacts.org/images/products/501/530/100/0234/front_en.21.400.jpg",
+  "scans": 0,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "KA Strawberry Soda 330ml",
+  "category": "Soft drinks",
+  "code": "5000382110378",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/211/0378/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Flawsome Pressed Sony Fruit Sparkling Water 250ml",
+  "category": "Soft drinks",
+  "code": "5060524790400",
+  "image": "https://images.openfoodfacts.org/images/products/506/052/479/0400/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:carbonated-drinks"
+ },
+ {
+  "name": "Nestea Lemon 1.5L",
+  "category": "Soft drinks",
+  "code": "5942289012464",
+  "image": "https://images.openfoodfacts.org/images/products/594/228/901/2464/front_en.10.400.jpg",
+  "scans": 45,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Lipton Lemon Ice Tea 500ml",
+  "category": "Soft drinks",
+  "code": "5949000506431",
+  "image": "https://images.openfoodfacts.org/images/products/594/900/050/6431/front_en.3.400.jpg",
+  "scans": 40,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Nestea Forest Fruits 1.5L",
+  "category": "Soft drinks",
+  "code": "5942289012679",
+  "image": "https://images.openfoodfacts.org/images/products/594/228/901/2679/front_en.5.400.jpg",
+  "scans": 37,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Lipton Peach Ice Tea 500ml",
+  "category": "Soft drinks",
+  "code": "5000118047817",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/804/7817/front_en.7.400.jpg",
+  "scans": 34,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Lipton Green Ice Tea Mint&lemon 500ml",
+  "category": "Soft drinks",
+  "code": "5010102240100",
+  "image": "https://images.openfoodfacts.org/images/products/501/010/224/0100/front_en.13.400.jpg",
+  "scans": 6,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Lipton Mango Ice Tea 500ml",
+  "category": "Soft drinks",
+  "code": "5000118061905",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/806/1905/front_en.24.400.jpg",
+  "scans": 6,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Mangajo Baie d'Acai & The Vert 250ml",
+  "category": "Soft drinks",
+  "code": "5060040190098",
+  "image": "https://images.openfoodfacts.org/images/products/506/004/019/0098/front_fr.30.400.jpg",
+  "scans": 3,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Oishi Black Tea Lemon Ice Tea 500ml",
+  "category": "Soft drinks",
+  "code": "8854698006347",
+  "image": "https://images.openfoodfacts.org/images/products/885/469/800/6347/front_en.19.400.jpg",
+  "scans": 3,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Pokka Boisson The Vert Japonaise Sans Sucre 500ml",
+  "category": "Soft drinks",
+  "code": "8888196180414",
+  "image": "https://images.openfoodfacts.org/images/products/888/819/618/0414/front_en.24.400.jpg",
+  "scans": 2,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Freeway Ice Tea Peach 1.5L",
+  "category": "Soft drinks",
+  "code": "20117795",
+  "image": "https://images.openfoodfacts.org/images/products/20117795/front_en.13.400.jpg",
+  "scans": 1,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Mr Kon Kong Sour Plum Soup 500ml",
+  "category": "Soft drinks",
+  "code": "6921294392685",
+  "image": "https://images.openfoodfacts.org/images/products/692/129/439/2685/front_en.20.400.jpg",
+  "scans": 1,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Lipton Peach Ice Tea 330ml",
+  "category": "Soft drinks",
+  "code": "5900497610339",
+  "image": "https://images.openfoodfacts.org/images/products/590/049/761/0339/front_fr.37.400.jpg",
+  "scans": 1,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "VLT Lemon Tea Drink 250ml",
+  "category": "Soft drinks",
+  "code": "4891028164456",
+  "image": "https://images.openfoodfacts.org/images/products/489/102/816/4456/front_en.42.400.jpg",
+  "scans": 1,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Eleva Premium Iced Tea Black Tea Peach 250ml",
+  "category": "Soft drinks",
+  "code": "5070002109532",
+  "image": "https://images.openfoodfacts.org/images/products/507/000/210/9532/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "en:iced-teas"
+ },
+ {
+  "name": "Sunpride Mango Juice Drink 1L",
+  "category": "Soft drinks",
+  "code": "5010663251409",
+  "image": "https://images.openfoodfacts.org/images/products/501/066/325/1409/front_en.7.400.jpg",
+  "scans": 1,
+  "off_tag": "en:juice-drinks"
+ },
+ {
+  "name": "Euro Shopper Mango Juice Drink 1L",
+  "category": "Soft drinks",
+  "code": "5020379056403",
+  "image": "https://images.openfoodfacts.org/images/products/502/037/905/6403/front_en.5.400.jpg",
+  "scans": 0,
+  "off_tag": "en:juice-drinks"
+ },
+ {
   "name": "Evian Natural Mineral Water 750ml",
   "category": "Water",
   "code": "3068320014067",
@@ -8632,27 +9392,11 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "Evian PET 1.5L",
-  "category": "Water",
-  "code": "3068320084602",
-  "image": "https://images.openfoodfacts.org/images/products/306/832/008/4602/front_de.58.400.jpg",
-  "scans": 89,
-  "off_tag": "en:waters"
- },
- {
   "name": "Smartwater Smart Water 600ml",
   "category": "Water",
   "code": "5449000034335",
   "image": "https://images.openfoodfacts.org/images/products/544/900/003/4335/front_en.39.400.jpg",
   "scans": 54,
-  "off_tag": "en:waters"
- },
- {
-  "name": "San Pellegrino Carbonated Natural Mineral Water 500ml",
-  "category": "Water",
-  "code": "8002270000515",
-  "image": "https://images.openfoodfacts.org/images/products/800/227/000/0515/front_en.8.400.jpg",
-  "scans": 45,
   "off_tag": "en:waters"
  },
  {
@@ -8672,38 +9416,6 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "Volvic Natural Mineral Water 1.5L",
-  "category": "Water",
-  "code": "3057640100178",
-  "image": "https://images.openfoodfacts.org/images/products/305/764/010/0178/front_en.5.400.jpg",
-  "scans": 26,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Sanpellegrino Natural Mineral Water 1L",
-  "category": "Water",
-  "code": "8002270018213",
-  "image": "https://images.openfoodfacts.org/images/products/800/227/001/8213/front_en.3.400.jpg",
-  "scans": 24,
-  "off_tag": "en:waters"
- },
- {
-  "name": "DASH Water Peaches Sparkling 330ml",
-  "category": "Water",
-  "code": "5060489730206",
-  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0206/front_en.23.400.jpg",
-  "scans": 21,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Saskia Sparkling Natural Mineral Water 2L",
-  "category": "Water",
-  "code": "20080525",
-  "image": "https://images.openfoodfacts.org/images/products/20080525/front_en.12.400.jpg",
-  "scans": 18,
-  "off_tag": "en:waters"
- },
- {
   "name": "MOGU MOGU Peach Flavored Drink 320ml",
   "category": "Water",
   "code": "8850389106280",
@@ -8720,34 +9432,10 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "AQUA Carpatica Flavoured Sparkling Beverage With Nat 330ml",
-  "category": "Water",
-  "code": "5942326401947",
-  "image": "https://images.openfoodfacts.org/images/products/594/232/640/1947/front_en.11.400.jpg",
-  "scans": 16,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Evian Sparkling 330ml",
-  "category": "Water",
-  "code": "3068320127842",
-  "image": "https://images.openfoodfacts.org/images/products/306/832/012/7842/front_en.11.400.jpg",
-  "scans": 13,
-  "off_tag": "en:waters"
- },
- {
   "name": "Buxton Still Water 1L",
   "category": "Water",
   "code": "7613031214839",
   "image": "https://images.openfoodfacts.org/images/products/761/303/121/4839/front_en.25.400.jpg",
-  "scans": 12,
-  "off_tag": "en:waters"
- },
- {
-  "name": "DASH Water Mango Sparkling 330ml",
-  "category": "Water",
-  "code": "5060489730503",
-  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0503/front_en.3.400.jpg",
   "scans": 12,
   "off_tag": "en:waters"
  },
@@ -8824,14 +9512,6 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "DASH Lime Sparkling Water 330ml",
-  "category": "Water",
-  "code": "5060489730657",
-  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0657/front_en.19.400.jpg",
-  "scans": 7,
-  "off_tag": "en:waters"
- },
- {
   "name": "Carrick Glen - Dragonfruit And Yuzu Vitamin Water 500ml",
   "category": "Water",
   "code": "4056489421726",
@@ -8904,50 +9584,10 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "Highland Spring Spk500ml 500ml",
-  "category": "Water",
-  "code": "5010459005179",
-  "image": "https://images.openfoodfacts.org/images/products/501/045/900/5179/front_en.21.400.jpg",
-  "scans": 5,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Sanpellegrino San Pellegrino Sparkling Mineral Water 500ml",
-  "category": "Water",
-  "code": "8002270011023",
-  "image": "https://images.openfoodfacts.org/images/products/800/227/001/1023/front_en.42.400.jpg",
-  "scans": 5,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Buxton Natural Mineral Water 1.5L",
-  "category": "Water",
-  "code": "5015552555132",
-  "image": "https://images.openfoodfacts.org/images/products/501/555/255/5132/front_en.3.400.jpg",
-  "scans": 4,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Punchy Blood Orange Bitters And Cardamom 250ml",
-  "category": "Water",
-  "code": "5060602580237",
-  "image": "https://images.openfoodfacts.org/images/products/506/060/258/0237/front_en.3.400.jpg",
-  "scans": 4,
-  "off_tag": "en:waters"
- },
- {
   "name": "Essence Strawberry Flavoured Water 500ml",
   "category": "Water",
   "code": "5060121570313",
   "image": "https://images.openfoodfacts.org/images/products/506/012/157/0313/front_en.12.400.jpg",
-  "scans": 3,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Princes Gate Sparkling Spring Water 500ml",
-  "category": "Water",
-  "code": "5024616003069",
-  "image": "https://images.openfoodfacts.org/images/products/502/461/600/3069/front_es.13.400.jpg",
   "scans": 3,
   "off_tag": "en:waters"
  },
@@ -9008,14 +9648,6 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "Brecon Carreg Sparkling Natural Mineral Water 500ml",
-  "category": "Water",
-  "code": "5030341511007",
-  "image": "https://images.openfoodfacts.org/images/products/503/034/151/1007/front_en.22.400.jpg",
-  "scans": 2,
-  "off_tag": "en:waters"
- },
- {
   "name": "Goodness Group Kombucha Mango 1L",
   "category": "Water",
   "code": "5060770730298",
@@ -9044,14 +9676,6 @@
   "category": "Water",
   "code": "7613034302328",
   "image": "https://images.openfoodfacts.org/images/products/761/303/430/2328/front_en.5.400.jpg",
-  "scans": 1,
-  "off_tag": "en:waters"
- },
- {
-  "name": "CanO Water Sparkling Spring 330ml",
-  "category": "Water",
-  "code": "0787099226954",
-  "image": "https://images.openfoodfacts.org/images/products/078/709/922/6954/front_en.5.400.jpg",
   "scans": 1,
   "off_tag": "en:waters"
  },
@@ -9096,30 +9720,6 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "Fever-tree Sparkling Mexican Lime Soda 250ml",
-  "category": "Water",
-  "code": "5060108455237",
-  "image": "https://images.openfoodfacts.org/images/products/506/010/845/5237/front_en.3.400.jpg",
-  "scans": 1,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Strathmore Sparkling Scottish Spring Water 500ml",
-  "category": "Water",
-  "code": "5012058009329",
-  "image": "https://images.openfoodfacts.org/images/products/501/205/800/9329/front_en.7.400.jpg",
-  "scans": 1,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Sant Aniol Sparkling Water 500ml",
-  "category": "Water",
-  "code": "8424372001526",
-  "image": "https://images.openfoodfacts.org/images/products/842/437/200/1526/front_en.5.400.jpg",
-  "scans": 1,
-  "off_tag": "en:waters"
- },
- {
   "name": "Carrick Glen Active Spring Water 750ml",
   "category": "Water",
   "code": "20915162",
@@ -9160,22 +9760,6 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "Da-sh Soda Water 200ml",
-  "category": "Water",
-  "code": "5060489730398",
-  "image": "https://images.openfoodfacts.org/images/products/506/048/973/0398/front_en.3.400.jpg",
-  "scans": 1,
-  "off_tag": "en:waters"
- },
- {
-  "name": "Liquid Death Mango Chainsaw Flavoured Sparkling Wate 500ml",
-  "category": "Water",
-  "code": "0850031700727",
-  "image": "https://images.openfoodfacts.org/images/products/085/003/170/0727/front_en.3.400.jpg",
-  "scans": 1,
-  "off_tag": "en:waters"
- },
- {
   "name": "Mountain Mist Berries & Cherries Flavoured Spring Wa 500ml",
   "category": "Water",
   "code": "5020379175951",
@@ -9184,11 +9768,803 @@
   "off_tag": "en:waters"
  },
  {
-  "name": "Ugly Strawberry Water 330ml",
-  "category": "Water",
-  "code": "5060595630254",
-  "image": "https://images.openfoodfacts.org/images/products/506/059/563/0254/front_en.22.400.jpg",
+  "name": "Fanta Orange 500ml",
+  "category": "Soft drinks",
+  "code": "5000112644869",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/264/4869/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:fanta"
+ },
+ {
+  "name": "Fanta Raspberry Zero Sugar 250ml",
+  "category": "Soft drinks",
+  "code": "5000112519877",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/251/9877/front_en.4.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:fanta"
+ },
+ {
+  "name": "Diet Coke Caffeine Free 500ml",
+  "category": "Soft drinks",
+  "code": "54492134",
+  "image": "https://images.openfoodfacts.org/images/products/54492134/front_en.3.400.jpg",
+  "scans": 3,
+  "off_tag": "brand:coca-cola"
+ },
+ {
+  "name": "Coca Cola Zero Vanilla 330ml",
+  "category": "Soft drinks",
+  "code": "5449000226440",
+  "image": "https://images.openfoodfacts.org/images/products/544/900/022/6440/front_en.3.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:coca-cola"
+ },
+ {
+  "name": "Coca-Cola Tab Clear 330ml",
+  "category": "Soft drinks",
+  "code": "5000112505443",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/250/5443/front_en.5.400.jpg",
   "scans": 1,
-  "off_tag": "en:waters"
+  "off_tag": "brand:coca-cola"
+ },
+ {
+  "name": "Coca-Cola Coca Cola Zero Cherry 500ml",
+  "category": "Soft drinks",
+  "code": "5000112664010",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/266/4010/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:coca-cola"
+ },
+ {
+  "name": "Coca Cola Vanilla Zero Sugar 500ml",
+  "category": "Soft drinks",
+  "code": "5000112656756",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/265/6756/front_en.5.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:coca-cola"
+ },
+ {
+  "name": "Pepsi Max Cherry 330ml",
+  "category": "Soft drinks",
+  "code": "4060800173621",
+  "image": "https://images.openfoodfacts.org/images/products/406/080/017/3621/front_en.11.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:pepsi"
+ },
+ {
+  "name": "Pepsi Raspberry 600ml",
+  "category": "Soft drinks",
+  "code": "4060800302724",
+  "image": "https://images.openfoodfacts.org/images/products/406/080/030/2724/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:pepsi"
+ },
+ {
+  "name": "Pepsi Japan Cola 490ml",
+  "category": "Soft drinks",
+  "code": "4901777333802",
+  "image": "https://images.openfoodfacts.org/images/products/490/177/733/3802/front_ja.4.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:pepsi"
+ },
+ {
+  "name": "Pepsi Max Ginger 2L",
+  "category": "Soft drinks",
+  "code": "4060800172624",
+  "image": "https://images.openfoodfacts.org/images/products/406/080/017/2624/front_en.9.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:pepsi"
+ },
+ {
+  "name": "Pepsi Max Cherry 1.5L",
+  "category": "Soft drinks",
+  "code": "84172419",
+  "image": "https://images.openfoodfacts.org/images/products/84172419/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:pepsi"
+ },
+ {
+  "name": "Pepsi Max Raspberry 330ml",
+  "category": "Soft drinks",
+  "code": "4060800304148",
+  "image": "https://images.openfoodfacts.org/images/products/406/080/030/4148/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:pepsi"
+ },
+ {
+  "name": "Britvic 7 Up Tasty Twist Lemon And Lime 330ml",
+  "category": "Soft drinks",
+  "code": "4060800304360",
+  "image": "https://images.openfoodfacts.org/images/products/406/080/030/4360/front_en.13.400.jpg",
+  "scans": 3,
+  "off_tag": "brand:7up"
+ },
+ {
+  "name": "Sprite Lemon-Lime 500ml",
+  "category": "Soft drinks",
+  "code": "5000112658149",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/265/8149/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:sprite"
+ },
+ {
+  "name": "Britvic Tango Apple Sugar Free 330ml",
+  "category": "Soft drinks",
+  "code": "5010102244399",
+  "image": "https://images.openfoodfacts.org/images/products/501/010/224/4399/front_en.3.400.jpg",
+  "scans": 6,
+  "off_tag": "brand:tango"
+ },
+ {
+  "name": "Tango Dark Berry Sugar Free 330ml",
+  "category": "Soft drinks",
+  "code": "5010102243125",
+  "image": "https://images.openfoodfacts.org/images/products/501/010/224/3125/front_en.13.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:tango"
+ },
+ {
+  "name": "Tango Dark Berry Sugar Free Bottle 2L",
+  "category": "Soft drinks",
+  "code": "5010102243088",
+  "image": "https://images.openfoodfacts.org/images/products/501/010/224/3088/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:tango"
+ },
+ {
+  "name": "Rubicon Juice Drink Mango 1L",
+  "category": "Soft drinks",
+  "code": "5011898007014",
+  "image": "https://images.openfoodfacts.org/images/products/501/189/800/7014/front_en.3.400.jpg",
+  "scans": 8,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Lychee 288ml",
+  "category": "Soft drinks",
+  "code": "5011898002125",
+  "image": "https://images.openfoodfacts.org/images/products/501/189/800/2125/front_en.3.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Guava Juice 1L",
+  "category": "Soft drinks",
+  "code": "5000382104957",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/210/4957/front_fr.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Passion 500ml",
+  "category": "Soft drinks",
+  "code": "5000382112488",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/211/2488/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Still Passion 288ml",
+  "category": "Soft drinks",
+  "code": "5011898002620",
+  "image": "https://images.openfoodfacts.org/images/products/501/189/800/2620/front_en.13.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Sparkling Mango 330ml",
+  "category": "Soft drinks",
+  "code": "5000382107712",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/210/7712/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Mango 500ml",
+  "category": "Soft drinks",
+  "code": "5000382112464",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/211/2464/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Lychee 1L",
+  "category": "Soft drinks",
+  "code": "5000382039495",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/203/9495/front_en.6.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Watermelon Juice Drink 1L",
+  "category": "Soft drinks",
+  "code": "5000382109433",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/210/9433/front_en.19.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Still Pinapple 288ml",
+  "category": "Soft drinks",
+  "code": "5000382113836",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/211/3836/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Light & Fruity - Mango Lime & Mint 1L",
+  "category": "Soft drinks",
+  "code": "5000382102748",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/210/2748/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Raspberry And Pineapple 330ml",
+  "category": "Soft drinks",
+  "code": "5000382112600",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/211/2600/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Spring 330ml",
+  "category": "Soft drinks",
+  "code": "5000382120285",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/212/0285/front_en.5.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Rubicon Raw Energy 500ml",
+  "category": "Soft drinks",
+  "code": "5000382111429",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/211/1429/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:rubicon"
+ },
+ {
+  "name": "Vimto No Added Sugar 725ml",
+  "category": "Soft drinks",
+  "code": "5010438018930",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/801/8930/front_en.3.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:vimto"
+ },
+ {
+  "name": "Vimto Chewbar Vegan 18g",
+  "category": "Soft drinks",
+  "code": "5010478800045",
+  "image": "https://images.openfoodfacts.org/images/products/501/047/880/0045/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:vimto"
+ },
+ {
+  "name": "Vimto Squash 1L",
+  "category": "Soft drinks",
+  "code": "5010438017247",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/801/7247/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:vimto"
+ },
+ {
+  "name": "Vimto Energy 500ml",
+  "category": "Soft drinks",
+  "code": "5010438021428",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/802/1428/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:vimto"
+ },
+ {
+  "name": "Vimto Jelly Babies 180g",
+  "category": "Soft drinks",
+  "code": "5017375371043",
+  "image": "https://images.openfoodfacts.org/images/products/501/737/537/1043/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:vimto"
+ },
+ {
+  "name": "Vimto Discovery Zero Mango & Dragonfruit 500ml",
+  "category": "Soft drinks",
+  "code": "5010438022197",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/802/2197/front_en.4.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:vimto"
+ },
+ {
+  "name": "Vimto Jelly Babies 150g",
+  "category": "Soft drinks",
+  "code": "5017375071004",
+  "image": "https://images.openfoodfacts.org/images/products/501/737/507/1004/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:vimto"
+ },
+ {
+  "name": "Oasis Blackcurrant Apple 500ml",
+  "category": "Soft drinks",
+  "code": "5449000122650",
+  "image": "https://images.openfoodfacts.org/images/products/544/900/012/2650/front_en.18.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:oasis"
+ },
+ {
+  "name": "Oasis Citrus Punch 375ml",
+  "category": "Soft drinks",
+  "code": "90490125",
+  "image": "https://images.openfoodfacts.org/images/products/90490125/front_en.12.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:oasis"
+ },
+ {
+  "name": "Oasis Kiran Mukhwas Rajastani Royal 225g",
+  "category": "Soft drinks",
+  "code": "5039950869233",
+  "image": "https://images.openfoodfacts.org/images/products/503/995/086/9233/front_en.4.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:oasis"
+ },
+ {
+  "name": "Oasis Citrus Punch 500ml",
+  "category": "Soft drinks",
+  "code": "5000112630084",
+  "image": "https://images.openfoodfacts.org/images/products/500/011/263/0084/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:oasis"
+ },
+ {
+  "name": "Oasis Mixed Berry Mighty Drops 56ml",
+  "category": "Soft drinks",
+  "code": "42099796",
+  "image": "https://images.openfoodfacts.org/images/products/42099796/front_en.7.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:oasis"
+ },
+ {
+  "name": "Ribena Blackcurrant Squash 850ml",
+  "category": "Soft drinks",
+  "code": "5054267003378",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/700/3378/front_en.23.400.jpg",
+  "scans": 42,
+  "off_tag": "brand:ribena"
+ },
+ {
+  "name": "Ribena Blackcurrant 250ml",
+  "category": "Soft drinks",
+  "code": "5054267006102",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/700/6102/front_en.12.400.jpg",
+  "scans": 9,
+  "off_tag": "brand:ribena"
+ },
+ {
+  "name": "Ribena Sparkling Blackcurrant 2L",
+  "category": "Soft drinks",
+  "code": "5054267010048",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/701/0048/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:ribena"
+ },
+ {
+  "name": "Ribena Light - Pineapple & Passion Fruit 500ml",
+  "category": "Soft drinks",
+  "code": "5054267013193",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/701/3193/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:ribena"
+ },
+ {
+  "name": "Ribena Strawberry 250ml",
+  "category": "Soft drinks",
+  "code": "5054267006119",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/700/6119/front_en.10.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:ribena"
+ },
+ {
+  "name": "Ribena Blackcurrent 1L",
+  "category": "Soft drinks",
+  "code": "5000347007590",
+  "image": "https://images.openfoodfacts.org/images/products/500/034/700/7590/front_en.7.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:ribena"
+ },
+ {
+  "name": "Ribena Sparkling Raspberry 330ml",
+  "category": "Soft drinks",
+  "code": "5054267010031",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/701/0031/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:ribena"
+ },
+ {
+  "name": "Schweppes Slimline Elderflower Tonic Water 600ml",
+  "category": "Soft drinks",
+  "code": "5449000307941",
+  "image": "https://images.openfoodfacts.org/images/products/544/900/030/7941/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:schweppes"
+ },
+ {
+  "name": "Schweppes Soda Water 200ml",
+  "category": "Soft drinks",
+  "code": "42099505",
+  "image": "https://images.openfoodfacts.org/images/products/42099505/front_en.6.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:schweppes"
+ },
+ {
+  "name": "Schweppes Abbey Well 750ml",
+  "category": "Soft drinks",
+  "code": "5023765003036",
+  "image": "https://images.openfoodfacts.org/images/products/502/376/500/3036/front_en.7.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:schweppes"
+ },
+ {
+  "name": "Barr Bubble Gum 2L",
+  "category": "Soft drinks",
+  "code": "5000382114246",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/211/4246/front_en.3.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:barr"
+ },
+ {
+  "name": "Barr Le Joli Mexican Lime Mint 330ml",
+  "category": "Soft drinks",
+  "code": "5000382104605",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/210/4605/front_fr.9.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:barr"
+ },
+ {
+  "name": "Old Jamaica Ginger Beer 500ml",
+  "category": "Soft drinks",
+  "code": "5029578001085",
+  "image": "https://images.openfoodfacts.org/images/products/502/957/800/1085/front_en.6.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:old-jamaica"
+ },
+ {
+  "name": "Old Jamaica Ginger Beer 330ml",
+  "category": "Soft drinks",
+  "code": "1020117499121",
+  "image": "https://images.openfoodfacts.org/images/products/102/011/749/9121/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:old-jamaica"
+ },
+ {
+  "name": "Red Bull Iced Vanilla Berry 250ml",
+  "category": "Energy",
+  "code": "90457432",
+  "image": "https://images.openfoodfacts.org/images/products/90457432/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:red-bull"
+ },
+ {
+  "name": "Monster Energy Lewis Hamilton 500ml",
+  "category": "Energy",
+  "code": "5060947546233",
+  "image": "https://images.openfoodfacts.org/images/products/506/094/754/6233/front_en.4.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:monster-energy"
+ },
+ {
+  "name": "Monster Energy Punch 500ml",
+  "category": "Energy",
+  "code": "5060517883003",
+  "image": "https://images.openfoodfacts.org/images/products/506/051/788/3003/front_en.3.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:monster-energy"
+ },
+ {
+  "name": "Monster Energy Khaotic Juiced 500ml",
+  "category": "Energy",
+  "code": "5060896621760",
+  "image": "https://images.openfoodfacts.org/images/products/506/089/662/1760/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:monster-energy"
+ },
+ {
+  "name": "Monster Hydrosport 650ml",
+  "category": "Energy",
+  "code": "5060639123964",
+  "image": "https://images.openfoodfacts.org/images/products/506/063/912/3964/front_en.8.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:monster"
+ },
+ {
+  "name": "Monster Monarch 500ml",
+  "category": "Energy",
+  "code": "5060896623603",
+  "image": "https://images.openfoodfacts.org/images/products/506/089/662/3603/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:monster"
+ },
+ {
+  "name": "Monster Assault 500ml",
+  "category": "Energy",
+  "code": "5060751215257",
+  "image": "https://images.openfoodfacts.org/images/products/506/075/121/5257/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:monster"
+ },
+ {
+  "name": "Boost Energy Mango 250ml",
+  "category": "Energy",
+  "code": "5056079901194",
+  "image": "https://images.openfoodfacts.org/images/products/505/607/990/1194/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:boost"
+ },
+ {
+  "name": "Lucozade Orange 500ml",
+  "category": "Energy",
+  "code": "1014197000681",
+  "image": "https://images.openfoodfacts.org/images/products/101/419/700/0681/front_en.5.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Caribbean Crush Energy 900ml",
+  "category": "Energy",
+  "code": "5054267010741",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/701/0741/front_en.5.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Zero Orange 1L",
+  "category": "Energy",
+  "code": "5054267004900",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/700/4900/front_en.23.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Original 900ml",
+  "category": "Energy",
+  "code": "10542675",
+  "image": "https://images.openfoodfacts.org/images/products/10542675/front_en.6.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Energy Apple Blast 1L",
+  "category": "Energy",
+  "code": "5054267007048",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/700/7048/front_en.4.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Original Energy 500ml",
+  "category": "Energy",
+  "code": "5054267014237",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/701/4237/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Energy Caribbean Crush 380ml",
+  "category": "Energy",
+  "code": "5054267008052",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/700/8052/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Sport Raspberry 500ml",
+  "category": "Energy",
+  "code": "11167006",
+  "image": "https://images.openfoodfacts.org/images/products/11167006/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Lucozade Orange Energy 500ml",
+  "category": "Energy",
+  "code": "5054267014220",
+  "image": "https://images.openfoodfacts.org/images/products/505/426/701/4220/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:lucozade"
+ },
+ {
+  "name": "Relentless Tropical Juiced 500ml",
+  "category": "Energy",
+  "code": "5449000956552",
+  "image": "https://images.openfoodfacts.org/images/products/544/900/095/6552/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:relentless"
+ },
+ {
+  "name": "Rockstar Juiced. Mango Orange And Passionfruit Flavo 500ml",
+  "category": "Energy",
+  "code": "5000382022411",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/202/2411/front_en.9.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:rockstar"
+ },
+ {
+  "name": "Euro Shopper Unsmoked Rindless 500g",
+  "category": "Energy",
+  "code": "5020379179775",
+  "image": "https://images.openfoodfacts.org/images/products/502/037/917/9775/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:euro-shopper"
+ },
+ {
+  "name": "Euro Shopper E S Mild White Cheese 350g",
+  "category": "Energy",
+  "code": "5020379173391",
+  "image": "https://images.openfoodfacts.org/images/products/502/037/917/3391/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:euro-shopper"
+ },
+ {
+  "name": "Euro Shopper Plain Chocolate 100g",
+  "category": "Energy",
+  "code": "5020379053495",
+  "image": "https://images.openfoodfacts.org/images/products/502/037/905/3495/front_fr.4.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:euro-shopper"
+ },
+ {
+  "name": "Reign Peach Fizz 500ml",
+  "category": "Energy",
+  "code": "5060608748402",
+  "image": "https://images.openfoodfacts.org/images/products/506/060/874/8402/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:reign"
+ },
+ {
+  "name": "Reign Mang-o-Matic 500ml",
+  "category": "Energy",
+  "code": "5060895742510",
+  "image": "https://images.openfoodfacts.org/images/products/506/089/574/2510/front_en.6.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:reign"
+ },
+ {
+  "name": "Prime Lemon LIME 500ml",
+  "category": "Sports",
+  "code": "0850003560694",
+  "image": "https://images.openfoodfacts.org/images/products/085/000/356/0694/front_en.3.400.jpg",
+  "scans": 26,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Blue Raspberry 500ml",
+  "category": "Sports",
+  "code": "0850003560670",
+  "image": "https://images.openfoodfacts.org/images/products/085/000/356/0670/front_en.15.400.jpg",
+  "scans": 19,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Hydration Ice Pop 500ml",
+  "category": "Sports",
+  "code": "0850040427066",
+  "image": "https://images.openfoodfacts.org/images/products/085/004/042/7066/front_en.39.400.jpg",
+  "scans": 17,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Meta Moon 500ml",
+  "category": "Sports",
+  "code": "0850040427110",
+  "image": "https://images.openfoodfacts.org/images/products/085/004/042/7110/front_en.3.400.jpg",
+  "scans": 16,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Strawberry Watermelon Flavour 500ml",
+  "category": "Sports",
+  "code": "0850003560991",
+  "image": "https://images.openfoodfacts.org/images/products/085/000/356/0991/front_en.19.400.jpg",
+  "scans": 11,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Ksi Orange And Mango Hydration 500ml",
+  "category": "Sports",
+  "code": "0810116120765",
+  "image": "https://images.openfoodfacts.org/images/products/081/011/612/0765/front_en.3.400.jpg",
+  "scans": 5,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Orange 500ml",
+  "category": "Sports",
+  "code": "0850003560700",
+  "image": "https://images.openfoodfacts.org/images/products/085/000/356/0700/front_en.3.400.jpg",
+  "scans": 4,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Grape 500ml",
+  "category": "Sports",
+  "code": "5999036108420",
+  "image": "https://images.openfoodfacts.org/images/products/599/903/610/8420/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Ice Pop 500ml",
+  "category": "Sports",
+  "code": "6814440827066",
+  "image": "https://images.openfoodfacts.org/images/products/681/444/082/7066/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Hydration Strawberry & Banana 500ml",
+  "category": "Sports",
+  "code": "0810116124015",
+  "image": "https://images.openfoodfacts.org/images/products/081/011/612/4015/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "Prime Tropical Punch 500ml",
+  "category": "Sports",
+  "code": "32085761",
+  "image": "https://images.openfoodfacts.org/images/products/32085761/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:prime"
+ },
+ {
+  "name": "KA Still Fruit Punch 1L",
+  "category": "Soft drinks",
+  "code": "5000382036982",
+  "image": "https://images.openfoodfacts.org/images/products/500/038/203/6982/front_en.4.400.jpg",
+  "scans": 2,
+  "off_tag": "brand:ka"
+ },
+ {
+  "name": "KA Black Grade Soda 330ml",
+  "category": "Soft drinks",
+  "code": "0044329121688",
+  "image": "https://images.openfoodfacts.org/images/products/004/432/912/1688/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:ka"
+ },
+ {
+  "name": "Levi Roots Reggae Reggae Jerk BBQ Marinade & Sauce I 290g",
+  "category": "Soft drinks",
+  "code": "5010338202798",
+  "image": "https://images.openfoodfacts.org/images/products/501/033/820/2798/front_en.27.400.jpg",
+  "scans": 14,
+  "off_tag": "brand:levi-roots"
+ },
+ {
+  "name": "Levi Roots Reggae Reggae Jerk Barbecue Sauce 330g",
+  "category": "Soft drinks",
+  "code": "5010338400484",
+  "image": "https://images.openfoodfacts.org/images/products/501/033/840/0484/front_en.16.400.jpg",
+  "scans": 10,
+  "off_tag": "brand:levi-roots"
+ },
+ {
+  "name": "Levi Roots Reggae Reggae Jerk BBQ Marinade & Sauce 290g",
+  "category": "Soft drinks",
+  "code": "5010338102166",
+  "image": "https://images.openfoodfacts.org/images/products/501/033/810/2166/front_en.3.400.jpg",
+  "scans": 1,
+  "off_tag": "brand:levi-roots"
+ },
+ {
+  "name": "Levi Roots Reggae Reggae Groove Cut Crisps 40g",
+  "category": "Soft drinks",
+  "code": "5034709003494",
+  "image": "https://images.openfoodfacts.org/images/products/503/470/900/3494/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:levi-roots"
+ },
+ {
+  "name": "Levi Roots Tropical Punch 500ml",
+  "category": "Soft drinks",
+  "code": "5010438021824",
+  "image": "https://images.openfoodfacts.org/images/products/501/043/802/1824/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:levi-roots"
  }
 ]

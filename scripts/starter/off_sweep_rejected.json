@@ -150,6 +150,33 @@
   "image": "https://images.openfoodfacts.org/images/products/20652609/front_en.24.400.jpg",
   "scans": 5,
   "off_tag": "en:waters",
-  "reason": "atypical photo (0.24)"
+  "reason": "atypical photo (0.21)"
+ },
+ {
+  "name": "Euro Shopper Unsmoked Rindless 500g",
+  "category": "Energy",
+  "code": "5020379179775",
+  "image": "https://images.openfoodfacts.org/images/products/502/037/917/9775/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:euro-shopper",
+  "reason": "atypical photo (0.25)"
+ },
+ {
+  "name": "Euro Shopper E S Mild White Cheese 350g",
+  "category": "Energy",
+  "code": "5020379173391",
+  "image": "https://images.openfoodfacts.org/images/products/502/037/917/3391/front_en.3.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:euro-shopper",
+  "reason": "atypical photo (0.25)"
+ },
+ {
+  "name": "Euro Shopper Plain Chocolate 100g",
+  "category": "Energy",
+  "code": "5020379053495",
+  "image": "https://images.openfoodfacts.org/images/products/502/037/905/3495/front_fr.4.400.jpg",
+  "scans": 0,
+  "off_tag": "brand:euro-shopper",
+  "reason": "atypical photo (0.23)"
  }
 ]
