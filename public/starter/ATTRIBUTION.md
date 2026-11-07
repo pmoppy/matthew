@@ -220,3 +220,1034 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Vimto Fizzy 2L: https://world.openfoodfacts.org/product/5010438017346
 - Vimto Energy 500ml: https://world.openfoodfacts.org/product/5010438021428
 - Schweppes Slimline Lemonade 2L: https://world.openfoodfacts.org/product/5000193730574
+- Coca-Cola Coke Cola 500ml: https://world.openfoodfacts.org/product/54491472
+- Lindt & Sprungli (nordic) Excellence 90 100g: https://world.openfoodfacts.org/product/3046920029759
+- Alesto Cashews 200g: https://world.openfoodfacts.org/product/20267605
+- Lindt Excellence 70 Cocoa Intense Dark 100g: https://world.openfoodfacts.org/product/3046920028004
+- Lindt Excellence 85 Cacao Rich Dark 100g: https://world.openfoodfacts.org/product/3046920028363
+- Pepsi Max 1.5L: https://world.openfoodfacts.org/product/3502110009357
+- Green & Black's And Organic 70 Dark Chocolate Bar 90g: https://world.openfoodfacts.org/product/7622210578464
+- Green & Black's And Organic 70 Dark Chocolate Bar 90g: https://world.openfoodfacts.org/product/7622210584724
+- Pringles Sour Cream & Onion 185g: https://world.openfoodfacts.org/product/5053990167845
+- Lotus Biscoff 250g: https://world.openfoodfacts.org/product/5410126716016
+- Coca-cola Europacific Partners Norge As Powerade Spo 500ml: https://world.openfoodfacts.org/product/54492653
+- Old El Paso Tortilla Nachips Original 185g: https://world.openfoodfacts.org/product/8410076481597
+- Lindt Excellence A Touch Of Sea Salt Dark 100g: https://world.openfoodfacts.org/product/3046920029674
+- Ritz Bakery The Original Cracker 200g: https://world.openfoodfacts.org/product/5000137487908
+- Coca-Cola Coca - Cola Zero Sugar 1.25L: https://world.openfoodfacts.org/product/5449000133724
+- Sprite Summer 500ml: https://world.openfoodfacts.org/product/54491069
+- Pringles Original 40g: https://world.openfoodfacts.org/product/5053990107339
+- Nairn's Rough Oatcakes 291g: https://world.openfoodfacts.org/product/0061232203072
+- Red Bull Sugar Free 250ml: https://world.openfoodfacts.org/product/90162800
+- Walkers Cheese & Onion Flavour Potato Crisps 25g: https://world.openfoodfacts.org/product/51000005
+- Lindt Excellence Dark Orange Intense 100g: https://world.openfoodfacts.org/product/3046920028370
+- Lindt Excellence Dark Orange Intense 100g: https://world.openfoodfacts.org/product/3046920028752
+- Evian Natural Mineral Water 750ml: https://world.openfoodfacts.org/product/3068320014067
+- Kall Lentil & Pea Veggie Cakes - Beetroot & Balsamic 122g: https://world.openfoodfacts.org/product/5013665115373
+- Evian PET 1.5L: https://world.openfoodfacts.org/product/3068320084602
+- Walkers Salt And Vinegar Flavour Potato Crisps 25g: https://world.openfoodfacts.org/product/51000009
+- Schar Crispbread 150g: https://world.openfoodfacts.org/product/8008698007303
+- Proper Propercorn Sweet & Salty 14g: https://world.openfoodfacts.org/product/5060283760669
+- Nairn's Cheese Oatcakes 200g: https://world.openfoodfacts.org/product/0061232201948
+- Carr's Table Water Biscuits 125g: https://world.openfoodfacts.org/product/5000168001104
+- Popper Corn Proper Sweet & Salty 90g: https://world.openfoodfacts.org/product/5060283760072
+- Oreo Enrobed White Imp 245g: https://world.openfoodfacts.org/product/7622300489427
+- Tyrrell's Sweet Chilli & Red Pepper 150g: https://world.openfoodfacts.org/product/5060042641413
+- Peter's Yard Original Sourdough Crackers 90g: https://world.openfoodfacts.org/product/5060198820052
+- Ferrero Rocher Nocciola 90g: https://world.openfoodfacts.org/product/8000500359815
+- McVitie's McVities Rich Tea Biscuits 300g: https://world.openfoodfacts.org/product/5000168001210
+- Love Corn Sea Salt 115g: https://world.openfoodfacts.org/product/5060490400242
+- Skittles Fruit 174g: https://world.openfoodfacts.org/product/4009900455299
+- Tony's Chocolonely Milk Chocolate 180g: https://world.openfoodfacts.org/product/8717677339914
+- Tony's Chocolonely Milk Chocolate 180g: https://world.openfoodfacts.org/product/8717677339952
+- Proper Properchips Sea Salt Lentil Chips 85g: https://world.openfoodfacts.org/product/5060283762199
+- Eat Real Lentil Chips - Sea Salt Flavour 113g: https://world.openfoodfacts.org/product/5026489483054
+- The Foodie Market Mixed Nuts 200g: https://world.openfoodfacts.org/product/4088600272689
+- The Foodie Market Mixed Nuts 200g: https://world.openfoodfacts.org/product/4088600441672
+- Lindt & Sprungli (nordic) Excellence Chilli Dark 100g: https://world.openfoodfacts.org/product/7610400070577
+- San Pellegrino Limonata 330ml: https://world.openfoodfacts.org/product/8002270576829
+- Pringles Original 200g: https://world.openfoodfacts.org/product/5053990138722
+- Nakd Peanut Delight 35g: https://world.openfoodfacts.org/product/5060088705179
+- Nairn's Fruit & Seed Oatcakes 225g: https://world.openfoodfacts.org/product/0612322000202
+- Terry's Chocolate Orange Milk 157g: https://world.openfoodfacts.org/product/3664346304863
+- Tower Gate Milk Chocolate Butter Biscuits 125g: https://world.openfoodfacts.org/product/20005542
+- Nairn's Dark Chocolate Chip Oat Biscuits 200g: https://world.openfoodfacts.org/product/0061232202556
+- Pom-bear Potato 13g: https://world.openfoodfacts.org/product/5000237132296
+- Nairn's Fine Milled Oatcakes 250g: https://world.openfoodfacts.org/product/0061232200545
+- Green & Black's Organic Milk Chocolate 90g: https://world.openfoodfacts.org/product/7622210580092
+- Smartwater Smart Water 600ml: https://world.openfoodfacts.org/product/5449000034335
+- Eat Real Hummus Chips Tomato & Basil Flavour 135g: https://world.openfoodfacts.org/product/5026489483030
+- Eat Real Hummus Chips Tomato & Basil Flavour 135g: https://world.openfoodfacts.org/product/5026489500515
+- KP Dry Roasted Peanuts 30g: https://world.openfoodfacts.org/product/5000237127285
+- Walkers Supreme Prawn Cocktail 25g: https://world.openfoodfacts.org/product/51000012
+- Proper Corn Sea Salted 10g: https://world.openfoodfacts.org/product/5060283760652
+- Kinder Pingui 120g: https://world.openfoodfacts.org/product/4008400290423
+- Ryvita Thins Rosemary & Sea Salt Flatbreads 125g: https://world.openfoodfacts.org/product/5050974504139
+- Ryvita Thins Rosemary & Sea Salt Flatbreads 125g: https://world.openfoodfacts.org/product/4088600448480
+- Nairn's Fine Milled Oatcakes 218g: https://world.openfoodfacts.org/product/0061232202952
+- Doritos Chilli Heatwave Tortilla Chips 180g: https://world.openfoodfacts.org/product/5000328741901
+- Montezuma's Absolute Black Dark Chocolate 90g: https://world.openfoodfacts.org/product/5060719920001
+- San Pellegrino Sanpellegrino 330ml: https://world.openfoodfacts.org/product/8002270506833
+- Eat Real Veggie Straws - With Kale Tomato & Spinach 113g: https://world.openfoodfacts.org/product/5026489490892
+- Eat Natural Fruit & Nut Bar Dark Chocolate 45g: https://world.openfoodfacts.org/product/50663811
+- Eat Natural Fruit & Nut Bar Dark Chocolate 45g: https://world.openfoodfacts.org/product/5013803001186
+- Graze Marmite Crunch 100g: https://world.openfoodfacts.org/product/5055958704161
+- Tunnock's Milk Chocolare Caramel Wafer 30g: https://world.openfoodfacts.org/product/50823093
+- San Pellegrino Carbonated Natural Mineral Water 500ml: https://world.openfoodfacts.org/product/8002270000515
+- Kettle Lightly Salted Potato Chips 25g: https://world.openfoodfacts.org/product/5017764003142
+- Nature Valley Protein Peanut & Chocolate Cereal Bar 40g: https://world.openfoodfacts.org/product/8410076900302
+- Tony's Chocolonely Milk Chocolate Caramel Sea Salt 180g: https://world.openfoodfacts.org/product/8717677339938
+- Proper Barbecue 85g: https://world.openfoodfacts.org/product/5060283762212
+- Walkers Oven Baked Sea Salt Crisps 22g: https://world.openfoodfacts.org/product/5000328015927
+- Jacobs HIGH Fibre Cream Crackers 200g: https://world.openfoodfacts.org/product/5000137159614
+- Lindt Excellence Extra Creamy Milk 100g: https://world.openfoodfacts.org/product/3046920011013
+- Pringles Sourcream&Onion 200g: https://world.openfoodfacts.org/product/5053990138753
+- Doritos Cool Original 180g: https://world.openfoodfacts.org/product/5000328741581
+- Robinsons Double Concentrate Orange Squash No Added 1.75L: https://world.openfoodfacts.org/product/5010102114135
+- Proper Corn Sweet & Salty Popcorn 84g: https://world.openfoodfacts.org/product/5060283760812
+- Deliciously Ella Apple & Raisin Oat Bar 50g: https://world.openfoodfacts.org/product/5060482840209
+- Lindt Extra Veloute Blanc 100g: https://world.openfoodfacts.org/product/3046920084000
+- Walkers Sensations Thai Sweet Chilli Crisps 150g: https://world.openfoodfacts.org/product/5000328192871
+- Merchant Gourmet Whole Chestnuts 180g: https://world.openfoodfacts.org/product/5018095000947
+- Trek Cocoa Oat Protein Flapjack Chocolate Flavour To 50g: https://world.openfoodfacts.org/product/5060088702307
+- Oreo Original 154g: https://world.openfoodfacts.org/product/7622300315283
+- LU Le Petit Beurre 167g: https://world.openfoodfacts.org/product/7622201499679
+- Highland Spring Still Mineral Water 1.5L: https://world.openfoodfacts.org/product/5010459005025
+- Crosta & Mollica Fennel Seed Tarallini 170g: https://world.openfoodfacts.org/product/5060198642289
+- Tony's Dark Chocolate Almond Sea Salt 51 180g: https://world.openfoodfacts.org/product/8717677339877
+- Conaxess Trade Norge AS Ritter Sport Marzipan 100g: https://world.openfoodfacts.org/product/4000417025005
+- Eat Real Quinoa Chips 80g: https://world.openfoodfacts.org/product/5026489487083
+- Proper Salt & Vinegar Lentil Chips 85g: https://world.openfoodfacts.org/product/5060283762427
+- Propercorn Sweet & Salty Popcorn 30g: https://world.openfoodfacts.org/product/5060283760034
+- Love Corn Smoked BBQ Crunchy 115g: https://world.openfoodfacts.org/product/5060490400259
+- McVitie's Ginger Nuts 250g: https://world.openfoodfacts.org/product/5000168164045
+- San Pellegrino Aranciata Rossa 330ml: https://world.openfoodfacts.org/product/8002270586835
+- Nature Valley Crunchy Oats & Honey 42g: https://world.openfoodfacts.org/product/0016000502666
+- Nature Valley Crunchy Oats & Honey 42g: https://world.openfoodfacts.org/product/8410076800442
+- Nairn's Chocolate Chip Oat Biscuit Breaks 160g: https://world.openfoodfacts.org/product/0612322030087
+- Walkers Shortbread Highlanders 200g: https://world.openfoodfacts.org/product/0039047001442
+- Conaxess Trade Norway Ritter Sport Whole Hazelnut 100g: https://world.openfoodfacts.org/product/4000417700001
+- Manomasa Manchego & Green Olive 140g: https://world.openfoodfacts.org/product/5017764003371
+- Snaktastic Flutes Feuilletees Fromage 150g: https://world.openfoodfacts.org/product/20071097
+- Savour Bakes Savoury Crackers 200g: https://world.openfoodfacts.org/product/4088600226736
+- Lindt & Sprungli Orange Intense Chocolate 100g: https://world.openfoodfacts.org/product/3046920028400
+- Off The Eaten Path Sea Salt Flavour Pea And Bean Sti 100g: https://world.openfoodfacts.org/product/5000328020822
+- Walkers Baked Cheese And Onion 22g: https://world.openfoodfacts.org/product/5000328015897
+- Pringles Smokey Bacon Flavour 175g: https://world.openfoodfacts.org/product/5053990162765
+- Graze Chilli And Lime Protein Nut Crunch 100g: https://world.openfoodfacts.org/product/5055958706721
+- The Foodie Market Walnut Halves 200g: https://world.openfoodfacts.org/product/4088600441658
+- Oreo Sjokoladetrukket 246g: https://world.openfoodfacts.org/product/7622300489434
+- Lindt Caramel 100g: https://world.openfoodfacts.org/product/3046920028424
+- Alesto Pistachios 200g: https://world.openfoodfacts.org/product/4056489030959
+- Stockan's Orkney Thick Oatcakes 200g: https://world.openfoodfacts.org/product/5015168000026
+- Pepsico Pepsi Max 2L: https://world.openfoodfacts.org/product/4060800103307
+- Popworks Sweet & Salty Popped Crisps 85g: https://world.openfoodfacts.org/product/5000328015552
+- Popchips Barbeque Potato Chips 85g: https://world.openfoodfacts.org/product/5060292308203
+- Peter's Yard Rosemary & Sea Salt Sourdough Crackers 90g: https://world.openfoodfacts.org/product/5060198820847
+- Tower Gate Rich Tea Biscuits 300g: https://world.openfoodfacts.org/product/20018986
+- Cadbury Dairymilk Buttons 119g: https://world.openfoodfacts.org/product/7622210286956
+- Nestle Nerds Candy - Rainbow 141g: https://world.openfoodfacts.org/product/0079200558338
+- Sun Bites Sweet Chilli Multigrain Snacks 150g: https://world.openfoodfacts.org/product/5000328154893
+- Haribo Maoam 250g: https://world.openfoodfacts.org/product/4001686580332
+- Lu Le Petiy Biscotte Crunchy Cinnamon And Brown Suga 200g: https://world.openfoodfacts.org/product/7622201499617
+- The Natural Confectionary Co. Jelly Snakes 130g: https://world.openfoodfacts.org/product/7622201730352
+- McCoy's Ridge Cut Salt And Malt Vinegar Crisps 45g: https://world.openfoodfacts.org/product/5000237138625
+- Sensations Lime & Coriander Chutney Poppadoms 82.5g: https://world.openfoodfacts.org/product/5000328428581
+- Penn State Baked Pretzels Original Sea Salted 175g: https://world.openfoodfacts.org/product/5032439100070
+- Cadbury Brunch Bar Raisin 32g: https://world.openfoodfacts.org/product/7622201824198
+- M&M's Peanut 165g: https://world.openfoodfacts.org/product/5000159516235
+- Walkers Ready Salted Crisps 32.5g: https://world.openfoodfacts.org/product/5000328347790
+- Walkers French Fries - Ready Salted 21g: https://world.openfoodfacts.org/product/51000640
+- Sainsbury's Basics Just Snax Tortilla Chips 200g: https://world.openfoodfacts.org/product/01708752
+- Tyrrell's Lightly Sea Salted 40g: https://world.openfoodfacts.org/product/5060042640744
+- Walker's Shortbread Fingers 160g: https://world.openfoodfacts.org/product/0039047011304
+- Haribo Starmix 175g: https://world.openfoodfacts.org/product/5012035927592
+- M+m M AND M Peanut 125g: https://world.openfoodfacts.org/product/5000159472531
+- Popchips Sour Cream & Onion Potato Chips 85g: https://world.openfoodfacts.org/product/5060292308708
+- The Foodie Market Brazil Nuts 180g: https://world.openfoodfacts.org/product/4088600272672
+- Nakd Berry Delight Bar 35g: https://world.openfoodfacts.org/product/5060088704882
+- McVitie's Hobnobs 255g: https://world.openfoodfacts.org/product/5000168034928
+- Sainsburys Taste The Difference Madagascan Dark Choc 100g: https://world.openfoodfacts.org/product/00392754
+- Cadbury Bournville Dark Chocolate Bar 180g: https://world.openfoodfacts.org/product/7622210249661
+- Extra Wrigleys Spearmint 84g: https://world.openfoodfacts.org/product/4009900482776
+- M&M's Chocolate 45g: https://world.openfoodfacts.org/product/40111490
+- Cristaline Citronnade 500ml: https://world.openfoodfacts.org/product/3254381058694
+- Volvic Natural Mineral Water 1.5L: https://world.openfoodfacts.org/product/3057640100178
+- Volvic Natural Mineral Water 1.5L: https://world.openfoodfacts.org/product/20030995
+- Volvic Natural Mineral Water 1.5L: https://world.openfoodfacts.org/product/5015552555132
+- Eat Real Veggie Straws 20g: https://world.openfoodfacts.org/product/5026489494609
+- Doritos Tangy Cheese 180g: https://world.openfoodfacts.org/product/5000328741314
+- Tyrrell's Furrows Sea Salted Imp 150g: https://world.openfoodfacts.org/product/5060042643325
+- Peter's Yard Sea Salt Sourdough Flatbreads 115g: https://world.openfoodfacts.org/product/5060198820694
+- The Skinny Crackers Co Sea Salt & Black Pepper 185g: https://world.openfoodfacts.org/product/0072417194719
+- Organix Raspberry & Apple Soft Oaty Bar 30g: https://world.openfoodfacts.org/product/5024121822308
+- Nakd Cashew Cookie Fruit & Nut Bar 35g: https://world.openfoodfacts.org/product/5060088701607
+- Skittles 45g: https://world.openfoodfacts.org/product/4009900522120
+- Proper Salt And Vinegar Lentil Chips 70g: https://world.openfoodfacts.org/product/5060283762366
+- Popchips All Natural Barbeque Potato Popped Chips 17g: https://world.openfoodfacts.org/product/5000237139400
+- Belvita Soft Bakes Blueberry 250g: https://world.openfoodfacts.org/product/7622201766375
+- Haribo Tangfastics 175g: https://world.openfoodfacts.org/product/5012035927608
+- Sanpellegrino Natural Mineral Water 1L: https://world.openfoodfacts.org/product/8002270018213
+- Sanpellegrino Natural Mineral Water 1L: https://world.openfoodfacts.org/product/4770405226980
+- popChips Sour Cream & Onion 17g: https://world.openfoodfacts.org/product/5000237139394
+- Tyrrell's Limited Edition Black Truffle & Sea Salt 150g: https://world.openfoodfacts.org/product/5056051802266
+- Danube Crimbles Coconut Macarons IMP 180g: https://world.openfoodfacts.org/product/5010822115061
+- Belmont Biscuits Rich Tea 300g: https://world.openfoodfacts.org/product/4088600108063
+- Belvita Breakfast Biscuits Soft Bakes Filled Choco H 250g: https://world.openfoodfacts.org/product/7622210695390
+- Lindt Milk Chocolate Truffles 200g: https://world.openfoodfacts.org/product/8003340090535
+- Snack A Jacks Cool Sour Cream & Chive 117g: https://world.openfoodfacts.org/product/5000328333731
+- Rivercote Savoury Crackers Lightly Salted 200g: https://world.openfoodfacts.org/product/4056489517528
+- Tower Gate Oaties 300g: https://world.openfoodfacts.org/product/20319618
+- Go Ahead Fruit Slices - Forest Fruits 174g: https://world.openfoodfacts.org/product/5000168037011
+- Tower Gate Dark Chocolate Digestives 300g: https://world.openfoodfacts.org/product/4056489476283
+- Tower Gate Dark Chocolate Digestives 300g: https://world.openfoodfacts.org/product/4056489476276
+- Haribo Stripes Bag 180g: https://world.openfoodfacts.org/product/4001686522424
+- Simply Roasted Salted Potato Crisps 93g: https://world.openfoodfacts.org/product/5060837490004
+- Walkers Salt & Shake Potato Crisps 24g: https://world.openfoodfacts.org/product/51000062
+- Savour Bakes Wheat Crackers 170g: https://world.openfoodfacts.org/product/4088600107769
+- Rivercote Lightly Salted Rice Crackers 100g: https://world.openfoodfacts.org/product/20891299
+- Simply... Roasted & Salted Peanuts 200g: https://world.openfoodfacts.org/product/4056489823957
+- tastinoKuljanka Curls 280g: https://world.openfoodfacts.org/product/20498351
+- Green & Black's Organic Cooking Dark Chocolate Bar 150g: https://world.openfoodfacts.org/product/5011835102390
+- Lindt Classic Recipe Milk Chocolate 125g: https://world.openfoodfacts.org/product/3046920028035
+- Fanta Lemon 500ml: https://world.openfoodfacts.org/product/54492493
+- DASH Water Peaches Sparkling 330ml: https://world.openfoodfacts.org/product/5060489730206
+- DASH Water Peaches Sparkling 330ml: https://world.openfoodfacts.org/product/5060489730503
+- DASH Water Peaches Sparkling 330ml: https://world.openfoodfacts.org/product/5060489730657
+- Tyrrell's Sea Salt & Cider Vinegar 40g: https://world.openfoodfacts.org/product/5060042640690
+- Proper Corn - Popcorn Done Properly - Lightly Sea Sa 20g: https://world.openfoodfacts.org/product/5060283760003
+- 1001 Delights Organic Salted Millet Snack Balls 150g: https://world.openfoodfacts.org/product/20754648
+- Decna Foods As Beef Jerky Original Jack Link's 25g: https://world.openfoodfacts.org/product/4251097402888
+- Montezuma's Absolute Black Orange & Cocoa Nibs 90g: https://world.openfoodfacts.org/product/5060719920049
+- Galaxy Minstrels Pouch Bag 125g: https://world.openfoodfacts.org/product/5000159530750
+- Multibev Tonic Water Mediterranean 0 Flaske Fever-Tr 500ml: https://world.openfoodfacts.org/product/5060108450546
+- Kettle Chips Sea Salt & Crushed Black Peppercorns 130g: https://world.openfoodfacts.org/product/5017764004019
+- McCoy's Salt & Malt Vinegar Crisps 25g: https://world.openfoodfacts.org/product/5000237129906
+- Nairn's Coconut & Chia Oat Biscuits Imp 200g: https://world.openfoodfacts.org/product/0612322001063
+- IKEA Kafferep 176g: https://world.openfoodfacts.org/product/1103749230000
+- Rom Milk Chocolate With Rum 88g: https://world.openfoodfacts.org/product/5941047827401
+- Maltesers Pouch Bag 102g: https://world.openfoodfacts.org/product/5000159530736
+- Rowntrees Fruit Pastilles Pouch 143g: https://world.openfoodfacts.org/product/7613287228338
+- Robinson's Real Fruit Double Strength Orange & Pinea 1L: https://world.openfoodfacts.org/product/5010102243309
+- No.1 Living Ginger Kombucha 250ml: https://world.openfoodfacts.org/product/5060587580109
+- Walkers Cheese & Onion Crisps 32.5g: https://world.openfoodfacts.org/product/5000328698823
+- Walkers Sensations Roasted Chicken & Thyme Flavour P 150g: https://world.openfoodfacts.org/product/5000328197685
+- Proper Barbecue Lentil Chips 70g: https://world.openfoodfacts.org/product/5060283762359
+- Hula Hoops Salted 45g: https://world.openfoodfacts.org/product/5000237138342
+- Nature Valley Sweet And Salty Nut 150g: https://world.openfoodfacts.org/product/8410076901002
+- Alesto Bakewell Tart Raw Fruit & Nut Bar 35g: https://world.openfoodfacts.org/product/20114473
+- Jammie Dodgers Raspberry 140g: https://world.openfoodfacts.org/product/0072417143700
+- Fox's Milk Chocolate Cookies 180g: https://world.openfoodfacts.org/product/5010035068352
+- Tower Gate Ginger Nuts 300g: https://world.openfoodfacts.org/product/20018924
+- Milbona Milk & Honey Snack 112g: https://world.openfoodfacts.org/product/20385668
+- Nairn's Stem Ginger Oat Biscuit Breaks 160g: https://world.openfoodfacts.org/product/0612322000028
+- Green & Blacks Smooth Mint 90g: https://world.openfoodfacts.org/product/7622201786373
+- Coca-Cola Diet Coke 355ml: https://world.openfoodfacts.org/product/04965802
+- Saskia Sparkling Natural Mineral Water 2L: https://world.openfoodfacts.org/product/20080525
+- Eat Real Quinoa Chips 30g: https://world.openfoodfacts.org/product/5026489484785
+- Walkers Wortsits Giants Really Cheesy 130g: https://world.openfoodfacts.org/product/5000328202389
+- Walkers Cheese & Onion 45g: https://world.openfoodfacts.org/product/5000328270715
+- Eat Real Hummus Chips Chilli & Lemon Flavour 135g: https://world.openfoodfacts.org/product/5026489483047
+- Doritos Whopper Flavour 180g: https://world.openfoodfacts.org/product/5000328018775
+- Jacob's Mini Cheddars Original 45g: https://world.openfoodfacts.org/product/5000168031064
+- Graze Punchy Chilli & Lime Nutty Protein Power 118g: https://world.openfoodfacts.org/product/5055958700538
+- Graze Chilli And Lime 38g: https://world.openfoodfacts.org/product/5055958706073
+- McVitie's Penguin Biscuit Bar 24.6g: https://world.openfoodfacts.org/product/50168064
+- Balconi Wafers Bfb Hazelnut 225g: https://world.openfoodfacts.org/product/8001585008155
+- Belmont Biscuits Malted Milk 200g: https://world.openfoodfacts.org/product/4088600108230
+- Wicked Kitchen Double Trouble Chocolate Cookies 300g: https://world.openfoodfacts.org/product/10595125
+- Ferrero Nutella Biscuits 276g: https://world.openfoodfacts.org/product/8000500366073
+- Green & Black's Smooth 90g: https://world.openfoodfacts.org/product/7622201811150
+- Hu Cashew Butter Pure Vanilla Bean Dark Chocolate 60g: https://world.openfoodfacts.org/product/1230000097062
+- Cask As Ginger Beer Flaske Fentimans 275ml: https://world.openfoodfacts.org/product/5029396222334
+- Princes Gate Still Spring Water 500ml: https://world.openfoodfacts.org/product/5024616003021
+- Princes Gate Still Spring Water 500ml: https://world.openfoodfacts.org/product/5024616003069
+- Pipers Wild Thyme & Rosemary Crisps 150g: https://world.openfoodfacts.org/product/5033060100347
+- McCoy's Cheddar & Onion Ridge Cut Crisps 25g: https://world.openfoodfacts.org/product/5000237129913
+- Popchips Barbeque Potato Chips 23g: https://world.openfoodfacts.org/product/5060292302201
+- Aldi Specially Selected Sea Salt & Chardonny Vinegar 150g: https://world.openfoodfacts.org/product/4088600198392
+- Crosta & Mollica Black Peppercorn Bolli Italian Crac 150g: https://world.openfoodfacts.org/product/5060198641169
+- Aldi Everyday Essentials Roasted Salted Peanuts 200g: https://world.openfoodfacts.org/product/4061464329379
+- Marmite Oven Baked Cashews 90g: https://world.openfoodfacts.org/product/5055958704215
+- KitKat Vegan 41.5g: https://world.openfoodfacts.org/product/7613287430984
+- Fox's British Loin Quality Jam'n'Cream 150g: https://world.openfoodfacts.org/product/5010035050883
+- McVitie's Club Orange 22g: https://world.openfoodfacts.org/product/50137992
+- Walkers Pure Butter Shortbread 125g: https://world.openfoodfacts.org/product/0039047011496
+- Lindt Vegan Smooth Chocolate 100g: https://world.openfoodfacts.org/product/4000539140327
+- Ferrero Rocher 37.5g: https://world.openfoodfacts.org/product/80050278
+- Fever-Tree Indian Tonic Water 500ml: https://world.openfoodfacts.org/product/5060108450324
+- Fever-Tree Indian Tonic Water 500ml: https://world.openfoodfacts.org/product/5060108454971
+- Fever-tree Italian Blood Orange Soda 500ml: https://world.openfoodfacts.org/product/5060605060576
+- AQUA Carpatica Flavoured Sparkling Beverage With Nat 330ml: https://world.openfoodfacts.org/product/5942326401947
+- Walkers Sensations Thai Sweet Chili 25g: https://world.openfoodfacts.org/product/51001233
+- Walkers Wotsits Crunchy 140g: https://world.openfoodfacts.org/product/5000328328645
+- Proper Chips Barbecue Lentil 20g: https://world.openfoodfacts.org/product/5060283762250
+- Proper Chips Barbecue Lentil 20g: https://world.openfoodfacts.org/product/5034709007522
+- Propercorn Sweet Cinnamon Popcorn 90g: https://world.openfoodfacts.org/product/5060283762786
+- Rivercote Sweet Chilli Rice Crackers 100g: https://world.openfoodfacts.org/product/20891305
+- Eatz Smokehouse BBQ 120g: https://world.openfoodfacts.org/product/4088600206608
+- Butterkist Simply Salted 180g: https://world.openfoodfacts.org/product/5000237129739
+- Alesto Roasted And Salted Mixed Nuts 150g: https://world.openfoodfacts.org/product/4056489648574
+- Fox's Party Rings Mini 21g: https://world.openfoodfacts.org/product/5010035167697
+- Schar Haferkekse Glutenfrei 130g: https://world.openfoodfacts.org/product/8008698016756
+- Lindt Caramelised Hazelnut Dark Chocolate 100g: https://world.openfoodfacts.org/product/3046920020305
+- Cadbury Dairy Milk 45g: https://world.openfoodfacts.org/product/7622300743536
+- Menier Swiss Dark Chocolate 100g: https://world.openfoodfacts.org/product/5000189120563
+- Schogetten Kruger Czekolada Shogetten-kids 100g: https://world.openfoodfacts.org/product/4000607854606
+- Devine Fairtrade Deliciously Rich Dark Chocolate 90g: https://world.openfoodfacts.org/product/5017397001942
+- Ferrero Scandinavia Ab Kinder Maxi Sjokolade 21gx6st 126g: https://world.openfoodfacts.org/product/80310167
+- Doritos Cool Original 150g: https://world.openfoodfacts.org/product/5000328175973
+- Walkers Prawn Cocktail 45g: https://world.openfoodfacts.org/product/5000328270890
+- Deliciously Ella Sweet Potato And Rosemary Baked Veg 100g: https://world.openfoodfacts.org/product/5060482841442
+- Chio Party Mix 200g: https://world.openfoodfacts.org/product/4000522060519
+- Stockwell Tesco Natural Unsalted Fruit & Nuts 200g: https://world.openfoodfacts.org/product/5057545714188
+- Kind Maple Pecan Almond 40g: https://world.openfoodfacts.org/product/5000159542661
+- Trek White Choc & Raspberry Protein Flapjack 50g: https://world.openfoodfacts.org/product/5060088709276
+- Belvita Chocolate Chip Biscuits 225g: https://world.openfoodfacts.org/product/7622210689382
+- Simply M&S Oatcakes 300g: https://world.openfoodfacts.org/product/00303705
+- Belmont Biscuits Dark Chocolate Digestives 300g: https://world.openfoodfacts.org/product/4088600108667
+- Belmont Biscuits Dark Chocolate Digestives 300g: https://world.openfoodfacts.org/product/4088600108643
+- RoStar Coconitos 100g: https://world.openfoodfacts.org/product/5941101000191
+- Lindt Lindor White 100g: https://world.openfoodfacts.org/product/7610400010429
+- Candy Kittens Sour Watermelon 140g: https://world.openfoodfacts.org/product/5060384262901
+- Candy Kittens Sour Watermelon 140g: https://world.openfoodfacts.org/product/5060384263076
+- Old Jamaica Ginger Beer With Fiery Jamaican Root Gin 330ml: https://world.openfoodfacts.org/product/5029578000200
+- 7 Up Zero Sugar 500ml: https://world.openfoodfacts.org/product/4060800309952
+- Pringles Kickin' Sour Cream 180g: https://world.openfoodfacts.org/product/5053990160204
+- Walkers Wotsits Giants Flamin Hot 130g: https://world.openfoodfacts.org/product/5000328202464
+- Walkers Salt & Vinegar Crisps 32.5g: https://world.openfoodfacts.org/product/5000328461755
+- Tyrrells Mature Cheddar & Chive 40g: https://world.openfoodfacts.org/product/5060042640768
+- Cofresh Chilli & Lemon Grills Flavoured Potato Snack 80g: https://world.openfoodfacts.org/product/5026489478678
+- Walkers Wotsits Giants Baked 105g: https://world.openfoodfacts.org/product/5000328329789
+- Snaktastic (Lidl) Hummus Bites Tomato And Basil 135g: https://world.openfoodfacts.org/product/4056489296461
+- Jacob's Flatbreads Salt And Pepper 150g: https://world.openfoodfacts.org/product/5000168158617
+- Savour Bakes Thins Cheddar & Pepper 125g: https://world.openfoodfacts.org/product/4088600209906
+- Eat Natural Fruit And Nut Bars Darker Chocolate With 45g: https://world.openfoodfacts.org/product/5013803666514
+- Kinder Bueno 43g: https://world.openfoodfacts.org/product/5020411113828
+- Club Social Biscoito Salgado Original 24g: https://world.openfoodfacts.org/product/7622300990732
+- Mrs Crimble's 6 Vegan Choc Macaroons 195g: https://world.openfoodfacts.org/product/5010822991207
+- Harvest Morn Breakfast Biscuits Milk & Cereal 300g: https://world.openfoodfacts.org/product/4088600079394
+- Nairn's Gluten Free Oaties Syrupy & Crumbly 160g: https://world.openfoodfacts.org/product/0612322001131
+- Cadbury Twirl 43g: https://world.openfoodfacts.org/product/5000201499776
+- Cadbury Twirl 43g: https://world.openfoodfacts.org/product/7622201440176
+- Ritter Sport Honey Salt Almonds 100g: https://world.openfoodfacts.org/product/4000417704009
+- Maoam Pinballs 140g: https://world.openfoodfacts.org/product/5012035952273
+- Skittles Crazy Sours 174g: https://world.openfoodfacts.org/product/4009900465304
+- Lindt Lindor Assorted Chocolate Truffles Box 200g: https://world.openfoodfacts.org/product/8003340090276
+- Snickers 41.7g: https://world.openfoodfacts.org/product/5000159550345
+- Alpen FestLidl Mozartkugeln 200g: https://world.openfoodfacts.org/product/20369699
+- Mogu Mogu Lychee Flavored Drink 320ml: https://world.openfoodfacts.org/product/8850389103159
+- 320ml: https://world.openfoodfacts.org/product/8888002076009
+- Evian Sparkling 330ml: https://world.openfoodfacts.org/product/3068320127842
+- Walkers French Fries Cheese & Onion 18g: https://world.openfoodfacts.org/product/51000638
+- Walkers French Fries Cheese & Onion 18g: https://world.openfoodfacts.org/product/5012005290107
+- Walkers Mango & Chilli Chutney Poppadoms 82.5g: https://world.openfoodfacts.org/product/5000328806181
+- McCoy's Ready Salted 25g: https://world.openfoodfacts.org/product/5000237129920
+- Mister Free'd Blue Maize Tortilla Chips 135g: https://world.openfoodfacts.org/product/5060367450356
+- Jacob's Mediterranean Pinch Of Salt Crackers 190g: https://world.openfoodfacts.org/product/5000168032085
+- Milton's Original Multi-grain Baked Crackers 170g: https://world.openfoodfacts.org/product/0606541940012
+- Rivercote BBQ Rice Crackers 100g: https://world.openfoodfacts.org/product/4056489555193
+- Nobby's Nuts Classic Salted Peanuts 50g: https://world.openfoodfacts.org/product/5000328514536
+- Eat Natural Raw Protein Packed Peanuts Almond & Coco 45g: https://world.openfoodfacts.org/product/5056486900636
+- Lotus 10 Biscoff Biscuits 250g: https://world.openfoodfacts.org/product/5410126656145
+- Border Dark Chocolate Gingers 150g: https://world.openfoodfacts.org/product/0652655001156
+- Montezuma Milk Chocolate Buttons 38 180g: https://world.openfoodfacts.org/product/5060719920667
+- Cadbury Dairy Milk Chocolate Bar 200g: https://world.openfoodfacts.org/product/7622300735838
+- Cadbury Dairy Milk Chocolate Bar 200g: https://world.openfoodfacts.org/product/7622300734824
+- Lindt Strawberries And Cream Truffles 200g: https://world.openfoodfacts.org/product/8003340097619
+- Fever-Tree Refreshingly Light Mediterranean Tonic Wa 500ml: https://world.openfoodfacts.org/product/5060108451697
+- Cawston Press Elderflower Lemonade 330ml: https://world.openfoodfacts.org/product/5060054134323
+- Buxton Still Water 1L: https://world.openfoodfacts.org/product/7613031214839
+- Walkers - Lightly Salted 45g: https://world.openfoodfacts.org/product/5000328013961
+- Tunnock's MAX Punchy Paprika Flavour Potato Chips 27g: https://world.openfoodfacts.org/product/5000328941653
+- Grace Green Plantain Chips Salted 85g: https://world.openfoodfacts.org/product/5035139217505
+- Pringles Prawn Cocktail Flavour 165g: https://world.openfoodfacts.org/product/5053990158034
+- Carr's Melts Italian Herb Flavour 150g: https://world.openfoodfacts.org/product/5000168032252
+- Alesto Salt And Peppers Cashews 150g: https://world.openfoodfacts.org/product/4056489648604
+- Marmite Yeast Extract Flatbreads 140g: https://world.openfoodfacts.org/product/5026139000310
+- Snacktastic Sweet And Salted Popcorn 200g: https://world.openfoodfacts.org/product/20449667
+- Mogyi Fistic Prajit Si Sarat 140g: https://world.openfoodfacts.org/product/5997347541790
+- By Sainsbury's Custard Creams 200g: https://world.openfoodfacts.org/product/00302838
+- Belmont Biscuits Caramelised 250g: https://world.openfoodfacts.org/product/4088600346823
+- Cadbury Crunchy Melts 156g: https://world.openfoodfacts.org/product/7622210764744
+- Gullon Choco Digestive 300g: https://world.openfoodfacts.org/product/8410376015515
+- Kinder Cards 25.6g: https://world.openfoodfacts.org/product/8000500312971
+- Mr Beast Bar - Milk Chocolate 60g: https://world.openfoodfacts.org/product/1230000168045
+- Bendicks Bittermints 200g: https://world.openfoodfacts.org/product/5014491000017
+- Feastables MrBeast Deez Nutz 60g: https://world.openfoodfacts.org/product/1230000168021
+- Nestle Jelly Tots Sharing Bag 150g: https://world.openfoodfacts.org/product/7613035419056
+- Candy Kittens Wild Strawberry Gourmet Sweets 140g: https://world.openfoodfacts.org/product/5060384262918
+- Nomo Caramel Choc Bar 38g: https://world.openfoodfacts.org/product/5010775200661
+- Kinder Chocolate 105g: https://world.openfoodfacts.org/product/4008400221328
+- Bear Forest Fruit Bars 27g: https://world.openfoodfacts.org/product/5060139435550
+- The Coca-Cola Company Diet Coke Kate Moss 2L: https://world.openfoodfacts.org/product/5449000673039
+- Saguaro Acqua Minerale Naturale 2L: https://world.openfoodfacts.org/product/20824662
+- McCoy's Cheddar And Onion Crisps 45g: https://world.openfoodfacts.org/product/5000237138601
+- Pringels Pringles Sour Cream & Herbs 200g: https://world.openfoodfacts.org/product/5053990159253
+- Walkers Baked Sea Salt Potato Snacks 150g: https://world.openfoodfacts.org/product/5000328283807
+- Walkers Wotsits Crunchy Sweet & Spicy Flamin Hot 140g: https://world.openfoodfacts.org/product/5000328328812
+- Pringles Sizzln Medium Sweet Chilli Flavour 180g: https://world.openfoodfacts.org/product/5053990167067
+- Gusto Eco Pufuleti 35g: https://world.openfoodfacts.org/product/5941868201046
+- The Skinny Cracker Co Rosemary Flavoured Crackers 185g: https://world.openfoodfacts.org/product/0072417194726
+- Ritz The Original Crackers 200g: https://world.openfoodfacts.org/product/7622210157324
+- Bahlsen Waffeletten Vollmilch 100g: https://world.openfoodfacts.org/product/4017100219900
+- Simply M&S Rich Tea Biscuits 300g: https://world.openfoodfacts.org/product/00741316
+- Organix Cocoa And Vanilla Biscuits 20g: https://world.openfoodfacts.org/product/5024121667114
+- Alka Alfers 180g: https://world.openfoodfacts.org/product/5941035010587
+- Tony's Chocolonely Milk Chocolate 50g: https://world.openfoodfacts.org/product/8717677339792
+- Ritter Sport Salted Caramel Vegan 100g: https://world.openfoodfacts.org/product/4000417107107
+- H!P Oat Milk Chocolate 70g: https://world.openfoodfacts.org/product/5060561603169
+- Hu Almond Butter Puffed Quinoa Dark Chocolate 60g: https://world.openfoodfacts.org/product/1230000097055
+- Vanini Dark Chocolate 86 100g: https://world.openfoodfacts.org/product/8006070072512
+- Cadbury Dairymilk Wholenut 120g: https://world.openfoodfacts.org/product/7622300735951
+- Cadbury Dairy Milk Marvellous Creations Jelly Poppin 160g: https://world.openfoodfacts.org/product/7622201770419
+- Lindt Lindor Milk Chocolate 100g: https://world.openfoodfacts.org/product/3046920021005
+- Jakemans Throat And Chest Lozenges 160g: https://world.openfoodfacts.org/product/5030104005200
+- Swizzels Drumstick Squashies 140g: https://world.openfoodfacts.org/product/5010478014510
+- Candy Kittens Very Cherry Gourmet Sweets 140g: https://world.openfoodfacts.org/product/5060384262932
+- White Rabbit Creamy Candy Sweets 180g: https://world.openfoodfacts.org/product/6926719110011
+- Love Raw Cre&m Filled Wafer Bars 43g: https://world.openfoodfacts.org/product/5060462260539
+- KitKat Chunky Milk Chocolate 40g: https://world.openfoodfacts.org/product/7613037051230
+- Tymbark Limonata Lamponi-limone 400ml: https://world.openfoodfacts.org/product/5942289012815
+- Volvic Strawberry 1.5L: https://world.openfoodfacts.org/product/3057640308338
+- Volvic Strawberry 1.5L: https://world.openfoodfacts.org/product/3057640229138
+- White Rock Water 500ml: https://world.openfoodfacts.org/product/5033022002306
+- Pringles Sizzl'n Spicy Spicy BBQ Flavour 180g: https://world.openfoodfacts.org/product/5053990160242
+- Big Hoops Barbeque Beef 45g: https://world.openfoodfacts.org/product/5000237138328
+- Kiddylicious Veggie Straws 12g: https://world.openfoodfacts.org/product/5060040253700
+- Pringles Roast Chicken & Rosemary 166g: https://world.openfoodfacts.org/product/5053990170630
+- Alesto Salted Giant Corn 70g: https://world.openfoodfacts.org/product/4056489709589
+- Proper Sour Cream And Chive Flavour Lentil Chips 85g: https://world.openfoodfacts.org/product/5060283762229
+- Simply... Lightly Salted Tortilla Chips 200g: https://world.openfoodfacts.org/product/20694180
+- Tyrrells Veg Crisps Balsamic Vinegar & Sea Salt 125g: https://world.openfoodfacts.org/product/5056051806585
+- By Sainsbury's Lightly Salted Tortilla Chips 200g: https://world.openfoodfacts.org/product/00164429
+- Proper Corn Salted Caramel 90g: https://world.openfoodfacts.org/product/5060283762526
+- Alsi Roasted And Salted Pistachios 200g: https://world.openfoodfacts.org/product/4061464443662
+- Jacob's Cornish Wafers 150g: https://world.openfoodfacts.org/product/5000137277929
+- Marmite Oven Baked Peanuts 190g: https://world.openfoodfacts.org/product/5055958704239
+- Perkier Peanut Protein Bar 35g: https://world.openfoodfacts.org/product/5060319170493
+- FitSpo Flapjack Oat Bar 90g: https://world.openfoodfacts.org/product/3800224890404
+- Nature Valley Fruit And Nut 120g: https://world.openfoodfacts.org/product/8410076611239
+- Go Ahead Strawberry Yogurt Breaks 142g: https://world.openfoodfacts.org/product/5000168038056
+- Nairn's Mixed Berries Oat Biscuits Imp 200g: https://world.openfoodfacts.org/product/0061232200989
+- Bahlsen Choco Leibniz 125g: https://world.openfoodfacts.org/product/4017100206214
+- Cadbury Timeout Wafer 121.2g: https://world.openfoodfacts.org/product/7622201428723
+- Border Biscuits Butterscotch Crunch 20g: https://world.openfoodfacts.org/product/0652655300006
+- Nairn's Oaties 160g: https://world.openfoodfacts.org/product/0612322030209
+- Ombar 90 Cacao Bean To Bar Super Chocolate 35g: https://world.openfoodfacts.org/product/5060102661931
+- Ritter Sport Weie Zimt Crisp Schokolade 100g: https://world.openfoodfacts.org/product/4000417692313
+- Green & Black's 37 Cacao Sea Salt Milk Chocolate 90g: https://world.openfoodfacts.org/product/7622210584755
+- Tony's Chocolonely Milk Chocolate Caramel Sea Salt 47g: https://world.openfoodfacts.org/product/8717677339815
+- Tony's Chocolonely Tonys Chocolate 180g: https://world.openfoodfacts.org/product/8719956498114
+- Nestle Matchmakers 120g: https://world.openfoodfacts.org/product/7613036193047
+- Ritter Sport Crispy Coffee 100g: https://world.openfoodfacts.org/product/4000417694119
+- Milka Bubbly White 95g: https://world.openfoodfacts.org/product/7622210369543
+- Kinder Maxi Chocolate 84g: https://world.openfoodfacts.org/product/8000500155646
+- Starburst Original 138g: https://world.openfoodfacts.org/product/4009900546249
+- Rowntrees Randoms Pouch 150g: https://world.openfoodfacts.org/product/8593893751743
+- Nomo Deliciously Creamy Choc Bar 85g: https://world.openfoodfacts.org/product/5010775199576
+- Skittles Taste The Rainbow Fruits 136g: https://world.openfoodfacts.org/product/4009900546089
+- Candy Kittens Sweet Raspberry & Guava 140g: https://world.openfoodfacts.org/product/5060384262949
+- Maynards Bassetts Jelly Babies 165g: https://world.openfoodfacts.org/product/7622210575036
+- Lindt 60 Cocoa Chocolate Truffles 200g: https://world.openfoodfacts.org/product/8003340090269
+- Cadbury Plant Bar 90g: https://world.openfoodfacts.org/product/7622201498795
+- Cadbury Crunchie Chocolate Bar 128g: https://world.openfoodfacts.org/product/7622210255396
+- Polo Original Mint Tube 34g: https://world.openfoodfacts.org/product/50189779
+- Mars Bar 51g: https://world.openfoodfacts.org/product/5000159470476
+- Fanta Shokata 1.75L: https://world.openfoodfacts.org/product/5449000119056
+- Adelholzener Wasser Naturell 750ml: https://world.openfoodfacts.org/product/4005906003724
+- McCoy's The Real Mccoys 45g: https://world.openfoodfacts.org/product/5000237138700
+- Dettol Mature Cheddar & Red Onion Hand Cooked Crisps 150g: https://world.openfoodfacts.org/product/4088600007861
+- Doritos Chili Heatwave Grab Bag 48g: https://world.openfoodfacts.org/product/5000328271767
+- Deliciously Ella Olive Oil Sea Salt & Black Pepper B 100g: https://world.openfoodfacts.org/product/5060482841459
+- Walkers Quavers Cheese Snacks 20g: https://world.openfoodfacts.org/product/5000328583839
+- Doritos Tangy Cheese Tortilla Chips 150g: https://world.openfoodfacts.org/product/5000328681443
+- Doritos Tangy Cheese Tortilla Chips 150g: https://world.openfoodfacts.org/product/5000328452227
+- Popchips Sea Salt Flavour Potato Snacks 23g: https://world.openfoodfacts.org/product/5060292302102
+- Pringles Texas BBQ Sauce 200g: https://world.openfoodfacts.org/product/5053990138661
+- Schar - Curvies BBQ 170g: https://world.openfoodfacts.org/product/8008698031032
+- Snaktastic Original Stapelchips 175g: https://world.openfoodfacts.org/product/4056489248415
+- PopWorks Sweet & Salty 28g: https://world.openfoodfacts.org/product/5000328015583
+- Pringles Prawn Cocktail Flavour 185g: https://world.openfoodfacts.org/product/5053990167739
+- Marks And Spencer Sweet Rosemary Maldon Salt Nut Sel 150g: https://world.openfoodfacts.org/product/29283194
+- Peter's Yard Poppy Seed Sourdough Crackers 100g: https://world.openfoodfacts.org/product/5060198820854
+- The Co-operative Loved By Us Sea Salt Crackers 185g: https://world.openfoodfacts.org/product/5000128957113
+- Nature Valley Crunchy Peanut Butter 42g: https://world.openfoodfacts.org/product/8410076800909
+- Perkier Salted Caramel & Dark Chocolate Bar 37g: https://world.openfoodfacts.org/product/5060319170820
+- Deliciously Ella Roasted Almond Trail Mix Bar 40g: https://world.openfoodfacts.org/product/5060482842197
+- Rheal Energy Superfood Oat Bar 150g: https://world.openfoodfacts.org/product/5060594550539
+- Eat Natural Bars - Apple Ginger Dark Chocolate 45g: https://world.openfoodfacts.org/product/96137062
+- Fox's Rocky Caramel 166g: https://world.openfoodfacts.org/product/5010035066556
+- Crownfield Yogurt Slices 185g: https://world.openfoodfacts.org/product/4056489052685
+- Nairn's Toffee Oat Biscuits 160g: https://world.openfoodfacts.org/product/0612322001582
+- McVitie's Digestive Dark Chocolate 266g: https://world.openfoodfacts.org/product/5000168033877
+- Nabisco Chicken In A Biskit Original 212g: https://world.openfoodfacts.org/product/0044000030490
+- Pink Panther Wafers 184g: https://world.openfoodfacts.org/product/5060201180883
+- Tony's Chocoloney 70 Dark Chockate 180g: https://world.openfoodfacts.org/product/8717677339990
+- Divine Smooth Dark Chocolate With Pink Himalayan Sal 90g: https://world.openfoodfacts.org/product/5017397002024
+- NOMO Fruit & Crunch Choc Bar 32g: https://world.openfoodfacts.org/product/5010775199613
+- Panda Natural Original Liquorice 4 Bars 128g: https://world.openfoodfacts.org/product/0075172079123
+- Candy Kittens Loves 140g: https://world.openfoodfacts.org/product/5060384262925
+- Skittles Fruits Pouch 152g: https://world.openfoodfacts.org/product/4009900482967
+- TIC TAC Fresh Mint 98g: https://world.openfoodfacts.org/product/8000500153383
+- Rowntree's Fruit Pastilles Strawberry & Blackurrant 143g: https://world.openfoodfacts.org/product/7613287228703
+- Dominion CompliMints 30g: https://world.openfoodfacts.org/product/4088600516615
+- Cadbury Dairy Milk Marvellous Creations Jelly Poppin 47g: https://world.openfoodfacts.org/product/7622210106988
+- Galaxy Choclate 180g: https://world.openfoodfacts.org/product/5000159552998
+- Snickers 48g: https://world.openfoodfacts.org/product/5000159551915
+- Lily O'Brien's Desserts Collection 210g: https://world.openfoodfacts.org/product/5390394017261
+- Kelloggs Rice Krispies Squares Totally Chocolate 36g: https://world.openfoodfacts.org/product/5050083449031
+- Galaxy Caramel 135g: https://world.openfoodfacts.org/product/5900951027710
+- Galaxy Caramel 135g: https://world.openfoodfacts.org/product/5900951255663
+- Rodeo Regular Energy Drink Taurine 250ml: https://world.openfoodfacts.org/product/8711900013992
+- Fever-Tree Mexican Lime 500ml: https://world.openfoodfacts.org/product/5060605060552
+- Fentimans Gently Sparkling Elderflower 275ml: https://world.openfoodfacts.org/product/5029396739078
+- Highland Spring Spt750ml 750ml: https://world.openfoodfacts.org/product/5010459007289
+- Aqua Libra Blood Orange & Mango 330ml: https://world.openfoodfacts.org/product/5010102244009
+- Robinsons Real Fruit Rasberry And Apple 500ml: https://world.openfoodfacts.org/product/5010102243705
+- Vit Hit Boost Berry Rooibos Tea Ginseng 500ml: https://world.openfoodfacts.org/product/5034033000381
+- Volvic Touch Of Fruit - Strawberry 1.5L: https://world.openfoodfacts.org/product/3057640372858
+- Volvic Touch Of Fruit - Strawberry 1.5L: https://world.openfoodfacts.org/product/3057640407598
+- Pringles Sizzl'n Spicy Mexican Chilli & Lime Flavour 180g: https://world.openfoodfacts.org/product/5053990173150
+- Pringles Moroccan Style Roasted Pepper & Hummus 100g: https://world.openfoodfacts.org/product/5053990120659
+- The Smiths Bacon Flavour Fries 24g: https://world.openfoodfacts.org/product/5000328133034
+- Crunchips Potato Crisps With Paprika Flavour. 140g: https://world.openfoodfacts.org/product/5905187114746
+- Walkers Quavers Cheese 34g: https://world.openfoodfacts.org/product/5000328529660
+- Funny Frisch Kesselchips Country Ketchup Style 120g: https://world.openfoodfacts.org/product/4003586100894
+- Love Corn Salt And Vinegar 45g: https://world.openfoodfacts.org/product/5060490400389
+- Pringles Salt & Vinegar 200g: https://world.openfoodfacts.org/product/5053990138746
+- Walkers Max Strong Chilli &lime 175g: https://world.openfoodfacts.org/product/5000328316666
+- Morrisons Best Roasted Nut Medley 180g: https://world.openfoodfacts.org/product/5010525202594
+- Bradburys Walnut Halves 200g: https://world.openfoodfacts.org/product/10254899
+- Alesto Honey Roast Cashews 150g: https://world.openfoodfacts.org/product/4056489648611
+- Crownfield Lemon Blueberry Oat Bites 30g: https://world.openfoodfacts.org/product/4056489757771
+- Aero Mint Chocolate Bar 90g: https://world.openfoodfacts.org/product/7613039869123
+- Crownfield Protein Oat Bites 30g: https://world.openfoodfacts.org/product/4056489353362
+- Crosta & Mollica Almond Cantucci 170g: https://world.openfoodfacts.org/product/5060198648373
+- Mcvities Digestives Dark Chocolate 266g: https://world.openfoodfacts.org/product/5000396054798
+- Belmont Butter Biscuits Dark Chocolate 125g: https://world.openfoodfacts.org/product/4088600108452
+- Ritz Bakery The Original Cracker 165g: https://world.openfoodfacts.org/product/7622210928429
+- Love Raw Cre&m Wafer Bar White Choc 45g: https://world.openfoodfacts.org/product/5060462260683
+- Roka Original Gouda Cheese Crispies 100g: https://world.openfoodfacts.org/product/8710588100000
+- Nature Valley Crunchy Dipped 160g: https://world.openfoodfacts.org/product/8410076601971
+- Lazyday Millionaire's Shortbread 150g: https://world.openfoodfacts.org/product/5060139660112
+- McVitie's United Biscuits Fig Rolls 200g: https://world.openfoodfacts.org/product/5000168134062
+- Jutrzenka Familijne - Wafle O Smaku Kakaowym 180g: https://world.openfoodfacts.org/product/5900352001555
+- Montezuma's Chilli Bonkers Chilli Dark Chocolate 90g: https://world.openfoodfacts.org/product/5060719920308
+- Happiness In Plants Cookies No Cream Oat M Lk Chocol 70g: https://world.openfoodfacts.org/product/5060561603152
+- Buttermilk Caramel Nougat Choccy Bar 50g: https://world.openfoodfacts.org/product/5036854001486
+- Montezuma's Giant Buttons 70g: https://world.openfoodfacts.org/product/5060719920636
+- Divine Smooth Dark With Raspberries 70 Cocoa 90g: https://world.openfoodfacts.org/product/5017397001935
+- Hu Salty Dark Chocolate 60g: https://world.openfoodfacts.org/product/1230000097017
+- Cadbury Wispa 36g: https://world.openfoodfacts.org/product/7622210470126
+- Heidi Milk & Hazelnut 100g: https://world.openfoodfacts.org/product/5941021000639
+- Skittles Taste The Rainbow Crazy Sours 136g: https://world.openfoodfacts.org/product/4009900546102
+- Haribo Starmix 190g: https://world.openfoodfacts.org/product/5012035952808
+- Cadbury Creme Egg 200g: https://world.openfoodfacts.org/product/7622210344205
+- Galaxy Ripple Chocolate Bar 33g: https://world.openfoodfacts.org/product/5000159022521
+- Cadbury Boost Chocolate Bar 48.5g: https://world.openfoodfacts.org/product/5034660522782
+- Feastables MrBeast Original Chocolate 60g: https://world.openfoodfacts.org/product/1230000168069
+- Cadbury Double Decker 54.5g: https://world.openfoodfacts.org/product/7622210106421
+- Max 330ml: https://world.openfoodfacts.org/product/4060800171467
+- Karma Drinks Organic Cola 250ml: https://world.openfoodfacts.org/product/9421902090349
+- Carrick Glen - Dragonfruit And Yuzu Vitamin Water 500ml: https://world.openfoodfacts.org/product/4056489421726
+- Evian Sparkling Carbonated Natural Mineral Water 1L: https://world.openfoodfacts.org/product/3068320128306
+- Get More Vits Vitamin D - Still Mango & Passionfruit 1L: https://world.openfoodfacts.org/product/5060338920581
+- Harrogate Still Spring Water 330ml: https://world.openfoodfacts.org/product/5060042350117
+- Harrogate Still Spring Water 330ml: https://world.openfoodfacts.org/product/0787099226947
+- Harrogate Still Spring Water 330ml: https://world.openfoodfacts.org/product/5060292125169
+- Nik Naks Nice 'N' Spicy 45g: https://world.openfoodfacts.org/product/5000237138380
+- Smiths Frazzles Crispy Bacon 18g: https://world.openfoodfacts.org/product/5000328312484
+- Brown Bag Crisps Sea Salt And Malt Vinegar 40g: https://world.openfoodfacts.org/product/5060356680016
+- The Lorenz Bahlsen Snack-World Sp. Z O.o. 5905187108 130g: https://world.openfoodfacts.org/product/5905187108981
+- Kurkure Chilli Chatka 20rs 75g: https://world.openfoodfacts.org/product/8901491100533
+- Lay's Lays Strong 130g: https://world.openfoodfacts.org/product/5900259122001
+- Pipers Jalapeno & Dill Crisps 150g: https://world.openfoodfacts.org/product/5060539321026
+- Butterkist Sweet & Salty Popcorn 100g: https://world.openfoodfacts.org/product/5000237126820
+- Nobbys Nuts Unit S C 40g: https://world.openfoodfacts.org/product/5000328251950
+- Alesto Honey Roast Peanuts And Cashews 200g: https://world.openfoodfacts.org/product/4056489823971
+- Alesto Honey Roast Peanuts And Cashews 200g: https://world.openfoodfacts.org/product/4056489824008
+- Nakd Apple Danish 120g: https://world.openfoodfacts.org/product/5060088706183
+- Fibre One Salted Caramel Squares 24g: https://world.openfoodfacts.org/product/8410076910783
+- Jacob's Original Mini Cheddars 260g: https://world.openfoodfacts.org/product/5000168180045
+- Jacob's Cheddars Red Leicester 150g: https://world.openfoodfacts.org/product/5000168034164
+- Nairn's Gluten Free Biscuit Breaks Chunky Oats Dark 160g: https://world.openfoodfacts.org/product/0612322000783
+- Nairn's Salted Caramel Oat Biscuits 200g: https://world.openfoodfacts.org/product/0612322001421
+- Island Bakery Shortbread Biscuits 125g: https://world.openfoodfacts.org/product/5060027070146
+- Schar Ciocko Sticks Milk Chocolate 150g: https://world.openfoodfacts.org/product/8008698003961
+- Cadbury Milk Chocolate Fingers 114g: https://world.openfoodfacts.org/product/0072417161575
+- Aldi Specially Selected Chocchip 200g: https://world.openfoodfacts.org/product/4088600259185
+- Nairn's Chocolate Orange Oat Biscuits 200g: https://world.openfoodfacts.org/product/0612322001414
+- M&M's M&M Hazelnut 165g: https://world.openfoodfacts.org/product/5000159516297
+- Terry's Terrys Chocolate Orange Bar 90g: https://world.openfoodfacts.org/product/3664346315272
+- Zaini Cioccolato Fondente Extra 75g: https://world.openfoodfacts.org/product/8004735107692
+- Dr. Oetker Extra Dark Chocolate 150g: https://world.openfoodfacts.org/product/5000254021269
+- H!P Salted Pretzel Oat M Lk Chocolate 70g: https://world.openfoodfacts.org/product/5060561603138
+- Montezuma's Darkside Milk Chocolate 51 Cocoa 90g: https://world.openfoodfacts.org/product/5060719920360
+- Hershey's Cookies 'n' Creme 90g: https://world.openfoodfacts.org/product/6942836723392
+- Candy Kittens Eton Mess 140g: https://world.openfoodfacts.org/product/5060384262895
+- Skittles Sour 196g: https://world.openfoodfacts.org/product/4009900525992
+- Ricola Soothe & Clear Honey & Lemon Echinacea 75g: https://world.openfoodfacts.org/product/7610700001417
+- Storck Werther's Original Chocolate Flavour 42g: https://world.openfoodfacts.org/product/4014400923476
+- Mentos Pepermint Gum 56g: https://world.openfoodfacts.org/product/80809494
+- Mentos Gum Sugar Free Peppermint 58.8g: https://world.openfoodfacts.org/product/8003440988893
+- ROM Infinit 37g: https://world.openfoodfacts.org/product/5941047836069
+- Pip & Nut Dark Chocolate Peanut Butter Cups 34g: https://world.openfoodfacts.org/product/5060367180956
+- Nestle Nesquik Milk Slice Choco 104g: https://world.openfoodfacts.org/product/8005420550922
+- Cadbury Dairy Milk Caramel Nibbles Chocolate Bag 120g: https://world.openfoodfacts.org/product/7622210286918
+- Lindor Milk Salted Caramel Chocolate Truffles 200g: https://world.openfoodfacts.org/product/8003340098920
+- Tony's Chocolonely Littl' Bits - Milk Caramel Sea Sa 100g: https://world.openfoodfacts.org/product/8719956494437
+- HELL Energy Drink 250ml: https://world.openfoodfacts.org/product/5999884034650
+- Oshee Vitamin Engery Tropical Fruit 250ml: https://world.openfoodfacts.org/product/5908260257248
+- Coca Cola Coca-Cola Intergalactic 250ml: https://world.openfoodfacts.org/product/5449000309822
+- Fever-Tree Spanish Clementine Tonic Water 500ml: https://world.openfoodfacts.org/product/5060108454995
+- Fentimans Curiosity Cola 750ml: https://world.openfoodfacts.org/product/5029396003292
+- Brecon Carreg Natural Still Mineral Water 750ml: https://world.openfoodfacts.org/product/5000167079470
+- Bucovina Fructata Mar Revigorant 1.5L: https://world.openfoodfacts.org/product/5942325001049
+- Crunchips X-cut Papryka 140g: https://world.openfoodfacts.org/product/5905187114685
+- Doritos Chillie Heatwave 70g: https://world.openfoodfacts.org/product/5000328017372
+- Snaktastic Tortilla Chips Tangy Cheese 200g: https://world.openfoodfacts.org/product/20952204
+- Cofresh Jalapeno Grills 80g: https://world.openfoodfacts.org/product/5026489480527
+- Two Farmers Lightly Salted 40g: https://world.openfoodfacts.org/product/5060626100008
+- Seabrook Beef Flavour Crinkle Cut Crisps 150g: https://world.openfoodfacts.org/product/5016451062141
+- Walkers Cool Original Flavour Corn Chips 48g: https://world.openfoodfacts.org/product/5000328271682
+- Walkers Squares Salt & Vinegar Snacks 40g: https://world.openfoodfacts.org/product/5000328529745
+- Tayto Real Hand Cooked 35g: https://world.openfoodfacts.org/product/5035336000054
+- Aldi Snackrite Original Flavour Potato Snacks 165g: https://world.openfoodfacts.org/product/4088600184081
+- Oho! Lentil Chips Flaming Hot 100g: https://world.openfoodfacts.org/product/4770149216667
+- Fairfields Farm Sea Salt & Aspall Cyder Vinegar Cris 40g: https://world.openfoodfacts.org/product/5060101406441
+- Proper Popcorn Kfc 70g: https://world.openfoodfacts.org/product/5060283762885
+- Belazu Smoked Chilli Nut Mix 120g: https://world.openfoodfacts.org/product/5030343836733
+- Alpen Fest Mixed Nuts Caramelized 150g: https://world.openfoodfacts.org/product/4056489150206
+- Salted Nuts 65g: https://world.openfoodfacts.org/product/5000237202371
+- Graze Peanut Butter Oat Boost 50g: https://world.openfoodfacts.org/product/5055958705502
+- Mcvities Hobnob's Coconut Macaroon 262g: https://world.openfoodfacts.org/product/5000168034089
+- Island Bakery Lemon Melts 133g: https://world.openfoodfacts.org/product/5060027070122
+- Aero 90g: https://world.openfoodfacts.org/product/7613039896167
+- Reese's Peanut Butter Cups 42g: https://world.openfoodfacts.org/product/0034000939572
+- Cadbury Creme Egg Single 40g: https://world.openfoodfacts.org/product/50201600
+- Ulker Laviva 35g: https://world.openfoodfacts.org/product/8690504065395
+- Divine Smooth Dark With Ginger & Orange 90g: https://world.openfoodfacts.org/product/5017397001928
+- Galaxy Smooth Milk Chocolate Bar 110g: https://world.openfoodfacts.org/product/5000159510769
+- Ombar Kokosmilch 35g: https://world.openfoodfacts.org/product/5060102661870
+- Sainsbury's Taste The Difference Single Estate Venez 100g: https://world.openfoodfacts.org/product/00392778
+- Nomo Salted Caramel & Sea Salt Bar 38g: https://world.openfoodfacts.org/product/5010775199606
+- Montezuma Fitzroy 25g: https://world.openfoodfacts.org/product/50012862
+- Nestle Milkybar Imp 90g: https://world.openfoodfacts.org/product/7613039574867
+- Nestle Milkybar Imp 90g: https://world.openfoodfacts.org/product/7613039575642
+- Rhythm 108 Vegan Hazelnut Truffle 100g: https://world.openfoodfacts.org/product/7640155340786
+- E. Wedel Sezamki 27.2g: https://world.openfoodfacts.org/product/5901588066998
+- Panda Soft Liquorice 170g: https://world.openfoodfacts.org/product/6412500076289
+- Brynild Gummies Bazooka 57g: https://world.openfoodfacts.org/product/5011053022272
+- Haribo Starmix 160g: https://world.openfoodfacts.org/product/5012035963460
+- Wrigley's Extra Refresher's 67g: https://world.openfoodfacts.org/product/4009900537308
+- Mentos Mentor Tropical Chewing Gum 56g: https://world.openfoodfacts.org/product/80864233
+- Guylian The Original Seashells 65g: https://world.openfoodfacts.org/product/5410976080428
+- Soothers Blackcurrant 45g: https://world.openfoodfacts.org/product/5010455063142
+- Ferrero Grand Rocher 125g: https://world.openfoodfacts.org/product/8000500168554
+- M&M's Peanut Butter 46.2g: https://world.openfoodfacts.org/product/04014407
+- Galaxy Minstrels 217g: https://world.openfoodfacts.org/product/5000159550680
+- Cadbury Wispa Duo 47.4g: https://world.openfoodfacts.org/product/7622201461232
+- Ferrero Tictac X-Fresh Strong Mint 16.4g: https://world.openfoodfacts.org/product/8000500330067
+- Mister Choc Milk Chocolate Raisins 200g: https://world.openfoodfacts.org/product/20952518
+- Bear Giant YoYo 20g: https://world.openfoodfacts.org/product/5060139435291
+- Forest Feast Dark Chocolate Sour Cherries 120g: https://world.openfoodfacts.org/product/5022374054255
+- McVitie's Flipz Salted Caramel 90g: https://world.openfoodfacts.org/product/5000396053432
+- Alpen Fest Caramelised Almonds 150g: https://world.openfoodfacts.org/product/4056489186083
+- Kellogg's Fruit Winder 17g: https://world.openfoodfacts.org/product/5059321004018
+- Green Room Brands Ltd Cola 330ml: https://world.openfoodfacts.org/product/5060499150001
+- A.G. Barr Irn-bru Sugar Free Bottle 500ml: https://world.openfoodfacts.org/product/50107452
+- Highland Spring Spk500ml 500ml: https://world.openfoodfacts.org/product/5010459005179
+- Sanpellegrino San Pellegrino Sparkling Mineral Water 500ml: https://world.openfoodfacts.org/product/8002270011023
+- 1001 Delights Sweet & Spicy Crisps 200g: https://world.openfoodfacts.org/product/20758066
+- Walkers Squares 22g: https://world.openfoodfacts.org/product/51000644
+- Skips Prawn Cocktail Flavour 40g: https://world.openfoodfacts.org/product/5000237088296
+- Pret Sea Crunch Salt & Cider Vinegar 40g: https://world.openfoodfacts.org/product/5065002532503
+- Oho Lentil Chips 120g: https://world.openfoodfacts.org/product/4770149216766
+- Walkers Max Flamin' Hot Crisps 50g: https://world.openfoodfacts.org/product/5000328397160
+- Walkers Cheese Bugles 110g: https://world.openfoodfacts.org/product/5000328541082
+- Fiddler's Lancashire Crisps Sea Salt 40g: https://world.openfoodfacts.org/product/5060255520062
+- Snacktastic Sweet Chilli Crisps 130g: https://world.openfoodfacts.org/product/20718510
+- Walkers Wotsits 36g: https://world.openfoodfacts.org/product/5000328530055
+- Samai Plantain Chips Naturally Sweet 75g: https://world.openfoodfacts.org/product/0832697000595
+- Walkers Quavers Cheese Snacks 16g: https://world.openfoodfacts.org/product/5000328222486
+- Walkers Worcester Sauce French Fries 18g: https://world.openfoodfacts.org/product/51000642
+- Off The Eaten Path Sour Cream & Black Pepper Flavour 100g: https://world.openfoodfacts.org/product/5000328020853
+- McCoy's Thai Sweet Chicken 25g: https://world.openfoodfacts.org/product/5000237129975
+- Blanco Nino Smoky Chipotle Corn Chips 170g: https://world.openfoodfacts.org/product/5391528040469
+- Eat Real Quinoa Chips Sundried Tomato & Roasted Garl 80g: https://world.openfoodfacts.org/product/5026489487076
+- Aldi The Foodie Market Californian Roasted Pistachio 200g: https://world.openfoodfacts.org/product/4088600268989
+- KP Dry Roasted Peanuts 50g: https://world.openfoodfacts.org/product/50237739
+- KP Dry Roasted Peanuts 65g: https://world.openfoodfacts.org/product/5000237202395
+- Belbake Walnut Halves 180g: https://world.openfoodfacts.org/product/4056489649519
+- Graze Peanut Butter & Chocolate Protein Oat Bites 4 120g: https://world.openfoodfacts.org/product/5055958702983
+- The Gut Stuff Cocoa & Hazelnut High Fibre Fruit & Nu 35g: https://world.openfoodfacts.org/product/5060771270014
+- Graze Protein Oat Boosts Cocoa Vanilla 30g: https://world.openfoodfacts.org/product/5055958705168
+- GOE Wellness Healthfullicious'ly Wake Crunch 45g: https://world.openfoodfacts.org/product/5065005301243
+- Higates Flapjack Plain & Delicious 120g: https://world.openfoodfacts.org/product/5060006203411
+- Jensen & CO AS Alpen Bar Fruit Nut Chocolate 29g: https://world.openfoodfacts.org/product/5010029203882
+- Deliciously Ella Cacao And Orange Oat Bar 50g: https://world.openfoodfacts.org/product/5060482842852
+- Kellogg's Frosties Bars Imp 150g: https://world.openfoodfacts.org/product/5000127770065
+- Montezuma's Truffle Bites Peanut Butter Dark Chocola 120g: https://world.openfoodfacts.org/product/5060719920865
+- Hotel Chocolat Batons 100 Dark Ecuador 120g: https://world.openfoodfacts.org/product/5055365683660
+- Green & Black's Rasberry And Hazelnut Dark Chocolate 90g: https://world.openfoodfacts.org/product/7622210758194
+- Nestle Quality Street Matchmakers Honeycomb 120g: https://world.openfoodfacts.org/product/7613287552266
+- Varena Curd Cheese Bar 40g: https://world.openfoodfacts.org/product/4779024792364
+- Hu Simple Milk Chocolate 60g: https://world.openfoodfacts.org/product/1230000097215
+- Divine Chocolate Smooth Dark Eith Mint Crisp 90g: https://world.openfoodfacts.org/product/5017397001980
+- Guylian Tablets Salted Caramel 100g: https://world.openfoodfacts.org/product/5410976840022
+- Booja Booja Eight Chocalte Salted Caramel Truffles 92g: https://world.openfoodfacts.org/product/5060002043776
+- Cadbury Dairy Milk Chocolate Bar 95g: https://world.openfoodfacts.org/product/7622210497369
+- Ms Molly's Milk Chocolate Bar 100g: https://world.openfoodfacts.org/product/5057753211820
+- Hotel Chocolat Dark 85 35g: https://world.openfoodfacts.org/product/5055365669916
+- Pico Salted Caramel Dark Chocolate 80g: https://world.openfoodfacts.org/product/9340784001925
+- Rhythm 108 Roasted Almond Butter With M Lk Chocolate 100g: https://world.openfoodfacts.org/product/7640155340847
+- Mike And Ike Original Fruits 141g: https://world.openfoodfacts.org/product/0070970471254
+- Skittles Sour Squishy Cloudz 94g: https://world.openfoodfacts.org/product/4009900538589
+- Kiddylicious Crispie Tiddlers 12g: https://world.openfoodfacts.org/product/5060040259207
+- Skittles Squishy Clouds 94g: https://world.openfoodfacts.org/product/4009900538541
+- Chupa Chups Mini 108g: https://world.openfoodfacts.org/product/8410031965056
+- Haribo Starmix Mini Bag 16g: https://world.openfoodfacts.org/product/5012035905088
+- Sour Patch Kids 130g: https://world.openfoodfacts.org/product/7622202008740
+- Dominion Mint Imperials 200g: https://world.openfoodfacts.org/product/4088600334868
+- Flying Power X-treme Energy Drink Guave 500ml: https://world.openfoodfacts.org/product/4061462355264
+- Karma Cola UK Ltd Sugar Free 330ml: https://world.openfoodfacts.org/product/9421902090660
+- Pepsi Pomegranite 2L: https://world.openfoodfacts.org/product/4060800002242
+- Punchy Blood Orange Bitters And Cardamom 250ml: https://world.openfoodfacts.org/product/5060602580237
+- San Carlo Rustica 50g: https://world.openfoodfacts.org/product/8003130129544
+- Taylors Potato Crisps - Pickled Onion Flavour 150g: https://world.openfoodfacts.org/product/5039378004834
+- Shre Shore 25g: https://world.openfoodfacts.org/product/5060567680164
+- Walkers Oven Baked 25g: https://world.openfoodfacts.org/product/5000328654812
+- Walkers Squares Salt And Vinegar 72g: https://world.openfoodfacts.org/product/5000328017891
+- Sol Mar Hoops 130g: https://world.openfoodfacts.org/product/4056489748663
+- KP Cheese Footballs 142g: https://world.openfoodfacts.org/product/5000237124772
+- Boundless Activated Snacking Sea Salt & Cider Vinega 80g: https://world.openfoodfacts.org/product/5060544130125
+- Snaktastic Pop'd Barbeque Potato Chips 17g: https://world.openfoodfacts.org/product/4056489519775
+- McCoy's Ridge Cut Sizzling King Prawn 45g: https://world.openfoodfacts.org/product/5000237138465
+- Two Farmers Woodland Mushroom & Wild Garlic Hereford 40g: https://world.openfoodfacts.org/product/5060626100367
+- Lay's Pickles Flavour 175g: https://world.openfoodfacts.org/product/8710398513977
+- Kettle Chips Sweet Chili & Sour Cream 150g: https://world.openfoodfacts.org/product/5017764112677
+- Amaizin Organic Tortilla Chips Paprika 75g: https://world.openfoodfacts.org/product/8718976009584
+- Emily Barbecue Veg Thins 23g: https://world.openfoodfacts.org/product/5060379650287
+- McCoy's Potato Chips 45g: https://world.openfoodfacts.org/product/5000237138564
+- Walkers Max Pizza Hut Pepperoni Feast Crisps 140g: https://world.openfoodfacts.org/product/5000328022550
+- Burts Devon Roast Beef Crisps 150g: https://world.openfoodfacts.org/product/5034709004842
+- Kettle Vegan Sheese And Red Onion 135g: https://world.openfoodfacts.org/product/5017764130565
+- Hula Hoops Big BBQ Beef 80g: https://world.openfoodfacts.org/product/5000237131138
+- Albert Heijn Zoute Popcorn 100g: https://world.openfoodfacts.org/product/8718907578714
+- Burts Popcorn 28g: https://world.openfoodfacts.org/product/5034709007881
+- Kiddylicious Banana & Strawberry Juicy Fruit Bars 100g: https://world.openfoodfacts.org/product/5060040251928
+- Fuel Salted Caramel Oat Bar Imp 45g: https://world.openfoodfacts.org/product/5060201625421
+- Tribe Protein Flapjack Raspberry 38g: https://world.openfoodfacts.org/product/5060468522723
+- Alter Eco 85 Peru 100g: https://world.openfoodfacts.org/product/3700214618578
+- Holland & Barrett Glow Chocolate Bar 100g: https://world.openfoodfacts.org/product/5059604645815
+- Nomo Creamy Choc Bar 38g: https://world.openfoodfacts.org/product/5010775199583
+- Pret Dark Chocolate Almonds 38g: https://world.openfoodfacts.org/product/5065002532183
+- Toneys Triple Choc Mix 100g: https://world.openfoodfacts.org/product/8719956494451
+- Vego Whole Hazelnut Chocolate Bar 150g: https://world.openfoodfacts.org/product/4260334140032
+- Vego Whole Hazelnut Chocolate Bar 65g: https://world.openfoodfacts.org/product/4260334140025
+- Cadbury Oreo Egg 31g: https://world.openfoodfacts.org/product/57026619
+- Montezuma's Happy Hippy 74 Cocoa Organic Orange & Ge 90g: https://world.openfoodfacts.org/product/5060719920162
+- Ombar Oat Milk Chocolate Imp 70g: https://world.openfoodfacts.org/product/5060102662334
+- Hu Simple Dark Chocolate 60g: https://world.openfoodfacts.org/product/1230000097000
+- Nestle Quality Street Matchmakers Zingy Orange 120g: https://world.openfoodfacts.org/product/7613036193061
+- Zetti Chocolatina Bambina 100g: https://world.openfoodfacts.org/product/4012362999669
+- Cadbury Bournville Chocolate Buttons 110g: https://world.openfoodfacts.org/product/7622210593009
+- Riegelein Schokonikolaus 60g: https://world.openfoodfacts.org/product/4013900975701
+- Tony's Chocolonely Dark Chocolate Almond Sea Salt 47g: https://world.openfoodfacts.org/product/8717677339853
+- Cadbury Puds 175g: https://world.openfoodfacts.org/product/7622201522100
+- Elizabeth Shaw Mint Collection 200g: https://world.openfoodfacts.org/product/5055037001457
+- Pralus Melissa 100g: https://world.openfoodfacts.org/product/3760085320154
+- Vivani Whole Hazelnuts 100g: https://world.openfoodfacts.org/product/4044889000078
+- Whittakers Creamy Milk Hazella 250g: https://world.openfoodfacts.org/product/9420063601104
+- Swizzels Lots Of Lollies 180g: https://world.openfoodfacts.org/product/5010478368224
+- Maynards Bassetts Wine Gums Sweets Bag 100g: https://world.openfoodfacts.org/product/7622300700218
+- Woogie Bonbons Au Cafe Fine Drops 200g: https://world.openfoodfacts.org/product/9002859066047
+- Les Anis De Flavigny Boite Ovale Violette Bio 50g: https://world.openfoodfacts.org/product/3360102180015
+- Haribo Wine Gums 160g: https://world.openfoodfacts.org/product/5012035962241
+- Ricola Sugar Free Elderflower Swiss Herbal Sweets 45g: https://world.openfoodfacts.org/product/7610700612859
+- Dominion Sugar Free Clear Fruits 44g: https://world.openfoodfacts.org/product/4088600274225
+- Ricola Mouthwateringly Good Swiss Herbal Sweets Suga 45g: https://world.openfoodfacts.org/product/7610700948576
+- Altapharma Ingwer Limette Bonbons 50g: https://world.openfoodfacts.org/product/4305615615653
+- The Foodie Market Strawberry Dinos 20g: https://world.openfoodfacts.org/product/4088600412528
+- Dr. Oetker Rainbow Magic 115g: https://world.openfoodfacts.org/product/96197530
+- Candy Kittens Sour Watermelon Gourmet Sweets 54g: https://world.openfoodfacts.org/product/5060384261119
+- Candy Kittens Gourmies Orchard Apple Dragon Fruit 140g: https://world.openfoodfacts.org/product/5060384262963
+- Candy Kittens Wild Strawberry Gourmet Sweet 125g: https://world.openfoodfacts.org/product/5060384261775
+- Taveners Soft Black Liquorice 165g: https://world.openfoodfacts.org/product/5010511478705
+- Skittles 109g: https://world.openfoodfacts.org/product/4009900545907
+- Just Wholefoods Vegan Raspberry Jelly 85g: https://world.openfoodfacts.org/product/5022775000240
+- Mentos Bubble Fresh 56g: https://world.openfoodfacts.org/product/80823438
+- Mentos Chewing Gum Pure Fresh Cherry Flavour 97g: https://world.openfoodfacts.org/product/80879299
+- Mentos Pure Fresh Gum 100g: https://world.openfoodfacts.org/product/80815310
+- Red Bull Butelka 250ml: https://world.openfoodfacts.org/product/9002490100056
+- Punchy Cucumber Yuzu & Rosemary 250ml: https://world.openfoodfacts.org/product/5060602580251
+- Sprite Can 150ml: https://world.openfoodfacts.org/product/54492127
+- By Sainsbury's Fiery Ginger Beer 2L: https://world.openfoodfacts.org/product/01327113
+- Rockstar American Cream Soda Can 330ml: https://world.openfoodfacts.org/product/5000382024033
+- By Sainsbury's Cloudy Lemonade 2L: https://world.openfoodfacts.org/product/01327090
+- Zero Sugar 1.5L: https://world.openfoodfacts.org/product/5449000043757
+- Dreamworld 250ml: https://world.openfoodfacts.org/product/5449000315649
+- Freeway Carbonated No Added Sugar Orange Flavour Sof 330ml: https://world.openfoodfacts.org/product/4056489864363
+- Luscombe Sicilian Lemonade 320ml: https://world.openfoodfacts.org/product/5029212500523
+- 7up Free 330ml: https://world.openfoodfacts.org/product/87170856
+- Minute Maid Fruit & Nada 500ml: https://world.openfoodfacts.org/product/5449000196057
+- Essence Strawberry Flavoured Water 500ml: https://world.openfoodfacts.org/product/5060121570313
+- Acqua Panna Still Water 750ml: https://world.openfoodfacts.org/product/8002270018237
+- Radnor Spring Water Still 500ml: https://world.openfoodfacts.org/product/5026109000364
+- Lay's Lays 140g: https://world.openfoodfacts.org/product/5900259099419
+- Jack 'n Jill Robina 110g: https://world.openfoodfacts.org/product/4800016643095
+- Spar Lightly Salted Tortilla Chips 160g: https://world.openfoodfacts.org/product/5010358271910
+- Two Farmers Crisps 40g: https://world.openfoodfacts.org/product/5060626100107
+- Mackies Potato Crisps Curry 150g: https://world.openfoodfacts.org/product/5039378004063
+- Cheetos Ketchup Flavoured 85g: https://world.openfoodfacts.org/product/5900259353276
+- Walkers Sizzling Smokey Bacon 45g: https://world.openfoodfacts.org/product/5000328271095
+- Calbee Pizza Melty Cheese 55g: https://world.openfoodfacts.org/product/4901330300555
+- Lorenz Crunchips X- Cut Paprika 130g: https://world.openfoodfacts.org/product/4018077005411
+- Tayto Sweet & Salted Popcorn 100g: https://world.openfoodfacts.org/product/5012159035029
+- Mackie's Of Scotland Popcorn Lightly Sea Salt 40g: https://world.openfoodfacts.org/product/5039378000157
+- Tropical Wholefoods Organic Just5 Mango And Brazil 40g: https://world.openfoodfacts.org/product/5030131006317
+- Organix Oat & Raisin Mini Flapjack Bites 20g: https://world.openfoodfacts.org/product/5024121484117
+- Mulebar Barre Energetique Citron Gingembre 40g: https://world.openfoodfacts.org/product/2000000058174
+- Skinnybars Double Chocolate Snack Bar 25g: https://world.openfoodfacts.org/product/5056315500044
+- Tropical Wholefoods Organic Just5 Date And Walnut 40g: https://world.openfoodfacts.org/product/5030131006331
+- Cadbury White Oreo 120g: https://world.openfoodfacts.org/product/7622201442880
+- Topic Vegan Whole Hazelnut 100g: https://world.openfoodfacts.org/product/5056357901748
+- Nestle After Eight Bites 107g: https://world.openfoodfacts.org/product/7613036410182
+- Roshen Shooters 150g: https://world.openfoodfacts.org/product/4823077621000
+- Benjamissimo Organic Vegan Praline 70g: https://world.openfoodfacts.org/product/3800500804040
+- Lindt Hello Crunchy Nougat 100g: https://world.openfoodfacts.org/product/4000539222108
+- Cadbury Dairy Milk Buttons Dessert 75g: https://world.openfoodfacts.org/product/4025500278366
+- Nomo Bunny 30g: https://world.openfoodfacts.org/product/5010775203259
+- Montezuma's Dark Chocolate Absolute Black With Cocoa 100g: https://world.openfoodfacts.org/product/5060065068976
+- Montezuma's Dark Chocolate Absolute Black With Cocoa 100g: https://world.openfoodfacts.org/product/5060065067764
+- Menier Swiss White Chocolate 100g: https://world.openfoodfacts.org/product/5011673620131
+- Seed And Bean Rich Milk Single Original Milk Chocola 75g: https://world.openfoodfacts.org/product/5060137140180
+- Raw Halo Mylk & Vanilla Vegan Chocolate 22g: https://world.openfoodfacts.org/product/5060430551591
+- Dr. Oetker Dr Cooking Chocolate Milk 150g: https://world.openfoodfacts.org/product/5000254021245
+- Tony's Chocolonely Dark Candy Cane 180g: https://world.openfoodfacts.org/product/8719956491702
+- Nestle Chocolate Tube 52g: https://world.openfoodfacts.org/product/50251179
+- Lindt Chocolate 40g: https://world.openfoodfacts.org/product/4000539707049
+- Lindt Hello My Name Is Cookies & Cream 100g: https://world.openfoodfacts.org/product/4000539221804
+- Thorntons Cheeky Elf 90g: https://world.openfoodfacts.org/product/5016346519651
+- Ombar 100 Cacao 35g: https://world.openfoodfacts.org/product/5060102662143
+- Deliciously Ella Roasted Almonds Hazelnuts Blackcurr 85g: https://world.openfoodfacts.org/product/5060482841060
+- Kinder Mini Eggs 85g: https://world.openfoodfacts.org/product/5020411117604
+- Ghirardelli Chocolate Squares 15g: https://world.openfoodfacts.org/product/0747599700743
+- Green & Black's Smooth Dark Chocolate - Raspberry Ha 90g: https://world.openfoodfacts.org/product/9300617074366
+- Seed And Bean Chilli & Lime Single Origin Dark Choco 85g: https://world.openfoodfacts.org/product/5060137140258
+- Willie's Cacao Sea Salt Caramel Pearls 150g: https://world.openfoodfacts.org/product/5060165580477
+- Galaxy Smooth Orange 110g: https://world.openfoodfacts.org/product/5000159533072
+- Green & Black's Dark Salted Caramel Chocolate Bar 90g: https://world.openfoodfacts.org/product/7622210758187
+- Delicata Horka Cokolada S Mandlemi A Kokosem 150g: https://world.openfoodfacts.org/product/5202336139071
+- Rhythm 108 Dark Cocoa Orange 100g: https://world.openfoodfacts.org/product/7640155340823
+- Euro Shopper White Chocolate 90g: https://world.openfoodfacts.org/product/5020379136341
+- Thorntons White Chocolate Bunny Egg 151g: https://world.openfoodfacts.org/product/5016346515943
+- Montezuma's Giant Buttons White Chocolate 180g: https://world.openfoodfacts.org/product/5060719920704
+- Raw Halo Dark & Salted Caramel Vegan Chocolate 35g: https://world.openfoodfacts.org/product/5060430551379
+- Karina Super-Nuss 100g: https://world.openfoodfacts.org/product/4001743050402
+- Munchies 52g: https://world.openfoodfacts.org/product/50249473
+- Whitworth Dark Chocolate Cranberries 120g: https://world.openfoodfacts.org/product/5000234052658
+- Haribo Balla Stixx 140g: https://world.openfoodfacts.org/product/5012035970192
+- Smarties Mini Eggs 80g: https://world.openfoodfacts.org/product/3800020472286
+- Maoam Joystixx 140g: https://world.openfoodfacts.org/product/5012035963392
+- Haribo Goldbears 160g: https://world.openfoodfacts.org/product/5012035928124
+- Haribo Tangfastics 160g: https://world.openfoodfacts.org/product/5012035962401
+- The Natural Confectionery Co. Candy Jelly Snakes 200g: https://world.openfoodfacts.org/product/9310434000394
+- Sula Pear Drops 42g: https://world.openfoodfacts.org/product/4003455004001
+- Skittles Desserts 152g: https://world.openfoodfacts.org/product/4009900544788
+- Free From Fellows Vegetarian Gummy Bears 100g: https://world.openfoodfacts.org/product/5060308360140
+- Swizzels Bumper Bag 180g: https://world.openfoodfacts.org/product/5010478355811
+- Haribo Bubblegum Bottle 160g: https://world.openfoodfacts.org/product/5012035950606
+- Fruit-tella Sugarfree Red Berry Mix Fruit Drops 45g: https://world.openfoodfacts.org/product/80880622
+- Swizzels Squashies Rhubarb And Custard 140g: https://world.openfoodfacts.org/product/5010478031791
+- Haribo Giant Strawbs 140g: https://world.openfoodfacts.org/product/5012035971915
+- Candy Kittens Wild & Free 140g: https://world.openfoodfacts.org/product/5060384263144
+- Haribo Starmix 100g: https://world.openfoodfacts.org/product/4001686726181
+- Starburst Minis Original Unwrapped 137g: https://world.openfoodfacts.org/product/4009900539302
+- Skittles Giant 141g: https://world.openfoodfacts.org/product/4009900534918
+- Trebor Softmints Spearmint Mints Roll 44.9g: https://world.openfoodfacts.org/product/50105083
+- Candy Kittens Gourmet Gums 145g: https://world.openfoodfacts.org/product/5060384262703
+- Cemoi Petit Herisson 180g: https://world.openfoodfacts.org/product/3173287403165
+- Candy Kittens Eton Mess Gourmet Sweets 54g: https://world.openfoodfacts.org/product/5060384261171
+- Squashies Rhubarb & Custard 160g: https://world.openfoodfacts.org/product/5010478847125
+- Maynards Bassetts Sports Mix 165g: https://world.openfoodfacts.org/product/7622210654212
+- Chewits Xtreme 165g: https://world.openfoodfacts.org/product/5060072652113
+- Extra Gum - Spearmint 14g: https://world.openfoodfacts.org/product/4009900015363
+- Wrigley's Extra Peppermint 64g: https://world.openfoodfacts.org/product/4009900483513
+- Good Earth Energy Organic Guayusa Blood Orange & Tan 250ml: https://world.openfoodfacts.org/product/5000208009473
+- C4 Cellulor Orange Slice 500ml: https://world.openfoodfacts.org/product/0842595115949
+- Coca-Cola Life 500ml: https://world.openfoodfacts.org/product/5449000052971
+- Mamuda Pop Cola 600ml: https://world.openfoodfacts.org/product/5060909050006
+- Remedy Kombucha Organic Raspberry Lemonade 330ml: https://world.openfoodfacts.org/product/9350271000089
+- Cawston Press Cloudy Apple 330ml: https://world.openfoodfacts.org/product/5060054132466
+- Pepsi Twist 100ml: https://world.openfoodfacts.org/product/5949000504765
+- By Sainsbury's Soda Water 1L: https://world.openfoodfacts.org/product/00176828
+- Whole Earth Organic Sparkling Ginger 330ml: https://world.openfoodfacts.org/product/5011835102772
+- Coca-Cola Life 330ml: https://world.openfoodfacts.org/product/5449000052407
+- Whites R.White's Premium Lemonade 330ml: https://world.openfoodfacts.org/product/5010018003165
+- San Pellegrino Lemon & Mint 330ml: https://world.openfoodfacts.org/product/8002270056574
+- Schweppes Slimline Tonic Water 250ml: https://world.openfoodfacts.org/product/5449000064219
+- Lamb & Watt Cucumber 200ml: https://world.openfoodfacts.org/product/5011166054559
+- Belvoir Farm Farms Cucumber & Mint Presse 750ml: https://world.openfoodfacts.org/product/5022019430116
+- Oskar Sylte Mineralvannsfabrikk Prebrus 1 Flaske 1.5L: https://world.openfoodfacts.org/product/7033850008233
+- Princes Gate Still Mineral Water 330ml: https://world.openfoodfacts.org/product/5024616003014
+- Huel Cherry & Raspberry Daily A-Z Vitamins Drink 330ml: https://world.openfoodfacts.org/product/5060925290844
+- Huel Cherry & Raspberry Daily A-Z Vitamins Drink 330ml: https://world.openfoodfacts.org/product/5060925290837
+- Aqua Vale Lemon And Lime Flavoured Water 500ml: https://world.openfoodfacts.org/product/4088600563053
+- Brecon Carreg Sparkling Natural Mineral Water 500ml: https://world.openfoodfacts.org/product/5030341511007
+- Goodness Group Kombucha Mango 1L: https://world.openfoodfacts.org/product/5060770730298
+- WaterAid Belu Still Water 330ml: https://world.openfoodfacts.org/product/5060080390106
+- Butterkist Toffee Popcorn 140g: https://world.openfoodfacts.org/product/5000237126868
+- Butterkist Popcorners 80g: https://world.openfoodfacts.org/product/5000237136157
+- Popcorn Kitchen Simply Sweet 30g: https://world.openfoodfacts.org/product/5060404420021
+- Holland And Barrett Turmeric Manuka Honey Popcorn 20g: https://world.openfoodfacts.org/product/5059604645440
+- Krispy Kreme Original Glazed Popcorn 55g: https://world.openfoodfacts.org/product/5060094480398
+- B'good Fruit And Nut Bar Almond And Apricot 45g: https://world.openfoodfacts.org/product/5060545680506
+- Nakd Fruit Oat And Seed Bar 84g: https://world.openfoodfacts.org/product/5060088709542
+- Ma Baker Giant Bar Rolled Oats & Cherry 90g: https://world.openfoodfacts.org/product/5034444101127
+- Myprotein Oats & Whey Protein Bar Chocolate Peanut 88g: https://world.openfoodfacts.org/product/5055534307472
+- Veloforte Mango & Coconut 35g: https://world.openfoodfacts.org/product/5060562192631
+- Tribe Choc Raspberry Nut Butter Triple Decker 40g: https://world.openfoodfacts.org/product/5060468521436
+- Willie's Cacao Peruvian Gold Chulucanas 70 80g: https://world.openfoodfacts.org/product/5060165580071
+- Lindt Double Milk 100g: https://world.openfoodfacts.org/product/7610400075909
+- Izvilag Kapuciner 31g: https://world.openfoodfacts.org/product/7622210145437
+- Dolfin Lavande Fine 70g: https://world.openfoodfacts.org/product/5413415730106
+- Willie's Cacao San Agustin Gold 50g: https://world.openfoodfacts.org/product/5060165582884
+- Quality Street Matchmakers Gingerbread Flavour 120g: https://world.openfoodfacts.org/product/7613036364539
+- Nestle Milkybar Speculoos 100g: https://world.openfoodfacts.org/product/8000300425055
+- Seed And Bean Rich Caramel 75g: https://world.openfoodfacts.org/product/5060137140807
+- Heinde & Verre Natural Rich Chocolate 70g: https://world.openfoodfacts.org/product/8719327345122
+- Love Corn Chocolate Crunchy Imp 35g: https://world.openfoodfacts.org/product/5060490401188
+- Cadbury Creamy White Chocolate 180g: https://world.openfoodfacts.org/product/7622210716095
+- Divine Gloriously Creamy White Chocolate 90g: https://world.openfoodfacts.org/product/5017397002017
+- Hasslacher's Hot Drinking Chocolate 250g: https://world.openfoodfacts.org/product/5060280300004
+- Nestle Black Magic 174g: https://world.openfoodfacts.org/product/8593893776104
+- Montezuma's Lordy Lord Cocoa Nibs Dark Chocolate 90g: https://world.openfoodfacts.org/product/5060719920261
+- Pullins Bakery Gleefully Gluten Free Balboa 85g: https://world.openfoodfacts.org/product/5028290085854
+- Batyk Czekolada Mleczna Brandy&Coffee 145g: https://world.openfoodfacts.org/product/5901121008331
+- Montezuma's Half Moonies 150g: https://world.openfoodfacts.org/product/5060719922999
+- Divine Smooth Hazelnut Chocolate Easter Egg 90g: https://world.openfoodfacts.org/product/5017397004004
+- Milky Way Magic Stars 85g: https://world.openfoodfacts.org/product/5056357904473
+- Nomo Giant Caramel & Sea Salt Choc Buttons 110g: https://world.openfoodfacts.org/product/5010775203341
+- Moo Free Choccy Santa 20g: https://world.openfoodfacts.org/product/5060235831614
+- Harry Potter Chocolate Frog 150g: https://world.openfoodfacts.org/product/0400012365423
+- Cadbury Chocolate Figure 30g: https://world.openfoodfacts.org/product/7622300774967
+- Hershey's Special Dark - Mildly Sweet Chocolate Gian 192g: https://world.openfoodfacts.org/product/0034000195282
+- Galaxy Smooth Orange 136g: https://world.openfoodfacts.org/product/5056357901304
+- Bare Bones 65 Guatemala 70g: https://world.openfoodfacts.org/product/0660989784898
+- Lindt Hello My Name Is Strawberry Cheesecake 100g: https://world.openfoodfacts.org/product/4000539221903
+- Moo Free Choccy Santa 32g: https://world.openfoodfacts.org/product/5060235830877
+- By Sainsbury's Smooth Milk Chocolate 100g: https://world.openfoodfacts.org/product/06118139
+- Amedei Chuao Cioccolato Fondente Extra 70 50g: https://world.openfoodfacts.org/product/8017490050165
+- Trebor Softmints Softmints Peppermint 44.9g: https://world.openfoodfacts.org/product/50105090
+- Haribo Happy Cola 160g: https://world.openfoodfacts.org/product/5012035962180
+- Mike And Ike Chewy Assorted Sour Fruit Flavored Cand 141g: https://world.openfoodfacts.org/product/0070970473609
+- Bon Bons Love Hearts 145g: https://world.openfoodfacts.org/product/5060165043040
+- Swizzels Loadsa Sweets 135g: https://world.openfoodfacts.org/product/5010478681477
+- Bramble Foods Fizzy Glow Worms 170g: https://world.openfoodfacts.org/product/5055801108160
+- Dominion Sugar Free Soft Foams 75g: https://world.openfoodfacts.org/product/4088600013763
+- Rose Confectionery Ltd Slush Puppies Bon Bons 160g: https://world.openfoodfacts.org/product/5056192406286
+- Treat Kitchen Peach Hearts 150g: https://world.openfoodfacts.org/product/5060837634859
+- Haribo Giant Strawbs Bag 190g: https://world.openfoodfacts.org/product/5012035952853
+- Jesmona Liquorice & Blackcurrant 250g: https://world.openfoodfacts.org/product/5013517126946
+- Rowntrees Randoms Spooky Mix 150g: https://world.openfoodfacts.org/product/8593893755260
+- Simpkins Forest Fruit Travel Sweets 200g: https://world.openfoodfacts.org/product/5011563624300
+- Mentos Chewy Dragees 160g: https://world.openfoodfacts.org/product/8723400782100
+- Tic Tac Coca Cola 49g: https://world.openfoodfacts.org/product/8000500329610
+- Candy Kittens Tropical Mango Gourmet Sweets 54g: https://world.openfoodfacts.org/product/5060384261638
+- Candy Kittens Gourmet Sweets 125g: https://world.openfoodfacts.org/product/5060384261805
+- Odra Sesame Bar. 27g: https://world.openfoodfacts.org/product/5900278011058
+- Free From Fellows Cola Bottles 100g: https://world.openfoodfacts.org/product/5060308360157
+- Nestle Candy Theater Box 141.7g: https://world.openfoodfacts.org/product/0079200472146
+- Free From Fellows Mini Pink And White Vegan Mallows 105g: https://world.openfoodfacts.org/product/5060308360966
+- Cukiernicza Spodzielnia Inwalidow Jednosc Karmelki T 100g: https://world.openfoodfacts.org/product/5900966003532
+- Sniezka Cukierki Czekoladowe Z Orzechami Arachidowym 250g: https://world.openfoodfacts.org/product/5901218021120
+- Swizzels Drumstick Squashies 131g: https://world.openfoodfacts.org/product/5010478427891
+- Haribo Balla Stix 140g: https://world.openfoodfacts.org/product/5012035951092
+- Unitop Sezamki Naturalne 30g: https://world.openfoodfacts.org/product/5902097251608
+- Millions Iron Brew Jelly Babies 200g: https://world.openfoodfacts.org/product/5017375070984
+- Mentos Gum Tropical Flavour 100g: https://world.openfoodfacts.org/product/80835479
+- Milliways Sugar Free Bubble Mint Super Natural Gum 19g: https://world.openfoodfacts.org/product/96203231
+- Milliways Mighty Mint Natural Gum 19g: https://world.openfoodfacts.org/product/96184622
+- Starburst Chewing Gum - Strawberry 69g: https://world.openfoodfacts.org/product/4009900523691
+- Wrigley's Extra Ice 64g: https://world.openfoodfacts.org/product/4009900454087
+- Everyday Chewing-gum Sans Sucre 40g: https://world.openfoodfacts.org/product/5400141225020
+- Wrigley's Extra 37.8g: https://world.openfoodfacts.org/product/4009900531887
+- Frugo Energy Blue - Wild Punch 330ml: https://world.openfoodfacts.org/product/5900552075783
+- Relentless Passion Punch 500ml: https://world.openfoodfacts.org/product/5060466510593
+- Euro Shopper Original Energy Drink 1L: https://world.openfoodfacts.org/product/5020379168687
+- Reign Total Body Fuel Orange Dreamsicle BCAA Drink 500ml: https://world.openfoodfacts.org/product/5060895740721
+- Energy Blast Gazowany Napoj Z Tauryna Kofeina I Wita 250ml: https://world.openfoodfacts.org/product/5906485301609
+- 3D Energy Frost Drink 473ml: https://world.openfoodfacts.org/product/0850003560076
+- Black Energy Gold 250ml: https://world.openfoodfacts.org/product/5900552065760
+- Moose Juice Extreme Energy Passion Fruit 250ml: https://world.openfoodfacts.org/product/0634158734168
+- Monster Energy Limited Monarch 500ml: https://world.openfoodfacts.org/product/5060751213413
+- Nutrcua Fortisip 200ml: https://world.openfoodfacts.org/product/8712400684996
+- Seedlip Grove 42 & Lemongrass Tonic 250ml: https://world.openfoodfacts.org/product/5060448760404
+- KA Karibbean Kola 2L: https://world.openfoodfacts.org/product/5000382106609
+- Fanta White Grape 1.75L: https://world.openfoodfacts.org/product/5449000218162
+- Pepsi Max 375ml: https://world.openfoodfacts.org/product/40608044
+- Fentimans Rose Lemonade 275ml: https://world.openfoodfacts.org/product/5029396002509
+- Morrissons Lemonade 2L: https://world.openfoodfacts.org/product/02025122
+- Tropical Sun Root Beer 330ml: https://world.openfoodfacts.org/product/5029788180099
+- Kiu Fung Hong Ltd EDO Soda Drink - Peach Flavour 250ml: https://world.openfoodfacts.org/product/4895058312979
+- Bundaberg Root Beer 375ml: https://world.openfoodfacts.org/product/9311493000608
+- KA Sparkling Fruit Punch 330ml: https://world.openfoodfacts.org/product/5000382034919
+- Original 1.5L: https://world.openfoodfacts.org/product/5000112585452
+- Fentimans Curiosity Cola 275ml: https://world.openfoodfacts.org/product/5029303322782
+- Coca Cola Diet Coke Exotic Mango 330ml: https://world.openfoodfacts.org/product/5449000240156
+- Pepsi Cola Diet Pepsie 1.25L: https://world.openfoodfacts.org/product/4060800302014
+- Coke Cola Diet Twisted Strawberry 1.25L: https://world.openfoodfacts.org/product/5449000263476
+- Fever-Tree Spiced Orange Ginger Ale 500ml: https://world.openfoodfacts.org/product/5060108452410
+- Rocks Orange Squash 740ml: https://world.openfoodfacts.org/product/9023799000137
+- Punchy Peach Ginger & Chai Sparkling Soft Drink 250ml: https://world.openfoodfacts.org/product/5060602580213
+- Cornish Orchards Sicilian Lemonade 330ml: https://world.openfoodfacts.org/product/5060084982079
+- Huddersfield Drinks Company Premium Yellow Lemonade 2L: https://world.openfoodfacts.org/product/5010973003392
+- KA Fruit Punch 2L: https://world.openfoodfacts.org/product/5000382106548
+- Le Prix Gagnant Limonade 1.5L: https://world.openfoodfacts.org/product/3263855091761
+- Square Root Lemonade 275ml: https://world.openfoodfacts.org/product/5060493120284
+- Barr Irn Bru 330ml: https://world.openfoodfacts.org/product/5000382029816
+- Arizona Strawberry Lemonade 500ml: https://world.openfoodfacts.org/product/0613008765798
+- Tropical Aloe Lemon 500ml: https://world.openfoodfacts.org/product/8712857008109
+- Zero 330ml: https://world.openfoodfacts.org/product/5000112592054
+- Barr Dandelion And Burdock 330ml: https://world.openfoodfacts.org/product/50107445
+- Fever-Tree Handpicked Rose Lemonade 500ml: https://world.openfoodfacts.org/product/5060108453325
+- Levi Roots Caribbean Crush 2L: https://world.openfoodfacts.org/product/5010438017476
+- Cornish Orchards English Apple 330ml: https://world.openfoodfacts.org/product/5060084982093
+- Old Jamaica Pineapple Soda 350ml: https://world.openfoodfacts.org/product/5000177467229
+- Bottlegreen Drinks Blood Orange Spritz - Sparkling P 750ml: https://world.openfoodfacts.org/product/5021812005620
+- Coca Cola Fanta Exotic 500ml: https://world.openfoodfacts.org/product/90490705
+- Coca Cola Diet Coke 350ml: https://world.openfoodfacts.org/product/5000112582642
+- Buxton Natural Mineral Water 500ml: https://world.openfoodfacts.org/product/7613034302328
+- CanO Water Sparkling Spring 330ml: https://world.openfoodfacts.org/product/0787099226954
+- Spar Apple Raspberry And Blueberry Still Flavoured S 500ml: https://world.openfoodfacts.org/product/5010358267494
+- Mineracqua Castello Original 750ml: https://world.openfoodfacts.org/product/5601603200122
+- Nestle Pure Life Still Spring Water 1.5L: https://world.openfoodfacts.org/product/7613035281783
+- Fever-tree Sparkling Mexican Lime Soda 250ml: https://world.openfoodfacts.org/product/5060108455237
+- Strathmore Sparkling Scottish Spring Water 500ml: https://world.openfoodfacts.org/product/5012058009329
+- Sant Aniol Sparkling Water 500ml: https://world.openfoodfacts.org/product/8424372001526
+- Carrick Glen Active Spring Water 750ml: https://world.openfoodfacts.org/product/20915162
+- Wild Waters Flavour Wster 270ml: https://world.openfoodfacts.org/product/5060292124001
+- SPAR Silverbrook Falls Still Water 500ml: https://world.openfoodfacts.org/product/5010358146713
+- Radnor Spring Water 330ml: https://world.openfoodfacts.org/product/5026109008957
+- Brecon Carreg Still Natural Mineral Water 2L: https://world.openfoodfacts.org/product/5030341500001
+- Da-sh Soda Water 200ml: https://world.openfoodfacts.org/product/5060489730398
+- Liquid Death Mango Chainsaw Flavoured Sparkling Wate 500ml: https://world.openfoodfacts.org/product/0850031700727
+- Mountain Mist Berries & Cherries Flavoured Spring Wa 500ml: https://world.openfoodfacts.org/product/5020379175951
+- Ugly Strawberry Water 330ml: https://world.openfoodfacts.org/product/5060595630254
+- Snaktastic Crunchy Toffee Popcorn 20g: https://world.openfoodfacts.org/product/4056489904014
+- Organix Soft Oaty Bar 23g: https://world.openfoodfacts.org/product/5024121100451
+- Mentos Chewing-gum 90g: https://world.openfoodfacts.org/product/00743480
+- Blockhead CBD Gum 16.45g: https://world.openfoodfacts.org/product/5060337980623
+- 3D Energy Grape Drink 473ml: https://world.openfoodfacts.org/product/0850003560113
+- Monster Ultra Strawberry Dreams 500ml: https://world.openfoodfacts.org/product/5061013944199
+- Celsius Europe Oy Live Fit Carbonated Sugar Free Ene 355ml: https://world.openfoodfacts.org/product/6430056289533
+- ON Pre-workout Cola 60ml: https://world.openfoodfacts.org/product/5060751992752
+- Lucozade Sport Lite Low Cal Lemon & Lime 500ml: https://world.openfoodfacts.org/product/5054267000506
+- Redbull The Summer Edition 250ml: https://world.openfoodfacts.org/product/0611269001945
+- PWR BRU Maverick Berry 500ml: https://world.openfoodfacts.org/product/5000382121251
+- Alani Nu Cosmic Stardust Energy 330ml: https://world.openfoodfacts.org/product/0810030515425
+- Rockstar Original Energy Drink 500ml: https://world.openfoodfacts.org/product/4060800305329
+- Fanta Apple & Sour Cherry 2L: https://world.openfoodfacts.org/product/5449000096968
+- Candy Can Sparkling Winter Edition Drink 330ml: https://world.openfoodfacts.org/product/8718858612581

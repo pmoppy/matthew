@@ -31,6 +31,8 @@ export interface CatalogState {
   updatedAt: number;
   /** Manifest version (its "generated" stamp) the library was built from. */
   version?: string;
+  /** Product -> category, used to recognise what kind of bay a photo shows. */
+  categories?: Record<string, string>;
 }
 
 export interface IndexInfo {
@@ -43,7 +45,7 @@ export interface IndexInfo {
 
 export interface WorkerManifest {
   generated?: string;
-  products: { name: string; images: string[] }[];
+  products: { name: string; images: string[]; category?: string }[];
   sales?: string | null;
   detector?: string | null;
   /** Pre-computed fingerprints per recognition model (scripts/build_index.py). */
@@ -72,6 +74,8 @@ export interface LibraryListing {
   detectorUrl?: string;
   version?: string;
   indexes: Record<string, IndexInfo & { url: string }>;
+  /** Product -> category from the manifest (optional). */
+  categories: Record<string, string>;
 }
 
 export async function listFromWorker(base: string): Promise<LibraryListing> {
@@ -96,9 +100,12 @@ export async function listFromWorker(base: string): Promise<LibraryListing> {
   }
   const indexes: LibraryListing['indexes'] = {};
   for (const [id, info] of Object.entries(m.indexes ?? {})) indexes[id] = { ...info, url: absolute(fileUrl(base, info.file)) };
+  const categories: Record<string, string> = {};
+  for (const p of m.products) if (p.category) categories[p.name] = p.category;
   return {
     version: m.generated,
     indexes,
+    categories,
     refs,
     salesUrl: m.sales ? absolute(fileUrl(base, m.sales)) : undefined,
     detectorUrl: m.detector ? absolute(fileUrl(base, m.detector)) : undefined,

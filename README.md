@@ -117,13 +117,20 @@ Ranked products with no photos are listed on the admin Catalogue screen. They ca
 
 ### Built-in starter library
 
-Until your R2 catalogue is live, the app uses `public/starter/` (48 products, 104 photos, 1.5 MB). It's built with `scripts/starter/build_starter.py`:
+Until your R2 catalogue is live, the app uses a starter library of **1,186 UK convenience products** (1,320 photos):
 
-- **187 products / 289 photos**, including **25 ranked lines** in four categories (Energy, Sports, Cola, Flavoured), e.g. Red Bull 250ml, Red Bull Sugarfree 250ml, Monster Original/Ultra White/Mango Loco/Pipeline Punch, Lucozade Sport Orange/Raspberry, Coca-Cola 500ml and 330ml, Pepsi Max, Diet Coke, Coke Zero, Fanta, Dr Pepper.
-- **162 other products** so they're recognised as themselves instead of being mistaken for a top seller. That covers Monster, Red Bull, Lucozade, Prime, Boost, Relentless, Carabao, Reign, Rockstar, Tenzing, Emerge and C4 in energy and sports, plus Coca-Cola, Diet Coke, Pepsi, Fanta, Sprite, 7UP, Tango, Irn-Bru, Dr Pepper, Rubicon, Oasis, Ribena and Vimto in pack sizes from 150ml to 2L. Own-label cans from the sample chiller are included too.
-- Pack shots come from [Open Food Facts](https://world.openfoodfacts.org) (CC BY-SA, credits in `public/starter/ATTRIBUTION.md`), hand-checked and auto-cropped, plus crops from a real chiller photo.
+| Category | Products | Starter top sellers |
+|---|---|---|
+| Confectionery | 383 | Maltesers, Kinder Bueno, Dairy Milk, Snickers, Twirl, Double Decker, Wispa, KitKat Chunky, Haribo, Fruit Pastilles, Skittles… |
+| Crisps | 179 | Big Hoops BBQ Beef, Quavers, Walkers core range, Hula Hoops, McCoy's, Pringles, Doritos, Wotsits… |
+| Snacks / Biscuits | 252 | (no ranking yet) |
+| Soft drinks, energy, sports, water | ~380 | Red Bull, Monster, Lucozade, Coca-Cola, Pepsi Max, Fanta, Dr Pepper… |
 
-**The starter ranking is an estimate, not sales data.** Published UK convenience data is mostly at brand level (e.g. Coca-Cola is the #1 soft drink brand; Red Bull is the top sports & energy brand and holds that sub-category's top three SKUs; energy is convenience's biggest soft-drinks segment). SKU-level rankings (NIQ/Circana) are paywalled, so the order within each category is a judgement call. **Replace `sales.csv` with your EPOS data.** The starter list has no delist candidates, because red boxes need real sales data.
+- `library/starter/`: the full library with photos (upload this folder to R2 when you're ready). It's built by `scripts/starter/sweep_off.py` (most-scanned UK products per Open Food Facts category: single units, no supermarket own-label), then `qc_sweep.py` (auto-crop, blur, size and duplicate checks), then `build_starter.py` (duplicates merged, fingerprints for all three recognition models).
+- `public/starter/`: what ships in the app. That's only the manifest, fingerprints (~0.4 KB per photo) and `sales.csv`, so the APK stays small however big the library gets.
+- Pack shots come from [Open Food Facts](https://world.openfoodfacts.org) (CC BY-SA, credits in `ATTRIBUTION.md`).
+- **The starter rankings are estimates, not sales data.** They're based on published brand and trade data (e.g. Walkers and KP hold 9 of the top 10 convenience crisp lines, Maltesers leads convenience chocolate, Red Bull holds the top energy SKUs). Replace `sales.csv` with your EPOS data. After editing it, run `python scripts/starter/build_starter.py --publish`.
+- Known gaps (not in Open Food Facts as single bars): Monster Munch, Twix, Freddo, Yorkie, Lion.
 
 ### Growing the library without bloating the app
 

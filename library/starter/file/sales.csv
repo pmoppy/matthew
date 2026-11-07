@@ -1,0 +1,59 @@
+product,rank,category,status
+Red Bull Energy Drink 250ml,1,Energy,top
+Red Bull Sugarfree 250ml,2,Energy,top
+Monster Energy Original 500ml,3,Energy,top
+Monster Ultra White 500ml,4,Energy,top
+Red Bull Energy Drink 355ml,5,Energy,top
+Monster Mango Loco 500ml,6,Energy,top
+Monster Pipeline Punch 500ml,7,Energy,top
+Lucozade Energy Original 380ml,8,Energy,top
+Boost Energy Original 250ml,9,Energy,core
+Red Bull Tropical Edition 250ml,10,Energy,core
+Monster Pacific Punch 500ml,11,Energy,core
+Relentless Original 500ml,12,Energy,core
+Lucozade Sport Orange 500ml,1,Sports,top
+Lucozade Sport Raspberry 500ml,2,Sports,top
+Lucozade Sport Mango & Passion Fruit 500ml,3,Sports,core
+Coca-Cola Original Taste 500ml,1,Cola,top
+Pepsi Max 500ml,2,Cola,top
+Diet Coke 500ml,3,Cola,top
+Coca-Cola Zero Sugar 500ml,4,Cola,top
+Coca-Cola Original Taste 330ml,5,Cola,top
+Pepsi Max 330ml,6,Cola,core
+Fanta Orange 500ml,1,Flavoured,top
+Dr Pepper 500ml,2,Flavoured,top
+Sprite 500ml,3,Flavoured,core
+Irn-Bru 500ml,4,Flavoured,core
+Big Hoops Barbeque Beef 45g,1,Crisps,top
+Walkers Quavers Cheese 34g,2,Crisps,top
+Walkers Ready Salted Crisps 32.5g,3,Crisps,top
+Walkers Cheese & Onion Crisps 32.5g,4,Crisps,top
+Walkers Salt & Vinegar Crisps 32.5g,5,Crisps,top
+Hula Hoops Salted 45g,6,Crisps,top
+McCoy's Ridge Cut Salt And Malt Vinegar Crisps 45g,7,Crisps,top
+Pringles Original 40g,8,Crisps,top
+Doritos Cool Original 150g,9,Crisps,top
+Walkers Wotsits 36g,10,Crisps,top
+Jacob's Mini Cheddars Original 45g,11,Crisps,core
+Nik Naks Nice 'N' Spicy 45g,12,Crisps,core
+Skips Prawn Cocktail Flavour 40g,13,Crisps,core
+Walkers Cheese & Onion 45g,14,Crisps,core
+McCoy's Cheddar And Onion Crisps 45g,15,Crisps,core
+Maltesers Pouch Bag 102g,1,Confectionery,top
+Kinder Bueno 43g,2,Confectionery,top
+Cadbury Dairy Milk 45g,3,Confectionery,top
+Snickers 48g,4,Confectionery,top
+Cadbury Twirl 43g,5,Confectionery,top
+Cadbury Double Decker 54.5g,6,Confectionery,top
+Cadbury Wispa 36g,7,Confectionery,top
+KitKat Chunky Milk Chocolate 40g,8,Confectionery,top
+Haribo Starmix 175g,9,Confectionery,top
+Haribo Tangfastics 175g,10,Confectionery,top
+Rowntrees Fruit Pastilles Pouch 143g,11,Confectionery,top
+Skittles 45g,12,Confectionery,top
+M&M's Chocolate 45g,13,Confectionery,core
+Cadbury Boost Chocolate Bar 48.5g,14,Confectionery,core
+Galaxy Smooth Milk Chocolate Bar 110g,15,Confectionery,core
+Cadbury Dairy Milk Chocolate Bar 95g,16,Confectionery,core
+Starburst Original 138g,17,Confectionery,core
+Aero 90g,18,Confectionery,core

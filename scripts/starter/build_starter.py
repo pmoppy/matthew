@@ -11,12 +11,13 @@ Build the built-in starter product library (public/starter/).
 
 Usage: python scripts/starter/build_starter.py <path to sku110k-yolo11-s640.onnx>
 """
-import io, json, os, shutil, sys, time, urllib.request
+import io, json, os, re, shutil, sys, time, urllib.request
 import numpy as np, onnxruntime as ort
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(ROOT, 'public', 'starter')
+LIB = os.path.join(ROOT, 'library', 'starter')  # full library incl. photos (upload this to R2)
+PUBLIC = os.path.join(ROOT, 'public', 'starter')  # what ships in the app: manifest + fingerprints + sales
 HERE = os.path.dirname(os.path.abspath(__file__))
 UA = {'User-Agent': 'ShelfScan/0.1 (starter catalogue builder)'}
 
@@ -229,52 +230,161 @@ def detect_main_pack(sess, im):
 
 def save(im, path):
     im = im.convert('RGB')
-    im.thumbnail((512, 512))
+    im.thumbnail((384, 384))  # plenty for recognition; keeps the library repo small
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    im.save(path, quality=88)
+    im.save(path, quality=85)
 
 
 def slug(name):
     """Folder-safe name: some static servers mishandle '&', apostrophes etc. in URLs."""
-    import re
     return re.sub(r'[^A-Za-z0-9]+', '-', name.replace('&', 'and')).strip('-')
+
+
+CACHE = os.path.join(os.path.expanduser('~'), '.cache', 'shelfscan', 'off')
+
+
+def cached_front(code, url=None):
+    """Front-of-pack photo for a barcode, downloaded once."""
+    path = os.path.join(CACHE, f'{code}.jpg')
+    if not os.path.exists(path):
+        os.makedirs(CACHE, exist_ok=True)
+        if not url:
+            url = json.loads(get(f'https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=image_front_url'))['product']['image_front_url']
+        open(path, 'wb').write(get(url))
+    return Image.open(path).convert('RGB')
+
+
+# Parent companies that OFF often puts in front of the consumer brand.
+PREFIXES = [r'KP Snacks\s+', r'MARS Norge AS\s+', r'Mars Norge AS\s+', r'Mars Norge\s+', r'Mondelez Norge AS\s+', r'Mondelez\s+',
+            r'PepsiCo\s+', r'SkittlesMars\s+', r'Nestle\s+(?=(KitKat|Kit Kat|Aero|Smarties|Yorkie|Lion|Munchies|Toffee Crisp|Rowntree))',
+            r'Mars\s+(?=(Snickers|Galaxy|Twix|Bounty|Maltesers|M&M|Skittles|Starburst|Milky Way|Minstrels))', r'Coca-Cola Coca[- ]Cola\s+']
+STOP = {'flavour', 'flavor', 'flavoured', 'crisps', 'potato', 'snacks', 'snack', 'chocolate', 'bar', 'the', 'and', 'with', 'original', 'drink', 'bag', 'pouch'}
+
+
+def tidy(name):
+    for p in PREFIXES:
+        name = re.sub('^' + p, '', name)
+    name = name.replace('Coca-Cola Coca Cola', 'Coca-Cola')
+    return re.sub(r'\s+', ' ', name).strip()
+
+
+def tokens(name):
+    size = name.split()[-1].lower()
+    words = {w for w in re.findall(r"[a-z0-9']+", name.lower().replace('&', ' and ')) if w not in STOP and w != size}
+    return size, words
+
+
+def same_product(a, b):
+    sa, wa = tokens(a)
+    sb, wb = tokens(b)
+    if sa != sb or not wa or not wb:
+        return False
+    return len(wa & wb) / len(wa | wb) >= 0.6
+
+
+def load_sweep(existing_names, existing_codes):
+    """Accepted sweep items, tidied, with duplicates merged into one product (most-scanned name wins)."""
+    path = os.path.join(HERE, 'off_sweep.json')
+    if not os.path.exists(path):
+        return {}
+    items = sorted(json.load(open(path)), key=lambda c: -c['scans'])
+    multipack = re.compile(r'\b\d+\s*x\b', re.I)
+    products = {}  # name -> {'category', 'items': [...]}
+    dropped = 0
+    for c in items:
+        name = tidy(c['name'])
+        if c['code'] in existing_codes or multipack.search(name):
+            dropped += 1
+            continue
+        if any(same_product(name, e) for e in existing_names):
+            dropped += 1
+            continue
+        target = next((n for n in products if same_product(name, n)), None)
+        if target:
+            products[target]['items'].append(c)
+        else:
+            products[name] = {'category': c['category'], 'items': [c]}
+    print(f'sweep: {len(products)} products ({dropped} duplicates of existing lines dropped)')
+    return products
 
 
 def main(detector):
     names = {}  # folder -> display name
     sess = ort.InferenceSession(detector)
-    shutil.rmtree(os.path.join(OUT, 'file'), ignore_errors=True)
+    shutil.rmtree(os.path.join(LIB, 'file'), ignore_errors=True)
     attribution = []
     for product, codes in OFF.items():
         for code in codes:
-            meta = json.loads(get(f'https://world.openfoodfacts.org/api/v2/product/{code}.json?fields=image_front_url'))
-            url = meta['product']['image_front_url']
-            im = Image.open(io.BytesIO(get(url))).convert('RGB')
             names[slug(product)] = product
-            save(detect_main_pack(sess, im), os.path.join(OUT, 'file', slug(product), f'off-{code}.jpg'))
+            save(detect_main_pack(sess, cached_front(code)), os.path.join(LIB, 'file', slug(product), f'off-{code}.jpg'))
             attribution.append(f'- {product}: https://world.openfoodfacts.org/product/{code}')
-        print('✓', product)
     crops = os.path.join(HERE, 'shelf_crops')
     for product in sorted(os.listdir(crops)) if os.path.isdir(crops) else []:
         for f in sorted(os.listdir(os.path.join(crops, product))):
             names[slug(product)] = product
-            shutil.copy(os.path.join(crops, product, f), _mk(os.path.join(OUT, 'file', slug(product)), f))
-    shutil.copy(os.path.join(HERE, 'sales.csv'), os.path.join(OUT, 'file', 'sales.csv'))
+            shutil.copy(os.path.join(crops, product, f), _mk(os.path.join(LIB, 'file', slug(product)), f))
+    existing_codes = {c for v in OFF.values() for c in v}
+    sweep = load_sweep(list(names.values()), existing_codes)
+    for product, info in sweep.items():
+        for c in info['items'][:3]:
+            try:
+                im = cached_front(c['code'], c['image'])
+            except Exception as e:  # noqa: BLE001
+                print('skip', c['code'], e)
+                continue
+            names[slug(product)] = product
+            save(detect_main_pack(sess, im), os.path.join(LIB, 'file', slug(product), f'off-{c["code"]}.jpg'))
+            attribution.append(f'- {product}: https://world.openfoodfacts.org/product/{c["code"]}')
+    json.dump({p: i['category'] for p, i in sweep.items()}, open(os.path.join(HERE, 'sweep_categories.json'), 'w'), indent=1)
+    shutil.copy(os.path.join(HERE, 'sales.csv'), os.path.join(LIB, 'file', 'sales.csv'))
     products = []  # display names may contain '&' etc.; folders use slugs
-    for p in sorted(os.listdir(os.path.join(OUT, 'file'))):
-        d = os.path.join(OUT, 'file', p)
+    for p in sorted(os.listdir(os.path.join(LIB, 'file'))):
+        d = os.path.join(LIB, 'file', p)
         if os.path.isdir(d):
             products.append({'name': names.get(p, p), 'images': [f'{p}/{f}' for f in sorted(os.listdir(d))]})
     manifest = {'generated': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'products': products, 'sales': 'sales.csv', 'detector': None}
-    json.dump(manifest, open(os.path.join(OUT, 'manifest.json'), 'w'), indent=1)
-    with open(os.path.join(OUT, 'ATTRIBUTION.md'), 'w') as f:
+    json.dump(manifest, open(os.path.join(LIB, 'manifest.json'), 'w'), indent=1)
+    with open(os.path.join(LIB, 'ATTRIBUTION.md'), 'w') as f:
         f.write('# Starter library image credits\n\nPack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors, '
                 'licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), cropped. Files named `shelf-*.jpg` are '
                 'crops from field photos.\n\n' + '\n'.join(attribution) + '\n')
     print(len(products), 'products,', sum(len(p['images']) for p in products), 'images')
-    # Pre-compute recognition fingerprints so phones don't have to.
+    # Pre-compute recognition fingerprints for every selectable model, so phones never need the photos.
     import subprocess
-    subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'build_index.py'), OUT], check=True)
+    for emb in ('dinov3-s', 'siglip2-b', 'clip-b32'):
+        subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'build_index.py'), LIB, '--embedder', emb], check=True)
+    add_categories()
+    publish()
+
+
+def add_categories():
+    """Give every product a category (sales.csv first, then the sweep) so the app can tell what bay it is looking at."""
+    import csv
+    cats = {}
+    sweep = os.path.join(HERE, 'sweep_categories.json')
+    if os.path.exists(sweep):
+        cats.update(json.load(open(sweep)))
+    for r in csv.DictReader(open(os.path.join(HERE, 'sales.csv'))):
+        if r.get('category'):
+            cats[r['product']] = r['category']
+    path = os.path.join(LIB, 'manifest.json')
+    m = json.load(open(path))
+    for p in m['products']:
+        if p['name'] in cats:
+            p['category'] = cats[p['name']]
+    json.dump(m, open(path, 'w'), indent=1)
+    shutil.copy(os.path.join(HERE, 'sales.csv'), os.path.join(LIB, 'file', 'sales.csv'))
+
+
+def publish():
+    """Copy what the app needs (manifest, fingerprints, sales, credits) into public/starter. Photos stay in library/."""
+    shutil.rmtree(PUBLIC, ignore_errors=True)
+    os.makedirs(os.path.join(PUBLIC, 'file'))
+    for f in ('manifest.json', 'ATTRIBUTION.md'):
+        shutil.copy(os.path.join(LIB, f), os.path.join(PUBLIC, f))
+    for f in os.listdir(os.path.join(LIB, 'file')):
+        if f == 'sales.csv' or f.startswith('index-'):
+            shutil.copy(os.path.join(LIB, 'file', f), os.path.join(PUBLIC, 'file', f))
 
 
 def _mk(d, f):
@@ -283,4 +393,8 @@ def _mk(d, f):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    if sys.argv[1:] == ['--publish']:  # after editing sales.csv: re-annotate and re-publish without rebuilding photos
+        add_categories()
+        publish()
+    else:
+        main(sys.argv[1])

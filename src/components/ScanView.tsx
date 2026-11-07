@@ -137,7 +137,10 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   };
 
   const summary = useMemo(() => summarise(facings, sales), [facings, sales]);
-  const check = useMemo(() => topSellerCheck(facings, sales, catalog?.products ?? []), [facings, sales, catalog]);
+  const check = useMemo(
+    () => topSellerCheck(facings, sales, catalog?.products ?? [], (n) => catalog?.categories?.[n]),
+    [facings, sales, catalog],
+  );
   const recs = useMemo(() => recommend(facings, sales), [facings, sales]);
 
   const updateFacing = (id: number, patch: Partial<Facing>) => {

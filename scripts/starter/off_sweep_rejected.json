@@ -1,0 +1,155 @@
+[
+ {
+  "name": "Walkers Ready Salted Crisps 25g",
+  "category": "Crisps",
+  "code": "5100000100",
+  "image": "https://images.openfoodfacts.org/images/products/510/000/010/0/front_en.18.400.jpg",
+  "scans": 46,
+  "off_tag": "en:crisps",
+  "reason": "download failed"
+ },
+ {
+  "name": "Walkers Baked Crisps 25g",
+  "category": "Crisps",
+  "code": "240010787",
+  "image": "https://images.openfoodfacts.org/images/products/240/010/787//front_en.3.400.jpg",
+  "scans": 19,
+  "off_tag": "en:crisps",
+  "reason": "download failed"
+ },
+ {
+  "name": "Walkers Prawn Cocktail 25g",
+  "category": "Crisps",
+  "code": "200004321",
+  "image": "https://images.openfoodfacts.org/images/products/200/004/321//front_en.3.400.jpg",
+  "scans": 5,
+  "off_tag": "en:crisps",
+  "reason": "download failed"
+ },
+ {
+  "name": "Oreo Double Creme 157g",
+  "category": "Biscuits",
+  "code": "7622210148483",
+  "image": "https://images.openfoodfacts.org/images/products/762/221/014/8483/front_en.46.400.jpg",
+  "scans": 29,
+  "off_tag": "en:biscuits",
+  "reason": "too small"
+ },
+ {
+  "name": "Belmont Biscuits Fig Rolls 200g",
+  "category": "Biscuits",
+  "code": "4088600107837",
+  "image": "https://images.openfoodfacts.org/images/products/408/860/010/7837/front_en.6.400.jpg",
+  "scans": 12,
+  "off_tag": "en:biscuits",
+  "reason": "too small"
+ },
+ {
+  "name": "Oreo Limited Edition Peanut Butter Flavour 154g",
+  "category": "Biscuits",
+  "code": "7622210449627",
+  "image": "https://images.openfoodfacts.org/images/products/762/221/044/9627/front_en.7.400.jpg",
+  "scans": 6,
+  "off_tag": "en:biscuits",
+  "reason": "too small"
+ },
+ {
+  "name": "Cadbury Dairy Milk Orange Giant Buttons 110g",
+  "category": "Confectionery",
+  "code": "7622201438043",
+  "image": "https://images.openfoodfacts.org/images/products/762/220/143/8043/front_en.5.400.jpg",
+  "scans": 8,
+  "off_tag": "en:chocolates",
+  "reason": "blurry"
+ },
+ {
+  "name": "Lindt Lindor Salted Caramel Milk Chocolate Bar 38g",
+  "category": "Confectionery",
+  "code": "4000539280108",
+  "image": "https://images.openfoodfacts.org/images/products/400/053/928/0108/front_en.34.400.jpg",
+  "scans": 6,
+  "off_tag": "en:chocolates",
+  "reason": "too small"
+ },
+ {
+  "name": "Cadbury Flake 32g",
+  "category": "Confectionery",
+  "code": "50201013",
+  "image": "https://images.openfoodfacts.org/images/products/50201013/front_en.19.400.jpg",
+  "scans": 4,
+  "off_tag": "en:chocolates",
+  "reason": "too small"
+ },
+ {
+  "name": "Swizzels Giant Parma Violets 40g",
+  "category": "Confectionery",
+  "code": "5010478748231",
+  "image": "https://images.openfoodfacts.org/images/products/501/047/874/8231/front_en.11.400.jpg",
+  "scans": 2,
+  "off_tag": "en:candies",
+  "reason": "too small"
+ },
+ {
+  "name": "Vimto Tongue Ticklers 34g",
+  "category": "Confectionery",
+  "code": "5010933012464",
+  "image": "https://images.openfoodfacts.org/images/products/501/093/301/2464/front_en.14.400.jpg",
+  "scans": 1,
+  "off_tag": "en:candies",
+  "reason": "too small"
+ },
+ {
+  "name": "Lindt & Sprungli (nordic NUF ) Lindor Melkesjokolade 38g",
+  "category": "Confectionery",
+  "code": "4000539363108",
+  "image": "https://images.openfoodfacts.org/images/products/400/053/936/3108/front_en.53.400.jpg",
+  "scans": 25,
+  "off_tag": "en:confectioneries",
+  "reason": "too small"
+ },
+ {
+  "name": "Ferrero Scandinavia Ab Kinder Maxi Sjokolade 21g",
+  "category": "Confectionery",
+  "code": "80050094",
+  "image": "https://images.openfoodfacts.org/images/products/80050094/front_en.69.400.jpg",
+  "scans": 6,
+  "off_tag": "en:confectioneries",
+  "reason": "too small"
+ },
+ {
+  "name": "Pepsi With A Splash Of Mango Juice 355ml",
+  "category": "Soft drinks",
+  "code": "0012000181962",
+  "image": "https://images.openfoodfacts.org/images/products/001/200/018/1962/front_en.3.400.jpg",
+  "scans": 2,
+  "off_tag": "en:sodas",
+  "reason": "blurry"
+ },
+ {
+  "name": "MOGU MOGU Peach Flavored Drink 320ml",
+  "category": "Water",
+  "code": "8850389106280",
+  "image": "https://images.openfoodfacts.org/images/products/885/038/910/6280/front_en.20.400.jpg",
+  "scans": 18,
+  "off_tag": "en:waters",
+  "reason": "too small"
+ },
+ {
+  "name": "Strathmore Layali Eyelash Serum 330ml",
+  "category": "Water",
+  "code": "5012058010004",
+  "image": "https://images.openfoodfacts.org/images/products/501/205/801/0004/front_en.22.400.jpg",
+  "scans": 2,
+  "off_tag": "en:waters",
+  "reason": "too small"
+ },
+ {
+  "name": "Simply... Still Spring Water 2L",
+  "category": "Water",
+  "code": "20652609",
+  "image": "https://images.openfoodfacts.org/images/products/20652609/front_en.24.400.jpg",
+  "scans": 5,
+  "off_tag": "en:waters",
+  "reason": "atypical photo (0.24)"
+ }
+]

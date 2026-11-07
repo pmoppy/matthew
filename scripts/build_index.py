@@ -44,6 +44,16 @@ EMBEDDERS = {
         'mean': [0.485, 0.456, 0.406],
         'std': [0.229, 0.224, 0.225],
     },
+    'siglip2-b': {
+        'url': 'https://huggingface.co/onnx-community/siglip2-base-patch16-224-ONNX/resolve/main/onnx/vision_model_quantized.onnx',
+        'mean': [0.5, 0.5, 0.5],
+        'std': [0.5, 0.5, 0.5],
+    },
+    'clip-b32': {
+        'url': 'https://huggingface.co/Xenova/clip-vit-base-patch32/resolve/main/onnx/vision_model_quantized.onnx',
+        'mean': [0.48145466, 0.4578275, 0.40821073],
+        'std': [0.26862954, 0.26130258, 0.27577711],
+    },
 }
 HIST_BINS = 40
 
@@ -104,7 +114,8 @@ def main():
     args = ap.parse_args()
     spec = EMBEDDERS[args.embedder]
     sess = ort.InferenceSession(args.model or cached_model(args.embedder))
-    out_name = 'pooler_output' if 'pooler_output' in [o.name for o in sess.get_outputs()] else sess.get_outputs()[0].name
+    outs = [o.name for o in sess.get_outputs()]
+    out_name = next((n for n in ('image_embeds', 'pooler_output') if n in outs), outs[0])  # same choice as src/lib/embed.ts
 
     manifest_path = os.path.join(args.library, 'manifest.json')
     files_dir = os.path.join(args.library, 'file') if os.path.isdir(os.path.join(args.library, 'file')) else args.library

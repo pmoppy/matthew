@@ -85,6 +85,8 @@ export function topSellerCheck(
   facings: Facing[],
   sales: Map<string, SalesInfo> | null,
   catalogProducts: string[],
+  /** Category of products that aren't in the sales data (from the library manifest). */
+  categoryOf?: (name: string) => string | undefined,
 ): TopSellerCheck {
   if (!sales || sales.size === 0) return { hasSales: false, categories: [], missing: [], present: [] };
   const sum = summarise(facings, sales);
@@ -94,9 +96,10 @@ export function topSellerCheck(
   const catCount = new Map<string, { label: string; n: number }>();
   let catTotal = 0;
   for (const p of sum.products) {
-    if (!p.category) continue;
-    const k = normName(p.category);
-    const c = catCount.get(k) ?? { label: p.category, n: 0 };
+    const cat = p.category ?? categoryOf?.(p.name);
+    if (!cat) continue;
+    const k = normName(cat);
+    const c = catCount.get(k) ?? { label: cat, n: 0 };
     c.n += p.facings;
     catCount.set(k, c);
     catTotal += p.facings;
