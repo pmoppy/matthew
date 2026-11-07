@@ -7,6 +7,8 @@ interface Props {
   facing: Facing;
   crop: HTMLCanvasElement;
   products: string[];
+  /** Shown before anything is typed: same brand / same bay category first. */
+  suggestions?: string[];
   salesRank: (name: string) => number | undefined;
   onPick: (product: string) => void;
   onMarkGap: () => void;
@@ -14,7 +16,7 @@ interface Props {
 }
 
 /** Bottom sheet to confirm or correct what a box contains. */
-export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onMarkGap, onClose }: Props) {
+export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onMarkGap, onClose, suggestions }: Props) {
   const [q, setQ] = useState('');
   const imgRef = useRef<HTMLDivElement>(null);
 
@@ -28,9 +30,10 @@ export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onM
 
   const filtered = useMemo(() => {
     const t = q.trim().toLowerCase();
+    if (!t && suggestions?.length) return suggestions.slice(0, 40);
     const words = t.split(/\s+/).filter(Boolean);
     return products.filter((p) => words.every((w) => p.toLowerCase().includes(w))).slice(0, 50);
-  }, [q, products]);
+  }, [q, products, suggestions]);
 
   const st = STATUS_STYLE[facing.status];
 

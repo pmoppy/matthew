@@ -9,6 +9,7 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Red Bull Energy Drink 355ml: https://world.openfoodfacts.org/product/9002490206840
 - Red Bull Energy Drink 355ml: https://world.openfoodfacts.org/product/9002490239565
 - Red Bull Tropical Edition 250ml: https://world.openfoodfacts.org/product/90415845
+- Red Bull Tropical Edition 250ml: https://world.openfoodfacts.org/product/0180854000347
 - Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060166690007
 - Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060335632302
 - Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060166690380
@@ -90,8 +91,10 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Emerge Impact Sugar Free 250ml: https://world.openfoodfacts.org/product/5000177481331
 - Boost Energy Sugar Free 250ml: https://world.openfoodfacts.org/product/5056079900524
 - Boost Energy Mango 250ml: https://world.openfoodfacts.org/product/5056079901194
+- Boost Energy Mango 250ml: https://world.openfoodfacts.org/product/5056079900739
 - Boost Energy Red Berry 250ml: https://world.openfoodfacts.org/product/5000177482116
 - Boost Sport Orange 500ml: https://world.openfoodfacts.org/product/5056079901279
+- Boost Sport Orange 500ml: https://world.openfoodfacts.org/product/5056079900029
 - Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/0850040427066
 - Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/9781035012084
 - Prime Hydration Ice Pop 500ml: https://world.openfoodfacts.org/product/6814440827066
@@ -109,6 +112,7 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Monster Khaotic 500ml: https://world.openfoodfacts.org/product/5060896621760
 - Red Bull Red Edition 250ml: https://world.openfoodfacts.org/product/90446412
 - Red Bull Red Edition 250ml: https://world.openfoodfacts.org/product/90456657
+- Red Bull Red Edition 250ml: https://world.openfoodfacts.org/product/90448768
 - Rockstar Juiced Mango Orange Passion 500ml: https://world.openfoodfacts.org/product/5000382022411
 - Relentless Tropical Juiced 500ml: https://world.openfoodfacts.org/product/5449000956552
 - Relentless Mango 500ml: https://world.openfoodfacts.org/product/5060466517806
@@ -127,6 +131,7 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Monster Hydrosport 650ml: https://world.openfoodfacts.org/product/5060639123964
 - Red Bull Energy Drink 473ml: https://world.openfoodfacts.org/product/9002490210991
 - Red Bull Coconut Edition 250ml: https://world.openfoodfacts.org/product/90435348
+- Red Bull Coconut Edition 250ml: https://world.openfoodfacts.org/product/90435409
 - Red Bull Winter Edition 250ml: https://world.openfoodfacts.org/product/90457432
 - Rockstar XD Power 500ml: https://world.openfoodfacts.org/product/5000382108870
 - Reign Peach Fizz 500ml: https://world.openfoodfacts.org/product/5060608748402
@@ -220,17 +225,48 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Vimto Fizzy 2L: https://world.openfoodfacts.org/product/5010438017346
 - Vimto Energy 500ml: https://world.openfoodfacts.org/product/5010438021428
 - Schweppes Slimline Lemonade 2L: https://world.openfoodfacts.org/product/5000193730574
+- Boost Energy Cherry 250ml: https://world.openfoodfacts.org/product/5056079900333
+- Boost Sport Tropical Berry 500ml: https://world.openfoodfacts.org/product/5056079900760
+- Boost Sport Mixed Berry 500ml: https://world.openfoodfacts.org/product/5056079900753
+- C4 Performance Energy 500ml: https://world.openfoodfacts.org/product/0810390020904
+- C4 Performance Energy 500ml: https://world.openfoodfacts.org/product/0842595109368
+- Fanta Grape 330ml: https://world.openfoodfacts.org/product/5000112639605
+- Fanta Grape 500ml: https://world.openfoodfacts.org/product/5000112644876
+- Fanta Grape 500ml: https://world.openfoodfacts.org/product/5000112649901
+- Fanta Strawberry & Kiwi 330ml: https://world.openfoodfacts.org/product/5000112638028
+- HELL Energy Drink 250ml: https://world.openfoodfacts.org/product/5999884034650
+- HELL Energy Apple 250ml: https://world.openfoodfacts.org/product/0999780034612
+- Levi Roots Caribbean Crush 500ml: https://world.openfoodfacts.org/product/5010438003622
+- Mogu Mogu Peach 320ml: https://world.openfoodfacts.org/product/8850389106280
+- Mogu Mogu Watermelon 320ml: https://world.openfoodfacts.org/product/8850389116753
+- Mogu Mogu Mango 320ml: https://world.openfoodfacts.org/product/3652389100054
+- Mogu Mogu Lychee Flavored Drink 320ml: https://world.openfoodfacts.org/product/4854589100684
+- Monster Nitro 500ml: https://world.openfoodfacts.org/product/5056784900000
+- Monster Nitro 500ml: https://world.openfoodfacts.org/product/5060751211730
+- Monster Nitro Cosmic Peach 500ml: https://world.openfoodfacts.org/product/5060947547643
+- Monster Mixxd Punch 500ml: https://world.openfoodfacts.org/product/5060751215813
+- Monster Ultra Paradise 500ml: https://world.openfoodfacts.org/product/5060896622828
+- Monster Java Loca Moca 443ml: https://world.openfoodfacts.org/product/0070847026662
+- Monster Java Loca Moca 443ml: https://world.openfoodfacts.org/product/0070847812715
+- Monster Java Salted Caramel 443ml: https://world.openfoodfacts.org/product/0070847027249
+- Purdey's Refocus 330ml: https://world.openfoodfacts.org/product/5010102243149
+- Purdey's Refocus 330ml: https://world.openfoodfacts.org/product/5010102243156
+- Purdey's Rejuvenate 330ml: https://world.openfoodfacts.org/product/5024115330055
+- Rockstar Original 500ml: https://world.openfoodfacts.org/product/4060800305220
+- Rockstar Original 500ml: https://world.openfoodfacts.org/product/4060800305312
+- V Energy 250ml: https://world.openfoodfacts.org/product/3124480195302
+- Rio Light Tropical 330ml: https://world.openfoodfacts.org/product/5010437021870
+- Rio Light Tropical 330ml: https://world.openfoodfacts.org/product/5010437021955
 - Coca-Cola Zero Sugar 500ml: https://world.openfoodfacts.org/product/5449000131836
 - Coca-Cola Zero Sugar 500ml: https://world.openfoodfacts.org/product/5000112656756
 - Fanta Lemon 500ml: https://world.openfoodfacts.org/product/54492493
-- HELL Energy Drink 250ml: https://world.openfoodfacts.org/product/5999884034650
+- Mogu Mogu Lychee Flavored Drink 320ml: https://world.openfoodfacts.org/product/8850389103159
 - Red Bull Energy Drink 250ml: https://world.openfoodfacts.org/product/9002490100056
 - Monster Energy Original 500ml: https://world.openfoodfacts.org/product/5060639126521
 - Monster Monarch 500ml: https://world.openfoodfacts.org/product/5060751213413
 - Monster Monarch 500ml: https://world.openfoodfacts.org/product/5060896623603
 - Emerge Energy Original 250ml: https://world.openfoodfacts.org/product/5000177474777
 - Coca-Cola Original Taste 1.5L: https://world.openfoodfacts.org/product/5000112585452
-- Rio Light Tropical 330ml: https://world.openfoodfacts.org/product/5010437021870
 - Lucozade Sport Orange 500ml: https://world.openfoodfacts.org/product/1014197000681
 - Monster Ultra Strawberry Dreams 500ml: https://world.openfoodfacts.org/product/5061013944199
 - Rockstar Original 500ml: https://world.openfoodfacts.org/product/4060800305329
@@ -564,7 +600,6 @@ Pack shots from [Open Food Facts](https://world.openfoodfacts.org) contributors,
 - Lindt Lindor Assorted Chocolate Truffles Box 200g: https://world.openfoodfacts.org/product/8003340090276
 - Snickers 41.7g: https://world.openfoodfacts.org/product/5000159550345
 - Alpen FestLidl Mozartkugeln 200g: https://world.openfoodfacts.org/product/20369699
-- Mogu Mogu Lychee Flavored Drink 320ml: https://world.openfoodfacts.org/product/8850389103159
 - Evian Sparkling 330ml: https://world.openfoodfacts.org/product/3068320127842
 - Walkers French Fries Cheese & Onion 18g: https://world.openfoodfacts.org/product/51000638
 - Walkers French Fries Cheese & Onion 18g: https://world.openfoodfacts.org/product/5012005290107

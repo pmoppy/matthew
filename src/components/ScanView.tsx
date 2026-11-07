@@ -12,6 +12,8 @@ import { CorrectionSheet } from './CorrectionSheet';
 import { ProductTable, RecommendationList, TopSellerPanel } from './Recommendations';
 import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
+import { HistoryCard } from './HistoryCard';
+import { listScans, loadScan, saveScan, updateScanFacings } from '../lib/history';
 
 export interface LibraryStatus {
   state: 'loading' | 'ready' | 'error';
@@ -46,6 +48,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const [hidden, setHidden] = useState<Set<Status>>(new Set());
   const [dragging, setDragging] = useState(false);
   const [waiting, setWaiting] = useState(false);
+  /** Saved-history entry for the scan on screen, and when it was taken if reopened. */
+  const [historyId, setHistoryId] = useState<string | null>(null);
+  const [reopenedAt, setReopenedAt] = useState<number | null>(null);
+  const [historyKey, setHistoryKey] = useState(0);
+  const saving = useRef<Promise<unknown> | null>(null);
 
   const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
 
@@ -57,6 +64,25 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     setError(null);
     setWaiting(false);
     setSelected(null);
+    setHistoryId(null);
+    setReopenedAt(null);
+    setHistoryKey((k) => k + 1);
+    window.scrollTo({ top: 0 });
+  };
+
+  const openScan = async (id: string) => {
+    const [scan, metas] = await Promise.all([loadScan(id), listScans()]);
+    if (!scan) return;
+    const fs = scan.facings.map((f) => ({ ...f, status: statusFor(f, sales, settings) }));
+    setError(null);
+    setQuality(null);
+    setSelected(null);
+    setHidden(new Set());
+    setImage(scan.image);
+    setFacings(fs);
+    setResult({ facings: fs, features: new Map(), detector: 'model', timings: { detect: 0, recognise: 0 }, warnings: [] });
+    setHistoryId(id);
+    setReopenedAt(metas.find((m) => m.id === id)?.at ?? null);
     window.scrollTo({ top: 0 });
   };
 
@@ -87,6 +113,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     setFacings([]);
     setSelected(null);
     setHidden(new Set());
+    setHistoryId(null);
+    setReopenedAt(null);
     try {
       const c = await loadImageToCanvas(file);
       setImage(c);
@@ -143,6 +171,30 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   );
   const recs = useMemo(() => recommend(facings, sales), [facings, sales]);
 
+  // Save each finished scan to history, and keep it up to date as boxes are confirmed.
+  useEffect(() => {
+    if (!result || !image || progress || !facings.length) return;
+    const info = {
+      bay: check.categories.length ? `${check.categories.join(' & ')} bay` : 'Shelf',
+      present: check.present.length,
+      total: check.present.length + check.missing.length,
+      missing: check.missing.filter((m) => !m.possible).length,
+    };
+    const t = setTimeout(() => {
+      const prev = saving.current ?? Promise.resolve();
+      saving.current = prev.then(async () => {
+        try {
+          if (historyId) await updateScanFacings(historyId, image, facings, info);
+          else setHistoryId(await saveScan(image, facings, info));
+        } catch (e) {
+          console.warn('Could not save scan to history', e);
+        }
+      });
+    }, 500);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, facings, progress]);
+
   const updateFacing = (id: number, patch: Partial<Facing>) => {
     setFacings((fs) =>
       fs.map((f) => {
@@ -184,6 +236,22 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     shelfRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  // Likely products for the correction list: same brand as the guesses, then the bay's categories by sales rank.
+  const suggestions = useMemo(() => {
+    if (!selected || !catalog) return [];
+    const guesses = selected.candidates.map((c) => c.product);
+    const brands = new Set(guesses.map((g) => g.split(' ')[0].toLowerCase()));
+    const bay = new Set(check.categories.map((c) => normName(c)));
+    const catOf = (n: string) => sales?.get(normName(n))?.category ?? catalog.categories?.[n];
+    const rank = (n: string) => sales?.get(normName(n))?.rank ?? 9999;
+    const sameBrand = catalog.products.filter((p) => brands.has(p.split(' ')[0].toLowerCase()));
+    const sameBay = catalog.products.filter((p) => {
+      const c = catOf(p);
+      return c ? bay.has(normName(c)) : false;
+    });
+    const ordered = [...guesses, ...sameBrand.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b)), ...sameBay.sort((a, b) => rank(a) - rank(b))];
+    return [...new Set(ordered)];
+  }, [selected, catalog, check, sales]);
   const selectedCrop = useMemo(() => (selected && image ? cropCanvas(image, selected, 0.05) : null), [selected, image]);
   const presentStatuses = useMemo(() => ALL_STATUSES.filter((s) => facings.some((f) => f.status === s)), [facings]);
   const busy = !!progress;
@@ -257,6 +325,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
 
           <ShoppingListCard list={list} />
 
+          <HistoryCard onOpen={openScan} refreshKey={historyKey} />
+
           <section className="card tips">
             <h3>For the best results</h3>
             <ul>
@@ -329,6 +399,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
         </div>
       )}
 
+      {reopenedAt && (
+        <div className="notice">
+          Saved scan from {new Date(reopenedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}. Results use today's top-seller list.
+        </div>
+      )}
       {result && result.warnings.map((w) => <div key={w} className="notice warn">{w}</div>)}
 
       {result && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} />}
@@ -361,8 +436,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           )}
           {result && (
             <p className="meta">
-              {summary.facings} products found · {summary.unsure ? `${summary.unsure} unclear (tap an amber box to confirm) · ` : ''}
-              {((result.timings.detect + result.timings.recognise) / 1000).toFixed(1)}s
+              {summary.facings} products found{summary.unsure ? ` · ${summary.unsure} unclear (tap an amber box to confirm)` : ''}
+              {reopenedAt ? '' : ` · ${((result.timings.detect + result.timings.recognise) / 1000).toFixed(1)}s`}
             </p>
           )}
         </div>
@@ -376,6 +451,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           facing={selected}
           crop={selectedCrop!}
           products={catalog?.products ?? []}
+          suggestions={suggestions}
           salesRank={(n) => sales?.get(normName(n))?.rank}
           onPick={onPick}
           onMarkGap={() => {
