@@ -36,17 +36,35 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
       </section>
     );
   }
+  if (!check.bayKnown) {
+    return (
+      <section className="ts-panel warn">
+        <div className="ts-head">
+          <div className="ts-icon">
+            <CircleHelp size={22} />
+          </div>
+          <div>
+            <div className="ts-title">Couldn't check this bay</div>
+            <div className="ts-sub">
+              Too few products were recognised to tell which top sellers belong here. Retake the photo straight-on and closer, avoiding glare
+              from the fridge door, or tap the amber boxes to confirm products.
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   const definite = check.missing.filter((m) => !m.possible);
   const possible = check.missing.filter((m) => m.possible);
   const total = check.missing.length + check.present.length;
   const ok = check.missing.length === 0;
   const tone = definite.length ? 'bad' : possible.length ? 'warn' : 'good';
-  const where = check.categories.length ? `${check.categories.join(' & ')} bay` : 'this shelf';
+  const where = check.categories.length ? `the ${check.categories.join(' & ')} bay` : 'this shelf';
 
   const shareReport = () => {
     const lines = [
       `ShelfScan check · ${new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`,
-      `${check.present.length}/${total} top sellers on the ${where}`,
+      `${check.present.length}/${total} top sellers on ${where}`,
     ];
     if (definite.length) lines.push('', 'Missing:', ...definite.map((m) => `• ${m.name}`));
     if (possible.length) lines.push('', 'To check:', ...possible.map((m) => `• ${m.name}`));
@@ -67,7 +85,7 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
                 : `${possible.length} top seller${possible.length > 1 ? 's' : ''} to check`}
           </div>
           <div className="ts-sub">
-            {check.present.length} of {total} top sellers found on the {where}
+            {check.present.length} of {total} top sellers found on {where}
           </div>
         </div>
         <div className="ts-score">

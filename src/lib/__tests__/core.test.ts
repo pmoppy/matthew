@@ -229,3 +229,26 @@ describe('split bottles', () => {
     expect(mergeSplitBottles([can1, can2])).toHaveLength(2);
   });
 });
+
+describe('bay detection on hard photos', () => {
+  const cat = classifySales(
+    parseSales('product,units,category\nCola 1,100,Cola\nCola 2,90,Cola\nEnergy 1,80,Energy\nEnergy 2,70,Energy\nEnergy 3,60,Energy\nCrisp 1,50,Crisps\n'),
+    { topSellerPercent: 40, delistPercent: 0 },
+  );
+  const unsure = (id: number, guess: string): Facing => ({
+    ...det(id * 10, 0, id * 10 + 9, 20), id, product: guess, confidence: 0.6,
+    candidates: [{ product: guess, score: 0.6 }, { product: 'Cola 1', score: 0.55 }], status: 'unsure',
+  });
+  it('uses best guesses of unclear boxes to find the bay instead of listing every category', () => {
+    const facings = [0, 1, 2, 3, 4].map((i) => unsure(i, i % 2 ? 'Energy 2' : 'Energy 3'));
+    const check = topSellerCheck(facings, cat, []);
+    expect(check.bayKnown).toBe(true);
+    expect(check.categories).toEqual(['Energy']);
+    expect(check.missing.every((m) => m.category === 'Energy')).toBe(true);
+  });
+  it('says it cannot check the bay when nothing points to a category', () => {
+    const check = topSellerCheck([unsure(0, 'Energy 2'), unsure(1, 'Crisp 1')], cat, []);
+    expect(check.bayKnown).toBe(false);
+    expect(check.missing).toEqual([]);
+  });
+});

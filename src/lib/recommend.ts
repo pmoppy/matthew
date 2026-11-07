@@ -28,6 +28,8 @@ export interface TopSellerItem {
 
 export interface TopSellerCheck {
   hasSales: boolean;
+  /** False when too little was recognised to tell what kind of bay this is. */
+  bayKnown: boolean;
   /** Categories this bay was judged against (empty = no category data / all). */
   categories: string[];
   missing: TopSellerItem[];
@@ -88,7 +90,7 @@ export function topSellerCheck(
   /** Category of products that aren't in the sales data (from the library manifest). */
   categoryOf?: (name: string) => string | undefined,
 ): TopSellerCheck {
-  if (!sales || sales.size === 0) return { hasSales: false, categories: [], missing: [], present: [] };
+  if (!sales || sales.size === 0) return { hasSales: false, bayKnown: false, categories: [], missing: [], present: [] };
   const sum = summarise(facings, sales);
   const present = new Map(sum.products.map((p) => [normName(p.name), p]));
 
@@ -104,12 +106,32 @@ export function topSellerCheck(
     catCount.set(k, c);
     catTotal += p.facings;
   }
-  const bayCats = [...catCount.entries()]
+  let bayCats = [...catCount.entries()]
     .filter(([, c]) => c.n >= 2 && c.n >= catTotal * 0.12)
     .sort((a, b) => b[1].n - a[1].n);
+  // Hard photo (angle, glare): few confident names. Fall back to the best
+  // guesses for the unclear boxes; even when unsure *which* Monster it is,
+  // "it's an energy drink" is usually right. Needs a clear majority.
+  if (!bayCats.length) {
+    const guess = new Map<string, { label: string; n: number }>();
+    let total = 0;
+    for (const f of facings) {
+      if (f.kind !== 'product' || !f.product) continue;
+      const cat = sales.get(normName(f.product))?.category ?? categoryOf?.(f.product);
+      if (!cat) continue;
+      const k = normName(cat);
+      const g = guess.get(k) ?? { label: cat, n: 0 };
+      g.n++;
+      guess.set(k, g);
+      total++;
+    }
+    bayCats = [...guess.entries()].filter(([, g]) => g.n >= 4 && g.n >= total * 0.5).sort((a, b) => b[1].n - a[1].n).slice(0, 1);
+  }
   const catKeys = new Set(bayCats.map(([k]) => k));
   const hasCategories = [...sales.values()].some((v) => v.category);
-  const inBay = (v: SalesInfo) => !hasCategories || catKeys.size === 0 || (v.category ? catKeys.has(normName(v.category)) : false);
+  // With categorised sales data, never judge a bay against every category at once.
+  if (hasCategories && catKeys.size === 0) return { hasSales: true, bayKnown: false, categories: [], missing: [], present: [] };
+  const inBay = (v: SalesInfo) => !hasCategories || (v.category ? catKeys.has(normName(v.category)) : false);
 
   // Products that unclear boxes might be (top-2 candidates).
   const maybe = new Set<string>();
@@ -133,6 +155,7 @@ export function topSellerCheck(
   });
   return {
     hasSales: true,
+    bayKnown: true,
     categories: bayCats.map(([, c]) => c.label),
     present: tops.filter((v) => present.has(normName(v.name))).map((v) => item(v, present.get(normName(v.name))!.facings)),
     missing: tops
