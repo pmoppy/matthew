@@ -70,25 +70,13 @@ export async function analyseShelf(
       // neighbouring packs, which confuses recognition on tightly packed shelves.
       const trimmed = products.map((f) => cropCanvas(img, inset(f, 0.06, 0.03)));
       const embs = await embedCrops(trimmed, getEmbedder(catalog.embedderId), onProgress);
-      products.forEach((f, i) => (features.get(f.id)!.emb = embs[i]));
-      // Shelves are merchandised in blocks: pool the evidence of adjacent,
-      // near-identical facings so a run of the same SKU is judged together.
+      // Each facing is matched on its own. (Pooling evidence across neighbouring
+      // facings was tried and removed: on two real shops it diluted strong
+      // matches and added ~10 amber boxes per photo without fixing errors.)
       products.forEach((f, i) => {
         const feat = features.get(f.id)!;
-        const group = [i];
-        for (let j = 0; j < products.length; j++) {
-          if (j !== i && adjacent(f, products[j]) && dot(embs[i], embs[j]) >= 0.88) group.push(j);
-        }
-        const pooled = new Float32Array(embs[i].length);
-        const hist = new Float32Array(feat.hist.length);
-        for (const g of group) {
-          const e = embs[g], h = features.get(products[g].id)!.hist;
-          for (let d = 0; d < pooled.length; d++) pooled[d] += e[d];
-          for (let b = 0; b < hist.length; b++) hist[b] += h[b] / group.length;
-        }
-        const n = Math.hypot(...pooled) || 1;
-        for (let d = 0; d < pooled.length; d++) pooled[d] /= n;
-        const m = matchCrop(pooled, hist, catalog.entries);
+        feat.emb = embs[i];
+        const m = matchCrop(embs[i], feat.hist, catalog.entries);
         f.candidates = m;
         f.product = m[0]?.product ?? null;
         f.confidence = m[0]?.score ?? 0;
@@ -179,21 +167,6 @@ export function propagateFromNeighbours(
 function inset(d: Det, fx: number, fy: number): Det {
   const w = d.x2 - d.x1, h = d.y2 - d.y1;
   return { ...d, x1: d.x1 + w * fx, x2: d.x2 - w * fx, y1: d.y1 + h * fy, y2: d.y2 - h * fy };
-}
-
-function dot(a: Float32Array, b: Float32Array): number {
-  let s = 0;
-  for (let i = 0; i < a.length; i++) s += a[i] * b[i];
-  return s;
-}
-
-/** Same shelf row and within two pack-widths of each other. */
-function adjacent(a: Det, b: Det): boolean {
-  const h = Math.min(a.y2 - a.y1, b.y2 - b.y1);
-  const w = Math.max(a.x2 - a.x1, b.x2 - b.x1);
-  const sameRow = Math.abs((a.y1 + a.y2) / 2 - (b.y1 + b.y2) / 2) < h * 0.35;
-  const gap = Math.max(a.x1, b.x1) - Math.min(a.x2, b.x2);
-  return sameRow && gap < w * 2;
 }
 
 /**
