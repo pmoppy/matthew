@@ -74,8 +74,8 @@ export const DEFAULT_SETTINGS: Settings = {
   embedderId: 'dinov3-s',
   // Calibrated for DINOv3-S + colour on real shelf crops: ~91% of correct
   // matches accepted, no confident wrong matches among catalogued products.
-  matchThreshold: 0.68,
-  marginThreshold: 0.03,
+  matchThreshold: 0.62,
+  marginThreshold: 0.02,
   topSellerPercent: 25,
   delistPercent: 15,
 };
@@ -113,8 +113,8 @@ export const EMBEDDERS: EmbedderSpec[] = [
     ...IMAGENET,
     sizeMb: 86,
     licence: 'DINOv3 License (Meta)',
-    matchThreshold: 0.68,
-    marginThreshold: 0.03,
+    matchThreshold: 0.62,
+    marginThreshold: 0.02,
   },
   {
     id: 'siglip2-b',

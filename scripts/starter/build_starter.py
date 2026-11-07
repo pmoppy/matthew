@@ -258,7 +258,8 @@ def cached_front(code, url=None):
 PREFIXES = [r'KP Snacks\s+', r'MARS Norge AS\s+', r'Mars Norge AS\s+', r'Mars Norge\s+', r'Mondelez Norge AS\s+', r'Mondelez\s+',
             r'PepsiCo\s+', r'SkittlesMars\s+', r'Nestle\s+(?=(KitKat|Kit Kat|Aero|Smarties|Yorkie|Lion|Munchies|Toffee Crisp|Rowntree))',
             r'Mars\s+(?=(Snickers|Galaxy|Twix|Bounty|Maltesers|M&M|Skittles|Starburst|Milky Way|Minstrels))', r'Coca-Cola Coca[- ]Cola\s+']
-STOP = {'flavour', 'flavor', 'flavoured', 'crisps', 'potato', 'snacks', 'snack', 'chocolate', 'bar', 'the', 'and', 'with', 'original', 'drink', 'bag', 'pouch'}
+STOP = {'flavour', 'flavor', 'flavoured', 'crisps', 'potato', 'snacks', 'snack', 'chocolate', 'bar', 'the', 'and', 'with', 'original', 'drink',
+        'bag', 'pouch', 'energy', 'limited', 'edition', 'can', 'bottle', 'pet', 'company', 'coca', 'cola', 'soft', 'sparkling', 'juiced'}
 
 
 def tidy(name):
@@ -290,22 +291,27 @@ def load_sweep(existing_names, existing_codes):
     items = sorted(json.load(open(path)), key=lambda c: -c['scans'])
     multipack = re.compile(r'\b\d+\s*x\b', re.I)
     products = {}  # name -> {'category', 'items': [...]}
+    attach = {}  # existing product name -> extra sweep photos
     dropped = 0
     for c in items:
         name = tidy(c['name'])
         if c['code'] in existing_codes or multipack.search(name):
             dropped += 1
             continue
-        if any(same_product(name, e) for e in existing_names):
-            dropped += 1
+        if not re.search(r'[A-Za-z]{3}', name.rsplit(' ', 1)[0]):
+            dropped += 1  # junk name such as "320ml"
+            continue
+        match = next((e for e in existing_names if same_product(name, e)), None)
+        if match:  # extra photos of a product we already have: keep them as more references
+            attach.setdefault(match, []).append(c)
             continue
         target = next((n for n in products if same_product(name, n)), None)
         if target:
             products[target]['items'].append(c)
         else:
             products[name] = {'category': c['category'], 'items': [c]}
-    print(f'sweep: {len(products)} products ({dropped} duplicates of existing lines dropped)')
-    return products
+    print(f'sweep: {len(products)} new products, {sum(len(v) for v in attach.values())} extra photos for existing lines, {dropped} skipped')
+    return products, attach
 
 
 def main(detector):
@@ -324,7 +330,16 @@ def main(detector):
             names[slug(product)] = product
             shutil.copy(os.path.join(crops, product, f), _mk(os.path.join(LIB, 'file', slug(product)), f))
     existing_codes = {c for v in OFF.values() for c in v}
-    sweep = load_sweep(list(names.values()), existing_codes)
+    sweep, attach = load_sweep(list(names.values()), existing_codes)
+    for product, items in attach.items():
+        for c in items[:3]:
+            try:
+                im = cached_front(c['code'], c['image'])
+            except Exception as e:  # noqa: BLE001
+                print('skip', c['code'], e)
+                continue
+            save(detect_main_pack(sess, im), os.path.join(LIB, 'file', slug(product), f'off-{c["code"]}.jpg'))
+            attribution.append(f'- {product}: https://world.openfoodfacts.org/product/{c["code"]}')
     for product, info in sweep.items():
         for c in info['items'][:3]:
             try:

@@ -1,5 +1,5 @@
 import { createStore, get, set, del, keys, getMany } from 'idb-keyval';
-import { colorHist, cosine, embedCrops, histSimilarity } from './embed';
+import { colorHist, embedCrops } from './embed';
 import { canvasToBlob, loadImageToCanvas } from './image';
 import { getEmbedder } from './types';
 
@@ -218,27 +218,31 @@ export async function catalogFromIndex(
   const stride = index.dim + index.hist;
   if (buf.length !== stride * index.images.length) throw new Error('Fingerprint index is corrupt');
   const signed = new Int8Array(buf.buffer, buf.byteOffset, buf.byteLength);
-  const row = new Map(index.images.map((p, i) => [p, i]));
+  // A photo can have several rows (shelf-like variations of the same reference).
+  const rows = new Map<string, number[]>();
+  index.images.forEach((p, i) => rows.set(p, [...(rows.get(p) ?? []), i]));
   const entries: CatalogEntry[] = [];
   const missing: RefImage[] = [];
   for (const r of refs) {
-    const i = r.path !== undefined ? row.get(r.path) : undefined;
-    if (i === undefined) {
+    const found = r.path !== undefined ? rows.get(r.path) : undefined;
+    if (!found) {
       missing.push(r);
       continue;
     }
-    const o = i * stride;
-    const emb = new Float32Array(index.dim);
-    let n = 0;
-    for (let d = 0; d < index.dim; d++) {
-      emb[d] = signed[o + d] / 127;
-      n += emb[d] * emb[d];
+    for (const i of found) {
+      const o = i * stride;
+      const emb = new Float32Array(index.dim);
+      let n = 0;
+      for (let d = 0; d < index.dim; d++) {
+        emb[d] = signed[o + d] / 127;
+        n += emb[d] * emb[d];
+      }
+      n = Math.sqrt(n) || 1;
+      for (let d = 0; d < index.dim; d++) emb[d] /= n;
+      const hist = new Float32Array(index.hist);
+      for (let h = 0; h < index.hist; h++) hist[h] = buf[o + index.dim + h] / 255;
+      entries.push({ product: r.product, key: `${r.key}#${i}`, emb, hist, source: 'catalog' });
     }
-    n = Math.sqrt(n) || 1;
-    for (let d = 0; d < index.dim; d++) emb[d] /= n;
-    const hist = new Float32Array(index.hist);
-    for (let h = 0; h < index.hist; h++) hist[h] = buf[o + index.dim + h] / 255;
-    entries.push({ product: r.product, key: r.key, emb, hist, source: 'catalog' });
   }
   if (missing.length) entries.push(...(await learnRefs(missing, embedderId, onProgress)));
   onProgress('Product library ready', 1);
@@ -275,21 +279,67 @@ export interface Match {
 }
 
 /**
- * Nearest-neighbour search over reference images. Each product's score is its
- * best-matching reference image; the final score blends embedding similarity
- * with colour similarity.
+ * Nearest-neighbour search over reference fingerprints. Each product's score
+ * is its best-matching reference; the score blends shape/artwork similarity
+ * (85%) with colour similarity (15%). Fingerprints are packed into flat
+ * arrays once per catalogue so thousands of references stay fast on a phone.
  */
+interface Packed {
+  dim: number;
+  bins: number;
+  emb: Float32Array;
+  hist: Float32Array;
+  product: Int32Array;
+  names: string[];
+}
+const packedCache = new WeakMap<CatalogEntry[], Packed>();
+
+function pack(entries: CatalogEntry[]): Packed {
+  const cached = packedCache.get(entries);
+  if (cached) return cached;
+  const dim = entries[0]?.emb.length ?? 0;
+  const bins = entries[0]?.hist.length ?? 0;
+  const usable = entries.filter((e) => e.emb.length === dim);
+  const names: string[] = [];
+  const nameIdx = new Map<string, number>();
+  const emb = new Float32Array(usable.length * dim);
+  const hist = new Float32Array(usable.length * bins);
+  const product = new Int32Array(usable.length);
+  usable.forEach((e, i) => {
+    emb.set(e.emb, i * dim);
+    hist.set(e.hist, i * bins);
+    let k = nameIdx.get(e.product);
+    if (k === undefined) {
+      k = names.length;
+      names.push(e.product);
+      nameIdx.set(e.product, k);
+    }
+    product[i] = k;
+  });
+  const p = { dim, bins, emb, hist, product, names };
+  packedCache.set(entries, p);
+  return p;
+}
+
 export function matchCrop(emb: Float32Array, hist: Float32Array, entries: CatalogEntry[], k = 3): Match[] {
-  const best = new Map<string, number>();
-  for (const e of entries) {
-    if (e.emb.length !== emb.length) continue;
-    const s = 0.85 * cosine(emb, e.emb) + 0.15 * histSimilarity(hist, e.hist);
-    if (s > (best.get(e.product) ?? -Infinity)) best.set(e.product, s);
+  if (!entries.length) return [];
+  const P = pack(entries);
+  if (emb.length !== P.dim) return [];
+  const best = new Float32Array(P.names.length).fill(-Infinity);
+  const n = P.product.length;
+  for (let i = 0; i < n; i++) {
+    let dot = 0;
+    const o = i * P.dim;
+    for (let d = 0; d < P.dim; d++) dot += emb[d] * P.emb[o + d];
+    let inter = 0;
+    const h = i * P.bins;
+    for (let b = 0; b < P.bins; b++) inter += Math.min(hist[b], P.hist[h + b]);
+    const s = 0.85 * dot + 0.15 * inter;
+    const pi = P.product[i];
+    if (s > best[pi]) best[pi] = s;
   }
-  return [...best.entries()]
-    .map(([product, score]) => ({ product, score }))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, k);
+  const order = Array.from(best.keys()).sort((a, b) => best[b] - best[a]).slice(0, k);
+  return order.map((i) => ({ product: P.names[i], score: best[i] }));
 }
 
 // ---- corrections: in-store feedback that becomes new training/reference data

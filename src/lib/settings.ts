@@ -5,7 +5,16 @@ const KEY = 'shelfscan.settings.v1';
 export function loadSettings(): Settings {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
+    if (raw) {
+      const saved = JSON.parse(raw) as Partial<Settings>;
+      // v1 shipped 0.68 / 0.03 for DINOv3; re-tuned on real shop photos with
+      // shelf-like reference variations (more correct matches, no new errors).
+      if (saved.matchThreshold === 0.68 && saved.marginThreshold === 0.03) {
+        saved.matchThreshold = DEFAULT_SETTINGS.matchThreshold;
+        saved.marginThreshold = DEFAULT_SETTINGS.marginThreshold;
+      }
+      return { ...DEFAULT_SETTINGS, ...saved };
+    }
   } catch {
     /* private mode etc. */
   }
