@@ -7,7 +7,7 @@ name: Android APK
 on:
   push:
     branches: [main, 'claude/app-planning-development-x0ak8y']
-    paths-ignore: ['**.md', 'training/**', 'worker/**']
+    paths-ignore: ['**.md', 'training/**', 'worker/**', 'scripts/**', 'library/**']
   workflow_dispatch:
 
 permissions:

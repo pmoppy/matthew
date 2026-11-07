@@ -7,3 +7,5 @@ dev-dist
 training/runs
 training/datasets
 .DS_Store
+__pycache__/
+*.pyc
