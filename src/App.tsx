@@ -11,7 +11,7 @@ import { Capacitor } from '@capacitor/core';
 import { loadCatalog, loadSales, saveSales, type CatalogState, type StoredSales } from './lib/catalog';
 import { classifySales, parseSales } from './lib/sales';
 import { loadSettings, saveSettings } from './lib/settings';
-import { libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
+import { fetchLibrarySales, libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
 import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from './lib/types';
 
 type Tab = 'scan' | 'catalog' | 'settings';
@@ -87,6 +87,11 @@ export default function App() {
       if (storedSales) setSalesState(storedSales);
       let need = force ? 'full' : needsSync(current, s);
       if (!need && current && (await libraryChanged(current, s))) need = 'refresh';
+      // Keep the sales ranking current even when the photos haven't changed.
+      if (!need && storedSales?.source !== 'manual') {
+        const latest = await fetchLibrarySales(s);
+        if (latest && latest !== storedSales?.text) setSales({ text: latest, source: 'library' });
+      }
       if (!need) {
         setLibrary({ state: 'ready' });
         syncing.current = false;

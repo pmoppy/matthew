@@ -409,6 +409,8 @@ def add_categories():
             cats[r['product']] = r['category']
     path = os.path.join(LIB, 'manifest.json')
     m = json.load(open(path))
+    # Any change (sales ranking, categories) must change the version so phones re-sync.
+    m['generated'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
     for p in m['products']:
         if p['name'] in cats:
             p['category'] = cats[p['name']]

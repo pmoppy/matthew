@@ -90,3 +90,26 @@ export async function modelsCached(s: Settings): Promise<boolean> {
   const urls = [s.detectorUrl, emb.dataUrl ?? emb.url].filter(Boolean) as string[];
   return (await Promise.all(urls.map(isModelCached))).every(Boolean);
 }
+
+/**
+ * The published sales ranking, fetched on every launch (it is only a few KB),
+ * so ranking changes reach phones even if the library version stamp did not
+ * change. Returns null when offline or when there is no sales file.
+ */
+export async function fetchLibrarySales(s: Settings): Promise<string | null> {
+  try {
+    const base = catalogSource(s).replace(/\/+$/, '');
+    const res = await fetch(new URL(`${base}/manifest.json`, location.href).toString(), { cache: 'no-store' });
+    if (!res.ok) return null;
+    const m = (await res.json()) as { sales?: string | null };
+    if (!m.sales) return null;
+    const url = new URL(`${base}/file/${m.sales.split('/').map(encodeURIComponent).join('/')}`, location.href).toString();
+    const r = await fetch(url, { cache: 'no-store' });
+    if (!r.ok) return null;
+    const text = await r.text();
+    parseSales(text); // validate before using
+    return text;
+  } catch {
+    return null;
+  }
+}
