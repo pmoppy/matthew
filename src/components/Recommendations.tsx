@@ -19,8 +19,26 @@ function ListButton({ item, list }: { item: TopSellerItem; list: ShoppingList })
   );
 }
 
+/** Collapsible group in the result: a one-line summary that expands to the products. */
+function Section({ tone, icon, label, preview, children }: { tone: 'bad' | 'warn' | 'good'; icon: React.ReactNode; label: string; preview: string[]; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const short = preview.slice(0, 2).join(', ') + (preview.length > 2 ? ` +${preview.length - 2} more` : '');
+  return (
+    <div className="ts-section">
+      <button className={`ts-toggle ${tone}`} onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+        {icon}
+        <span className="ts-toggle-text">
+          <b>{label}</b>
+          {!open && <small>{short}</small>}
+        </span>
+        <ChevronDown size={16} className={open ? 'rot' : ''} />
+      </button>
+      {open && children}
+    </div>
+  );
+}
+
 export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSellerCheck; onShowUnsure: () => void; list: ShoppingList }) {
-  const [showPresent, setShowPresent] = useState(false);
   if (!check.hasSales) {
     return (
       <section className="ts-panel neutral">
@@ -119,21 +137,6 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
       )}
 
       {definite.length > 0 && (
-        <ul className="ts-list">
-          {definite.map((m) => (
-            <li key={m.name}>
-              <span className="ts-rank">#{m.categoryRank}</span>
-              <span className="ts-name">
-                {m.name}
-                {m.category && <small>{m.category}</small>}
-              </span>
-              <ListButton item={m} list={list} />
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {definite.length > 0 && (
         <button
           className="btn add-all"
           disabled={definite.every((m) => list.has(m.name))}
@@ -144,11 +147,26 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
         </button>
       )}
 
+      {definite.length > 0 && (
+        <Section tone="bad" icon={<AlertTriangle size={16} />} label={`${definite.length} missing`} preview={definite.map((m) => m.name)}>
+          <ul className="ts-list">
+            {definite.map((m) => (
+              <li key={m.name}>
+                <span className="ts-rank">#{m.categoryRank}</span>
+                <span className="ts-name">
+                  {m.name}
+                  {m.category && <small>{m.category}</small>}
+                </span>
+                <ListButton item={m} list={list} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
       {possible.length > 0 && (
-        <>
-          <div className="ts-subhead">
-            <CircleHelp size={14} /> Couldn't confirm. One of the amber boxes might be it
-          </div>
+        <Section tone="warn" icon={<CircleHelp size={16} />} label={`${possible.length} to check`} preview={possible.map((m) => m.name)}>
+          <div className="ts-subhead">Couldn't confirm. One of the amber boxes might be it</div>
           <ul className="ts-list">
             {possible.map((m) => (
               <li key={m.name}>
@@ -164,29 +182,23 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
               </li>
             ))}
           </ul>
-        </>
+        </Section>
       )}
 
       {check.present.length > 0 && (
-        <>
-          <button className="ts-toggle" onClick={() => setShowPresent((v) => !v)} aria-expanded={showPresent}>
-            <CheckCircle2 size={16} /> {check.present.length} top seller{check.present.length > 1 ? 's' : ''} on shelf
-            <ChevronDown size={16} className={showPresent ? 'rot' : ''} />
-          </button>
-          {showPresent && (
-            <ul className="ts-list present">
-              {check.present.map((m) => (
-                <li key={m.name}>
-                  <span className="ts-rank">#{m.categoryRank}</span>
-                  <span className="ts-name">{m.name}</span>
-                  <span className="pill good">
-                    {m.facings} facing{m.facings > 1 ? 's' : ''}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </>
+        <Section tone="good" icon={<CheckCircle2 size={16} />} label={`${check.present.length} on shelf`} preview={check.present.map((m) => m.name)}>
+          <ul className="ts-list present">
+            {check.present.map((m) => (
+              <li key={m.name}>
+                <span className="ts-rank">#{m.categoryRank}</span>
+                <span className="ts-name">{m.name}</span>
+                <span className="pill good">
+                  {m.facings} facing{m.facings > 1 ? 's' : ''}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Section>
       )}
     </section>
   );
