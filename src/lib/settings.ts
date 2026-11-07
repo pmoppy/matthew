@@ -31,7 +31,7 @@ export function saveSettings(s: Settings) {
 
 export const STATUS_STYLE: Record<string, { color: string; label: string; dash?: boolean }> = {
   top: { color: '#16a34a', label: 'Top seller' },
-  delist: { color: '#dc2626', label: 'Consider delisting' },
+  delist: { color: '#dc2626', label: 'Slow seller' },
   unsure: { color: '#f59e0b', label: 'Unsure, tap to check' },
   core: { color: '#3b82f6', label: 'Core range' },
   nodata: { color: '#64748b', label: 'Other product' },

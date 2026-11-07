@@ -172,15 +172,6 @@ export function recommend(facings: Facing[], sales: Map<string, SalesInfo> | nul
   const sum = summarise(facings, sales);
 
   if (sales && sales.size) {
-    const delist = sum.products.filter((p) => p.status === 'delist');
-    if (delist.length) {
-      recs.push({
-        kind: 'delist',
-        title: `${delist.length} slow seller${delist.length > 1 ? 's' : ''} taking up space`,
-        detail: 'Bottom of the sales ranking. Swap them for the missing top sellers above.',
-        items: delist.map((p) => ({ name: p.name, note: `${p.facings} facing${p.facings > 1 ? 's' : ''}` })),
-      });
-    }
     const topLow = sum.products.filter((p) => p.status === 'top' && p.facings === 1);
     const slowWide = sum.products.filter((p) => (p.status === 'delist' || p.status === 'core') && p.facings >= 3);
     if (topLow.length && slowWide.length) {

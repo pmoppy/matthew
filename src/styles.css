@@ -1566,3 +1566,10 @@ details[open] summary::after {
 .ts-section .ts-subhead {
   margin-top: 8px;
 }
+.ts-toggle.slow {
+  color: var(--red);
+}
+.ts-subhead.slow {
+  color: var(--muted);
+  font-weight: 500;
+}

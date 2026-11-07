@@ -130,7 +130,7 @@ describe('top-seller check', () => {
     expect(check.missing.map((m) => [m.name, m.possible])).toEqual([['B', false]]);
     expect(check.present.map((m) => m.name)).toEqual(['A']);
     const recs = recommend(facings, sales);
-    expect(recs.find((r) => r.kind === 'delist')?.items?.[0].name).toBe('F');
+    expect(summarise(facings, sales).products.find((p) => p.status === 'delist')?.name).toBe('F');
     expect(recs.find((r) => r.kind === 'gap')).toBeTruthy();
     expect(summarise(facings, sales)).toMatchObject({ facings: 4, gaps: 1 });
   });

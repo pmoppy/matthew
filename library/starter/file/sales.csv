@@ -7,23 +7,23 @@ Red Bull Energy Drink 355ml,5,Energy,top
 Monster Mango Loco 500ml,6,Energy,top
 Monster Pipeline Punch 500ml,7,Energy,top
 Lucozade Energy Original 380ml,8,Energy,top
-Boost Energy Original 250ml,9,Energy,core
-Red Bull Tropical Edition 250ml,10,Energy,core
-Monster Pacific Punch 500ml,11,Energy,core
-Relentless Original 500ml,12,Energy,core
+Boost Energy Original 250ml,9,Energy,
+Red Bull Tropical Edition 250ml,10,Energy,
+Monster Pacific Punch 500ml,11,Energy,
+Relentless Original 500ml,12,Energy,
 Lucozade Sport Orange 500ml,1,Sports,top
 Lucozade Sport Raspberry 500ml,2,Sports,top
-Lucozade Sport Mango & Passion Fruit 500ml,3,Sports,core
+Lucozade Sport Mango & Passion Fruit 500ml,3,Sports,
 Coca-Cola Original Taste 500ml,1,Cola,top
 Pepsi Max 500ml,2,Cola,top
 Diet Coke 500ml,3,Cola,top
 Coca-Cola Zero Sugar 500ml,4,Cola,top
 Coca-Cola Original Taste 330ml,5,Cola,top
-Pepsi Max 330ml,6,Cola,core
+Pepsi Max 330ml,6,Cola,
 Fanta Orange 500ml,1,Flavoured,top
 Dr Pepper 500ml,2,Flavoured,top
-Sprite 500ml,3,Flavoured,core
-Irn-Bru 500ml,4,Flavoured,core
+Sprite 500ml,3,Flavoured,
+Irn-Bru 500ml,4,Flavoured,
 Big Hoops Barbeque Beef 45g,1,Crisps,top
 Walkers Quavers Cheese 34g,2,Crisps,top
 Walkers Ready Salted Crisps 32.5g,3,Crisps,top
@@ -34,11 +34,11 @@ McCoy's Ridge Cut Salt And Malt Vinegar Crisps 45g,7,Crisps,top
 Pringles Original 40g,8,Crisps,top
 Doritos Cool Original 150g,9,Crisps,top
 Walkers Wotsits 36g,10,Crisps,top
-Jacob's Mini Cheddars Original 45g,11,Crisps,core
-Nik Naks Nice 'N' Spicy 45g,12,Crisps,core
-Skips Prawn Cocktail Flavour 40g,13,Crisps,core
-Walkers Cheese & Onion 45g,14,Crisps,core
-McCoy's Cheddar And Onion Crisps 45g,15,Crisps,core
+Jacob's Mini Cheddars Original 45g,11,Crisps,
+Nik Naks Nice 'N' Spicy 45g,12,Crisps,
+Skips Prawn Cocktail Flavour 40g,13,Crisps,
+Walkers Cheese & Onion 45g,14,Crisps,
+McCoy's Cheddar And Onion Crisps 45g,15,Crisps,
 Maltesers Pouch Bag 102g,1,Confectionery,top
 Kinder Bueno 43g,2,Confectionery,top
 Cadbury Dairy Milk 45g,3,Confectionery,top
@@ -51,9 +51,38 @@ Haribo Starmix 175g,9,Confectionery,top
 Haribo Tangfastics 175g,10,Confectionery,top
 Rowntrees Fruit Pastilles Pouch 143g,11,Confectionery,top
 Skittles 45g,12,Confectionery,top
-M&M's Chocolate 45g,13,Confectionery,core
-Cadbury Boost Chocolate Bar 48.5g,14,Confectionery,core
-Galaxy Smooth Milk Chocolate Bar 110g,15,Confectionery,core
-Cadbury Dairy Milk Chocolate Bar 95g,16,Confectionery,core
-Starburst Original 138g,17,Confectionery,core
-Aero 90g,18,Confectionery,core
+M&M's Chocolate 45g,13,Confectionery,
+Cadbury Boost Chocolate Bar 48.5g,14,Confectionery,
+Galaxy Smooth Milk Chocolate Bar 110g,15,Confectionery,
+Cadbury Dairy Milk Chocolate Bar 95g,16,Confectionery,
+Starburst Original 138g,17,Confectionery,
+Aero 90g,18,Confectionery,
+Relentless Mango 500ml,13,Energy,
+Tenzing Original 250ml,14,Energy,
+Carabao Mixed Berry 330ml,15,Energy,
+Emerge Energy Original 250ml,16,Energy,
+Monster Mixxd Punch 500ml,17,Energy,
+Monster Bad Apple 500ml,18,Energy,
+Rockstar Tropical Guava 500ml,19,Energy,
+Rumble Energy 500ml,20,Energy,
+Purdey's Refocus 330ml,21,Energy,
+Lucozade Sport Caribbean Burst 500ml,4,Sports,
+Boost Sport Orange 500ml,5,Sports,
+Boost Sport Citrus 500ml,6,Sports,
+Boost Sport Mixed Berry 500ml,7,Sports,
+Pepsi Max Cherry 500ml,7,Cola,
+Coca-Cola Zero Sugar Cherry 500ml,8,Cola,
+Pepsi Max Lime 500ml,9,Cola,
+Diet Coke Caffeine Free 500ml,10,Cola,
+7UP Lemon & Lime 500ml,5,Flavoured,
+Vimto Fizzy 330ml,6,Flavoured,
+Rubicon Sparkling Mango 330ml,7,Flavoured,
+Old Jamaica Ginger Beer 330ml,8,Flavoured,
+Walkers Salt & Shake Potato Crisps 24g,16,Crisps,
+McCoy's Ridge Cut Sizzling King Prawn 45g,17,Crisps,
+Walkers Wotsits Giants Baked 105g,18,Crisps,
+Snickers 41.7g,19,Confectionery,
+Galaxy Ripple Chocolate Bar 33g,20,Confectionery,
+Cadbury Wispa Duo 47.4g,21,Confectionery,
+Starburst Minis Original Unwrapped 137g,22,Confectionery,
+KitKat Vegan 41.5g,23,Confectionery,

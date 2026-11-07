@@ -53,7 +53,8 @@
    "name": "7UP Lemon & Lime 500ml",
    "images": [
     "7UP-Lemon-and-Lime-500ml/off-4060800109781.jpg"
-   ]
+   ],
+   "category": "Flavoured"
   },
   {
    "name": "7up Free 330ml",
@@ -617,20 +618,23 @@
    "images": [
     "Boost-Sport-Citrus-500ml/shelf-1.jpg",
     "Boost-Sport-Citrus-500ml/shelf-2.jpg"
-   ]
+   ],
+   "category": "Sports"
   },
   {
    "name": "Boost Sport Mixed Berry 500ml",
    "images": [
     "Boost-Sport-Mixed-Berry-500ml/off-5056079900753.jpg"
-   ]
+   ],
+   "category": "Sports"
   },
   {
    "name": "Boost Sport Orange 500ml",
    "images": [
     "Boost-Sport-Orange-500ml/off-5056079900029.jpg",
     "Boost-Sport-Orange-500ml/off-5056079901279.jpg"
-   ]
+   ],
+   "category": "Sports"
   },
   {
    "name": "Boost Sport Raspberry & Mango 500ml",
@@ -1229,7 +1233,8 @@
    "name": "Carabao Mixed Berry 330ml",
    "images": [
     "Carabao-Mixed-Berry-330ml/off-8855790001759.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Carabao Orange Blast 330ml",
@@ -1482,7 +1487,8 @@
    "images": [
     "Coca-Cola-Zero-Sugar-Cherry-500ml/off-5000112664010.jpg",
     "Coca-Cola-Zero-Sugar-Cherry-500ml/off-5449000214744.jpg"
-   ]
+   ],
+   "category": "Cola"
   },
   {
    "name": "Coca-Cola Zero Sugar Vanilla 500ml",
@@ -1769,7 +1775,8 @@
    "name": "Diet Coke Caffeine Free 500ml",
    "images": [
     "Diet-Coke-Caffeine-Free-500ml/off-54492134.jpg"
-   ]
+   ],
+   "category": "Cola"
   },
   {
    "name": "Divine Chocolate Smooth Dark Eith Mint Crisp 90g",
@@ -2095,7 +2102,8 @@
     "Emerge-Energy-Original-250ml/off-5000177449638.jpg",
     "Emerge-Energy-Original-250ml/off-5000177474777.jpg",
     "Emerge-Energy-Original-250ml/off-5000177498858.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Emerge Impact Sugar Free 250ml",
@@ -3686,7 +3694,7 @@
    "images": [
     "KitKat-Vegan-41-5g/off-7613287430984.jpg"
    ],
-   "category": "Biscuits"
+   "category": "Confectionery"
   },
   {
    "name": "Kiu Fung Hong Ltd EDO Soda Drink - Peach Flavour 250ml",
@@ -4191,7 +4199,8 @@
    "name": "Lucozade Sport Caribbean Burst 500ml",
    "images": [
     "Lucozade-Sport-Caribbean-Burst-500ml/off-5054267009363.jpg"
-   ]
+   ],
+   "category": "Sports"
   },
   {
    "name": "Lucozade Sport Jude Ice Kick 500ml",
@@ -4803,7 +4812,8 @@
     "Monster-Bad-Apple-500ml/off-5061013944809.jpg",
     "Monster-Bad-Apple-500ml/shelf-1.jpg",
     "Monster-Bad-Apple-500ml/shelf-2.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Monster Energy Original 500ml",
@@ -4882,7 +4892,8 @@
     "Monster-Mixxd-Punch-500ml/off-5060751215813.jpg",
     "Monster-Mixxd-Punch-500ml/shelf-1.jpg",
     "Monster-Mixxd-Punch-500ml/shelf-2.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Monster Monarch 500ml",
@@ -5693,7 +5704,7 @@
    "images": [
     "Old-Jamaica-Ginger-Beer-330ml/off-1020117499121.jpg"
    ],
-   "category": "Soft drinks"
+   "category": "Flavoured"
   },
   {
    "name": "Old Jamaica Ginger Beer 500ml",
@@ -5952,7 +5963,8 @@
    "name": "Pepsi Max Cherry 500ml",
    "images": [
     "Pepsi-Max-Cherry-500ml/off-4060800172396.jpg"
-   ]
+   ],
+   "category": "Cola"
   },
   {
    "name": "Pepsi Max Ginger 2L",
@@ -5965,7 +5977,8 @@
    "name": "Pepsi Max Lime 500ml",
    "images": [
     "Pepsi-Max-Lime-500ml/off-4060800306982.jpg"
-   ]
+   ],
+   "category": "Cola"
   },
   {
    "name": "Pepsi Max Raspberry 330ml",
@@ -6544,7 +6557,8 @@
     "Purdey-s-Refocus-330ml/off-5010102243149.jpg",
     "Purdey-s-Refocus-330ml/off-5010102243156.jpg",
     "Purdey-s-Refocus-330ml/shelf-1.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Purdey's Rejuvenate 330ml",
@@ -6753,7 +6767,8 @@
    "name": "Relentless Mango 500ml",
    "images": [
     "Relentless-Mango-500ml/off-5060466517806.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Relentless Original 500ml",
@@ -7037,7 +7052,8 @@
    "name": "Rockstar Tropical Guava 500ml",
    "images": [
     "Rockstar-Tropical-Guava-500ml/shelf-1.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Rockstar XD Power 500ml",
@@ -7131,7 +7147,8 @@
    "name": "Rubicon Sparkling Mango 330ml",
    "images": [
     "Rubicon-Sparkling-Mango-330ml/off-5000382107712.jpg"
-   ]
+   ],
+   "category": "Flavoured"
   },
   {
    "name": "Rubicon Sparkling Mango 500ml",
@@ -7197,7 +7214,8 @@
    "name": "Rumble Energy 500ml",
    "images": [
     "Rumble-Energy-500ml/shelf-1.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Ryvita Thins Rosemary & Sea Salt Flatbreads 125g",
@@ -8015,7 +8033,8 @@
    "images": [
     "Tenzing-Original-250ml/off-5060444850116.jpg",
     "Tenzing-Original-250ml/off-96126080.jpg"
-   ]
+   ],
+   "category": "Energy"
   },
   {
    "name": "Tenzing Pineapple & Passionfruit 330ml",
@@ -8580,7 +8599,8 @@
    "name": "Vimto Fizzy 330ml",
    "images": [
     "Vimto-Fizzy-330ml/off-5010438020186.jpg"
-   ]
+   ],
+   "category": "Flavoured"
   },
   {
    "name": "Vimto Fizzy Zero 330ml",

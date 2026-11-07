@@ -20,7 +20,7 @@ function ListButton({ item, list }: { item: TopSellerItem; list: ShoppingList })
 }
 
 /** Collapsible group in the result: a one-line summary that expands to the products. */
-function Section({ tone, icon, label, preview, children }: { tone: 'bad' | 'warn' | 'good'; icon: React.ReactNode; label: string; preview: string[]; children: React.ReactNode }) {
+function Section({ tone, icon, label, preview, children }: { tone: 'bad' | 'warn' | 'good' | 'slow'; icon: React.ReactNode; label: string; preview: string[]; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const short = preview.slice(0, 2).join(', ') + (preview.length > 2 ? ` +${preview.length - 2} more` : '');
   return (
@@ -38,7 +38,20 @@ function Section({ tone, icon, label, preview, children }: { tone: 'bad' | 'warn
   );
 }
 
-export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSellerCheck; onShowUnsure: () => void; list: ShoppingList }) {
+export function TopSellerPanel({
+  check,
+  onShowUnsure,
+  list,
+  slow = [],
+  onShowSlow,
+}: {
+  check: TopSellerCheck;
+  onShowUnsure: () => void;
+  list: ShoppingList;
+  /** Slow sellers (bottom of the ranking) taking up space on this bay. */
+  slow?: { name: string; facings: number }[];
+  onShowSlow?: () => void;
+}) {
   if (!check.hasSales) {
     return (
       <section className="ts-panel neutral">
@@ -102,6 +115,7 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
     ];
     if (definite.length) lines.push('', 'Missing:', ...definite.map((m) => `• ${m.name}`));
     if (possible.length) lines.push('', 'To check:', ...possible.map((m) => `• ${m.name}`));
+    if (slow.length) lines.push('', 'Slow sellers to swap out:', ...slow.map((m) => `• ${m.name} (${m.facings})`));
     if (check.present.length) lines.push('', 'On shelf:', ...check.present.map((m) => `• ${m.name} (${m.facings})`));
     shareText('Shelf report', lines.join('\n'));
   };
@@ -182,6 +196,32 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
               </li>
             ))}
           </ul>
+        </Section>
+      )}
+
+      {slow.length > 0 && (
+        <Section
+          tone="slow"
+          icon={<ArrowDownCircle size={16} />}
+          label={`${slow.length} slow seller${slow.length > 1 ? 's' : ''} on shelf`}
+          preview={slow.map((m) => m.name)}
+        >
+          <div className="ts-subhead slow">Bottom of the sales ranking. Swap these facings for the missing top sellers.</div>
+          <ul className="ts-list">
+            {slow.map((m) => (
+              <li key={m.name}>
+                <span className="ts-name">{m.name}</span>
+                <span className="pill bad">
+                  {m.facings} facing{m.facings > 1 ? 's' : ''}
+                </span>
+              </li>
+            ))}
+          </ul>
+          {onShowSlow && (
+            <button className="btn ghost full" onClick={onShowSlow}>
+              Show them on the photo
+            </button>
+          )}
         </Section>
       )}
 

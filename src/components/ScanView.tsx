@@ -231,6 +231,12 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       return n;
     });
 
+  const slow = useMemo(() => summary.products.filter((p) => p.status === 'delist').map((p) => ({ name: p.name, facings: p.facings })), [summary]);
+  const showOnly = (s: Status) => {
+    setHidden(new Set(ALL_STATUSES.filter((x) => x !== s)));
+    shelfRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const showOnlyUnsure = () => {
     setHidden(new Set(ALL_STATUSES.filter((s) => s !== 'unsure')));
     shelfRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -406,7 +412,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       )}
       {result && result.warnings.map((w) => <div key={w} className="notice warn">{w}</div>)}
 
-      {result && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} />}
+      {result && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} slow={slow} onShowSlow={() => showOnly('delist')} />}
 
       {image && (
         <div ref={shelfRef} className="shelf-block">
