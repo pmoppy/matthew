@@ -217,3 +217,15 @@ describe('edge fragments', () => {
     expect(out).not.toContain(sliver);
   });
 });
+
+describe('split bottles', () => {
+  it('merges a label box with the bottle bottom directly below, but not two stacked cans', async () => {
+    const { mergeSplitBottles } = await import('../analyse');
+    const label = det(100, 0, 160, 110);
+    const bottom = det(102, 112, 158, 180);
+    expect(mergeSplitBottles([label, bottom])).toHaveLength(1);
+    const can1 = det(300, 0, 360, 110);
+    const can2 = det(300, 112, 360, 222);
+    expect(mergeSplitBottles([can1, can2])).toHaveLength(2);
+  });
+});

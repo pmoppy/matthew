@@ -7,9 +7,9 @@ export function loadSettings(): Settings {
     const raw = localStorage.getItem(KEY);
     if (raw) {
       const saved = JSON.parse(raw) as Partial<Settings>;
-      // v1 shipped 0.68 / 0.03 for DINOv3; re-tuned on real shop photos with
-      // shelf-like reference variations (more correct matches, no new errors).
-      if (saved.matchThreshold === 0.68 && saved.marginThreshold === 0.03) {
+      // Build 9 briefly shipped 0.62 / 0.02; on an unseen shop that named too
+      // many unknown flavours as look-alikes, so move those users back.
+      if (saved.matchThreshold === 0.62 && saved.marginThreshold === 0.02) {
         saved.matchThreshold = DEFAULT_SETTINGS.matchThreshold;
         saved.marginThreshold = DEFAULT_SETTINGS.marginThreshold;
       }

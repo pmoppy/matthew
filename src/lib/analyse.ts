@@ -42,7 +42,7 @@ export async function analyseShelf(
     onProgress('Finding products', 0.1);
     dets = gridDetect(img);
   }
-  dets = dropEdgeFragments(dets, img.width);
+  dets = mergeSplitBottles(dropEdgeFragments(dets, img.width));
   // Reading order: top shelf first, left to right.
   dets.sort((a, b) => {
     const ra = (a.y1 + a.y2) / 2, rb = (b.y1 + b.y2) / 2;
@@ -194,4 +194,36 @@ function adjacent(a: Det, b: Det): boolean {
   const sameRow = Math.abs((a.y1 + a.y2) / 2 - (b.y1 + b.y2) / 2) < h * 0.35;
   const gap = Math.max(a.x1, b.x1) - Math.min(a.x2, b.x2);
   return sameRow && gap < w * 2;
+}
+
+/**
+ * The shelf detector sometimes boxes a bottle twice: the label and, directly
+ * below, the bottom half. Merge a box with the one directly beneath it when
+ * they line up horizontally and the result is still bottle-shaped (two
+ * stacked cans would be far too tall to merge).
+ */
+export function mergeSplitBottles(dets: Det[]): Det[] {
+  const out = [...dets];
+  for (let i = 0; i < out.length; i++) {
+    const a = out[i];
+    if (a.kind !== 'product') continue;
+    for (let j = 0; j < out.length; j++) {
+      const b = out[j];
+      if (i === j || b.kind !== 'product' || b.y1 < a.y1) continue;
+      const overlap = Math.min(a.x2, b.x2) - Math.max(a.x1, b.x1);
+      const narrow = Math.min(a.x2 - a.x1, b.x2 - b.x1);
+      const gap = b.y1 - a.y2;
+      const hMax = Math.max(a.y2 - a.y1, b.y2 - b.y1);
+      const merged = { ...a, x1: Math.min(a.x1, b.x1), x2: Math.max(a.x2, b.x2), y1: a.y1, y2: Math.max(a.y2, b.y2), score: Math.max(a.score, b.score) };
+      const aspect = (merged.y2 - merged.y1) / (merged.x2 - merged.x1);
+      if (overlap >= narrow * 0.7 && gap > -hMax * 0.25 && gap < hMax * 0.08 && aspect < 3.6) {
+        out[i] = merged;
+        out.splice(j, 1);
+        if (j < i) i--;
+        i--; // re-check the merged box
+        break;
+      }
+    }
+  }
+  return out;
 }
