@@ -54,6 +54,22 @@ export function TopSellerPanel({ check, onShowUnsure, list }: { check: TopSeller
       </section>
     );
   }
+  if (check.missing.length + check.present.length === 0) {
+    const cats = check.categories.join(' & ') || 'this bay';
+    return (
+      <section className="ts-panel neutral">
+        <div className="ts-head">
+          <div className="ts-icon">
+            <Trophy size={22} />
+          </div>
+          <div>
+            <div className="ts-title">No top-seller list for {cats} yet</div>
+            <div className="ts-sub">Products are still identified below. Add {cats} lines to the sales ranking to check this bay for missing top sellers.</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   const definite = check.missing.filter((m) => !m.possible);
   const possible = check.missing.filter((m) => m.possible);
   const total = check.missing.length + check.present.length;
