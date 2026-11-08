@@ -1,11 +1,10 @@
-import { FileText, Loader2, MessageSquareText, Store } from 'lucide-react';
+import { FileText, Loader2, MessageSquareText } from 'lucide-react';
+import { StorePicker } from './StorePicker';
 import { useState } from 'react';
 import type { TopSellerCheck } from '../lib/recommend';
 import { shareReportPdf } from '../lib/report';
 import { shareText } from '../lib/shopping';
 import type { Facing } from '../lib/types';
-
-const STORE_KEY = 'shelfscan.lastStore';
 
 interface Props {
   check: TopSellerCheck;
@@ -21,15 +20,6 @@ interface Props {
 export function ReportBar({ check, slow, shots, productsFound, takenAt, store, onStoreChange }: Props) {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
-
-  const remember = (v: string) => {
-    onStoreChange(v);
-    try {
-      localStorage.setItem(STORE_KEY, v);
-    } catch {
-      /* ignore */
-    }
-  };
 
   const pdf = async () => {
     setBusy(true);
@@ -61,10 +51,7 @@ export function ReportBar({ check, slow, shots, productsFound, takenAt, store, o
 
   return (
     <section className="card report-bar">
-      <label className="report-store">
-        <Store size={16} />
-        <input className="input" placeholder="Store name (optional)" value={store} onChange={(e) => remember(e.target.value)} />
-      </label>
+      <StorePicker value={store} onChange={onStoreChange} compact />
       <div className="report-actions">
         <button className="btn primary" onClick={pdf} disabled={busy}>
           {busy ? <Loader2 size={16} className="spin" /> : <FileText size={16} />} PDF report

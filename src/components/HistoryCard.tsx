@@ -51,7 +51,7 @@ export function HistoryCard({ onOpen, refreshKey }: { onOpen: (id: string) => vo
             <button className="hist-open" onClick={() => onOpen(m.id)}>
               <Thumb blob={m.thumb} />
               <span className="hist-text">
-                <b>{m.bay}</b>
+                <b>{m.store ? `${m.store} · ${m.bay}` : m.bay}</b>
                 <small>
                   {when(m.at)} · {m.total ? `${m.present}/${m.total} top sellers` : `${m.facings} products`}
                   {m.photos && m.photos > 1 ? ` · ${m.photos} photos` : ''}

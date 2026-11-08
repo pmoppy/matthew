@@ -14,6 +14,8 @@ import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { ReportBar } from './ReportBar';
+import { StorePicker } from './StorePicker';
+import { loadStore, saveStore } from '../lib/stores';
 import { listScans, loadScan, saveScan, type ScanRow } from '../lib/history';
 
 export interface LibraryStatus {
@@ -75,13 +77,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const saving = useRef<Promise<unknown> | null>(null);
   const historyIdRef = useRef<string | null>(null);
   const scanStarted = useRef(Date.now());
-  const [store, setStore] = useState(() => {
-    try {
-      return localStorage.getItem('shelfscan.lastStore') ?? '';
-    } catch {
-      return '';
-    }
-  });
+  const [store, setStoreState] = useState(loadStore);
+  const setStore = (v: string) => {
+    setStoreState(v);
+    saveStore(v);
+  };
   historyIdRef.current = historyId;
 
   const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
@@ -116,7 +116,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     setHistoryId(id);
     const meta = metas.find((m) => m.id === id);
     setReopenedAt(meta?.at ?? null);
-    if (meta?.store !== undefined) setStore(meta.store);
+    if (meta?.store !== undefined) setStoreState(meta.store);
     window.scrollTo({ top: 0 });
   };
 
@@ -150,6 +150,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       setHistoryId(null);
       setReopenedAt(null);
       scanStarted.current = Date.now();
+      setStoreState(loadStore()); // a new scan uses the store picked on the home screen
     }
     try {
       const c = await loadImageToCanvas(file);
@@ -362,6 +363,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
               <b className="c-top">green</b> and slow sellers in <b className="c-delist">red</b>.
             </p>
           </section>
+
+          <StorePicker value={store} onChange={setStore} />
 
           <div className={`capture ${dragging ? 'dragging' : ''}`}>
             <button className="capture-tile primary" onClick={() => camRef.current?.click()}>
