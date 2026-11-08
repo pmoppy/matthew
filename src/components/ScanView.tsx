@@ -13,6 +13,7 @@ import { ProductTable, RecommendationList, TopSellerPanel } from './Recommendati
 import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
+import { ReportBar } from './ReportBar';
 import { listScans, loadScan, saveScan } from '../lib/history';
 
 export interface LibraryStatus {
@@ -73,6 +74,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const [historyKey, setHistoryKey] = useState(0);
   const saving = useRef<Promise<unknown> | null>(null);
   const historyIdRef = useRef<string | null>(null);
+  const scanStarted = useRef(Date.now());
   historyIdRef.current = historyId;
 
   const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
@@ -138,6 +140,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     if (!add) {
       setHistoryId(null);
       setReopenedAt(null);
+      scanStarted.current = Date.now();
     }
     try {
       const c = await loadImageToCanvas(file);
@@ -446,6 +449,15 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       {result && result.warnings.map((w) => <div key={w} className="notice warn">{w}</div>)}
 
       {anyResult && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} slow={slow} onShowSlow={() => showOnly('delist')} />}
+      {anyResult && !busy && check.bayKnown && (
+        <ReportBar
+          check={check}
+          slow={slow}
+          shots={shots.map((sh) => ({ image: sh.image, facings: sh.facings }))}
+          productsFound={summary.facings}
+          takenAt={reopenedAt ?? scanStarted.current}
+        />
+      )}
 
       {image && (
         <div ref={shelfRef} className="shelf-block">

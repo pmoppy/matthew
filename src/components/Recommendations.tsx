@@ -1,7 +1,7 @@
-import { AlertTriangle, ArrowDownCircle, ArrowLeftRight, Check, CheckCircle2, ChevronDown, CircleHelp, ListPlus, PackageOpen, Plus, Share2, Square, Trophy } from 'lucide-react';
+import { AlertTriangle, ArrowDownCircle, ArrowLeftRight, Check, CheckCircle2, ChevronDown, CircleHelp, ListPlus, PackageOpen, Plus, Square, Trophy } from 'lucide-react';
 import { useState } from 'react';
 import type { Recommendation, ShelfSummary, TopSellerCheck, TopSellerItem } from '../lib/recommend';
-import { shareText, type ShoppingList } from '../lib/shopping';
+import type { ShoppingList } from '../lib/shopping';
 import { STATUS_STYLE } from '../lib/settings';
 
 /** The headline: which top sellers belong on this bay but aren't on it. */
@@ -108,17 +108,6 @@ export function TopSellerPanel({
   const tone = definite.length ? 'bad' : possible.length ? 'warn' : 'good';
   const where = check.categories.length ? `the ${check.categories.join(' & ')} bay` : 'this shelf';
 
-  const shareReport = () => {
-    const lines = [
-      `ShelfScan check · ${new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`,
-      `${check.present.length}/${total} top sellers on ${where}`,
-    ];
-    if (definite.length) lines.push('', 'Missing:', ...definite.map((m) => `• ${m.name}`));
-    if (possible.length) lines.push('', 'To check:', ...possible.map((m) => `• ${m.name}`));
-    if (slow.length) lines.push('', 'Slow sellers to swap out:', ...slow.map((m) => `• ${m.name} (${m.facings})`));
-    if (check.present.length) lines.push('', 'On shelf:', ...check.present.map((m) => `• ${m.name} (${m.facings})`));
-    shareText('Shelf report', lines.join('\n'));
-  };
 
   return (
     <section className={`ts-panel ${tone}`}>
@@ -139,9 +128,6 @@ export function TopSellerPanel({
         <div className="ts-score">
           <b>{check.present.length}</b>/{total}
         </div>
-        <button className="icon-btn ts-share" onClick={shareReport} aria-label="Share report" title="Share report">
-          <Share2 size={16} />
-        </button>
       </div>
 
       {total > 0 && (

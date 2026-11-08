@@ -1694,3 +1694,29 @@ h3,
   -webkit-text-fill-color: currentColor;
   color: var(--brand);
 }
+
+/* Visit report */
+.report-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+}
+.report-store {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+}
+.report-store .input {
+  flex: 1;
+  padding: 9px 12px;
+}
+.report-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.report-bar p {
+  margin: 0;
+}
