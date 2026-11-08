@@ -62,9 +62,14 @@ export function useShoppingList(): ShoppingList {
   };
 }
 
+/** Every item is shared: still to get first, then ticked ones marked done. */
 export function listAsText(items: ShoppingItem[]): string {
   const open = items.filter((i) => !i.done);
-  return ['ShelfScan – missing top sellers', ...open.map((i) => `• ${i.name}`)].join('\n');
+  const done = items.filter((i) => i.done);
+  const lines = ['ShelfScan – shopping list'];
+  if (open.length) lines.push('', 'To get:', ...open.map((i) => `☐ ${i.name}`));
+  if (done.length) lines.push('', 'Done:', ...done.map((i) => `✓ ${i.name}`));
+  return lines.join('\n');
 }
 
 /** Share via the Android share sheet in the app, the Web Share API, or copy to the clipboard. */
