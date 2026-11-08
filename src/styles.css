@@ -1,40 +1,40 @@
-/* ShelfScan design tokens --------------------------------------------------- */
+/* ShelfScan design tokens: "Linen & Navy" ---------------------------------- */
 :root {
-  --font: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-head: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
 
-  --bg: #f6f7fb;
-  --bg-glow: radial-gradient(1200px 500px at 85% -10%, rgba(139, 92, 246, 0.12), transparent 60%),
-    radial-gradient(900px 420px at -10% 0%, rgba(99, 102, 241, 0.1), transparent 60%);
-  --surface: #ffffff;
-  --surface-2: #f1f2f7;
-  --surface-glass: rgba(255, 255, 255, 0.9);
-  --text: #0f1222;
-  --text-2: #3b4058;
-  --muted: #6b7088;
-  --border: #e7e8f0;
-  --ring: rgba(99, 102, 241, 0.35);
+  --bg: #f3efe7;
+  --surface: #fffcf7;
+  --surface-2: #ede7dc;
+  --text: #1f2633;
+  --text-2: #414858;
+  --muted: #7d7f86;
+  --border: #e0d8ca;
+  --brand: #26374f;
+  --brand-2: #26374f;
+  --brand-soft: #e4e7ec;
+  --violet-soft: #e9e9ea;
+  --on-brand: #fffcf7;
+  --ring: rgba(38,55,79,.28);
+  --green: #3b7a55;
+  --green-soft: #e3eee6;
+  --red: #b0432f;
+  --red-soft: #f5e3de;
+  --amber: #a8731d;
+  --amber-soft: #f4ead6;
+  --blue: #3f5f86;
+  --blue-soft: #e3e9f1;
+  --purple: #7a5f86;
+  --purple-soft: #ece5ef;
+  --bg-glow: none;
+  --surface-glass: var(--surface);
+  --brand-grad: linear-gradient(var(--brand), var(--brand));
+  --brand-shadow: none;
 
-  --brand: #6366f1;
-  --brand-2: #8b5cf6;
-  --brand-grad: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  --brand-soft: #eef0ff;
-  --on-brand: #ffffff;
-
-  --green: #16a34a;
-  --green-soft: #e8f8ee;
-  --red: #e11d48;
-  --red-soft: #fdecef;
-  --amber: #d97706;
-  --amber-soft: #fef5e4;
-  --blue: #2563eb;
-  --blue-soft: #e9f0fe;
-  --purple: #9333ea;
-  --purple-soft: #f4ebfe;
-  --violet-soft: #efedff;
-
-  --shadow-sm: 0 1px 2px rgba(16, 18, 40, 0.05);
-  --shadow: 0 1px 2px rgba(16, 18, 40, 0.04), 0 8px 24px rgba(16, 18, 40, 0.06);
-  --shadow-lg: 0 12px 40px rgba(16, 18, 40, 0.14);
+  --shadow-sm: 0 1px 2px rgba(40, 32, 20, 0.05);
+  --shadow: 0 1px 2px rgba(40, 32, 20, 0.04), 0 4px 14px rgba(40, 32, 20, 0.05);
+  --shadow-lg: 0 8px 28px rgba(40, 32, 20, 0.12);
+  --scan-tint: rgba(38, 55, 79, 0.3);
 
   --r-sm: 12px;
   --r: 18px;
@@ -45,49 +45,63 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #0b0e17;
-    --bg-glow: radial-gradient(1200px 500px at 85% -10%, rgba(139, 92, 246, 0.18), transparent 60%),
-      radial-gradient(900px 420px at -10% 0%, rgba(99, 102, 241, 0.14), transparent 60%);
-    --surface: #141826;
-    --surface-2: #1c2133;
-    --surface-glass: rgba(20, 24, 38, 0.92);
-    --text: #eef0f8;
-    --text-2: #c5c9db;
-    --muted: #8d93ad;
-    --border: #252b3f;
-    --brand-soft: #222552;
-    --green-soft: #10291b;
-    --red-soft: #33141d;
-    --amber-soft: #32240c;
-    --blue-soft: #132143;
-    --purple-soft: #27163b;
-    --violet-soft: #221d47;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
-    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+    --bg: #141821;
+    --surface: #1c212c;
+    --surface-2: #252b37;
+    --text: #efeae1;
+    --text-2: #cdc7bc;
+    --muted: #959aa5;
+    --border: #303644;
+    --brand: #d9c7a3;
+    --brand-2: #d9c7a3;
+    --brand-soft: #343129;
+    --violet-soft: #2a2d33;
+    --on-brand: #1a1f29;
+    --ring: rgba(217,199,163,.3);
+    --green: #86c29b;
+    --green-soft: #22332a;
+    --red: #e5897a;
+    --red-soft: #3a2424;
+    --amber: #e0b56c;
+    --amber-soft: #382f20;
+    --blue: #9fb5d3;
+    --blue-soft: #263040;
+    --purple: #c1a9cc;
+    --purple-soft: #30293a;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.45);
+    --scan-tint: rgba(217, 199, 163, 0.3);
     color-scheme: dark;
   }
 }
 /* Same palette when dark mode is chosen manually in the app. */
 :root[data-theme='dark'] {
-  --bg: #0b0e17;
-  --bg-glow: radial-gradient(1200px 500px at 85% -10%, rgba(139, 92, 246, 0.18), transparent 60%),
-    radial-gradient(900px 420px at -10% 0%, rgba(99, 102, 241, 0.14), transparent 60%);
-  --surface: #141826;
-  --surface-2: #1c2133;
-  --surface-glass: rgba(20, 24, 38, 0.92);
-  --text: #eef0f8;
-  --text-2: #c5c9db;
-  --muted: #8d93ad;
-  --border: #252b3f;
-  --brand-soft: #222552;
-  --green-soft: #10291b;
-  --red-soft: #33141d;
-  --amber-soft: #32240c;
-  --blue-soft: #132143;
-  --purple-soft: #27163b;
-  --violet-soft: #221d47;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --bg: #141821;
+  --surface: #1c212c;
+  --surface-2: #252b37;
+  --text: #efeae1;
+  --text-2: #cdc7bc;
+  --muted: #959aa5;
+  --border: #303644;
+  --brand: #d9c7a3;
+  --brand-2: #d9c7a3;
+  --brand-soft: #343129;
+  --violet-soft: #2a2d33;
+  --on-brand: #1a1f29;
+  --ring: rgba(217,199,163,.3);
+  --green: #86c29b;
+  --green-soft: #22332a;
+  --red: #e5897a;
+  --red-soft: #3a2424;
+  --amber: #e0b56c;
+  --amber-soft: #382f20;
+  --blue: #9fb5d3;
+  --blue-soft: #263040;
+  --purple: #c1a9cc;
+  --purple-soft: #30293a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.45);
+  --scan-tint: rgba(217, 199, 163, 0.3);
   color-scheme: dark;
 }
 
@@ -209,7 +223,7 @@ code {
 }
 .brand img {
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  box-shadow: none;
 }
 .status-pill {
   display: inline-flex;
@@ -408,7 +422,7 @@ main {
   background: var(--brand-grad);
   border-color: transparent;
   color: var(--on-brand);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+  box-shadow: var(--brand-shadow);
 }
 .capture-icon {
   display: grid;
@@ -512,7 +526,7 @@ main {
   background: var(--brand-grad);
   border-color: transparent;
   color: var(--on-brand);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.3);
+  box-shadow: var(--brand-shadow);
 }
 .btn.ghost {
   background: transparent;
@@ -1441,10 +1455,10 @@ details[open] summary::after {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 0%, rgba(139, 92, 246, 0.0) 40%, rgba(139, 92, 246, 0.35) 50%, rgba(139, 92, 246, 0) 52%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, transparent 40%, var(--scan-tint) 50%, transparent 52%, transparent 100%);
   background-size: 100% 220%;
   animation: scan 1.8s ease-in-out infinite;
-  box-shadow: inset 0 0 0 3px rgba(139, 92, 246, 0.6);
+  box-shadow: inset 0 0 0 3px var(--brand);
 }
 @keyframes scan {
   from {
@@ -1654,4 +1668,28 @@ details[open] summary::after {
   font-size: 0.7rem;
   cursor: pointer;
   padding: 2px;
+}
+
+/* Headings: Fraunces (soft serif) ------------------------------------------ */
+h1,
+h2,
+h3,
+.brand span,
+.ts-title,
+.capture-title,
+.page-head h1,
+.sheet-info h3 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+.hero h1 {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.grad-text {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--brand);
 }

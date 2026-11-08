@@ -10,7 +10,7 @@ const svg = readFileSync(path.join(pub, 'icon.svg'), 'utf8');
   const page = await browser.newPage();
   for (const [name, size] of [['pwa-192.png', 192], ['pwa-512.png', 512], ['apple-touch-icon.png', 180]]) {
     await page.setViewportSize({ width: size, height: size });
-    await page.setContent(`<html><body style="margin:0;background:#5b4be8">${svg.replace('<svg ', `<svg width="${size}" height="${size}" `)}</body></html>`);
+    await page.setContent(`<html><body style="margin:0;background:#27384f">${svg.replace('<svg ', `<svg width="${size}" height="${size}" `)}</body></html>`);
     await page.screenshot({ path: path.join(pub, name) });
   }
   await browser.close();

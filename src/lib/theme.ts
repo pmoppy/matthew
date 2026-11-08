@@ -25,7 +25,7 @@ export function applyTheme(choice: ThemeChoice) {
   }
   // Keep the browser / status bar colour in step with the app.
   const dark = choice === 'dark' || (choice === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
-  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', dark ? '#0b0e17' : '#f6f7fb'));
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', dark ? '#141821' : '#f3efe7'));
 }
 
 export const NEXT_THEME: Record<ThemeChoice, ThemeChoice> = { auto: 'light', light: 'dark', dark: 'auto' };
