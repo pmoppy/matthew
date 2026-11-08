@@ -418,11 +418,12 @@ main {
 .capture-tile:hover {
   box-shadow: var(--shadow-lg);
 }
+/* Both tiles share the same card; "Take photo" is only gently emphasised
+   (tinted background, accent border and a solid icon chip). */
 .capture-tile.primary {
-  background: var(--brand-grad);
-  border-color: transparent;
-  color: var(--on-brand);
-  box-shadow: var(--brand-shadow);
+  background: color-mix(in srgb, var(--brand) 5%, var(--surface));
+  border-color: color-mix(in srgb, var(--brand) 30%, var(--border));
+  color: var(--text);
 }
 .capture-icon {
   display: grid;
@@ -435,8 +436,8 @@ main {
   color: var(--brand);
 }
 .capture-tile.primary .capture-icon {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: var(--brand);
+  color: var(--on-brand);
 }
 .capture-title {
   margin-top: 18px;
