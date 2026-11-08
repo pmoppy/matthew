@@ -14,7 +14,7 @@ import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { ReportBar } from './ReportBar';
-import { listScans, loadScan, saveScan } from '../lib/history';
+import { listScans, loadScan, saveScan, type ScanRow } from '../lib/history';
 
 export interface LibraryStatus {
   state: 'loading' | 'ready' | 'error';
@@ -75,6 +75,13 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const saving = useRef<Promise<unknown> | null>(null);
   const historyIdRef = useRef<string | null>(null);
   const scanStarted = useRef(Date.now());
+  const [store, setStore] = useState(() => {
+    try {
+      return localStorage.getItem('shelfscan.lastStore') ?? '';
+    } catch {
+      return '';
+    }
+  });
   historyIdRef.current = historyId;
 
   const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
@@ -107,7 +114,9 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     );
     setActive(0);
     setHistoryId(id);
-    setReopenedAt(metas.find((m) => m.id === id)?.at ?? null);
+    const meta = metas.find((m) => m.id === id);
+    setReopenedAt(meta?.at ?? null);
+    if (meta?.store !== undefined) setStore(meta.store);
     window.scrollTo({ top: 0 });
   };
 
@@ -213,6 +222,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       present: check.present.length,
       total: check.present.length + check.missing.length,
       missing: check.missing.filter((m) => !m.possible).length,
+      store: store.trim() || undefined,
+      rows: scanRows(),
     };
     const snapshot = shots.map((sh) => ({ image: sh.image, facings: sh.facings }));
     const t = setTimeout(() => {
@@ -227,7 +238,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     }, 600);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shots, progress]);
+  }, [shots, progress, store]);
 
   const updateFacing = (id: number, patch: Partial<Facing>) => {
     setFacings((fs) =>
@@ -265,6 +276,25 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       return n;
     });
 
+  /** Per-product results for the CSV export. */
+  const scanRows = (): ScanRow[] => {
+    const rows: ScanRow[] = [];
+    const seen = new Set<string>();
+    for (const m of check.present) {
+      rows.push({ product: m.name, category: m.category, rank: m.categoryRank, result: 'on_shelf', facings: m.facings });
+      seen.add(m.name);
+    }
+    for (const m of check.missing) {
+      rows.push({ product: m.name, category: m.category, rank: m.categoryRank, result: m.possible ? 'to_check' : 'missing', facings: 0 });
+      seen.add(m.name);
+    }
+    for (const p of summary.products) {
+      if (seen.has(p.name)) continue;
+      const cat = p.category ?? catalog?.categories?.[p.name];
+      rows.push({ product: p.name, category: cat, rank: p.rank, result: p.status === 'delist' ? 'slow_seller' : p.status === 'core' ? 'core' : 'other', facings: p.facings });
+    }
+    return rows;
+  };
   const slow = useMemo(() => summary.products.filter((p) => p.status === 'delist').map((p) => ({ name: p.name, facings: p.facings })), [summary]);
   const showOnly = (s: Status) => {
     setHidden(new Set(ALL_STATUSES.filter((x) => x !== s)));
@@ -456,6 +486,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           shots={shots.map((sh) => ({ image: sh.image, facings: sh.facings }))}
           productsFound={summary.facings}
           takenAt={reopenedAt ?? scanStarted.current}
+          store={store}
+          onStoreChange={setStore}
         />
       )}
 

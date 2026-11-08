@@ -1,4 +1,4 @@
-import { Download, FileSpreadsheet, FolderOpen, Loader2, RefreshCw, Trash2 } from 'lucide-react';
+import { BarChart3, Download, FileSpreadsheet, FolderOpen, Loader2, RefreshCw, Trash2 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import {
   buildCatalog,
@@ -12,6 +12,8 @@ import {
 import { normName, parseSales } from '../lib/sales';
 import { catalogSource, DEFAULT_CATALOG_URL } from '../lib/sync';
 import { getEmbedder, type SalesRow, type Settings } from '../lib/types';
+import { listScans, scansToCsv } from '../lib/history';
+import { shareFile } from '../lib/report';
 import type { LibraryStatus } from './ScanView';
 
 interface Props {
@@ -34,6 +36,27 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
   const [busy, setBusy] = useState<{ msg: string; frac: number } | null>(null);
   const [msg, setMsg] = useState<{ kind: 'ok' | 'error'; text: string } | null>(null);
   const [corrections, setCorrections] = useState(0);
+  const [scanCount, setScanCount] = useState(0);
+  const [exportMsg, setExportMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    listScans()
+      .then((s) => setScanCount(s.length))
+      .catch(() => {});
+  }, []);
+
+  const exportCsv = async () => {
+    setExportMsg(null);
+    try {
+      const { csv, scans, rows } = await scansToCsv();
+      const d = new Date();
+      const stamp = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const r = await shareFile(`ShelfScan-scans-${stamp}.csv`, csv, 'text/csv');
+      setExportMsg(`${r === 'shared' ? 'Exported' : 'Downloaded'} ${scans} scans (${rows} rows).`);
+    } catch (e) {
+      setExportMsg(`Export failed: ${(e as Error).message}`);
+    }
+  };
 
   useEffect(() => {
     countCorrections().then(setCorrections).catch(() => {});
@@ -205,6 +228,23 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
             </ul>
           </details>
         )}
+      </div>
+
+      <div className="card">
+        <h2>Scan results export</h2>
+        <p className="muted small">
+          Every scan saved on this phone as a CSV for Excel, Power BI or Looker Studio: one row per product per scan with date, store, bay,
+          product, category, sales rank, result (<code>on_shelf</code>, <code>missing</code>, <code>to_check</code>, <code>slow_seller</code>,{' '}
+          <code>core</code>, <code>other</code>), facings and the bay's top-seller score. Each rep can export from their own phone. Combine the
+          files to compare stores over time.
+        </p>
+        <p>
+          <b>{scanCount}</b> scans saved on this phone (newest 100 are kept)
+        </p>
+        <button className="btn" onClick={exportCsv} disabled={!scanCount}>
+          <BarChart3 size={18} /> Export scans (CSV)
+        </button>
+        {exportMsg && <p className="muted small">{exportMsg}</p>}
       </div>
 
       <div className="card">

@@ -24,6 +24,20 @@ export interface HistoryMeta {
   photos?: number;
   /** Small JPEG for the list. */
   thumb: Blob;
+  /** Store name typed by the rep (optional). */
+  store?: string;
+  /** Per-product results at the time of the scan, for the CSV export. */
+  rows?: ScanRow[];
+}
+
+/** One product's result in one scan. */
+export interface ScanRow {
+  product: string;
+  category?: string;
+  rank?: number;
+  /** on_shelf = top seller present; missing / to_check = top seller not confirmed; slow_seller / other = present, not a top seller. */
+  result: 'on_shelf' | 'missing' | 'to_check' | 'slow_seller' | 'core' | 'other';
+  facings: number;
 }
 
 /** One saved bay: one or more photos, each with its boxes and labels. */
@@ -58,7 +72,7 @@ function scaleFacings(facings: Facing[], factor: number): Facing[] {
 /** Save a bay scan (all its photos) and return its id; pass id to overwrite an existing entry. */
 export async function saveScan(
   shots: SavedShot[],
-  info: Pick<HistoryMeta, 'bay' | 'present' | 'total' | 'missing'>,
+  info: Pick<HistoryMeta, 'bay' | 'present' | 'total' | 'missing' | 'store' | 'rows'>,
   id?: string,
 ): Promise<string> {
   const entryId = id ?? `${Date.now()}`;
@@ -121,4 +135,35 @@ export async function clearScans() {
 async function trim() {
   const all = await listScans();
   for (const m of all.slice(MAX_ENTRIES)) await deleteScan(m.id);
+}
+
+const CSV_HEADER = ['scan_id', 'date', 'time', 'store', 'bay', 'photos', 'product', 'category', 'sales_rank', 'result', 'facings', 'top_sellers_found', 'top_sellers_expected'];
+
+function csvCell(v: unknown): string {
+  const s = v === undefined || v === null ? '' : String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+/**
+ * All saved scans on this phone as a CSV: one row per product per scan
+ * (top sellers on shelf / missing / to check, slow sellers and other
+ * products seen), plus the bay-level score on every row so it pivots easily.
+ */
+export async function scansToCsv(): Promise<{ csv: string; scans: number; rows: number }> {
+  const metas = (await listScans()).slice().reverse(); // oldest first
+  const lines = [CSV_HEADER.join(',')];
+  let n = 0;
+  for (const m of metas) {
+    const d = new Date(m.at);
+    const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const time = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    const base = [m.id, date, time, m.store ?? '', m.bay, m.photos ?? 1];
+    const tail = [m.present, m.total];
+    const rows = m.rows?.length ? m.rows : [{ product: '', result: 'other', facings: m.facings } as ScanRow];
+    for (const r of rows) {
+      lines.push([...base, r.product, r.category ?? '', r.rank ?? '', r.result, r.facings, ...tail].map(csvCell).join(','));
+      n++;
+    }
+  }
+  return { csv: lines.join('\n') + '\n', scans: metas.length, rows: n };
 }

@@ -200,3 +200,21 @@ export async function shareReportPdf(r: ReportInput): Promise<'shared' | 'downlo
   setTimeout(() => URL.revokeObjectURL(a.href), 10000);
   return 'downloaded';
 }
+
+/** Share a text file (e.g. CSV) through the share sheet on Android, or download it on the web. */
+export async function shareFile(name: string, text: string, mime: string): Promise<'shared' | 'downloaded'> {
+  const blob = new Blob([text], { type: mime });
+  if (Capacitor.isNativePlatform()) {
+    const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem');
+    const { Share } = await import('@capacitor/share');
+    const saved = await Filesystem.writeFile({ path: name, data: text, directory: Directory.Cache, encoding: Encoding.UTF8 });
+    await Share.share({ title: name, files: [saved.uri], dialogTitle: 'Share export' });
+    return 'shared';
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+  return 'downloaded';
+}

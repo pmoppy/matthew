@@ -7,30 +7,23 @@ import type { Facing } from '../lib/types';
 
 const STORE_KEY = 'shelfscan.lastStore';
 
-function loadStore() {
-  try {
-    return localStorage.getItem(STORE_KEY) ?? '';
-  } catch {
-    return '';
-  }
-}
-
 interface Props {
   check: TopSellerCheck;
   slow: { name: string; facings: number }[];
   shots: { image: HTMLCanvasElement; facings: Facing[] }[];
   productsFound: number;
   takenAt: number;
+  store: string;
+  onStoreChange: (v: string) => void;
 }
 
 /** Visit report: optional store name, then share as PDF or as a quick text message. */
-export function ReportBar({ check, slow, shots, productsFound, takenAt }: Props) {
-  const [store, setStore] = useState(loadStore);
+export function ReportBar({ check, slow, shots, productsFound, takenAt, store, onStoreChange }: Props) {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
   const remember = (v: string) => {
-    setStore(v);
+    onStoreChange(v);
     try {
       localStorage.setItem(STORE_KEY, v);
     } catch {
