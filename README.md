@@ -272,7 +272,7 @@ The home screen shows planograms, adverts and videos listed in `media/media.json
 { "items": [
   { "id": "soft-drinks-planogram-2026-11", "type": "image", "tag": "Planogram", "title": "Soft drinks planogram",
     "description": "…", "date": "2026-11-09", "file": "soft-drinks-planogram.jpg", "thumb": "soft-drinks-planogram-thumb.jpg" },
-  { "id": "youtube-rqXD0E6H2OY", "type": "youtube", "tag": "Video", "title": "Latest video", "date": "2026-11-09",
+  { "id": "youtube-rqXD0E6H2OY", "type": "youtube", "tag": "Video", "title": "Christmas Advert 2026", "date": "2026-11-09",
     "url": "https://youtu.be/rqXD0E6H2OY" }
 ] }
 ```
