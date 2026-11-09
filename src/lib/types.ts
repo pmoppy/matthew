@@ -16,7 +16,18 @@ export interface Det {
   kind: 'product' | 'gap';
 }
 
-export type Status = 'top' | 'delist' | 'core' | 'nodata' | 'unsure' | 'unknown' | 'gap';
+export type Status =
+  | 'top'
+  | 'delist'
+  | 'core'
+  | 'nodata'
+  | 'unsure'
+  | 'unknown'
+  | 'gap'
+  /** Planogram check: on plan with enough facings / on plan but too few / not on the plan. */
+  | 'pog_ok'
+  | 'pog_short'
+  | 'pog_off';
 
 export interface Facing extends Det {
   id: number;

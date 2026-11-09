@@ -15,7 +15,7 @@ import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { MediaHub } from './MediaHub';
 import { PlanogramPanel, PlanogramPicker, usePlanograms } from './PlanogramPanel';
-import { comparePlanogram, type Planogram } from '../lib/planogram';
+import { comparePlanogram, planogramView, type Planogram } from '../lib/planogram';
 import { catalogSource } from '../lib/sync';
 import { ReportBar } from './ReportBar';
 import { StorePicker } from './StorePicker';
@@ -40,7 +40,7 @@ interface Props {
   backRef?: React.MutableRefObject<(() => boolean) | null>;
 }
 
-const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'unsure', 'unknown', 'gap'];
+const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'pog_ok', 'pog_short', 'pog_off', 'unsure', 'unknown', 'gap'];
 const NO_FACINGS: Facing[] = [];
 
 /** One photo of the bay. A bay scan can have several (closer shots, more angles). */
@@ -66,7 +66,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const cur = shots[active];
   const image = cur?.image ?? null;
   const result = cur?.result ?? null;
-  const facings = cur?.facings ?? NO_FACINGS;
+  const rawFacings = cur?.facings ?? NO_FACINGS;
   const anyResult = shots.some((sh) => sh.result);
   const patchShot = (i: number, fn: (sh: Shot) => Partial<Shot>) =>
     setShots((ss) => ss.map((sh, j) => (j === i ? { ...sh, ...fn(sh) } : sh)));
@@ -251,6 +251,16 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   );
   const recs = useMemo(() => recommend(allFacings, sales), [allFacings, sales]);
   const pogResult = useMemo(() => (pog ? comparePlanogram(pog, allFacings, catalog?.products ?? []) : null), [pog, allFacings, catalog]);
+  const unsureCount = useMemo(() => {
+    if (!pog || !pogResult) return summary.unsure;
+    const view = planogramView(pog, pogResult);
+    return allFacings.filter((f) => f.kind === 'product' && view(f).status === 'unsure').length;
+  }, [pog, pogResult, allFacings, summary]);
+  // In a planogram check the boxes show the plan (green / blue / red) instead of top / slow sellers.
+  const facings = useMemo(
+    () => (pog && pogResult ? rawFacings.map(planogramView(pog, pogResult)) : rawFacings),
+    [pog, pogResult, rawFacings],
+  );
 
   // Save each finished bay scan to history, and keep it up to date as photos are added or boxes confirmed.
   useEffect(() => {
@@ -498,6 +508,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
 
           <StorePicker value={store} onChange={setStore} />
 
+          <h2 className="home-label">Top-seller check</h2>
+
           <div className={`capture ${dragging ? 'dragging' : ''}`}>
             <button
               className="capture-tile primary"
@@ -528,6 +540,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
             <p className="capture-hint">or drag & drop / paste an image here</p>
           </div>
 
+          <h2 className="home-label">Planogram check</h2>
           <button className="pog-start" onClick={() => setPickerOpen(true)}>
             <span className="capture-icon">
               <LayoutGrid size={22} />
@@ -662,12 +675,12 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
         ))}
 
       {anyResult && pog && pogResult && (
-        <PlanogramPanel pog={pog} r={pogResult} list={list} onShowUnsure={showOnlyUnsure} closeRef={pogCloseRef} />
+        <PlanogramPanel pog={pog} r={pogResult} list={list} onShowUnsure={showOnlyUnsure} onShow={showOnly} closeRef={pogCloseRef} />
       )}
-      {anyResult && (
+      {anyResult && !pog && (
         <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} slow={slow} onShowSlow={() => showOnly('delist')} />
       )}
-      {anyResult && !busy && check.bayKnown && (
+      {anyResult && !pog && !busy && check.bayKnown && (
         <ReportBar
           check={check}
           slow={slow}
@@ -752,7 +765,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
             <p className="meta">
               {summary.facings} products found
               {shots.length > 1 ? ` across ${shots.length} photos` : ''}
-              {summary.unsure ? ` · ${summary.unsure} unclear (tap an amber box to confirm)` : ''}
+              {unsureCount ? ` · ${unsureCount} unclear (tap an amber box to confirm)` : ''}
               {reopenedAt || shots.length > 1 ? '' : ` · ${((result.timings.detect + result.timings.recognise) / 1000).toFixed(1)}s`}
               {shots.length === 1 ? ' · Big bay? Add a closer photo of each half for better results.' : ''}
             </p>
@@ -760,8 +773,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
         </div>
       )}
 
-      {anyResult && <RecommendationList recs={recs} />}
-      {anyResult && <ProductTable s={summary} />}
+      {anyResult && !pog && <RecommendationList recs={recs} />}
+      {anyResult && !pog && <ProductTable s={summary} />}
 
       {selected && image && (
         <CorrectionSheet

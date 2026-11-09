@@ -41,7 +41,7 @@ export function ShelfCanvas({ image, facings, hidden, selectedId, onSelect, scan
       ctx.strokeStyle = st.color;
       ctx.setLineDash(st.dash ? [lw * 3, lw * 2] : []);
       ctx.strokeRect(x + lw / 2, y + lw / 2, w - lw, h - lw);
-      if (f.status === 'top' || f.status === 'delist' || f.status === 'unsure') {
+      if (f.status === 'top' || f.status === 'delist' || f.status === 'unsure' || f.status.startsWith('pog_')) {
         ctx.fillStyle = st.color + '22';
         ctx.fillRect(x, y, w, h);
       }

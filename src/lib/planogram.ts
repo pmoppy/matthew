@@ -164,6 +164,31 @@ export function comparePlanogram(pog: Planogram, facings: Facing[], catalogProdu
   return res;
 }
 
+/**
+ * How each box looks in a planogram check: green when that line has its
+ * facings, blue when it's on the plan but short, red when it isn't on the plan.
+ * Uses the same labels as the result panel, so boxes and panel always agree.
+ */
+export function planogramView(pog: Planogram, r: PlanogramResult): (f: Facing) => Facing {
+  const onPlan = new Set<string>();
+  const rowOf = new Map<string, PlanogramRow>();
+  const rows = [...r.ok, ...r.short, ...r.missing, ...r.toCheck, ...r.uncheckable];
+  for (const l of pog.lines) {
+    const row = rows.find((x) => x.product === l.product);
+    for (const n of [l.product, ...(l.also ?? [])]) {
+      onPlan.add(normName(n));
+      if (row) rowOf.set(normName(n), row);
+    }
+  }
+  return (f) => {
+    const l = labelFor(f, (k) => onPlan.has(k));
+    if (!l || !l.sure) return f;
+    const row = rowOf.get(normName(l.product));
+    if (!row) return { ...f, product: l.product, status: 'pog_off' };
+    return { ...f, product: row.product, status: row.found >= row.expected ? 'pog_ok' : 'pog_short' };
+  };
+}
+
 export function shelfLabel(shelves: number[]): string {
   return shelves.length > 1 ? `Shelves ${shelves.join(' & ')}` : `Shelf ${shelves[0]}`;
 }

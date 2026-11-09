@@ -37,4 +37,7 @@ export const STATUS_STYLE: Record<string, { color: string; label: string; dash?:
   nodata: { color: '#64748b', label: 'Other product' },
   unknown: { color: '#e2e8f0', label: 'Not identified', dash: true },
   gap: { color: '#a855f7', label: 'Empty space', dash: true },
+  pog_ok: { color: '#16a34a', label: 'On plan' },
+  pog_short: { color: '#2563eb', label: 'On plan, too few facings' },
+  pog_off: { color: '#dc2626', label: 'Not on plan' },
 };

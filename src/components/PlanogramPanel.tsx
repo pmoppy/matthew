@@ -98,12 +98,15 @@ export function PlanogramPanel({
   r,
   list,
   onShowUnsure,
+  onShow,
   closeRef,
 }: {
   pog: Planogram;
   r: PlanogramResult;
   list: ShoppingList;
   onShowUnsure: () => void;
+  /** Show only one kind of box on the photo. */
+  onShow?: (s: 'pog_ok' | 'pog_short' | 'pog_off') => void;
   closeRef?: React.MutableRefObject<(() => boolean) | null>;
 }) {
   const [viewing, setViewing] = useState(false);
@@ -204,6 +207,11 @@ export function PlanogramPanel({
               </li>
             ))}
           </ul>
+          {onShow && (
+            <button className="btn ghost full" onClick={() => onShow('pog_short')}>
+              Show them on the photo (blue)
+            </button>
+          )}
         </Section>
       )}
 
@@ -249,6 +257,11 @@ export function PlanogramPanel({
               </li>
             ))}
           </ul>
+          {onShow && (
+            <button className="btn ghost full" onClick={() => onShow('pog_off')}>
+              Show them on the photo (red)
+            </button>
+          )}
         </Section>
       )}
 
@@ -267,6 +280,11 @@ export function PlanogramPanel({
               </li>
             ))}
           </ul>
+          {onShow && (
+            <button className="btn ghost full" onClick={() => onShow('pog_ok')}>
+              Show them on the photo (green)
+            </button>
+          )}
         </Section>
       )}
 

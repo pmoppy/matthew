@@ -2092,3 +2092,12 @@ h3,
 .pog-panel .row {
   margin-top: 12px;
 }
+.home-label {
+  margin: 6px 4px -4px;
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
