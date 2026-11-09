@@ -1765,3 +1765,52 @@ h3,
   background-repeat: no-repeat;
   background-position: right 12px center;
 }
+
+/* Rep change log */
+.chg-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  border-radius: 16px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.chg-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+}
+.chg-list li + li {
+  border-top: 1px solid var(--border);
+}
+.chg-crop {
+  flex: none;
+  width: 44px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--surface);
+}
+.chg-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.chg-what {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+}
+.chg-from:not(.same) {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.chg-body small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}

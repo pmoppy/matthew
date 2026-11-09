@@ -15,6 +15,7 @@ import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { ReportBar } from './ReportBar';
 import { StorePicker } from './StorePicker';
+import { logChange } from '../lib/changelog';
 import { loadStore, saveStore } from '../lib/stores';
 import { listScans, loadScan, saveScan, type ScanRow } from '../lib/history';
 
@@ -252,9 +253,28 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     );
   };
 
+  /** Audit trail: record what the app said and what the rep chose. */
+  const recordChange = (f: Facing, repProduct: string | null) => {
+    if (!image) return;
+    const action = repProduct === null ? 'marked_empty' : repProduct === f.product ? 'confirmed' : 'corrected';
+    logChange({
+      action,
+      appProduct: f.kind === 'gap' ? null : f.product,
+      appConfidence: f.confidence,
+      appStatus: f.status,
+      repProduct,
+      alternatives: f.candidates.map((c) => c.product).filter((p) => p !== f.product).slice(0, 3),
+      store: store.trim() || undefined,
+      scanId: historyIdRef.current ?? undefined,
+      bay: check.categories.length ? `${check.categories.join(' & ')} bay` : undefined,
+      crop: cropCanvas(image, f, 0.05),
+    }).catch((e) => console.warn('Could not log change', e));
+  };
+
   const onPick = async (product: string) => {
     if (!selected || !image || !result) return;
     const f = selected;
+    recordChange(f, product);
     updateFacing(f.id, { product, corrected: true, kind: 'product', confidence: 1 });
     setSelected(null);
     // Confirmed crops are kept as extra reference photos (and exported for the admin).
@@ -579,6 +599,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           salesRank={(n) => sales?.get(normName(n))?.rank}
           onPick={onPick}
           onMarkGap={() => {
+            recordChange(selected, null);
             updateFacing(selected.id, { kind: 'gap', product: null, corrected: true });
             setSelected(null);
           }}

@@ -14,6 +14,7 @@ import { catalogSource, DEFAULT_CATALOG_URL } from '../lib/sync';
 import { getEmbedder, type SalesRow, type Settings } from '../lib/types';
 import { listScans, scansToCsv } from '../lib/history';
 import { shareFile } from '../lib/report';
+import { ChangeLogCard } from './ChangeLogCard';
 import type { LibraryStatus } from './ScanView';
 
 interface Props {
@@ -246,6 +247,8 @@ export function CatalogView({ settings, setSettings, catalog, setCatalog, salesR
         </button>
         {exportMsg && <p className="muted small">{exportMsg}</p>}
       </div>
+
+      <ChangeLogCard />
 
       <div className="card">
         <h2>In-store corrections</h2>
