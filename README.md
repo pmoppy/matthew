@@ -262,3 +262,20 @@ training/                   detector training + ONNX export
 - Share of shelf by brand; history of scans per store.
 - Optional server inference for larger models when the store has signal.
 - Fine-tune the recognition model on your corrected crops for higher accuracy.
+
+## Media hub
+
+The home screen shows planograms, adverts and videos listed in `media/media.json` next to the product library
+(`public/starter/media/` today, `<bucket>/media/` once the library is on R2). Phones pick up changes on next launch; no new APK.
+
+```json
+{ "items": [
+  { "id": "soft-drinks-planogram-2026-11", "type": "image", "tag": "Planogram", "title": "Soft drinks planogram",
+    "description": "…", "date": "2026-11-09", "file": "soft-drinks-planogram.jpg", "thumb": "soft-drinks-planogram-thumb.jpg" },
+  { "id": "youtube-rqXD0E6H2OY", "type": "youtube", "tag": "Video", "title": "Latest video", "date": "2026-11-09",
+    "url": "https://youtu.be/rqXD0E6H2OY" }
+] }
+```
+
+Types: `image` (zoomable viewer), `pdf` (opens in the phone's PDF viewer), `video` (small MP4), `youtube`, `link`.
+`id` must be unique; a new id shows as **New** until each rep opens it. Use unlisted YouTube videos rather than large video files.

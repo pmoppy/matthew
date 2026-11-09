@@ -11,6 +11,7 @@
  *
  *   GET /manifest.json   product list + image paths (+ sales / detector if present)
  *   GET /file/<key>      any object from the bucket
+ *   GET /media/<key>     media hub (media/media.json + files)
  */
 
 interface R2Object {
@@ -123,8 +124,10 @@ export default {
 
     if (url.pathname === '/manifest.json') return manifest(env);
 
-    if (url.pathname.startsWith('/file/')) {
-      const rel = url.pathname
+    // Media hub: <bucket>/media/media.json plus the planograms / videos it lists.
+    const filePath = url.pathname.startsWith('/media/') ? `/file${url.pathname}` : url.pathname;
+    if (filePath.startsWith('/file/')) {
+      const rel = filePath
         .slice('/file/'.length)
         .split('/')
         .map((s) => decodeURIComponent(s))
@@ -137,7 +140,7 @@ export default {
       h.set('etag', obj.httpEtag);
       h.set('content-length', String(obj.size));
       // Product photos and models change rarely; CSV should refresh quickly.
-      h.set('cache-control', /\.csv$/i.test(rel) ? 'public, max-age=60' : 'public, max-age=86400');
+      h.set('cache-control', /\.(csv|json)$/i.test(rel) ? 'public, max-age=60' : 'public, max-age=86400');
       if (!h.has('content-type')) h.set('content-type', 'application/octet-stream');
       return new Response(req.method === 'HEAD' ? null : obj.body, { headers: h });
     }

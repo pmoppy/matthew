@@ -13,6 +13,8 @@ import { ProductTable, RecommendationList, TopSellerPanel } from './Recommendati
 import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
+import { MediaHub } from './MediaHub';
+import { catalogSource } from '../lib/sync';
 import { ReportBar } from './ReportBar';
 import { StorePicker } from './StorePicker';
 import { logChange } from '../lib/changelog';
@@ -121,10 +123,13 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     window.scrollTo({ top: 0 });
   };
 
+  const mediaCloseRef = useRef<(() => boolean) | null>(null);
+
   // Android back: close the sheet, then leave the results; only exit from home.
   useEffect(() => {
     if (!backRef) return;
     backRef.current = () => {
+      if (mediaCloseRef.current?.()) return true;
       if (selected) {
         setSelected(null);
         return true;
@@ -417,6 +422,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
               <p className="muted small">One-off download of the recognition models. After this the app works offline.</p>
             </div>
           )}
+
+          <MediaHub libraryBase={catalogSource(settings)} closeRef={mediaCloseRef} />
 
           <ShoppingListCard list={list} />
 

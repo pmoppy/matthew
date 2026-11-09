@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "id": "soft-drinks-planogram-2026-11",
+      "type": "image",
+      "tag": "Planogram",
+      "title": "Soft drinks planogram",
+      "description": "5-shelf ambient soft drinks bay: colas, juices, mixers, energy and water.",
+      "date": "2026-11-09",
+      "file": "soft-drinks-planogram.jpg",
+      "thumb": "soft-drinks-planogram-thumb.jpg"
+    },
+    {
+      "id": "youtube-rqXD0E6H2OY",
+      "type": "youtube",
+      "tag": "Video",
+      "title": "Latest video",
+      "description": "Tap to watch on YouTube.",
+      "date": "2026-11-09",
+      "url": "https://youtu.be/rqXD0E6H2OY"
+    }
+  ]
+}
