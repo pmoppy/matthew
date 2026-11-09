@@ -20,7 +20,7 @@ function ListButton({ item, list }: { item: TopSellerItem; list: ShoppingList })
 }
 
 /** Collapsible group in the result: a one-line summary that expands to the products. */
-function Section({ tone, icon, label, preview, children }: { tone: 'bad' | 'warn' | 'good' | 'slow'; icon: React.ReactNode; label: string; preview: string[]; children: React.ReactNode }) {
+export function Section({ tone, icon, label, preview, children }: { tone: 'bad' | 'warn' | 'good' | 'slow'; icon: React.ReactNode; label: string; preview: string[]; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const short = preview.slice(0, 2).join(', ') + (preview.length > 2 ? ` +${preview.length - 2} more` : '');
   return (

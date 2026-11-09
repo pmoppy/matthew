@@ -28,6 +28,9 @@ export interface HistoryMeta {
   store?: string;
   /** Per-product results at the time of the scan, for the CSV export. */
   rows?: ScanRow[];
+  /** Media-hub planogram this bay was checked against, and the share of facings in place (0-1). */
+  planogramId?: string;
+  planogramScore?: number;
 }
 
 /** One product's result in one scan. */
@@ -72,7 +75,7 @@ function scaleFacings(facings: Facing[], factor: number): Facing[] {
 /** Save a bay scan (all its photos) and return its id; pass id to overwrite an existing entry. */
 export async function saveScan(
   shots: SavedShot[],
-  info: Pick<HistoryMeta, 'bay' | 'present' | 'total' | 'missing' | 'store' | 'rows'>,
+  info: Pick<HistoryMeta, 'bay' | 'present' | 'total' | 'missing' | 'store' | 'rows' | 'planogramId' | 'planogramScore'>,
   id?: string,
 ): Promise<string> {
   const entryId = id ?? `${Date.now()}`;

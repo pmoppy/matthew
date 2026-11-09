@@ -1,4 +1,4 @@
-import { Camera, Hand, ImageUp, ImagePlus, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
+import { Camera, ChevronRight, Hand, ImageUp, ImagePlus, LayoutGrid, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { analyseShelf, type AnalysisResult } from '../lib/analyse';
 import { addCorrection, type CatalogState } from '../lib/catalog';
@@ -14,6 +14,8 @@ import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { MediaHub } from './MediaHub';
+import { PlanogramPanel, PlanogramPicker, usePlanograms } from './PlanogramPanel';
+import { comparePlanogram, type Planogram } from '../lib/planogram';
 import { catalogSource } from '../lib/sync';
 import { ReportBar } from './ReportBar';
 import { StorePicker } from './StorePicker';
@@ -56,18 +58,28 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const shelfRef = useRef<HTMLDivElement>(null);
   const [shots, setShots] = useState<Shot[]>([]);
   const [active, setActive] = useState(0);
+  /** Planogram this bay is being checked against (null = normal top-seller scan). */
+  const [pog, setPog] = useState<Planogram | null>(null);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const planograms = usePlanograms(catalogSource(settings));
   const [quality, setQuality] = useState<QualityReport | null>(null);
   const cur = shots[active];
   const image = cur?.image ?? null;
   const result = cur?.result ?? null;
   const facings = cur?.facings ?? NO_FACINGS;
   const anyResult = shots.some((sh) => sh.result);
-  const patchShot = (i: number, fn: (sh: Shot) => Partial<Shot>) => setShots((ss) => ss.map((sh, j) => (j === i ? { ...sh, ...fn(sh) } : sh)));
+  const patchShot = (i: number, fn: (sh: Shot) => Partial<Shot>) =>
+    setShots((ss) => ss.map((sh, j) => (j === i ? { ...sh, ...fn(sh) } : sh)));
   const setFacings = (fn: Facing[] | ((fs: Facing[]) => Facing[])) => {
     const i = active;
-    patchShot(i, (sh) => ({ facings: typeof fn === 'function' ? fn(sh.facings) : fn }));
+    patchShot(i, (sh) => ({
+      facings: typeof fn === 'function' ? fn(sh.facings) : fn,
+    }));
   };
-  const [progress, setProgress] = useState<{ msg: string; frac: number } | null>(null);
+  const [progress, setProgress] = useState<{
+    msg: string;
+    frac: number;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Facing | null>(null);
   const [hidden, setHidden] = useState<Set<Status>>(new Set());
@@ -90,6 +102,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
 
   const goHome = () => {
+    setPog(null);
     setShots([]);
     setActive(0);
     setQuality(null);
@@ -111,25 +124,45 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     setHidden(new Set());
     setShots(
       scan.map((sh) => {
-        const fs = sh.facings.map((f) => ({ ...f, status: statusFor(f, sales, settings) }));
-        return { image: sh.image, facings: fs, result: { facings: fs, features: new Map(), detector: 'model', timings: { detect: 0, recognise: 0 }, warnings: [] } };
+        const fs = sh.facings.map((f) => ({
+          ...f,
+          status: statusFor(f, sales, settings),
+        }));
+        return {
+          image: sh.image,
+          facings: fs,
+          result: {
+            facings: fs,
+            features: new Map(),
+            detector: 'model',
+            timings: { detect: 0, recognise: 0 },
+            warnings: [],
+          },
+        };
       }),
     );
     setActive(0);
     setHistoryId(id);
     const meta = metas.find((m) => m.id === id);
+    setPog(planograms.find((p) => p.id === meta?.planogramId) ?? null);
     setReopenedAt(meta?.at ?? null);
     if (meta?.store !== undefined) setStoreState(meta.store);
     window.scrollTo({ top: 0 });
   };
 
   const mediaCloseRef = useRef<(() => boolean) | null>(null);
+  const pogCloseRef = useRef<(() => boolean) | null>(null);
 
   // Android back: close the sheet, then leave the results; only exit from home.
   useEffect(() => {
     if (!backRef) return;
     backRef.current = () => {
       if (mediaCloseRef.current?.()) return true;
+      if (pogCloseRef.current?.()) return true;
+      if (pickerOpen) {
+        setPickerOpen(false);
+        return true;
+      }
       if (selected) {
         setSelected(null);
         return true;
@@ -210,16 +243,14 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   };
 
   // Bay-level results combine every photo: a top seller is only missing if it's in none of them.
-  const allFacings = useMemo(
-    () => shots.flatMap((sh, si) => sh.facings.map((f) => ({ ...f, id: si * 100000 + f.id }))),
-    [shots],
-  );
+  const allFacings = useMemo(() => shots.flatMap((sh, si) => sh.facings.map((f) => ({ ...f, id: si * 100000 + f.id }))), [shots]);
   const summary = useMemo(() => summarise(allFacings, sales), [allFacings, sales]);
   const check = useMemo(
     () => topSellerCheck(allFacings, sales, catalog?.products ?? [], (n) => catalog?.categories?.[n]),
     [allFacings, sales, catalog],
   );
   const recs = useMemo(() => recommend(allFacings, sales), [allFacings, sales]);
+  const pogResult = useMemo(() => (pog ? comparePlanogram(pog, allFacings, catalog?.products ?? []) : null), [pog, allFacings, catalog]);
 
   // Save each finished bay scan to history, and keep it up to date as photos are added or boxes confirmed.
   useEffect(() => {
@@ -231,8 +262,13 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       missing: check.missing.filter((m) => !m.possible).length,
       store: store.trim() || undefined,
       rows: scanRows(),
+      planogramId: pog?.id,
+      planogramScore: pogResult && pogResult.expected ? pogResult.score : undefined,
     };
-    const snapshot = shots.map((sh) => ({ image: sh.image, facings: sh.facings }));
+    const snapshot = shots.map((sh) => ({
+      image: sh.image,
+      facings: sh.facings,
+    }));
     const t = setTimeout(() => {
       const prev = saving.current ?? Promise.resolve();
       saving.current = prev.then(async () => {
@@ -268,7 +304,10 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       appConfidence: f.confidence,
       appStatus: f.status,
       repProduct,
-      alternatives: f.candidates.map((c) => c.product).filter((p) => p !== f.product).slice(0, 3),
+      alternatives: f.candidates
+        .map((c) => c.product)
+        .filter((p) => p !== f.product)
+        .slice(0, 3),
       store: store.trim() || undefined,
       scanId: historyIdRef.current ?? undefined,
       bay: check.categories.length ? `${check.categories.join(' & ')} bay` : undefined,
@@ -280,7 +319,12 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     if (!selected || !image || !result) return;
     const f = selected;
     recordChange(f, product);
-    updateFacing(f.id, { product, corrected: true, kind: 'product', confidence: 1 });
+    updateFacing(f.id, {
+      product,
+      corrected: true,
+      kind: 'product',
+      confidence: 1,
+    });
     setSelected(null);
     // Confirmed crops are kept as extra reference photos (and exported for the admin).
     const feat = result.features.get(f.id);
@@ -307,21 +351,42 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     const rows: ScanRow[] = [];
     const seen = new Set<string>();
     for (const m of check.present) {
-      rows.push({ product: m.name, category: m.category, rank: m.categoryRank, result: 'on_shelf', facings: m.facings });
+      rows.push({
+        product: m.name,
+        category: m.category,
+        rank: m.categoryRank,
+        result: 'on_shelf',
+        facings: m.facings,
+      });
       seen.add(m.name);
     }
     for (const m of check.missing) {
-      rows.push({ product: m.name, category: m.category, rank: m.categoryRank, result: m.possible ? 'to_check' : 'missing', facings: 0 });
+      rows.push({
+        product: m.name,
+        category: m.category,
+        rank: m.categoryRank,
+        result: m.possible ? 'to_check' : 'missing',
+        facings: 0,
+      });
       seen.add(m.name);
     }
     for (const p of summary.products) {
       if (seen.has(p.name)) continue;
       const cat = p.category ?? catalog?.categories?.[p.name];
-      rows.push({ product: p.name, category: cat, rank: p.rank, result: p.status === 'delist' ? 'slow_seller' : p.status === 'core' ? 'core' : 'other', facings: p.facings });
+      rows.push({
+        product: p.name,
+        category: cat,
+        rank: p.rank,
+        result: p.status === 'delist' ? 'slow_seller' : p.status === 'core' ? 'core' : 'other',
+        facings: p.facings,
+      });
     }
     return rows;
   };
-  const slow = useMemo(() => summary.products.filter((p) => p.status === 'delist').map((p) => ({ name: p.name, facings: p.facings })), [summary]);
+  const slow = useMemo(
+    () => summary.products.filter((p) => p.status === 'delist').map((p) => ({ name: p.name, facings: p.facings })),
+    [summary],
+  );
   const showOnly = (s: Status) => {
     setHidden(new Set(ALL_STATUSES.filter((x) => x !== s)));
     shelfRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -345,7 +410,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       const c = catOf(p);
       return c ? bay.has(normName(c)) : false;
     });
-    const ordered = [...guesses, ...sameBrand.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b)), ...sameBay.sort((a, b) => rank(a) - rank(b))];
+    const ordered = [
+      ...guesses,
+      ...sameBrand.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b)),
+      ...sameBay.sort((a, b) => rank(a) - rank(b)),
+    ];
     return [...new Set(ordered)];
   }, [selected, catalog, check, sales]);
   const selectedCrop = useMemo(() => (selected && image ? cropCanvas(image, selected, 0.05) : null), [selected, image]);
@@ -367,10 +436,48 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
 
   return (
     <div className="view" {...dropProps}>
-      <input ref={camRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ''; }} />
-      <input ref={uploadRef} type="file" accept="image/*" hidden onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ''; }} />
-      <input ref={addCamRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { onFile(e.target.files?.[0], true); e.target.value = ''; }} />
-      <input ref={addUploadRef} type="file" accept="image/*" hidden onChange={(e) => { onFile(e.target.files?.[0], true); e.target.value = ''; }} />
+      <input
+        ref={camRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        hidden
+        onChange={(e) => {
+          onFile(e.target.files?.[0]);
+          e.target.value = '';
+        }}
+      />
+      <input
+        ref={uploadRef}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={(e) => {
+          onFile(e.target.files?.[0]);
+          e.target.value = '';
+        }}
+      />
+      <input
+        ref={addCamRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        hidden
+        onChange={(e) => {
+          onFile(e.target.files?.[0], true);
+          e.target.value = '';
+        }}
+      />
+      <input
+        ref={addUploadRef}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={(e) => {
+          onFile(e.target.files?.[0], true);
+          e.target.value = '';
+        }}
+      />
 
       {!image ? (
         <>
@@ -392,14 +499,26 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           <StorePicker value={store} onChange={setStore} />
 
           <div className={`capture ${dragging ? 'dragging' : ''}`}>
-            <button className="capture-tile primary" onClick={() => camRef.current?.click()}>
+            <button
+              className="capture-tile primary"
+              onClick={() => {
+                setPog(null);
+                camRef.current?.click();
+              }}
+            >
               <span className="capture-icon">
                 <Camera size={26} />
               </span>
               <span className="capture-title">Take photo</span>
               <span className="capture-sub">Use your camera</span>
             </button>
-            <button className="capture-tile" onClick={() => uploadRef.current?.click()}>
+            <button
+              className="capture-tile"
+              onClick={() => {
+                setPog(null);
+                uploadRef.current?.click();
+              }}
+            >
               <span className="capture-icon">
                 <ImageUp size={26} />
               </span>
@@ -409,11 +528,37 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
             <p className="capture-hint">or drag & drop / paste an image here</p>
           </div>
 
+          <button className="pog-start" onClick={() => setPickerOpen(true)}>
+            <span className="capture-icon">
+              <LayoutGrid size={22} />
+            </span>
+            <span className="pog-start-text">
+              <b>Check against a planogram</b>
+              <small>
+                {planograms.length
+                  ? `Compare a bay with ${planograms.length === 1 ? planograms[0].title : `one of ${planograms.length} planograms`}`
+                  : 'Compare a bay with the planogram, facing by facing'}
+              </small>
+            </span>
+            <ChevronRight size={18} />
+          </button>
+          {pickerOpen && (
+            <PlanogramPicker
+              planograms={planograms}
+              onClose={() => setPickerOpen(false)}
+              onPick={(p, source) => {
+                setPog(p);
+                setPickerOpen(false);
+                (source === 'camera' ? camRef : uploadRef).current?.click();
+              }}
+            />
+          )}
+
           {library.state === 'loading' && (
             <div className="card progress soft">
               <div className="progress-head">
                 <Loader2 size={18} className="spin" />
-                <span>{catalog ? library.msg ?? 'Updating product library' : 'Getting ready for first use…'}</span>
+                <span>{catalog ? (library.msg ?? 'Updating product library') : 'Getting ready for first use…'}</span>
                 <span className="muted">{Math.round((library.frac ?? 0) * 100)}%</span>
               </div>
               <div className="bar">
@@ -447,13 +592,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
         </>
       ) : (
         <div className="toolbar">
-          <button
-            className="btn ghost icon-only"
-            onClick={goHome}
-            disabled={busy}
-            aria-label="Back to home"
-            title="Back to home"
-          >
+          <button className="btn ghost icon-only" onClick={goHome} disabled={busy} aria-label="Back to home" title="Back to home">
             <X size={18} />
           </button>
           <button className="btn" onClick={() => camRef.current?.click()} disabled={busy}>
@@ -492,23 +631,42 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
         <div className="card progress">
           <div className="progress-head">
             <Loader2 size={18} className="spin" />
-            <span>{waiting ? library.msg ?? 'Preparing product library' : progress!.msg}</span>
-            <span className="muted">{Math.round((waiting ? library.frac ?? 0 : progress!.frac) * 100)}%</span>
+            <span>{waiting ? (library.msg ?? 'Preparing product library') : progress!.msg}</span>
+            <span className="muted">{Math.round((waiting ? (library.frac ?? 0) : progress!.frac) * 100)}%</span>
           </div>
           <div className="bar">
-            <div style={{ width: `${Math.round((waiting ? library.frac ?? 0 : progress!.frac) * 100)}%` }} />
+            <div
+              style={{
+                width: `${Math.round((waiting ? (library.frac ?? 0) : progress!.frac) * 100)}%`,
+              }}
+            />
           </div>
         </div>
       )}
 
       {reopenedAt && (
         <div className="notice">
-          Saved scan from {new Date(reopenedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}. Results use today's top-seller list.
+          Saved scan from{' '}
+          {new Date(reopenedAt).toLocaleString([], {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })}
+          . Results use today's top-seller list.
         </div>
       )}
-      {result && result.warnings.map((w) => <div key={w} className="notice warn">{w}</div>)}
+      {result &&
+        result.warnings.map((w) => (
+          <div key={w} className="notice warn">
+            {w}
+          </div>
+        ))}
 
-      {anyResult && <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} slow={slow} onShowSlow={() => showOnly('delist')} />}
+      {anyResult && pog && pogResult && (
+        <PlanogramPanel pog={pog} r={pogResult} list={list} onShowUnsure={showOnlyUnsure} closeRef={pogCloseRef} />
+      )}
+      {anyResult && (
+        <TopSellerPanel check={check} onShowUnsure={showOnlyUnsure} list={list} slow={slow} onShowSlow={() => showOnly('delist')} />
+      )}
       {anyResult && !busy && check.bayKnown && (
         <ReportBar
           check={check}
@@ -527,7 +685,14 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
             <div className="shots">
               {shots.map((sh, i) => (
                 <div key={i} className={`shot ${i === active ? 'active' : ''}`}>
-                  <button className="shot-btn" onClick={() => { setActive(i); setSelected(null); }} aria-label={`Photo ${i + 1}`}>
+                  <button
+                    className="shot-btn"
+                    onClick={() => {
+                      setActive(i);
+                      setSelected(null);
+                    }}
+                    aria-label={`Photo ${i + 1}`}
+                  >
                     <ShotThumb canvas={sh.image} />
                     <span>{sh.result ? `Photo ${i + 1}` : 'Analysing…'}</span>
                   </button>
@@ -585,7 +750,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           )}
           {result && (
             <p className="meta">
-              {summary.facings} products found{shots.length > 1 ? ` across ${shots.length} photos` : ''}
+              {summary.facings} products found
+              {shots.length > 1 ? ` across ${shots.length} photos` : ''}
               {summary.unsure ? ` · ${summary.unsure} unclear (tap an amber box to confirm)` : ''}
               {reopenedAt || shots.length > 1 ? '' : ` · ${((result.timings.detect + result.timings.recognise) / 1000).toFixed(1)}s`}
               {shots.length === 1 ? ' · Big bay? Add a closer photo of each half for better results.' : ''}
@@ -607,7 +773,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
           onPick={onPick}
           onMarkGap={() => {
             recordChange(selected, null);
-            updateFacing(selected.id, { kind: 'gap', product: null, corrected: true });
+            updateFacing(selected.id, {
+              kind: 'gap',
+              product: null,
+              corrected: true,
+            });
             setSelected(null);
           }}
           onClose={() => setSelected(null)}

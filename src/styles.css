@@ -1962,3 +1962,133 @@ h3,
 .media-viewer > .notice {
   margin: 16px;
 }
+
+/* Collapsible home cards ------------------------------------------------------ */
+.card-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.card-toggle-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.card-toggle-text h3 {
+  margin: 0;
+}
+.card-chev {
+  flex: none;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.card-chev.rot {
+  transform: rotate(180deg);
+}
+.shop-head .card-toggle + .btn {
+  margin-left: 0;
+}
+
+/* Planogram check ------------------------------------------------------------- */
+.pog-start {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.pog-start .capture-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+}
+.pog-start > svg {
+  color: var(--muted);
+}
+.pog-start-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.pog-start-text b {
+  font-family: var(--font-head);
+  font-size: 1.02rem;
+}
+.pog-start-text small {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.pog-sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pog-sheet-head h3 {
+  margin: 0;
+}
+.pog-choices {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pog-choice {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.pog-choice.on {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+.pog-choice img {
+  width: 72px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex: none;
+}
+.pog-choice span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.pog-choice small {
+  color: var(--muted);
+}
+.btn.grow {
+  flex: 1;
+}
+.pog-panel .row {
+  margin-top: 12px;
+}

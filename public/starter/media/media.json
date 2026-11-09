@@ -1,6 +1,826 @@
 {
   "items": [
     {
+      "id": "soft-drinks-energy-planogram-2026-11",
+      "type": "image",
+      "tag": "Planogram",
+      "title": "Soft drinks & energy planogram",
+      "description": "Full 5-shelf soft drinks and energy bay: cans, colas, energy, sports and water. Use \"Check against a planogram\" on the home screen to compare a bay with it.",
+      "date": "2026-11-09",
+      "file": "soft-drinks-energy-planogram.jpg",
+      "thumb": "soft-drinks-energy-planogram-thumb.jpg",
+      "planogram": {
+        "shelves": [
+          [
+            {
+              "product": "Boost Energy Red Berry 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Boost Energy Sugar Free 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Boost Energy Original 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Energy Drink 250ml",
+              "facings": 4
+            },
+            {
+              "product": "Red Bull Energy Drink 355ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Energy Drink 473ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Zero 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Sugarfree 250ml",
+              "facings": 2,
+              "also": [
+                "Red Bull Sugar Free 250ml"
+              ]
+            },
+            {
+              "product": "Red Bull Sugarfree 355ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Sugarfree 473ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Original Taste 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Cherry Float 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Cherry 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Zero Sugar 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Diet Coke 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Pepsi Regular 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Pepsi Max 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Pepsi Max Cherry 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Diet Pepsi 330ml",
+              "facings": 1
+            },
+            {
+              "product": "Dr Pepper 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Dr Pepper Cream Swirl 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Barr Irn Bru 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Orange 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Fruit Twist 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Lemon 330ml",
+              "facings": 1
+            },
+            {
+              "product": "Sprite 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Mountain Dew 440ml",
+              "facings": 1
+            },
+            {
+              "product": "Rubicon Sparkling Mango 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Rio Tropical 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Vimto Fizzy 330ml",
+              "facings": 1
+            },
+            {
+              "product": "Barr American Cream Soda 330ml",
+              "facings": 1
+            },
+            {
+              "product": "Old Jamaica Ginger Beer 330ml",
+              "facings": 1
+            }
+          ],
+          [
+            {
+              "product": "Celsius Sparkling Kiwi Guava 355ml",
+              "facings": 1
+            },
+            {
+              "product": "Celsius Sparkling Mango Passionfruit 355ml",
+              "facings": 1
+            },
+            {
+              "product": "Celsius Sparkling Peach Mango 355ml",
+              "facings": 1
+            },
+            {
+              "product": "Red Bull Coconut Edition 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Tropical Edition 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Red Edition 250ml",
+              "facings": 1
+            },
+            {
+              "product": "Red Bull Blue Edition 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Winter Edition 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Pink Edition Sugarfree 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Lilac Edition 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Peach Edition 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Spring Edition 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Winter Edition Fuji Apple & Ginger 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Original Taste 500ml",
+              "facings": 4,
+              "also": [
+                "Coca-Cola Coke Cola 500ml"
+              ]
+            },
+            {
+              "product": "Coca-Cola Cherry Float 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Cherry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Zero Sugar 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Diet Coke 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Dr Pepper 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Dr Pepper Cream Swirl 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Dr Pepper Zero 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Dr Pepper Cherry Cream 500ml",
+              "facings": 2
+            },
+            {
+              "product": "KA Sparkling Black Grape 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Oasis Citrus Punch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Oasis Summer Fruits 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Ribena Blackcurrant 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Ribena Blackcurrant No Added Sugar 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Vimto Still 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lipton Peach Ice Tea 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lipton Lemon Ice Tea 500ml",
+              "facings": 2
+            }
+          ],
+          [
+            {
+              "product": "Monster Khaotic 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Monarch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Aussie Lemonade 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Mango Loco 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster The Doctor 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Full Throttle Zero Sugar 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Ultra White 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Nitro 500ml",
+              "facings": 1
+            },
+            {
+              "product": "Monster Energy Zero Sugar 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Energy Original 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Pepsi Regular 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Pepsi Max 500ml",
+              "facings": 4
+            },
+            {
+              "product": "Pepsi Max Cherry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Pepsi Max Mango 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Diet Pepsi 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Orange Zero 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Orange 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Fruit Twist 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Lemon 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Tango Zero'd 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Rubicon Still Mango 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Robinsons Real Fruit Rasberry And Apple 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Mogu Mogu Lychee Flavored Drink 320ml",
+              "facings": 2
+            },
+            {
+              "product": "Mogu Mogu Mango 320ml",
+              "facings": 1
+            },
+            {
+              "product": "Capri-Sun Cherry 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Capri-Sun Orange 330ml",
+              "facings": 2
+            }
+          ],
+          [
+            {
+              "product": "Monster Ultra Rosa 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Ultra Fiesta 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Pipeline Punch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Pacific Punch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Mixxd Punch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Rio Punch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Ultra Fantasy Ruby Red 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Bad Apple 500ml",
+              "facings": 1
+            },
+            {
+              "product": "Monster Flying Berry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Lando Norris Zero Sugar 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Energy Original 500ml",
+              "facings": 2,
+              "also": [
+                "Lucozade Energy Original 380ml"
+              ]
+            },
+            {
+              "product": "Lucozade Energy Orange 500ml",
+              "facings": 2,
+              "also": [
+                "Lucozade Energy Orange 380ml"
+              ]
+            },
+            {
+              "product": "Lucozade Energy Caribbean Crush 500ml",
+              "facings": 2,
+              "also": [
+                "Lucozade Energy Caribbean Crush 380ml"
+              ]
+            },
+            {
+              "product": "Lucozade Energy Cherry 500ml",
+              "facings": 2,
+              "also": [
+                "Lucozade Energy Wild Cherry 380ml"
+              ]
+            },
+            {
+              "product": "Lucozade Energy Grafruitti 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Irn-Bru 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Rubicon Passion 500ml",
+              "facings": 2
+            },
+            {
+              "product": "7 Up Zero Sugar 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Sprite 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Mountain Dew 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Levi Roots Caribbean Crush 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Volvic Touch of Summer Fruits 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Volvic Touch of Lemon & Lime 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Volvic Touch of Strawberry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Rubicon Spring Black Cherry & Raspberry 500ml",
+              "facings": 1
+            },
+            {
+              "product": "Fruit Shoot Apple & Blackcurrant 275ml",
+              "facings": 2
+            },
+            {
+              "product": "Fruit Shoot Orange 275ml",
+              "facings": 2
+            },
+            {
+              "product": "Ribena Blackcurrant 250ml",
+              "facings": 2
+            },
+            {
+              "product": "Ribena Strawberry 250ml",
+              "facings": 2
+            }
+          ],
+          [
+            {
+              "product": "C4 Performance Energy Pineapple Head 500ml",
+              "facings": 1
+            },
+            {
+              "product": "C4 Performance Energy Cosmic Rainbow 500ml",
+              "facings": 1
+            },
+            {
+              "product": "Lucozade Alert Cherry Blast 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Alert Blue Rush 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Rockstar TRNSMT 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Relentless Cherry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Relentless Original 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Emerge Energy Original 250ml",
+              "facings": 2
+            },
+            {
+              "product": "LSV Energy Sugar Free 250ml",
+              "facings": 2
+            },
+            {
+              "product": "LSV Energy Original 250ml",
+              "facings": 2
+            },
+            {
+              "product": "LSV Energy Original 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Sport Orange 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Sport Raspberry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Sport Jude Ice Kick 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Powerade Berry & Tropical 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Boost Sport Tropical Berry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Boost Sport Mixed Berry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Boost Sport Orange 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Emerge Sport Orange 500ml",
+              "facings": 1
+            },
+            {
+              "product": "LSV Sport Orange 500ml",
+              "facings": 1
+            },
+            {
+              "product": "LSV Sport Tropical 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Boost Water+ Strawberry & Peach 500ml",
+              "facings": 1
+            },
+            {
+              "product": "Boost Water+ Citrus 500ml",
+              "facings": 1
+            },
+            {
+              "product": "Volvic Natural Mineral Water 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Nestle Pure Life 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Smartwater Smart Water 600ml",
+              "facings": 2
+            },
+            {
+              "product": "Evian Natural Mineral Water 750ml",
+              "facings": 2
+            },
+            {
+              "product": "Highland Spring Still 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Highland Spring Spk500ml 500ml",
+              "facings": 2
+            },
+            {
+              "product": "San Pellegrino Carbonated Natural Mineral Water 500ml",
+              "facings": 2
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "chiller-planogram-2026-11",
+      "type": "image",
+      "tag": "Planogram",
+      "title": "Soft drinks chiller planogram",
+      "description": "5-shelf chiller: colas, energy, juice drinks and water. Use \"Check against a planogram\" on the home screen to compare a bay with it.",
+      "date": "2026-11-09",
+      "file": "chiller-planogram.jpg",
+      "thumb": "chiller-planogram-thumb.jpg",
+      "planogram": {
+        "shelves": [
+          [
+            {
+              "product": "Irn-Bru Xtra 500ml",
+              "facings": 2
+            },
+            {
+              "product": "A.G. Barr Irn-bru Sugar Free Bottle 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Irn-Bru 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Fanta Orange 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Energy Drink 250ml",
+              "facings": 3
+            },
+            {
+              "product": "Red Bull Energy Drink 355ml",
+              "facings": 2
+            },
+            {
+              "product": "Lipton Peach Ice Tea 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Volvic Touch of Fruit Strawberry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Capri-Sun Orange 330ml",
+              "facings": 2
+            }
+          ],
+          [
+            {
+              "product": "Coca-Cola Zero Sugar 500ml",
+              "facings": 4
+            },
+            {
+              "product": "Coca-Cola Zero Sugar Cherry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Dr Pepper 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Red Bull Energy Drink 250ml",
+              "facings": 4
+            },
+            {
+              "product": "Red Bull Sugarfree 250ml",
+              "facings": 3,
+              "also": [
+                "Red Bull Sugar Free 250ml"
+              ]
+            },
+            {
+              "product": "Oasis Summer Fruits 500ml",
+              "facings": 3
+            },
+            {
+              "product": "Oasis Citrus Punch 500ml",
+              "facings": 2
+            }
+          ],
+          [
+            {
+              "product": "Coca-Cola Original Taste 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Coca-Cola Original Taste 500ml",
+              "facings": 4,
+              "also": [
+                "Coca-Cola Coke Cola 500ml"
+              ]
+            },
+            {
+              "product": "Sprite 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Energy Original 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Mango Loco 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Pipeline Punch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Ribena Blackcurrant 500ml",
+              "facings": 3
+            },
+            {
+              "product": "Ribena Strawberry 500ml",
+              "facings": 2
+            }
+          ],
+          [
+            {
+              "product": "Diet Coke 330ml",
+              "facings": 2
+            },
+            {
+              "product": "Diet Coke 500ml",
+              "facings": 4
+            },
+            {
+              "product": "Coca-Cola Cherry 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Monarch 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Monster Ultra White 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Relentless Original 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Smartwater Smart Water 600ml",
+              "facings": 2
+            },
+            {
+              "product": "Evian 500ml",
+              "facings": 3
+            }
+          ],
+          [
+            {
+              "product": "Irn-Bru 750ml glass",
+              "facings": 3
+            },
+            {
+              "product": "Pepsi Max 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Pepsi Regular 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Energy Original 380ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Energy Orange 380ml",
+              "facings": 2
+            },
+            {
+              "product": "Lucozade Sport Orange 500ml",
+              "facings": 2
+            },
+            {
+              "product": "Volvic Natural Mineral Water 1.5L",
+              "facings": 2
+            },
+            {
+              "product": "Volvic 500ml",
+              "facings": 2
+            }
+          ]
+        ]
+      }
+    },
+    {
       "id": "youtube-Q1NywzDe0nM",
       "type": "youtube",
       "tag": "Advert",

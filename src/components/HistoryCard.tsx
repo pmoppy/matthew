@@ -1,5 +1,6 @@
 import { History, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { CardHead, useOpen } from './CardHead';
 import { clearScans, deleteScan, listScans, type HistoryMeta } from '../lib/history';
 
 function when(at: number): string {
@@ -22,6 +23,7 @@ function Thumb({ blob }: { blob: Blob }) {
 export function HistoryCard({ onOpen, refreshKey }: { onOpen: (id: string) => void; refreshKey: number }) {
   const [items, setItems] = useState<HistoryMeta[] | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [expanded, toggle] = useOpen('history');
 
   useEffect(() => {
     listScans()
@@ -34,62 +36,65 @@ export function HistoryCard({ onOpen, refreshKey }: { onOpen: (id: string) => vo
 
   return (
     <section className="card hist">
-      <div className="shop-head">
-        <span className="shop-icon">
-          <History size={20} />
-        </span>
-        <div>
-          <h3>Scan history</h3>
-          <p className="muted small">
-            {items.length} saved on this phone · tap to reopen
-          </p>
-        </div>
-      </div>
-      <ul className="hist-list">
-        {shown.map((m) => (
-          <li key={m.id}>
-            <button className="hist-open" onClick={() => onOpen(m.id)}>
-              <Thumb blob={m.thumb} />
-              <span className="hist-text">
-                <b>{m.store ? `${m.store} · ${m.bay}` : m.bay}</b>
-                <small>
-                  {when(m.at)} · {m.total ? `${m.present}/${m.total} top sellers` : `${m.facings} products`}
-                  {m.photos && m.photos > 1 ? ` · ${m.photos} photos` : ''}
-                </small>
-              </span>
-              {m.total > 0 && <span className={`pill ${m.missing ? 'bad' : 'good'}`}>{m.missing ? `${m.missing} missing` : 'All in'}</span>}
-            </button>
+      <CardHead
+        icon={<History size={20} />}
+        title="Scan history"
+        open={expanded}
+        onToggle={toggle}
+        sub={`${items.length} saved on this phone · last ${when(items[0].at)}`}
+      />
+      {expanded && (
+        <>
+          <ul className="hist-list">
+            {shown.map((m) => (
+              <li key={m.id}>
+                <button className="hist-open" onClick={() => onOpen(m.id)}>
+                  <Thumb blob={m.thumb} />
+                  <span className="hist-text">
+                    <b>{m.store ? `${m.store} · ${m.bay}` : m.bay}</b>
+                    <small>
+                      {when(m.at)} · {m.total ? `${m.present}/${m.total} top sellers` : `${m.facings} products`}
+                      {m.photos && m.photos > 1 ? ` · ${m.photos} photos` : ''}
+                      {m.planogramScore !== undefined ? ` · planogram ${Math.round(m.planogramScore * 100)}%` : ''}
+                    </small>
+                  </span>
+                  {m.total > 0 && (
+                    <span className={`pill ${m.missing ? 'bad' : 'good'}`}>{m.missing ? `${m.missing} missing` : 'All in'}</span>
+                  )}
+                </button>
+                <button
+                  className="shop-remove"
+                  aria-label="Delete scan"
+                  onClick={async () => {
+                    await deleteScan(m.id);
+                    setItems((xs) => (xs ?? []).filter((x) => x.id !== m.id));
+                  }}
+                >
+                  <Trash2 size={16} />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="row wrap">
+            {items.length > 4 && (
+              <button className="btn ghost" onClick={() => setShowAll((v) => !v)}>
+                {showAll ? 'Show fewer' : `Show all ${items.length}`}
+              </button>
+            )}
             <button
-              className="shop-remove"
-              aria-label="Delete scan"
+              className="btn ghost"
               onClick={async () => {
-                await deleteScan(m.id);
-                setItems((xs) => (xs ?? []).filter((x) => x.id !== m.id));
+                if (confirm('Delete all saved scans from this phone?')) {
+                  await clearScans();
+                  setItems([]);
+                }
               }}
             >
-              <Trash2 size={16} />
+              <Trash2 size={16} /> Clear history
             </button>
-          </li>
-        ))}
-      </ul>
-      <div className="row wrap">
-        {items.length > 4 && (
-          <button className="btn ghost" onClick={() => setShowAll((v) => !v)}>
-            {showAll ? 'Show fewer' : `Show all ${items.length}`}
-          </button>
-        )}
-        <button
-          className="btn ghost"
-          onClick={async () => {
-            if (confirm('Delete all saved scans from this phone?')) {
-              await clearScans();
-              setItems([]);
-            }
-          }}
-        >
-          <Trash2 size={16} /> Clear history
-        </button>
-      </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }

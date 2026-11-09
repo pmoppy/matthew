@@ -20,6 +20,8 @@ export interface MediaItem {
   thumb?: string;
   /** External link (YouTube or any web page). */
   url?: string;
+  /** Planogram contents, shelf by shelf (top first), so a bay photo can be checked against it. */
+  planogram?: { shelves: { product: string; facings: number; also?: string[] }[][] };
 }
 
 const fileStore = createStore('shelfscan-media', 'v1');

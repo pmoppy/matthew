@@ -2,6 +2,7 @@ import { ExternalLink, FileText, Image as ImageIcon, Loader2, Minus, Play, Plus,
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { cachedMedia, fetchMedia, markSeen, mediaBlob, seenIds, youtubeId, type MediaItem, type ResolvedMedia } from '../lib/media';
 import { shareBlob } from '../lib/report';
+import { CardHead, useOpen } from './CardHead';
 
 interface Props {
   libraryBase: string;
@@ -12,7 +13,13 @@ interface Props {
 function niceDate(d?: string) {
   if (!d) return '';
   const t = new Date(`${d}T12:00:00`);
-  return isNaN(t.getTime()) ? d : t.toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' });
+  return isNaN(t.getTime())
+    ? d
+    : t.toLocaleDateString([], {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      });
 }
 
 function TypeIcon({ type }: { type: MediaItem['type'] }) {
@@ -119,7 +126,7 @@ function ZoomImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function Viewer({ item, onClose }: { item: ResolvedMedia; onClose: () => void }) {
+export function Viewer({ item, onClose }: { item: ResolvedMedia; onClose: () => void }) {
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [blob, setBlob] = useState<Blob | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -182,6 +189,7 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
   const [seen, setSeen] = useState(() => seenIds());
   const [open, setOpen] = useState<ResolvedMedia | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [expanded, toggle] = useOpen('media');
   const [filter, setFilter] = useState<string | null>(null);
 
   useEffect(() => {
@@ -231,70 +239,77 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
 
   return (
     <section className="card media">
-      <div className="shop-head">
-        <span className="shop-icon">
-          <Video size={20} />
-        </span>
-        <div>
-          <h3>Media hub</h3>
-          <p className="muted small">
-            Planograms, adverts & videos{unseen ? ` · ` : ''}
+      <CardHead
+        icon={<Video size={20} />}
+        title="Media hub"
+        open={expanded}
+        onToggle={toggle}
+        sub={
+          <>
+            {items.length} item{items.length === 1 ? '' : 's'}: planograms, adverts & videos{unseen ? ' · ' : ''}
             {unseen ? <b className="media-new-count">{unseen} new</b> : null}
-          </p>
-        </div>
-      </div>
-
-      {tags.length > 1 && (
-        <div className="media-chips">
-          <button className={`chip ${!filter ? 'on' : ''}`} onClick={() => setFilter(null)}>
-            All
-          </button>
-          {tags.map((t) => (
-            <button key={t} className={`chip ${filter === t ? 'on' : ''}`} onClick={() => setFilter(filter === t ? null : t)}>
-              {t}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <ul className="media-list">
-        {shown.map((item) => {
-          const body = (
-            <>
-              <Thumb item={item} />
-              <span className="hist-text">
-                <b>{item.title}</b>
-                <small>
-                  {[item.tag, niceDate(item.date)].filter(Boolean).join(' · ')}
-                  {item.type === 'youtube' ? ' · YouTube' : ''}
-                </small>
-                {item.description && <small className="media-desc">{item.description}</small>}
-              </span>
-              {!seen.has(item.id) ? <span className="pill good">New</span> : (item.type === 'youtube' || item.type === 'link') && <ExternalLink size={16} className="muted" />}
-            </>
-          );
-          return (
-            <li key={item.id}>
-              {(item.type === 'youtube' || item.type === 'link') && item.url ? (
-                // Opens the YouTube app / browser (Capacitor hands external links to Android).
-                <a className="hist-open" href={item.url} target="_blank" rel="noopener noreferrer" onClick={() => visit(item)}>
-                  {body}
-                </a>
-              ) : (
-                <button className="hist-open" onClick={() => onTap(item)}>
-                  {body}
+          </>
+        }
+      />
+      {expanded && (
+        <>
+          {tags.length > 1 && (
+            <div className="media-chips">
+              <button className={`chip ${!filter ? 'on' : ''}`} onClick={() => setFilter(null)}>
+                All
+              </button>
+              {tags.map((t) => (
+                <button key={t} className={`chip ${filter === t ? 'on' : ''}`} onClick={() => setFilter(filter === t ? null : t)}>
+                  {t}
                 </button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-      {filtered.length > 4 && (
-        <div className="row wrap">
-          <button className="btn ghost" onClick={() => setShowAll((v) => !v)}>
-            {showAll ? 'Show fewer' : `Show all ${filtered.length}`}
-          </button>
-        </div>
+              ))}
+            </div>
+          )}
+
+          <ul className="media-list">
+            {shown.map((item) => {
+              const body = (
+                <>
+                  <Thumb item={item} />
+                  <span className="hist-text">
+                    <b>{item.title}</b>
+                    <small>
+                      {[item.tag, niceDate(item.date)].filter(Boolean).join(' · ')}
+                      {item.type === 'youtube' ? ' · YouTube' : ''}
+                    </small>
+                    {item.description && <small className="media-desc">{item.description}</small>}
+                  </span>
+                  {!seen.has(item.id) ? (
+                    <span className="pill good">New</span>
+                  ) : (
+                    (item.type === 'youtube' || item.type === 'link') && <ExternalLink size={16} className="muted" />
+                  )}
+                </>
+              );
+              return (
+                <li key={item.id}>
+                  {(item.type === 'youtube' || item.type === 'link') && item.url ? (
+                    // Opens the YouTube app / browser (Capacitor hands external links to Android).
+                    <a className="hist-open" href={item.url} target="_blank" rel="noopener noreferrer" onClick={() => visit(item)}>
+                      {body}
+                    </a>
+                  ) : (
+                    <button className="hist-open" onClick={() => onTap(item)}>
+                      {body}
+                    </button>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          {filtered.length > 4 && (
+            <div className="row wrap">
+              <button className="btn ghost" onClick={() => setShowAll((v) => !v)}>
+                {showAll ? 'Show fewer' : `Show all ${filtered.length}`}
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {open && <Viewer item={open} onClose={() => setOpen(null)} />}
