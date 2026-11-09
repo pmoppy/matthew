@@ -1,6 +1,6 @@
 import { ExternalLink, FileText, Image as ImageIcon, Loader2, Minus, Play, Plus, Share2, Video, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { cachedMedia, fetchMedia, markSeen, mediaBlob, mediaUrl, seenIds, youtubeId, type MediaItem } from '../lib/media';
+import { cachedMedia, fetchMedia, markSeen, mediaBlob, seenIds, youtubeId, type MediaItem, type ResolvedMedia } from '../lib/media';
 import { shareBlob } from '../lib/report';
 
 interface Props {
@@ -22,18 +22,18 @@ function TypeIcon({ type }: { type: MediaItem['type'] }) {
   return <ImageIcon size={18} />;
 }
 
-function thumbFor(item: MediaItem, base: string): string | null {
-  if (item.thumb) return mediaUrl(base, item.thumb);
+function thumbFor(item: ResolvedMedia): string | null {
+  if (item.thumbUrl) return item.thumbUrl;
   if (item.type === 'youtube' && item.url) {
     const id = youtubeId(item.url);
     if (id) return `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
   }
-  if (item.type === 'image' && item.file) return mediaUrl(base, item.file);
+  if (item.type === 'image' && item.fileUrl) return item.fileUrl;
   return null;
 }
 
-function Thumb({ item, base }: { item: MediaItem; base: string }) {
-  const src = thumbFor(item, base);
+function Thumb({ item }: { item: ResolvedMedia }) {
+  const src = thumbFor(item);
   const [failed, setFailed] = useState(false);
   const video = item.type === 'youtube' || item.type === 'video';
   return (
@@ -119,16 +119,16 @@ function ZoomImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function Viewer({ item, base, onClose }: { item: MediaItem; base: string; onClose: () => void }) {
+function Viewer({ item, onClose }: { item: ResolvedMedia; onClose: () => void }) {
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [blob, setBlob] = useState<Blob | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!item.file) return;
+    if (!item.fileUrl) return;
     let url: string | null = null;
     let live = true;
-    mediaBlob(mediaUrl(base, item.file))
+    mediaBlob(item.fileUrl)
       .then((b) => {
         if (!live) return;
         url = URL.createObjectURL(b);
@@ -140,7 +140,7 @@ function Viewer({ item, base, onClose }: { item: MediaItem; base: string; onClos
       live = false;
       if (url) URL.revokeObjectURL(url);
     };
-  }, [item, base]);
+  }, [item]);
 
   const share = () => blob && item.file && shareBlob(item.file.split('/').pop() ?? 'file', blob);
 
@@ -178,9 +178,9 @@ function Viewer({ item, base, onClose }: { item: MediaItem; base: string; onClos
 
 /** Home-screen hub of planograms, adverts and videos, managed from the library's media/media.json. */
 export function MediaHub({ libraryBase, closeRef }: Props) {
-  const [items, setItems] = useState<MediaItem[]>(() => cachedMedia());
+  const [items, setItems] = useState<ResolvedMedia[]>(() => cachedMedia());
   const [seen, setSeen] = useState(() => seenIds());
-  const [open, setOpen] = useState<MediaItem | null>(null);
+  const [open, setOpen] = useState<ResolvedMedia | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [filter, setFilter] = useState<string | null>(null);
 
@@ -209,17 +209,17 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
   const filtered = filter ? items.filter((i) => i.tag === filter) : items;
   const shown = showAll ? filtered : filtered.slice(0, 4);
 
-  const visit = (item: MediaItem) => {
+  const visit = (item: ResolvedMedia) => {
     markSeen(item.id);
     setSeen(seenIds());
   };
 
-  const onTap = async (item: MediaItem) => {
+  const onTap = async (item: ResolvedMedia) => {
     visit(item);
-    if (item.type === 'pdf' && item.file) {
+    if (item.type === 'pdf' && item.file && item.fileUrl) {
       // Phones open PDFs best in their own viewer: hand it over via the share sheet.
       try {
-        const b = await mediaBlob(mediaUrl(libraryBase, item.file));
+        const b = await mediaBlob(item.fileUrl);
         await shareBlob(item.file.split('/').pop() ?? 'planogram.pdf', b);
       } catch (e) {
         alert(`Couldn't open the PDF: ${(e as Error).message}`);
@@ -261,7 +261,7 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
         {shown.map((item) => {
           const body = (
             <>
-              <Thumb item={item} base={libraryBase} />
+              <Thumb item={item} />
               <span className="hist-text">
                 <b>{item.title}</b>
                 <small>
@@ -297,7 +297,7 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
         </div>
       )}
 
-      {open && <Viewer item={open} base={libraryBase} onClose={() => setOpen(null)} />}
+      {open && <Viewer item={open} onClose={() => setOpen(null)} />}
     </section>
   );
 }

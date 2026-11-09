@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "id": "youtube-qlNIEwtWn6s",
+      "type": "youtube",
+      "tag": "Advert",
+      "title": "Christmas ducks",
+      "description": "Tap to watch on YouTube.",
+      "date": "2026-11-09",
+      "url": "https://youtu.be/qlNIEwtWn6s"
+    },
+    {
       "id": "soft-drinks-planogram-2026-11",
       "type": "image",
       "tag": "Planogram",

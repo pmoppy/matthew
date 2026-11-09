@@ -266,7 +266,9 @@ training/                   detector training + ONNX export
 ## Media hub
 
 The home screen shows planograms, adverts and videos listed in `media/media.json` next to the product library
-(`public/starter/media/` today, `<bucket>/media/` once the library is on R2). Phones pick up changes on next launch; no new APK.
+(`public/starter/media/` today, `<bucket>/media/` once the library is on R2). The app reads the list live from GitHub (`raw.githubusercontent.com`, this branch) each time it opens, so a commit that only
+changes `public/starter/media/` reaches every phone within ~5 minutes with no new APK (APK builds skip that folder).
+The copy built into the app is only an offline fallback.
 
 ```json
 { "items": [
