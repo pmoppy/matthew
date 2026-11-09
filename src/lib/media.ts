@@ -86,7 +86,16 @@ export function youtubeId(url: string): string | null {
   return m ? m[1] : null;
 }
 
+/**
+ * DEMO: "New" badges only last until the app is closed, so they are back every
+ * time it is reopened and the hub can be shown off. Set to false to remember what each
+ * phone has opened (later: per rep, once there are logins).
+ */
+export const DEMO_ALWAYS_NEW = true;
+let sessionSeen = new Set<string>();
+
 export function seenIds(): Set<string> {
+  if (DEMO_ALWAYS_NEW) return new Set(sessionSeen);
   try {
     return new Set(JSON.parse(localStorage.getItem(SEEN_KEY) ?? '[]') as string[]);
   } catch {
@@ -95,6 +104,10 @@ export function seenIds(): Set<string> {
 }
 
 export function markSeen(id: string) {
+  if (DEMO_ALWAYS_NEW) {
+    sessionSeen.add(id);
+    return;
+  }
   const s = seenIds();
   s.add(id);
   try {
@@ -103,3 +116,4 @@ export function markSeen(id: string) {
     /* ignore */
   }
 }
+
