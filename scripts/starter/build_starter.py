@@ -342,7 +342,17 @@ def load_sweep(existing_names, existing_codes):
 def main(detector):
     names = {}  # folder -> display name
     sess = ort.InferenceSession(detector)
-    shutil.rmtree(os.path.join(LIB, 'file'), ignore_errors=True)
+    # Start clean, but keep photos imported from the R2 bucket (scripts/starter/import_r2.py).
+    lib_files = os.path.join(LIB, 'file')
+    for root, _dirs, files in os.walk(lib_files, topdown=False):
+        for f in files:
+            if not f.startswith('r2-'):
+                os.remove(os.path.join(root, f))
+        if root != lib_files and not os.listdir(root):
+            os.rmdir(root)
+    r2_names = os.path.join(HERE, 'r2_names.json')
+    if os.path.exists(r2_names):
+        names.update(json.load(open(r2_names)))
     attribution = []
     for product, codes in OFF.items():
         for code in codes:
@@ -401,9 +411,10 @@ def add_categories():
     """Give every product a category (sales.csv first, then the sweep) so the app can tell what bay it is looking at."""
     import csv
     cats = {}
-    sweep = os.path.join(HERE, 'sweep_categories.json')
-    if os.path.exists(sweep):
-        cats.update(json.load(open(sweep)))
+    for extra in ('sweep_categories.json', 'r2_categories.json'):
+        path = os.path.join(HERE, extra)
+        if os.path.exists(path):
+            cats.update(json.load(open(path)))
     for r in csv.DictReader(open(os.path.join(HERE, 'sales.csv'))):
         if r.get('category'):
             cats[r['product']] = r['category']
@@ -419,8 +430,9 @@ def add_categories():
 
 
 def publish():
-    """Copy what the app needs (manifest, fingerprints, sales, credits) into public/starter. Photos stay in library/."""
-    shutil.rmtree(PUBLIC, ignore_errors=True)
+    """Copy what the app needs (manifest, fingerprints, sales, credits) into public/starter. Photos stay in library/.
+    public/starter/media (the media hub) is left alone."""
+    shutil.rmtree(os.path.join(PUBLIC, 'file'), ignore_errors=True)
     os.makedirs(os.path.join(PUBLIC, 'file'))
     for f in ('manifest.json', 'ATTRIBUTION.md'):
         shutil.copy(os.path.join(LIB, f), os.path.join(PUBLIC, f))
