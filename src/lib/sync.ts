@@ -8,7 +8,7 @@ import { getEmbedder, type Settings } from './types';
  * (e.g. your R2 catalogue Worker) so field users never see any set-up. The
  * built-in starter library in public/starter is used otherwise.
  */
-export const DEFAULT_CATALOG_URL: string = (import.meta.env.VITE_CATALOG_URL as string | undefined)?.trim() || '/starter';
+export const DEFAULT_CATALOG_URL: string = (import.meta.env.VITE_CATALOG_URL as string | undefined)?.trim() || `${import.meta.env.BASE_URL}starter`;
 
 export function catalogSource(s: Settings): string {
   return s.catalogUrl.trim() || DEFAULT_CATALOG_URL;

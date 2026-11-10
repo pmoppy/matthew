@@ -17,7 +17,10 @@ export default defineConfig(({ mode }) => {
   // "capacitor" = the Android APK build: everything is bundled inside the app,
   // so the ONNX Runtime WASM ships locally and no service worker is needed.
   const native = mode === 'capacitor';
+  // Web version on GitHub Pages lives under /<repo>/ (set by the Pages workflow).
+  const base = native ? '/' : process.env.VITE_BASE || '/';
   return {
+  base,
   plugins: [
     react(),
     VitePWA({
@@ -32,7 +35,8 @@ export default defineConfig(({ mode }) => {
         background_color: '#f3efe7',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
+        start_url: base,
+        scope: base,
         icons: [
           { src: 'pwa-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'pwa-512.png', sizes: '512x512', type: 'image/png' },

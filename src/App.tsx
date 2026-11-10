@@ -159,7 +159,7 @@ export default function App() {
     <div className={`app ${admin ? 'is-admin' : ''}`}>
       <header className="topbar">
         <div className="brand" onClick={onLogoTap}>
-          <img src="/icon.svg" alt="" width={32} height={32} />
+          <img src={`${import.meta.env.BASE_URL}icon.svg`} alt="" width={32} height={32} />
           <span>ShelfScan</span>
         </div>
         <div className="topbar-actions">
