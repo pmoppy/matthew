@@ -71,7 +71,7 @@ export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onM
           <>
             <h4>Other likely matches</h4>
             <div className="cand-list">
-              {facing.candidates.slice(1).map((c) => (
+              {facing.candidates.slice(1, 5).map((c) => (
                 <button key={c.product} className="btn" onClick={() => onPick(c.product)}>
                   {c.product} <span className="muted">{(c.score * 100).toFixed(0)}%</span>
                 </button>

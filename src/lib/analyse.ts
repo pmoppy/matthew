@@ -1,4 +1,5 @@
 import { matchCrop, type CatalogState } from './catalog';
+import { familyOrder } from './family';
 import { detectShelfGrid } from './detect/heuristic';
 import { detectYolo } from './detect/yolo';
 import { colorHist, cosine, embedCrops, histSimilarity } from './embed';
@@ -76,7 +77,7 @@ export async function analyseShelf(
       products.forEach((f, i) => {
         const feat = features.get(f.id)!;
         feat.emb = embs[i];
-        const m = matchCrop(embs[i], feat.hist, catalog.entries);
+        const m = familyOrder(matchCrop(embs[i], feat.hist, catalog.entries, 8), sales);
         f.candidates = m;
         f.product = m[0]?.product ?? null;
         f.confidence = m[0]?.score ?? 0;

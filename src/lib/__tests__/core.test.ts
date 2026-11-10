@@ -252,3 +252,32 @@ describe('bay detection on hard photos', () => {
     expect(check.missing).toEqual([]);
   });
 });
+
+import { familyOrder, sameFamily } from '../family';
+
+describe('product families', () => {
+  it('treats sizes and pack formats of one product as one family', () => {
+    expect(sameFamily('Coca-Cola Original Taste 330ml', 'Coca-Cola Original Taste 150ml')).toBe(true);
+    expect(sameFamily('Coca Cola 330ml x 24pk', 'Coca-Cola Original Taste 330ml')).toBe(true);
+    expect(sameFamily('Monster Energy Mega 558ml Can', 'Monster Energy Original 500ml')).toBe(true);
+    expect(sameFamily('Monster Pipeline Punch 500ml', 'Monster Energy Original 500ml')).toBe(false);
+    expect(sameFamily('Doritos 3D Nacho Cheese 70g PM', 'Doritos 3D Nacho Cheese 70g')).toBe(true);
+    expect(sameFamily('Rubicon Raw Energy Zero Cherry 500ml Can Pm1.00', 'Rubicon Raw Energy Zero Cherry 500ml Can')).toBe(true);
+    expect(sameFamily('Diet Coke 330ml', 'Coca-Cola Original Taste 330ml')).toBe(false);
+    expect(sameFamily('Monster Pipeline Punch 500ml', 'Monster Pacific Punch 500ml')).toBe(false);
+    expect(sameFamily('Diet Coke 500ml', 'Coca-Cola Zero Sugar 500ml')).toBe(false);
+  });
+  it('measures the margin against a different product and prefers a ranked size', () => {
+    const sales = new Map([['cocacolaoriginaltaste330ml', { rank: 3 } as never]]);
+    const m = familyOrder(
+      [
+        { product: 'Coca-Cola Original Taste 150ml', score: 0.81 },
+        { product: 'Coca-Cola Original Taste 330ml', score: 0.8 },
+        { product: 'Diet Coke 330ml', score: 0.7 },
+      ],
+      sales,
+    );
+    expect(m[0]).toEqual({ product: 'Coca-Cola Original Taste 330ml', score: 0.81 });
+    expect(m[1].product).toBe('Diet Coke 330ml');
+  });
+});
