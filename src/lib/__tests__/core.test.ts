@@ -291,3 +291,35 @@ describe('product families', () => {
     expect(statusFor(f, null, { matchThreshold: 0.68, marginThreshold: 0.03 })).toBe('unsure');
   });
 });
+
+import { compact, expand, type CatalogState } from '../catalog';
+
+describe('compact library storage', () => {
+  it('round-trips products and fingerprints', () => {
+    const unit = (v: number[]) => {
+      const n = Math.hypot(...v);
+      return new Float32Array(v.map((x) => x / n));
+    };
+    const c: CatalogState = {
+      products: ['A', 'B'],
+      embedderId: 'dinov3-s',
+      source: '/starter',
+      updatedAt: 1,
+      aspects: { A: 2 },
+      entries: [
+        { product: 'A', key: 'a#0', emb: unit([1, 2, 3]), hist: new Float32Array([0.1, 0.9]), source: 'catalog' },
+        { product: 'B', key: 'b#0', emb: unit([3, -1, 0.5]), hist: new Float32Array([0.5, 0.5]), source: 'correction' },
+      ],
+    };
+    const back = expand(compact(c));
+    expect(back.aspects).toEqual({ A: 2 });
+    expect(back.entries.map((e) => [e.product, e.key, e.source])).toEqual([
+      ['A', 'a#0', 'catalog'],
+      ['B', 'b#0', 'correction'],
+    ]);
+    for (let i = 0; i < 2; i++) {
+      for (let d = 0; d < 3; d++) expect(Math.abs(back.entries[i].emb[d] - c.entries[i].emb[d])).toBeLessThan(0.01);
+      expect(Math.abs(back.entries[i].hist[0] - c.entries[i].hist[0])).toBeLessThan(0.005);
+    }
+  });
+});

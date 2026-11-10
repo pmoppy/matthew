@@ -13,6 +13,12 @@ export function loadSettings(): Settings {
         saved.matchThreshold = DEFAULT_SETTINGS.matchThreshold;
         saved.marginThreshold = DEFAULT_SETTINGS.marginThreshold;
       }
+      // SigLIP2 / CLIP were removed (build 37): move anyone still on them to DINOv3.
+      if (saved.embedderId && saved.embedderId !== DEFAULT_SETTINGS.embedderId) {
+        saved.embedderId = DEFAULT_SETTINGS.embedderId;
+        saved.matchThreshold = DEFAULT_SETTINGS.matchThreshold;
+        saved.marginThreshold = DEFAULT_SETTINGS.marginThreshold;
+      }
       return { ...DEFAULT_SETTINGS, ...saved };
     }
   } catch {

@@ -116,6 +116,8 @@ const IMAGENET = { mean: [0.485, 0.456, 0.406] as [number, number, number], std:
  * editions, Monster/Boost/Lucozade flavours), matching against references that
  * were degraded to look like photos from a different store:
  *   DINOv3-S + colour 94.4% · CLIP B/32 + colour 83.3% · SigLIP2 + colour 88.9%
+ * Only DINOv3 is shipped: the others were never better, and each extra model
+ * meant another set of fingerprints in every download.
  */
 export const EMBEDDERS: EmbedderSpec[] = [
   {
@@ -128,28 +130,6 @@ export const EMBEDDERS: EmbedderSpec[] = [
     licence: 'DINOv3 License (Meta)',
     matchThreshold: 0.68,
     marginThreshold: 0.03,
-  },
-  {
-    id: 'siglip2-b',
-    label: 'SigLIP2 base (Apache-2.0)',
-    url: `${HF}/onnx-community/siglip2-base-patch16-224-ONNX/resolve/main/onnx/vision_model_quantized.onnx`,
-    mean: [0.5, 0.5, 0.5],
-    std: [0.5, 0.5, 0.5],
-    sizeMb: 95,
-    licence: 'Apache-2.0',
-    matchThreshold: 0.8,
-    marginThreshold: 0.02,
-  },
-  {
-    id: 'clip-b32',
-    label: 'CLIP ViT-B/32 (previous default)',
-    url: `${HF}/Xenova/clip-vit-base-patch32/resolve/main/onnx/vision_model_quantized.onnx`,
-    mean: [0.48145466, 0.4578275, 0.40821073],
-    std: [0.26862954, 0.26130258, 0.27577711],
-    sizeMb: 89,
-    licence: 'MIT',
-    matchThreshold: 0.8,
-    marginThreshold: 0.015,
   },
 ];
 

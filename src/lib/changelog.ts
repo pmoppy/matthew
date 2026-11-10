@@ -1,4 +1,4 @@
-import { createStore, del, get, getMany, keys, set } from 'idb-keyval';
+import { createStore, del, getMany, keys, set } from 'idb-keyval';
 import { canvasToBlob } from './image';
 
 /**
@@ -64,9 +64,6 @@ export async function clearChanges() {
   for (const k of await keys(store)) await del(k, store);
 }
 
-export async function getChange(id: string) {
-  return (await get(id, store)) as ChangeEntry | undefined;
-}
 
 function cell(v: unknown): string {
   const s = v === undefined || v === null ? '' : String(v);

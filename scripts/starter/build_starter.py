@@ -401,7 +401,7 @@ def main(detector):
     print(len(products), 'products,', sum(len(p['images']) for p in products), 'images')
     # Pre-compute recognition fingerprints for every selectable model, so phones never need the photos.
     import subprocess
-    for emb in ('dinov3-s', 'siglip2-b', 'clip-b32'):
+    for emb in ('dinov3-s',):  # the app ships DINOv3 only
         subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'build_index.py'), LIB, '--embedder', emb], check=True)
     add_categories()
     publish()
@@ -449,7 +449,7 @@ def publish():
     for f in ('manifest.json', 'ATTRIBUTION.md'):
         shutil.copy(os.path.join(LIB, f), os.path.join(PUBLIC, f))
     for f in os.listdir(os.path.join(LIB, 'file')):
-        if f == 'sales.csv' or f.startswith('index-'):
+        if f == 'sales.csv' or f.startswith('index-dinov3-s.'):
             shutil.copy(os.path.join(LIB, 'file', f), os.path.join(PUBLIC, 'file', f))
 
 

@@ -256,11 +256,85 @@ export async function catalogFromIndex(
   return finishCatalog(refs, entries, embedderId, source);
 }
 
+/**
+ * The library is stored on the phone compactly: one int8 block of fingerprints
+ * and one uint8 block of colour histograms (~9 MB for 20,000 fingerprints)
+ * instead of 20,000 separate full-precision records (~35 MB). Fingerprints are
+ * unit vectors, so int8 (x/127) keeps them to within about 0.4%; the published
+ * index is int8 anyway.
+ */
+interface StoredCatalog extends Omit<CatalogState, 'entries'> {
+  format: 2;
+  dim: number;
+  bins: number;
+  emb: Int8Array;
+  hist: Uint8Array;
+  product: Int32Array;
+  names: string[];
+  keys: string[];
+  fromCorrection: Uint8Array;
+}
+
+export function compact(c: CatalogState): StoredCatalog {
+  const { entries, ...rest } = c;
+  const dim = entries[0]?.emb.length ?? 0;
+  const bins = entries[0]?.hist.length ?? 0;
+  const usable = entries.filter((e) => e.emb.length === dim && e.hist.length === bins);
+  const emb = new Int8Array(usable.length * dim);
+  const hist = new Uint8Array(usable.length * bins);
+  const product = new Int32Array(usable.length);
+  const fromCorrection = new Uint8Array(usable.length);
+  const names: string[] = [];
+  const nameIdx = new Map<string, number>();
+  usable.forEach((e, i) => {
+    for (let d = 0; d < dim; d++) emb[i * dim + d] = Math.max(-127, Math.min(127, Math.round(e.emb[d] * 127)));
+    for (let b = 0; b < bins; b++) hist[i * bins + b] = Math.max(0, Math.min(255, Math.round(e.hist[b] * 255)));
+    let k = nameIdx.get(e.product);
+    if (k === undefined) {
+      k = names.push(e.product) - 1;
+      nameIdx.set(e.product, k);
+    }
+    product[i] = k;
+    fromCorrection[i] = e.source === 'correction' ? 1 : 0;
+  });
+  return { ...rest, format: 2, dim, bins, emb, hist, product, names, keys: usable.map((e) => e.key), fromCorrection };
+}
+
+export function expand(s: StoredCatalog): CatalogState {
+  const { format: _f, dim, bins, emb, hist, product, names, keys, fromCorrection, ...rest } = s;
+  const n = product.length;
+  // One block each; entries are views into it (no per-entry copies).
+  const E = new Float32Array(n * dim);
+  const H = new Float32Array(n * bins);
+  const entries: CatalogEntry[] = new Array(n);
+  for (let i = 0; i < n; i++) {
+    let norm = 0;
+    for (let d = 0; d < dim; d++) {
+      const v = emb[i * dim + d] / 127;
+      E[i * dim + d] = v;
+      norm += v * v;
+    }
+    norm = Math.sqrt(norm) || 1;
+    for (let d = 0; d < dim; d++) E[i * dim + d] /= norm;
+    for (let b = 0; b < bins; b++) H[i * bins + b] = hist[i * bins + b] / 255;
+    entries[i] = {
+      product: names[product[i]],
+      key: keys[i],
+      emb: E.subarray(i * dim, (i + 1) * dim),
+      hist: H.subarray(i * bins, (i + 1) * bins),
+      source: fromCorrection[i] ? 'correction' : 'catalog',
+    };
+  }
+  return { ...rest, entries };
+}
+
 export async function saveCatalog(c: CatalogState) {
-  await set('catalog', c, appStore);
+  await set('catalog', compact(c), appStore);
 }
 export async function loadCatalog(): Promise<CatalogState | null> {
-  return ((await get('catalog', appStore)) as CatalogState | undefined) ?? null;
+  const v = (await get('catalog', appStore)) as StoredCatalog | CatalogState | undefined;
+  if (!v) return null;
+  return 'format' in v && v.format === 2 ? expand(v) : (v as CatalogState); // older builds stored full records
 }
 export async function clearCatalog() {
   await del('catalog', appStore);

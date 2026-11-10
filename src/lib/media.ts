@@ -92,8 +92,20 @@ async function load(base: string): Promise<ResolvedMedia[] | null> {
   }
 }
 
+/** One download per app start, shared by the media hub and the planogram picker. */
+const loaded = new Map<string, Promise<ResolvedMedia[]>>();
+
 /** Latest list (live first); falls back to the last list seen, then the built-in one, when offline. */
-export async function fetchMedia(libraryBase: string): Promise<ResolvedMedia[]> {
+export function fetchMedia(libraryBase: string): Promise<ResolvedMedia[]> {
+  let p = loaded.get(libraryBase);
+  if (!p) {
+    p = fetchMediaNow(libraryBase);
+    loaded.set(libraryBase, p);
+  }
+  return p;
+}
+
+async function fetchMediaNow(libraryBase: string): Promise<ResolvedMedia[]> {
   const [live, ...rest] = sources(libraryBase);
   let items = await load(live);
   if (!items) {
