@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
 import App from './App';
+import { SignInGate } from './components/SignIn';
 import '@fontsource-variable/source-sans-3';
 import '@fontsource-variable/fraunces';
 import './styles.css';
@@ -11,6 +12,8 @@ if (!__NATIVE__) registerSW({ immediate: true });
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <SignInGate>
+      <App />
+    </SignInGate>
   </StrictMode>,
 );

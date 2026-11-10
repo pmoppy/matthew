@@ -1,3 +1,4 @@
+import { signedInAs, signOut } from './lib/auth';
 import { Download, FolderOpen, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CatalogView } from './components/CatalogView';
@@ -232,6 +233,19 @@ export default function App() {
           </div>
         )}
       </main>
+      {tab === 'scan' && (
+        <button
+          className="btn ghost signout"
+          onClick={() => {
+            if (confirm('Sign out of ShelfScan on this device?')) {
+              signOut();
+              location.reload();
+            }
+          }}
+        >
+          Signed in as {signedInAs() ?? 'tester'} · Sign out
+        </button>
+      )}
       {admin && (
         <nav className="tabbar" aria-label="Main">
           {TABS.map(({ id, label, Icon }) => (
