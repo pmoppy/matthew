@@ -99,7 +99,9 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   };
   historyIdRef.current = historyId;
 
-  const libraryReady = library.state !== 'loading' || !!catalog?.entries.length;
+  // Never analyse without the product library: every box would come back unidentified.
+  const libraryReady = !!catalog?.entries.length;
+  const libraryFailed = library.state === 'error' && !libraryReady;
 
   const goHome = () => {
     setPog(null);
@@ -640,7 +642,18 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
         </div>
       )}
 
-      {(progress || waiting) && (
+      {waiting && libraryFailed && (
+        <div className="notice error">
+          The product library couldn't be loaded ({library.msg ?? 'no connection'}), so products can't be identified yet. Check your
+          connection and try again.
+          <div className="row">
+            <button className="btn primary" onClick={() => location.reload()}>
+              Try again
+            </button>
+          </div>
+        </div>
+      )}
+      {(progress || (waiting && !libraryFailed)) && (
         <div className="card progress">
           <div className="progress-head">
             <Loader2 size={18} className="spin" />

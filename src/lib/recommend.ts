@@ -38,12 +38,13 @@ export interface TopSellerCheck {
 
 /** Assign the box colour category from the match + sales data. */
 export function statusFor(
-  f: Pick<Facing, 'kind' | 'product' | 'confidence' | 'corrected' | 'candidates' | 'viaNeighbour'>,
+  f: Pick<Facing, 'kind' | 'product' | 'confidence' | 'corrected' | 'candidates' | 'viaNeighbour' | 'sizeCheck'>,
   sales: Map<string, SalesInfo> | null,
   s: Pick<Settings, 'matchThreshold' | 'marginThreshold'>,
 ): Status {
   if (f.kind === 'gap') return 'gap';
   if (!f.product) return 'unknown';
+  if (f.sizeCheck && !f.corrected) return 'unsure';
   if (!f.corrected && !f.viaNeighbour) {
     const second = f.candidates[1]?.score ?? 0;
     if (f.confidence < s.matchThreshold || f.confidence - second < s.marginThreshold) return 'unsure';

@@ -1,5 +1,5 @@
 import { matchCrop, type CatalogState } from './catalog';
-import { familyOrder } from './family';
+import { resolveSizes } from './family';
 import { detectShelfGrid } from './detect/heuristic';
 import { detectYolo } from './detect/yolo';
 import { colorHist, cosine, embedCrops, histSimilarity } from './embed';
@@ -65,6 +65,7 @@ export async function analyseShelf(
   const crops = products.map((f) => cropCanvas(img, f));
   products.forEach((f, i) => features.set(f.id, { hist: colorHist(crops[i]) }));
 
+  if (!catalog?.entries.length && crops.length) warnings.push("The product library isn't loaded, so products can't be named.");
   if (catalog && catalog.entries.length && crops.length) {
     try {
       // Trim the crop edges slightly: detector boxes often include a sliver of the
@@ -77,11 +78,12 @@ export async function analyseShelf(
       products.forEach((f, i) => {
         const feat = features.get(f.id)!;
         feat.emb = embs[i];
-        const m = familyOrder(matchCrop(embs[i], feat.hist, catalog.entries, 8), sales);
+        const m = matchCrop(embs[i], feat.hist, catalog.entries, 8);
         f.candidates = m;
         f.product = m[0]?.product ?? null;
         f.confidence = m[0]?.score ?? 0;
       });
+      resolveSizes(products, catalog.aspects ?? {});
     } catch (e) {
       console.error(e);
       warnings.push(`Product recognition failed: ${(e as Error).message}`);

@@ -253,7 +253,7 @@ describe('bay detection on hard photos', () => {
   });
 });
 
-import { familyOrder, sameFamily } from '../family';
+import { resolveSizes, sameFamily } from '../family';
 
 describe('product families', () => {
   it('treats sizes and pack formats of one product as one family', () => {
@@ -267,17 +267,27 @@ describe('product families', () => {
     expect(sameFamily('Monster Pipeline Punch 500ml', 'Monster Pacific Punch 500ml')).toBe(false);
     expect(sameFamily('Diet Coke 500ml', 'Coca-Cola Zero Sugar 500ml')).toBe(false);
   });
-  it('measures the margin against a different product and prefers a ranked size', () => {
-    const sales = new Map([['cocacolaoriginaltaste330ml', { rank: 3 } as never]]);
-    const m = familyOrder(
-      [
-        { product: 'Coca-Cola Original Taste 150ml', score: 0.81 },
-        { product: 'Coca-Cola Original Taste 330ml', score: 0.8 },
-        { product: 'Diet Coke 330ml', score: 0.7 },
-      ],
-      sales,
-    );
-    expect(m[0]).toEqual({ product: 'Coca-Cola Original Taste 330ml', score: 0.81 });
-    expect(m[1].product).toBe('Diet Coke 330ml');
+  const box = (id: number, w: number, h: number, cands: [string, number][]): Facing =>
+    ({ id, kind: 'product', x1: 0, y1: 0, x2: w, y2: h, score: 1, product: cands[0][0], confidence: cands[0][1], status: 'unknown',
+       candidates: cands.map(([product, score]) => ({ product, score })) }) as Facing;
+  const aspects = { 'Coca-Cola Original Taste 330ml': 1.96, 'Coca-Cola Original Taste 150ml': 1.7, 'Monster Energy Original 500ml': 2.5, 'Fanta Orange 330ml': 1.9 };
+  const calib = () => [box(10, 100, 250, [['Monster Energy Original 500ml', 0.8], ['Fanta Orange 330ml', 0.5]]), box(11, 100, 209, [['Fanta Orange 330ml', 0.8], ['Monster Energy Original 500ml', 0.5]]), box(12, 100, 275, [['Monster Energy Original 500ml', 0.8], ['Fanta Orange 330ml', 0.5]])];
+  it('tells sizes of the same product apart by pack shape, not by the sales list', () => {
+    // Model prefers the 150ml picture, but the box has a 330ml can's shape.
+    const f = box(1, 100, 215, [['Coca-Cola Original Taste 150ml', 0.81], ['Coca-Cola Original Taste 330ml', 0.79], ['Diet Coke 330ml', 0.7]]);
+    resolveSizes([f, ...calib()], aspects);
+    expect(f.product).toBe('Coca-Cola Original Taste 330ml');
+    expect(f.sizeCheck).toBe(false);
+    expect(f.candidates[1].product).toBe('Diet Coke 330ml'); // margin vs a different product
+    const mini = box(2, 100, 187, [['Coca-Cola Original Taste 330ml', 0.81], ['Coca-Cola Original Taste 150ml', 0.8]]);
+    resolveSizes([mini, ...calib()], aspects);
+    expect(mini.product).toBe('Coca-Cola Original Taste 150ml');
+  });
+  it('asks the rep to confirm the size when the shape is in between', () => {
+    const f = box(3, 100, 200, [['Coca-Cola Original Taste 330ml', 0.81], ['Coca-Cola Original Taste 150ml', 0.8]]);
+    resolveSizes([f, ...calib()], aspects);
+    expect(f.sizeCheck).toBe(true);
+    expect(f.candidates[1].product).toBe('Coca-Cola Original Taste 150ml');
+    expect(statusFor(f, null, { matchThreshold: 0.68, marginThreshold: 0.03 })).toBe('unsure');
   });
 });

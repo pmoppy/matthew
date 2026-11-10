@@ -41,6 +41,8 @@ export interface Facing extends Det {
   corrected?: boolean;
   /** Label taken from an almost identical, confidently identified neighbouring facing. */
   viaNeighbour?: boolean;
+  /** Same product comes in sizes the photo can't tell apart: the rep confirms the size. */
+  sizeCheck?: boolean;
 }
 
 export interface SalesRow {

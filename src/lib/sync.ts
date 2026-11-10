@@ -32,7 +32,7 @@ export interface SyncResult {
 export async function syncLibrary(s: Settings, onProgress: (msg: string, frac: number) => void): Promise<SyncResult> {
   const base = catalogSource(s);
   onProgress('Checking product library', 0);
-  const { refs, salesUrl, detectorUrl, version, indexes, categories } = await listFromWorker(base);
+  const { refs, salesUrl, detectorUrl, version, indexes, categories, aspects } = await listFromWorker(base);
   if (!refs.length) throw new Error('The product library is empty.');
   let salesCsv: string | null = null;
   if (salesUrl) {
@@ -54,6 +54,7 @@ export async function syncLibrary(s: Settings, onProgress: (msg: string, frac: n
   }
   catalog.version = version;
   catalog.categories = categories;
+  catalog.aspects = aspects;
   await saveCatalog(catalog);
   return { catalog, salesCsv, detectorUrl };
 }

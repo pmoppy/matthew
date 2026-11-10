@@ -425,6 +425,18 @@ def add_categories():
     for p in m['products']:
         if p['name'] in cats:
             p['category'] = cats[p['name']]
+        # Typical pack shape (height / width) from the reference photos: the app uses it to
+        # tell sizes of the same product apart (150ml mini can vs 330ml can), which the
+        # recognition model can't see because it squashes every crop to a square.
+        shapes = []
+        for im in p['images']:
+            try:
+                with Image.open(os.path.join(LIB, 'file', im)) as pic:
+                    shapes.append(pic.height / pic.width)
+            except Exception:  # noqa: BLE001
+                pass
+        if shapes:
+            p['aspect'] = round(float(np.median(shapes)), 3)
     json.dump(m, open(path, 'w'), indent=1)
     shutil.copy(os.path.join(HERE, 'sales.csv'), os.path.join(LIB, 'file', 'sales.csv'))
 

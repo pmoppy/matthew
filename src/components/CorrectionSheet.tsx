@@ -69,7 +69,8 @@ export function CorrectionSheet({ facing, crop, products, salesRank, onPick, onM
 
         {facing.candidates.length > 1 && (
           <>
-            <h4>Other likely matches</h4>
+            <h4>{facing.sizeCheck ? 'Which size is it?' : 'Other likely matches'}</h4>
+            {facing.sizeCheck && <p className="muted small">This product comes in sizes that look alike. Tap the right one.</p>}
             <div className="cand-list">
               {facing.candidates.slice(1, 5).map((c) => (
                 <button key={c.product} className="btn" onClick={() => onPick(c.product)}>

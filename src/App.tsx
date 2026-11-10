@@ -229,7 +229,10 @@ export default function App() {
         )}
         {library.state === 'error' && !catalog && tab === 'scan' && (
           <div className="notice warn" style={{ marginTop: 14 }}>
-            The product library couldn't be downloaded. Check your connection and reopen the app.
+            The product library couldn't be downloaded ({library.msg}). Check your connection and{' '}
+            <button className="btn ghost" onClick={() => location.reload()}>
+              try again
+            </button>
           </div>
         )}
       </main>
