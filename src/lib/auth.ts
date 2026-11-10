@@ -9,7 +9,11 @@
  * Only a hash of the login is stored here. To change it, replace the hash with
  * sha256("shelfscan-v1:<username in lower case>:<password>").
  */
-const LOGINS = new Set(['e7e0ea78274796dcf923075bbe67f7a95af8e7585288b170bdb9ad9bea40b524']);
+const LOGINS = new Set([
+  'e7e0ea78274796dcf923075bbe67f7a95af8e7585288b170bdb9ad9bea40b524', // tester
+  '4d19303a72b50c2ab3cef1fae0fe076207eedfa61942205343a1fed151cf4e93', // matt
+  '6a339d472b86b87e345d4f5721a54bb743cf11ca47c90189e13372c7f5d2e980', // panko
+]);
 const KEY = 'shelfscan.signedIn';
 
 async function hash(user: string, pass: string): Promise<string> {
