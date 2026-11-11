@@ -1,9 +1,11 @@
 import { signedInAs, signOut } from './lib/auth';
-import { Download, FolderOpen, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
+import { Activity, Download, FolderOpen, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CatalogView } from './components/CatalogView';
 import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
+import { UsageView } from './components/UsageView';
+import { trackOpen } from './lib/usage';
 import { enterAdminMode, isAdminUser, leaveAdminMode, readAdminMode } from './lib/admin';
 import { checkForApkUpdate, type UpdateInfo } from './lib/update';
 import { useShoppingList } from './lib/shopping';
@@ -15,11 +17,12 @@ import { loadSettings, saveSettings } from './lib/settings';
 import { fetchLibrarySales, libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
 import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from './lib/types';
 
-type Tab = 'scan' | 'catalog' | 'settings';
+type Tab = 'scan' | 'catalog' | 'usage' | 'settings';
 
 const TABS = [
   { id: 'scan', label: 'Scan', Icon: ScanLine },
   { id: 'catalog', label: 'Catalogue', Icon: FolderOpen },
+  { id: 'usage', label: 'Usage', Icon: Activity },
   { id: 'settings', label: 'Settings', Icon: SlidersHorizontal },
 ] as const;
 
@@ -55,6 +58,7 @@ export default function App() {
 
   useEffect(() => {
     checkForApkUpdate().then(setUpdate);
+    trackOpen();
   }, []);
 
   // Hidden admin switch for the APK (no address bar for ?admin=1): tap the logo 7 times within 3 seconds.
@@ -228,6 +232,7 @@ export default function App() {
             onSync={(s) => sync(true, s)}
           />
         )}
+        {admin && tab === 'usage' && <UsageView />}
         {admin && tab === 'settings' && (
           <SettingsView
             settings={settings}

@@ -5,6 +5,7 @@ import type { TopSellerCheck } from '../lib/recommend';
 import { shareReportPdf } from '../lib/report';
 import { shareText } from '../lib/shopping';
 import type { Facing } from '../lib/types';
+import { track } from '../lib/usage';
 
 interface Props {
   check: TopSellerCheck;
@@ -26,6 +27,7 @@ export function ReportBar({ check, slow, shots, productsFound, takenAt, store, o
     setMsg(null);
     try {
       const r = await shareReportPdf({ store: store.trim() || undefined, takenAt, check, slow, shots, productsFound });
+      track('pdf_report', store.trim() || undefined);
       if (r === 'downloaded') setMsg('Report downloaded');
     } catch (e) {
       console.error(e);

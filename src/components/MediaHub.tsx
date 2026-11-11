@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { cachedMedia, fetchMedia, markSeen, mediaBlob, seenIds, youtubeId, type MediaItem, type ResolvedMedia } from '../lib/media';
 import { shareBlob } from '../lib/report';
 import { CardHead, useOpen } from './CardHead';
+import { track } from '../lib/usage';
 
 interface Props {
   libraryBase: string;
@@ -218,6 +219,7 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
   const shown = showAll ? filtered : filtered.slice(0, 4);
 
   const visit = (item: ResolvedMedia) => {
+    track('media_open', item.title);
     markSeen(item.id);
     setSeen(seenIds());
   };

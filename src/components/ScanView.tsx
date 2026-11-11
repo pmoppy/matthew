@@ -14,6 +14,7 @@ import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { MediaHub } from './MediaHub';
+import { track } from '../lib/usage';
 import { PlanogramPanel, PlanogramPicker, usePlanograms } from './PlanogramPanel';
 import { comparePlanogram, planogramView, type Planogram } from '../lib/planogram';
 import { catalogSource } from '../lib/sync';
@@ -285,7 +286,15 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
       const prev = saving.current ?? Promise.resolve();
       saving.current = prev.then(async () => {
         try {
+          const first = !historyIdRef.current;
           setHistoryId(await saveScan(snapshot, info, historyIdRef.current ?? undefined));
+          // Usage log: one note per new scan (not for reopened ones or later edits).
+          if (first) {
+            const where = info.store ?? 'no store picked';
+            const photos = `${snapshot.length} photo${snapshot.length > 1 ? 's' : ''}`;
+            if (pog) track('planogram_check', `${where} · ${pog.title} · ${pogResult && pogResult.expected ? Math.round(pogResult.score * 100) + '% in place' : 'not checkable'} · ${photos}`);
+            else track('scan', `${where} · ${info.bay} · ${info.total ? `${info.present}/${info.total} top sellers, ${info.missing} missing` : 'no top-seller check'} · ${photos}`);
+          }
         } catch (e) {
           console.warn('Could not save scan to history', e);
         }

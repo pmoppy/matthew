@@ -1,6 +1,7 @@
 import { Loader2, LockKeyhole } from 'lucide-react';
 import { useState } from 'react';
 import { signedInAs, signIn } from '../lib/auth';
+import { track } from '../lib/usage';
 
 /** Shows the sign-in screen until the tester has signed in on this device (remembered after that). */
 export function SignInGate({ children }: { children: React.ReactNode }) {
@@ -17,7 +18,10 @@ export function SignInGate({ children }: { children: React.ReactNode }) {
     setBusy(true);
     setError(null);
     try {
-      if (await signIn(name, pass)) setUser(name.trim());
+      if (await signIn(name, pass)) {
+        setUser(name.trim());
+        track('sign_in');
+      }
       else setError('Wrong username or password.');
     } catch {
       setError("Couldn't check the password on this browser.");

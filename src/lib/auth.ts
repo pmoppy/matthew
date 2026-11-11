@@ -32,6 +32,16 @@ export function signedInAs(): string | null {
   }
 }
 
+/** The stored login hash (what the usage log accepts), or null when signed out. */
+export function signedInHash(): string | null {
+  try {
+    const v = JSON.parse(localStorage.getItem(KEY) ?? 'null') as { h: string } | null;
+    return v && LOGINS.has(v.h) ? v.h : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function signIn(user: string, pass: string): Promise<boolean> {
   const h = await hash(user, pass);
   if (!LOGINS.has(h)) return false;
