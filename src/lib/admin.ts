@@ -1,11 +1,21 @@
+import { signedInAs } from './auth';
+
 const KEY = 'shelfscan.admin';
+
+/** Accounts allowed into the admin area (catalogue, settings, usage log). */
+const ADMINS = new Set(['matt']);
+
+export function isAdminUser(): boolean {
+  return ADMINS.has((signedInAs() ?? '').trim().toLowerCase());
+}
 
 /**
  * Admin mode shows the Catalogue and Settings screens. Field users never see
- * them. Turn it on by opening the app once with ?admin=1 (and off with ?admin=0),
- * or in the Android app by tapping the logo 7 times.
+ * them. Only admin accounts (matt) can turn it on: the Admin button in the top
+ * bar, ?admin=1, or tapping the logo 7 times.
  */
 export function readAdminMode(): boolean {
+  if (!isAdminUser()) return false;
   try {
     const p = new URLSearchParams(location.search).get('admin');
     if (p !== null) {

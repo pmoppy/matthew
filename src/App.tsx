@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CatalogView } from './components/CatalogView';
 import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
-import { enterAdminMode, leaveAdminMode, readAdminMode } from './lib/admin';
+import { enterAdminMode, isAdminUser, leaveAdminMode, readAdminMode } from './lib/admin';
 import { checkForApkUpdate, type UpdateInfo } from './lib/update';
 import { useShoppingList } from './lib/shopping';
 import { applyTheme, loadTheme, NEXT_THEME, type ThemeChoice } from './lib/theme';
@@ -61,7 +61,7 @@ export default function App() {
   const onLogoTap = () => {
     const now = Date.now();
     taps.current = [...taps.current.filter((t) => now - t < 3000), now];
-    if (taps.current.length >= 7 && !admin) {
+    if (taps.current.length >= 7 && !admin && isAdminUser()) {
       taps.current = [];
       enterAdminMode();
       setAdmin(true);
@@ -184,6 +184,17 @@ export default function App() {
               title="Leave admin mode"
             >
               <ShieldCheck size={14} /> Admin · exit
+            </button>
+          ) : isAdminUser() ? (
+            <button
+              className="status-pill admin"
+              onClick={() => {
+                enterAdminMode();
+                setAdmin(true);
+              }}
+              title="Open the admin area"
+            >
+              <ShieldCheck size={14} /> Admin
             </button>
           ) : library.state === 'error' ? (
             <span className="status-pill">
