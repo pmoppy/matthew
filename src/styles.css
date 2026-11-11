@@ -2185,3 +2185,110 @@ h3,
   color: var(--muted);
   font-size: 0.82rem;
 }
+
+/* Shelf score (top-seller result headline) ------------------------------------- */
+.ss-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.shelf-score {
+  flex: none;
+}
+.ss-text {
+  min-width: 0;
+}
+.ss-pct {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--tone);
+}
+.ss-pct small {
+  font-size: 1.3rem;
+  margin-left: 1px;
+}
+.ss-text .ts-title {
+  margin-top: 6px;
+}
+.ss-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 10px 0 2px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.ss-legend i {
+  display: inline-block;
+  width: 9px;
+  height: 11px;
+  border-radius: 2px;
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+.ss-legend i.ok {
+  background: var(--green);
+}
+.ss-legend i.miss {
+  border: 1.5px dashed var(--red);
+}
+.ss-legend i.check {
+  background: var(--amber);
+}
+.ss-order {
+  margin-left: auto;
+}
+
+/* Store league (home) ------------------------------------------------------------- */
+.league-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+.league-list li + li {
+  border-top: 1px solid var(--border);
+}
+.league-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 30% 3.4em;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 2px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.league-name {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.league-name b {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.league-name small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+.league-bar {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.league-bar div {
+  height: 100%;
+  border-radius: 99px;
+}
+.league-row .pill {
+  text-align: center;
+}

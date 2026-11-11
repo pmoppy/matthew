@@ -13,6 +13,7 @@ import { ProductTable, RecommendationList, TopSellerPanel } from './Recommendati
 import { ShelfCanvas } from './ShelfCanvas';
 import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
+import { StoreLeague } from './StoreLeague';
 import { MediaHub } from './MediaHub';
 import { track } from '../lib/usage';
 import { PlanogramPanel, PlanogramPicker, usePlanograms } from './PlanogramPanel';
@@ -591,6 +592,8 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
               <p className="muted small">One-off download of the recognition models. After this the app works offline.</p>
             </div>
           )}
+
+          <StoreLeague onOpen={openScan} refreshKey={historyKey} />
 
           <MediaHub libraryBase={catalogSource(settings)} closeRef={mediaCloseRef} />
 

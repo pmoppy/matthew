@@ -323,3 +323,28 @@ describe('compact library storage', () => {
     }
   });
 });
+
+import { storeScores } from '../../components/StoreLeague';
+
+describe('store league', () => {
+  it('scores each store on its latest visit day, best first, ignoring planogram checks and old scans', () => {
+    const now = new Date('2026-11-11T12:00:00').getTime();
+    const s = (id: string, store: string, daysAgo: number, present: number, total: number, extra = {}) =>
+      ({ id, store, at: now - daysAgo * 864e5, present, total, missing: total - present, bay: '', facings: 0, thumb: new Blob(), ...extra }) as never;
+    const rows = storeScores(
+      [
+        s('1', "Bob's", 0.01, 3, 4),
+        s('2', "Bob's", 0, 4, 6), // same visit, other bay: combined 7/10
+        s('3', "Bob's", 7, 1, 10), // older visit: ignored
+        s('4', 'Village', 1, 9, 10),
+        s('5', 'Village', 0, 0, 10, { planogramId: 'x' }), // planogram check: ignored
+        s('6', 'Old shop', 40, 5, 5), // over 30 days: ignored
+      ],
+      now,
+    );
+    expect(rows.map((r) => [r.store, r.pct, r.bays, r.latestId])).toEqual([
+      ['Village', 90, 1, '4'],
+      ["Bob's", 70, 2, '2'],
+    ]);
+  });
+});

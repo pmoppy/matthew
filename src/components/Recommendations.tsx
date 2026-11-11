@@ -1,8 +1,22 @@
-import { AlertTriangle, ArrowDownCircle, ArrowLeftRight, Check, CheckCircle2, ChevronDown, CircleHelp, ListPlus, PackageOpen, Plus, Square, Trophy } from 'lucide-react';
+import {
+  AlertTriangle,
+  ArrowDownCircle,
+  ArrowLeftRight,
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  CircleHelp,
+  ListPlus,
+  PackageOpen,
+  Plus,
+  Square,
+  Trophy,
+} from 'lucide-react';
 import { useState } from 'react';
 import type { Recommendation, ShelfSummary, TopSellerCheck, TopSellerItem } from '../lib/recommend';
 import type { ShoppingList } from '../lib/shopping';
 import { STATUS_STYLE } from '../lib/settings';
+import { ShelfScore, type ShelfSlot } from './ShelfScore';
 
 /** The headline: which top sellers belong on this bay but aren't on it. */
 function ListButton({ item, list }: { item: TopSellerItem; list: ShoppingList }) {
@@ -20,7 +34,19 @@ function ListButton({ item, list }: { item: TopSellerItem; list: ShoppingList })
 }
 
 /** Collapsible group in the result: a one-line summary that expands to the products. */
-export function Section({ tone, icon, label, preview, children }: { tone: 'bad' | 'warn' | 'good' | 'slow'; icon: React.ReactNode; label: string; preview: string[]; children: React.ReactNode }) {
+export function Section({
+  tone,
+  icon,
+  label,
+  preview,
+  children,
+}: {
+  tone: 'bad' | 'warn' | 'good' | 'slow';
+  icon: React.ReactNode;
+  label: string;
+  preview: string[];
+  children: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const short = preview.slice(0, 2).join(', ') + (preview.length > 2 ? ` +${preview.length - 2} more` : '');
   return (
@@ -77,8 +103,8 @@ export function TopSellerPanel({
           <div>
             <div className="ts-title">Couldn't check this bay</div>
             <div className="ts-sub">
-              Too few products were recognised to tell which top sellers belong here. Retake the photo straight-on and closer, avoiding glare
-              from the fridge door, or tap the amber boxes to confirm products.
+              Too few products were recognised to tell which top sellers belong here. Retake the photo straight-on and closer, avoiding
+              glare from the fridge door, or tap the amber boxes to confirm products.
             </div>
           </div>
         </div>
@@ -95,7 +121,9 @@ export function TopSellerPanel({
           </div>
           <div>
             <div className="ts-title">No top-seller list for {cats} yet</div>
-            <div className="ts-sub">Products are still identified below. Add {cats} lines to the sales ranking to check this bay for missing top sellers.</div>
+            <div className="ts-sub">
+              Products are still identified below. Add {cats} lines to the sales ranking to check this bay for missing top sellers.
+            </div>
           </div>
         </div>
       </section>
@@ -107,13 +135,21 @@ export function TopSellerPanel({
   const ok = check.missing.length === 0;
   const tone = definite.length ? 'bad' : possible.length ? 'warn' : 'good';
   const where = check.categories.length ? `the ${check.categories.join(' & ')} bay` : 'this shelf';
-
+  const pct = Math.round((check.present.length / total) * 100);
+  const slots: ShelfSlot[] = [
+    ...check.present.map((m) => ({ rank: m.categoryRank, name: m.name, state: 'ok' as const })),
+    ...check.missing.map((m) => ({ rank: m.categoryRank, name: m.name, state: m.possible ? ('check' as const) : ('miss' as const) })),
+  ].sort((a, b) => a.rank - b.rank);
 
   return (
     <section className={`ts-panel ${tone}`}>
-      <div className="ts-head">
-        <div className="ts-icon">{ok ? <CheckCircle2 size={22} /> : <AlertTriangle size={22} />}</div>
-        <div>
+      <div className="ss-head">
+        <ShelfScore slots={slots} />
+        <div className="ss-text">
+          <div className="ss-pct">
+            {pct}
+            <small>%</small>
+          </div>
           <div className="ts-title">
             {ok
               ? 'All top sellers are on the shelf'
@@ -122,19 +158,25 @@ export function TopSellerPanel({
                 : `${possible.length} top seller${possible.length > 1 ? 's' : ''} to check`}
           </div>
           <div className="ts-sub">
-            {check.present.length} of {total} top sellers found on {where}
+            {check.present.length} of {total} top sellers on {where}
+            {total > 10 ? ' · top 10 shown' : ''}
           </div>
         </div>
-        <div className="ts-score">
-          <b>{check.present.length}</b>/{total}
-        </div>
       </div>
-
-      {total > 0 && (
-        <div className="ts-meter" aria-hidden>
-          <div style={{ width: `${(check.present.length / total) * 100}%` }} />
-        </div>
-      )}
+      <div className="ss-legend" aria-hidden>
+        <span>
+          <i className="ok" /> On shelf
+        </span>
+        <span>
+          <i className="miss" /> Missing
+        </span>
+        {possible.length > 0 && (
+          <span>
+            <i className="check" /> To check
+          </span>
+        )}
+        <span className="ss-order">#1 top-left</span>
+      </div>
 
       {definite.length > 0 && (
         <button
@@ -143,7 +185,9 @@ export function TopSellerPanel({
           onClick={() => list.add(definite.map((m) => ({ name: m.name, category: m.category, rank: m.categoryRank })))}
         >
           <ListPlus size={18} />
-          {definite.every((m) => list.has(m.name)) ? 'All on your shopping list' : `Add ${definite.length > 1 ? `all ${definite.length}` : 'it'} to shopping list`}
+          {definite.every((m) => list.has(m.name))
+            ? 'All on your shopping list'
+            : `Add ${definite.length > 1 ? `all ${definite.length}` : 'it'} to shopping list`}
         </button>
       )}
 
@@ -212,7 +256,12 @@ export function TopSellerPanel({
       )}
 
       {check.present.length > 0 && (
-        <Section tone="good" icon={<CheckCircle2 size={16} />} label={`${check.present.length} on shelf`} preview={check.present.map((m) => m.name)}>
+        <Section
+          tone="good"
+          icon={<CheckCircle2 size={16} />}
+          label={`${check.present.length} on shelf`}
+          preview={check.present.map((m) => m.name)}
+        >
           <ul className="ts-list present">
             {check.present.map((m) => (
               <li key={m.name}>
