@@ -1,4 +1,4 @@
-import { Camera, ChevronRight, TicketPercent, Hand, ImageUp, ImagePlus, LayoutGrid, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
+import { Camera, ChevronRight, History as HistoryIcon, ListChecks, TicketPercent, Video, Hand, ImageUp, ImagePlus, LayoutGrid, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { analyseShelf, type AnalysisResult } from '../lib/analyse';
 import { addCorrection, type CatalogState } from '../lib/catalog';
@@ -15,6 +15,9 @@ import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { StoreLeague } from './StoreLeague';
 import { MediaHub } from './MediaHub';
+import { ToolPage } from './ToolPage';
+import { fetchMedia, seenIds } from '../lib/media';
+import { signedInAs } from '../lib/auth';
 import { money, type Coupon } from '../lib/coupons';
 import { track } from '../lib/usage';
 import { PlanogramPanel, PlanogramPicker, usePlanograms } from './PlanogramPanel';
@@ -46,6 +49,13 @@ interface Props {
   onOpenOffers?: () => void;
 }
 
+function greeting(): string {
+  const h = new Date().getHours();
+  const part = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  const name = (signedInAs() ?? '').trim();
+  return name ? `${part}, ${name.charAt(0).toUpperCase()}${name.slice(1)}` : part;
+}
+
 const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'pog_ok', 'pog_short', 'pog_off', 'unsure', 'unknown', 'gap'];
 const NO_FACINGS: Facing[] = [];
 
@@ -66,7 +76,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   const [active, setActive] = useState(0);
   /** Planogram this bay is being checked against (null = normal top-seller scan). */
   const [pog, setPog] = useState<Planogram | null>(null);
-  const [pickerOpen, setPickerOpen] = useState(false);
+  const [pickerSource, setPickerSource] = useState<'camera' | 'upload' | null>(null);
+  /** Home-screen tool open on its own screen. */
+  const [tool, setTool] = useState<'media' | 'list' | 'history' | null>(null);
+  const [toolInfo, setToolInfo] = useState({ media: 0, mediaNew: 0, scans: 0 });
+  const listOpen = list.items.filter((i) => !i.done).length;
   const planograms = usePlanograms(catalogSource(settings));
   const [quality, setQuality] = useState<QualityReport | null>(null);
   const cur = shots[active];
@@ -159,6 +173,24 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
   };
 
   const mediaCloseRef = useRef<(() => boolean) | null>(null);
+
+  // Counts for the home-screen tool boxes (refreshed when a tool closes or a scan is saved).
+  const [toolKey, setToolKey] = useState(0);
+  const closeTool = () => {
+    setTool(null);
+    setToolKey((k) => k + 1);
+  };
+  useEffect(() => {
+    let live = true;
+    Promise.all([fetchMedia(catalogSource(settings)).catch(() => []), listScans().catch(() => [])]).then(([media, scans]) => {
+      if (!live) return;
+      const seen = seenIds();
+      setToolInfo({ media: media.length, mediaNew: media.filter((m) => !seen.has(m.id)).length, scans: scans.length });
+    });
+    return () => {
+      live = false;
+    };
+  }, [toolKey, historyKey, settings]);
   const pogCloseRef = useRef<(() => boolean) | null>(null);
 
   // Android back: close the sheet, then leave the results; only exit from home.
@@ -167,8 +199,12 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
     backRef.current = () => {
       if (mediaCloseRef.current?.()) return true;
       if (pogCloseRef.current?.()) return true;
-      if (pickerOpen) {
-        setPickerOpen(false);
+      if (pickerSource) {
+        setPickerSource(null);
+        return true;
+      }
+      if (tool) {
+        setTool(null);
         return true;
       }
       if (selected) {
@@ -507,20 +543,11 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
 
       {!image ? (
         <>
-          <section className="hero">
-            <div className="hero-badge">
-              <ScanLine size={16} /> Top-seller check
-            </div>
-            <h1>
-              Snap a shelf.
-              <br />
-              <span className="grad-text">Find missing top sellers.</span>
-            </h1>
-            <p>
-              Take a photo of a bay and ShelfScan tells you which best-selling lines aren't on it, highlights top sellers in{' '}
-              <b className="c-top">green</b> and slow sellers in <b className="c-delist">red</b>.
-            </p>
-          </section>
+          <h1 className="hello">{greeting()}</h1>
+
+          <div className="home-store">
+            <StorePicker value={store} onChange={setStore} compact />
+          </div>
 
           {coupons.length > 0 && onOpenOffers && (
             <button className="offers-pill" onClick={onOpenOffers}>
@@ -538,62 +565,67 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
             </button>
           )}
 
-          <StorePicker value={store} onChange={setStore} />
+          <h2 className="home-label">Check a shelf</h2>
 
-          <h2 className="home-label">Top-seller check</h2>
-
-          <div className={`capture ${dragging ? 'dragging' : ''}`}>
-            <button
-              className="capture-tile primary"
-              onClick={() => {
-                setPog(null);
-                camRef.current?.click();
-              }}
-            >
-              <span className="capture-icon">
-                <Camera size={26} />
+          <section className={`card check-card ${dragging ? 'dragging' : ''}`}>
+            <div className="check-head">
+              <span className="shop-icon">
+                <ScanLine size={20} />
               </span>
-              <span className="capture-title">Take photo</span>
-              <span className="capture-sub">Use your camera</span>
-            </button>
-            <button
-              className="capture-tile"
-              onClick={() => {
-                setPog(null);
-                uploadRef.current?.click();
-              }}
-            >
-              <span className="capture-icon">
-                <ImageUp size={26} />
-              </span>
-              <span className="capture-title">Upload photo</span>
-              <span className="capture-sub">From gallery or files</span>
-            </button>
-            <p className="capture-hint">or drag & drop / paste an image here</p>
-          </div>
+              <div>
+                <h3>Top-seller check</h3>
+                <p className="muted small">Which best sellers are missing</p>
+              </div>
+            </div>
+            <div className="check-btns">
+              <button
+                className="check-btn primary"
+                onClick={() => {
+                  setPog(null);
+                  camRef.current?.click();
+                }}
+              >
+                <Camera size={18} /> Take photo
+              </button>
+              <button
+                className="check-btn"
+                onClick={() => {
+                  setPog(null);
+                  uploadRef.current?.click();
+                }}
+              >
+                <ImageUp size={18} /> Upload
+              </button>
+            </div>
+          </section>
 
-          <h2 className="home-label">Planogram check</h2>
-          <button className="pog-start" onClick={() => setPickerOpen(true)}>
-            <span className="capture-icon">
-              <LayoutGrid size={22} />
-            </span>
-            <span className="pog-start-text">
-              <b>Check against a planogram</b>
-              <small>
-                {planograms.length
-                  ? `Compare a bay with ${planograms.length === 1 ? planograms[0].title : `one of ${planograms.length} planograms`}`
-                  : 'Compare a bay with the planogram, facing by facing'}
-              </small>
-            </span>
-            <ChevronRight size={18} />
-          </button>
-          {pickerOpen && (
+          <section className="card check-card">
+            <div className="check-head">
+              <span className="shop-icon">
+                <LayoutGrid size={20} />
+              </span>
+              <div>
+                <h3>Planogram check</h3>
+                <p className="muted small">Compare a bay with its planogram</p>
+              </div>
+            </div>
+            <div className="check-btns">
+              <button className="check-btn primary" onClick={() => setPickerSource('camera')}>
+                <Camera size={18} /> Take photo
+              </button>
+              <button className="check-btn" onClick={() => setPickerSource('upload')}>
+                <ImageUp size={18} /> Upload
+              </button>
+            </div>
+          </section>
+          {pickerSource && (
             <PlanogramPicker
               planograms={planograms}
-              onClose={() => setPickerOpen(false)}
+              source={pickerSource}
+              onClose={() => setPickerSource(null)}
               onPick={(p, source) => {
                 setPog(p);
-                setPickerOpen(false);
+                setPickerSource(null);
                 (source === 'camera' ? camRef : uploadRef).current?.click();
               }}
             />
@@ -615,27 +647,71 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
 
           <StoreLeague onOpen={openScan} refreshKey={historyKey} />
 
-          <MediaHub libraryBase={catalogSource(settings)} closeRef={mediaCloseRef} />
+          <h2 className="home-label">Your tools</h2>
+          <div className="tool-grid">
+            <button className="tool-tile" onClick={() => setTool('media')}>
+              <span className="shop-icon">
+                <Video size={20} />
+              </span>
+              <b>Media hub</b>
+              <small>{toolInfo.mediaNew ? `${toolInfo.mediaNew} new` : `${toolInfo.media} item${toolInfo.media === 1 ? '' : 's'}`}</small>
+            </button>
+            <button className="tool-tile" onClick={() => setTool('list')}>
+              <span className="shop-icon">
+                <ListChecks size={20} />
+              </span>
+              <b>Shopping list</b>
+              <small>{listOpen ? `${listOpen} to get` : 'Empty'}</small>
+            </button>
+            <button className="tool-tile" onClick={() => setTool('history')}>
+              <span className="shop-icon">
+                <HistoryIcon size={20} />
+              </span>
+              <b>History</b>
+              <small>
+                {toolInfo.scans} scan{toolInfo.scans === 1 ? '' : 's'}
+              </small>
+            </button>
+          </div>
 
-          <ShoppingListCard list={list} />
-
-          <HistoryCard onOpen={openScan} refreshKey={historyKey} />
-
-          <section className="card tips">
-            <h3>For the best results</h3>
+          <details className="photo-tips">
+            <summary>Photo tips</summary>
             <ul>
               <li>
-                <Maximize size={18} /> One bay per photo, the whole bay in frame
+                <Maximize size={16} /> One bay per photo, the whole bay in frame
               </li>
               <li>
-                <Hand size={18} /> Stand square-on and hold steady
+                <Hand size={16} /> Stand square-on and hold steady
               </li>
               <li>
-                <Sun size={18} /> Avoid glare from lights and fridge doors
+                <Sun size={16} /> Avoid glare from lights and fridge doors
               </li>
             </ul>
-          </section>
+          </details>
           <p className="footnote">Built with DINOv3 · runs on your phone, photos never leave it</p>
+
+          {tool === 'media' && (
+            <ToolPage title="Media hub" onClose={closeTool}>
+              <MediaHub libraryBase={catalogSource(settings)} closeRef={mediaCloseRef} page />
+            </ToolPage>
+          )}
+          {tool === 'list' && (
+            <ToolPage title="Shopping list" onClose={closeTool}>
+              <ShoppingListCard list={list} page />
+            </ToolPage>
+          )}
+          {tool === 'history' && (
+            <ToolPage title="Scan history" onClose={closeTool}>
+              <HistoryCard
+                onOpen={(id) => {
+                  closeTool();
+                  openScan(id);
+                }}
+                refreshKey={historyKey}
+                page
+              />
+            </ToolPage>
+          )}
         </>
       ) : (
         <div className="toolbar">

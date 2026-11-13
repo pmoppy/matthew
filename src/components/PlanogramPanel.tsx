@@ -36,10 +36,13 @@ export function PlanogramPicker({
   planograms,
   onClose,
   onPick,
+  source,
 }: {
   planograms: Planogram[];
   onClose: () => void;
   onPick: (p: Planogram, source: 'camera' | 'upload') => void;
+  /** Already chose camera / upload: picking a planogram goes straight to the photo. */
+  source?: 'camera' | 'upload';
 }) {
   const [chosen, setChosen] = useState<Planogram | null>(planograms.length === 1 ? planograms[0] : null);
   return (
@@ -56,11 +59,11 @@ export function PlanogramPicker({
           <p className="muted">No planograms have been published yet. They appear here when one is added to the media hub.</p>
         ) : (
           <>
-            <p className="muted small">1. Choose the planogram for this bay</p>
+            <p className="muted small">{source ? 'Which planogram is this bay?' : '1. Choose the planogram for this bay'}</p>
             <ul className="pog-choices">
               {planograms.map((p) => (
                 <li key={p.id}>
-                  <button className={`pog-choice ${chosen?.id === p.id ? 'on' : ''}`} onClick={() => setChosen(p)}>
+                  <button className={`pog-choice ${chosen?.id === p.id ? 'on' : ''}`} onClick={() => (source ? onPick(p, source) : setChosen(p))}>
                     {p.item.thumbUrl ? <img src={p.item.thumbUrl} alt="" /> : <LayoutGrid size={22} />}
                     <span>
                       <b>{p.title}</b>
@@ -72,7 +75,8 @@ export function PlanogramPicker({
                 </li>
               ))}
             </ul>
-            <p className="muted small">2. Photograph the whole bay</p>
+            {!source && <p className="muted small">2. Photograph the whole bay</p>}
+            {!source && (
             <div className="row">
               <button className="btn primary grow" disabled={!chosen} onClick={() => chosen && onPick(chosen, 'camera')}>
                 <Camera size={18} /> Take photo
@@ -81,6 +85,7 @@ export function PlanogramPicker({
                 <ImageUp size={18} /> Upload
               </button>
             </div>
+            )}
           </>
         )}
       </div>

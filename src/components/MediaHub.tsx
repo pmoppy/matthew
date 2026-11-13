@@ -7,6 +7,8 @@ import { track } from '../lib/usage';
 
 interface Props {
   libraryBase: string;
+  /** Shown on its own screen (opened from the home-screen box): always open, no header. */
+  page?: boolean;
   /** Lets the Android back button close the viewer. */
   closeRef?: React.MutableRefObject<(() => boolean) | null>;
 }
@@ -185,12 +187,13 @@ export function Viewer({ item, onClose }: { item: ResolvedMedia; onClose: () => 
 }
 
 /** Home-screen hub of planograms, adverts and videos, managed from the library's media/media.json. */
-export function MediaHub({ libraryBase, closeRef }: Props) {
+export function MediaHub({ libraryBase, closeRef, page = false }: Props) {
   const [items, setItems] = useState<ResolvedMedia[]>(() => cachedMedia());
   const [seen, setSeen] = useState(() => seenIds());
   const [open, setOpen] = useState<ResolvedMedia | null>(null);
   const [showAll, setShowAll] = useState(false);
-  const [expanded, toggle] = useOpen('media');
+  const [expandedState, toggle] = useOpen('media');
+  const expanded = page || expandedState;
   const [filter, setFilter] = useState<string | null>(null);
 
   useEffect(() => {
@@ -212,7 +215,7 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
   });
 
   const tags = useMemo(() => [...new Set(items.map((i) => i.tag).filter((t): t is string => !!t))], [items]);
-  if (!items.length) return null;
+  if (!items.length) return page ? <p className="muted">Nothing in the media hub yet.</p> : null;
 
   const unseen = items.filter((i) => !seen.has(i.id)).length;
   const filtered = filter ? items.filter((i) => i.tag === filter) : items;
@@ -241,6 +244,7 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
 
   return (
     <section className="card media">
+      {!page && (
       <CardHead
         icon={<Video size={20} />}
         title="Media hub"
@@ -253,6 +257,7 @@ export function MediaHub({ libraryBase, closeRef }: Props) {
           </>
         }
       />
+      )}
       {expanded && (
         <>
           {tags.length > 1 && (

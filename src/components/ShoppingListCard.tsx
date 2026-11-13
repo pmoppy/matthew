@@ -4,9 +4,11 @@ import { CardHead, useOpen } from './CardHead';
 import { shareList, type ShoppingList } from '../lib/shopping';
 
 /** The rep's list of missing top sellers to order or pull from the stockroom. Shown on the home screen. */
-export function ShoppingListCard({ list }: { list: ShoppingList }) {
+/** page = shown on its own screen (opened from the home-screen box): always open, no header. */
+export function ShoppingListCard({ list, page = false }: { list: ShoppingList; page?: boolean }) {
   const [toast, setToast] = useState<string | null>(null);
-  const [expanded, toggle] = useOpen('shopping');
+  const [expandedState, toggle] = useOpen('shopping');
+  const expanded = page || expandedState;
   const open = list.items.filter((i) => !i.done).length;
   const done = list.items.length - open;
 
@@ -35,6 +37,14 @@ export function ShoppingListCard({ list }: { list: ShoppingList }) {
 
   return (
     <section className="card shop">
+      {page ? (
+        <div className="page-actions">
+          <span className="muted small">{`${open} to get${done ? ` · ${done} done` : ''}`}</span>
+          <button className="btn ghost" onClick={share}>
+            <Share2 size={16} /> Share list
+          </button>
+        </div>
+      ) : (
       <CardHead
         icon={<ListChecks size={20} />}
         title="Shopping list"
@@ -47,6 +57,7 @@ export function ShoppingListCard({ list }: { list: ShoppingList }) {
           </button>
         }
       />
+      )}
       {expanded && (
         <>
           <ul className="shop-list">

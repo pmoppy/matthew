@@ -20,10 +20,11 @@ function Thumb({ blob }: { blob: Blob }) {
 }
 
 /** Recent scans on the home screen: tap to reopen, with photo, boxes and results. */
-export function HistoryCard({ onOpen, refreshKey }: { onOpen: (id: string) => void; refreshKey: number }) {
+export function HistoryCard({ onOpen, refreshKey, page = false }: { onOpen: (id: string) => void; refreshKey: number; page?: boolean }) {
   const [items, setItems] = useState<HistoryMeta[] | null>(null);
   const [showAll, setShowAll] = useState(false);
-  const [expanded, toggle] = useOpen('history');
+  const [expandedState, toggle] = useOpen('history');
+  const expanded = page || expandedState;
 
   useEffect(() => {
     listScans()
@@ -31,11 +32,12 @@ export function HistoryCard({ onOpen, refreshKey }: { onOpen: (id: string) => vo
       .catch(() => setItems([]));
   }, [refreshKey]);
 
-  if (!items || items.length === 0) return null;
-  const shown = showAll ? items : items.slice(0, 4);
+  if (!items || items.length === 0) return page ? <p className="muted">No scans saved on this phone yet.</p> : null;
+  const shown = showAll || page ? items : items.slice(0, 4);
 
   return (
     <section className="card hist">
+      {!page && (
       <CardHead
         icon={<History size={20} />}
         title="Scan history"
@@ -43,6 +45,7 @@ export function HistoryCard({ onOpen, refreshKey }: { onOpen: (id: string) => vo
         onToggle={toggle}
         sub={`${items.length} saved on this phone · last ${when(items[0].at)}`}
       />
+      )}
       {expanded && (
         <>
           <ul className="hist-list">

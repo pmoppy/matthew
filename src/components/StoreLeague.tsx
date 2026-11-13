@@ -1,7 +1,5 @@
-import { Trophy } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { listScans, type HistoryMeta } from '../lib/history';
-import { CardHead, useOpen } from './CardHead';
 
 interface StoreScore {
   store: string;
@@ -45,7 +43,6 @@ const COLOUR = { good: 'var(--green)', warn: 'var(--amber)', bad: 'var(--red)' }
 
 export function StoreLeague({ onOpen, refreshKey }: { onOpen: (id: string) => void; refreshKey: number }) {
   const [rows, setRows] = useState<StoreScore[] | null>(null);
-  const [open, toggle] = useOpen('league', true);
 
   useEffect(() => {
     listScans()
@@ -58,14 +55,11 @@ export function StoreLeague({ onOpen, refreshKey }: { onOpen: (id: string) => vo
 
   return (
     <section className="card league">
-      <CardHead
-        icon={<Trophy size={20} />}
-        title="Your stores"
-        open={open}
-        onToggle={toggle}
-        sub={`Top sellers on shelf, latest visit · ${rows.length} store${rows.length > 1 ? 's' : ''} · average ${avg}%`}
-      />
-      {open && (
+      <div className="league-head">
+        <h3>Your stores</h3>
+        <span className="muted small">Top sellers on shelf · average {avg}%</span>
+      </div>
+      {(
         <ul className="league-list">
           {rows.map((r) => {
             const t = tone(r.pct);
