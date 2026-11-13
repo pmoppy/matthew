@@ -1,4 +1,4 @@
-import { Camera, ChevronRight, Hand, ImageUp, ImagePlus, LayoutGrid, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
+import { Camera, ChevronRight, TicketPercent, Hand, ImageUp, ImagePlus, LayoutGrid, Loader2, Maximize, RotateCcw, ScanLine, Sun, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { analyseShelf, type AnalysisResult } from '../lib/analyse';
 import { addCorrection, type CatalogState } from '../lib/catalog';
@@ -15,6 +15,7 @@ import { ShoppingListCard } from './ShoppingListCard';
 import { HistoryCard } from './HistoryCard';
 import { StoreLeague } from './StoreLeague';
 import { MediaHub } from './MediaHub';
+import { money, type Coupon } from '../lib/coupons';
 import { track } from '../lib/usage';
 import { PlanogramPanel, PlanogramPicker, usePlanograms } from './PlanogramPanel';
 import { comparePlanogram, planogramView, type Planogram } from '../lib/planogram';
@@ -40,6 +41,9 @@ interface Props {
   list: ShoppingList;
   /** App-level Android back button asks the scan screen to step back first. */
   backRef?: React.MutableRefObject<(() => boolean) | null>;
+  /** Wholesale offers, shown as a pill on the home screen. */
+  coupons?: Coupon[];
+  onOpenOffers?: () => void;
 }
 
 const ALL_STATUSES: Status[] = ['top', 'delist', 'core', 'nodata', 'pog_ok', 'pog_short', 'pog_off', 'unsure', 'unknown', 'gap'];
@@ -52,7 +56,7 @@ interface Shot {
   facings: Facing[];
 }
 
-export function ScanView({ settings, catalog, setCatalog, sales, library, list, backRef }: Props) {
+export function ScanView({ settings, catalog, setCatalog, sales, library, list, backRef, coupons = [], onOpenOffers }: Props) {
   const camRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
   const addCamRef = useRef<HTMLInputElement>(null);
@@ -517,6 +521,22 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
               <b className="c-top">green</b> and slow sellers in <b className="c-delist">red</b>.
             </p>
           </section>
+
+          {coupons.length > 0 && onOpenOffers && (
+            <button className="offers-pill" onClick={onOpenOffers}>
+              <span className="offers-pill-icon">
+                <TicketPercent size={22} />
+              </span>
+              <span className="offers-pill-text">
+                <b>Wholesale offers</b>
+                <small>
+                  {coupons.length} deal{coupons.length > 1 ? 's' : ''} · save up to {money(Math.max(...coupons.map((c) => c.saving)))}
+                </small>
+              </span>
+              <span className="offers-pill-count">{coupons.length}</span>
+              <ChevronRight size={18} />
+            </button>
+          )}
 
           <StorePicker value={store} onChange={setStore} />
 

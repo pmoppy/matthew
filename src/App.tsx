@@ -231,7 +231,7 @@ export default function App() {
         </div>
       )}
       <main>
-        {tab === 'scan' && <ScanView settings={settings} catalog={catalog} setCatalog={setCatalog} sales={salesMap} library={library} list={list} backRef={scanBack} />}
+        {tab === 'scan' && <ScanView settings={settings} catalog={catalog} setCatalog={setCatalog} sales={salesMap} library={library} list={list} backRef={scanBack} coupons={coupons} onOpenOffers={() => setCouponsOpen(true)} />}
         {admin && tab === 'catalog' && (
           <CatalogView
             settings={settings}
