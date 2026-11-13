@@ -2836,3 +2836,60 @@ h3,
   align-items: center;
   gap: 8px;
 }
+.cp-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-bottom: 12px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--on-brand) 18%, var(--brand));
+}
+.cp-summary > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.cp-summary-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.cp-summary b {
+  font-family: var(--font-head);
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+.cp-summary small {
+  opacity: 0.8;
+  font-size: 0.76rem;
+  line-height: 1.2;
+}
+.cp-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 14px 2px 8px;
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.cp-section svg {
+  color: var(--amber);
+}
+.coupon-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.coupon-star {
+  color: var(--amber);
+}

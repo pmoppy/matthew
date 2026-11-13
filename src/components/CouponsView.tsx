@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, Minus, Plus, Send, ShoppingBasket, TicketPercent, Trash2 } from 'lucide-react';
+import { ArrowLeft, Check, Minus, Plus, Send, ShoppingBasket, Star, TicketPercent, Trash2, Wallet } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { basketLines, basketTotals, loadBasket, money, orderText, saveBasket, type Basket, type Coupon } from '../lib/coupons';
 import { shareText } from '../lib/shopping';
@@ -21,7 +21,10 @@ function CouponCard({ c, selected, inBasket, onToggle }: { c: Coupon; selected: 
     >
       <span className="coupon-img">{c.imageUrl ? <img src={c.imageUrl} alt="" loading="lazy" /> : <TicketPercent size={28} />}</span>
       <span className="coupon-body">
-        <small className="coupon-brand">{c.brand}</small>
+        <small className="coupon-brand">
+          {c.featured && <Star size={12} className="coupon-star" fill="currentColor" />}
+          {c.brand}
+        </small>
         <b className="coupon-offer">{c.offer}</b>
         <span className="coupon-title">{c.title}</span>
         <small className="coupon-meta">
@@ -37,7 +40,17 @@ function CouponCard({ c, selected, inBasket, onToggle }: { c: Coupon; selected: 
 }
 
 /** Retailer offers: pick coupons, then a pre-filled order basket for the wholesaler. */
-export function CouponsView({ coupons, onClose }: { coupons: Coupon[]; onClose: () => void }) {
+export function CouponsView({
+  coupons,
+  balance = 0,
+  balanceNote,
+  onClose,
+}: {
+  coupons: Coupon[];
+  balance?: number;
+  balanceNote?: string;
+  onClose: () => void;
+}) {
   const [tab, setTab] = useState<'offers' | 'basket'>('offers');
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [basket, setBasketState] = useState<Basket>(loadBasket);
@@ -107,12 +120,47 @@ export function CouponsView({ coupons, onClose }: { coupons: Coupon[]; onClose: 
 
       {tab === 'offers' ? (
         <div className="cp-body">
-          <p className="muted small cp-intro">Wholesaler offers for your store. Tap the ones you want, then add them to your basket.</p>
+          <div className="cp-summary">
+            <div>
+              <span className="cp-summary-label">
+                <TicketPercent size={15} /> Available offers
+              </span>
+              <b>{money(coupons.reduce((n, c) => n + c.saving, 0))}</b>
+              <small>
+                {coupons.length} offer{coupons.length === 1 ? '' : 's'} to claim
+              </small>
+            </div>
+            <div>
+              <span className="cp-summary-label">
+                <Wallet size={15} /> Your balance
+              </span>
+              <b>{money(balance)}</b>
+              <small>{balanceNote ?? 'Cashback earned'}</small>
+            </div>
+          </div>
+          <p className="muted small cp-intro">Tap the offers you want, then add them to your basket.</p>
           {!coupons.length && <p className="muted">No offers right now. Check back soon.</p>}
+          {coupons.some((c) => c.featured) && (
+            <>
+              <h3 className="cp-section">
+                <Star size={15} fill="currentColor" /> Featured offers
+              </h3>
+              <div className="coupon-list">
+                {coupons
+                  .filter((c) => c.featured)
+                  .map((c) => (
+                    <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} />
+                  ))}
+              </div>
+              <h3 className="cp-section">All offers</h3>
+            </>
+          )}
           <div className="coupon-list">
-            {coupons.map((c) => (
-              <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} />
-            ))}
+            {coupons
+              .filter((c) => !c.featured)
+              .map((c) => (
+                <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} />
+              ))}
           </div>
           <p className="muted small cp-note">Sample offers and prices for this demo.</p>
           {picked.size > 0 && (

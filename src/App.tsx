@@ -32,7 +32,8 @@ export default function App() {
   const [admin, setAdmin] = useState(readAdminMode);
   const [tab, setTab] = useState<Tab>('scan');
   const [settings, setSettingsState] = useState<Settings>(loadSettings);
-  const coupons = useCoupons(catalogSource(settings));
+  const offers = useCoupons(catalogSource(settings));
+  const coupons = offers.coupons;
   const [catalog, setCatalog] = useState<CatalogState | null>(null);
   const [sales, setSalesState] = useState<StoredSales | null>(null);
   const [library, setLibrary] = useState<LibraryStatus>({ state: 'loading', msg: 'Loading product library', frac: 0 });
@@ -278,7 +279,7 @@ export default function App() {
           Signed in as {signedInAs() ?? 'tester'} · Sign out
         </button>
       )}
-      {couponsOpen && <CouponsView coupons={coupons} onClose={() => setCouponsOpen(false)} />}
+      {couponsOpen && <CouponsView coupons={coupons} balance={offers.balance} balanceNote={offers.balanceNote} onClose={() => setCouponsOpen(false)} />}
       {admin && (
         <nav className="tabbar" aria-label="Main">
           {TABS.map(({ id, label, Icon }) => (

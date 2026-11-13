@@ -557,7 +557,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
               <span className="offers-pill-text">
                 <b>Wholesale offers</b>
                 <small>
-                  {coupons.length} deal{coupons.length > 1 ? 's' : ''} · save up to {money(Math.max(...coupons.map((c) => c.saving)))}
+                  {coupons.length} deal{coupons.length > 1 ? 's' : ''} · {money(coupons.reduce((n, c) => n + c.saving, 0))} to claim
                 </small>
               </span>
               <span className="offers-pill-count">{coupons.length}</span>
