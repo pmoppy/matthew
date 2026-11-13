@@ -2,5 +2,6 @@
 /// <reference types="vite-plugin-pwa/client" />
 
 declare const __NATIVE__: boolean;
+declare const __BUILT_AT__: string;
 declare const __BUILD_NUMBER__: number;
 declare const __REPO__: string;

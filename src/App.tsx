@@ -67,6 +67,23 @@ export default function App() {
   useEffect(() => {
     checkForApkUpdate().then(setUpdate);
     trackOpen();
+    // Android keeps the app alive in the background, so also check whenever it
+    // comes back to the screen (at most every 10 minutes), not only on a cold start.
+    let last = Date.now();
+    const recheck = () => {
+      if (document.visibilityState !== 'visible' || Date.now() - last < 10 * 60e3) return;
+      last = Date.now();
+      checkForApkUpdate().then(setUpdate);
+      trackOpen();
+    };
+    document.addEventListener('visibilitychange', recheck);
+    let remove: (() => void) | undefined;
+    if (Capacitor.isNativePlatform())
+      import('@capacitor/app').then(({ App: CapApp }) => CapApp.addListener('resume', recheck).then((h) => (remove = () => h.remove())));
+    return () => {
+      document.removeEventListener('visibilitychange', recheck);
+      remove?.();
+    };
   }, []);
 
   // Hidden admin switch for the APK (no address bar for ?admin=1): tap the logo 7 times within 3 seconds.
@@ -279,6 +296,7 @@ export default function App() {
           Signed in as {signedInAs() ?? 'tester'} · Sign out
         </button>
       )}
+      {tab === 'scan' && <p className="app-version">{__BUILD_NUMBER__ ? `ShelfScan build ${__BUILD_NUMBER__}` : `ShelfScan web · updated ${new Date(__BUILT_AT__).toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`}</p>}
       {couponsOpen && <CouponsView coupons={coupons} balance={offers.balance} balanceNote={offers.balanceNote} onClose={() => setCouponsOpen(false)} />}
       {admin && (
         <nav className="tabbar" aria-label="Main">

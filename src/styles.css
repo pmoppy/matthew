@@ -2893,3 +2893,9 @@ h3,
 .coupon-star {
   color: var(--amber);
 }
+.app-version {
+  margin: -16px 0 28px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.74rem;
+}

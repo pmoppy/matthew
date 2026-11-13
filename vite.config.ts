@@ -74,6 +74,7 @@ export default defineConfig(({ mode }) => {
     __ORT_WASM_BASE__: JSON.stringify(native ? '' : `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortVersion}/dist/`),
     __NATIVE__: JSON.stringify(native),
     __BUILD_NUMBER__: JSON.stringify(Number(process.env.VITE_BUILD_NUMBER || 0)),
+    __BUILT_AT__: JSON.stringify(new Date().toISOString()),
     __REPO__: JSON.stringify(process.env.GITHUB_REPOSITORY || 'pmoppy/matthew'),
   },
   optimizeDeps: { exclude: ['onnxruntime-web'] },
