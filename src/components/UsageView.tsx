@@ -10,6 +10,8 @@ const LABEL: Record<string, string> = {
   planogram_check: 'Planogram check',
   media_open: 'Opened in media hub',
   pdf_report: 'Shared PDF report',
+  coupons_added: 'Added offers to basket',
+  basket_sent: 'Sent order basket',
 };
 const PASS_KEY = 'shelfscan.usagePass';
 

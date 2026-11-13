@@ -1,0 +1,90 @@
+{
+  "note": "Sample offers for the demo. Replace with real campaigns; the app reads this file live, no update needed.",
+  "currency": "GBP",
+  "coupons": [
+    {
+      "id": "monster-2-cases-5off",
+      "brand": "Monster Energy",
+      "title": "Buy 2 cases of Monster Energy 500ml",
+      "offer": "Save £5",
+      "product": "Monster Energy Original 500ml",
+      "pack": "Case of 12 × 500ml",
+      "casePrice": 14.99,
+      "minCases": 2,
+      "saving": 5,
+      "ends": "2026-12-31",
+      "image": "coupons/monster.jpg",
+      "colour": "#5d8f2a"
+    },
+    {
+      "id": "redbull-3-cases-6off",
+      "brand": "Red Bull",
+      "title": "Red Bull Energy Drink 250ml: buy 3 cases",
+      "offer": "£6 off",
+      "product": "Red Bull Energy Drink 250ml",
+      "pack": "Case of 24 × 250ml",
+      "casePrice": 27.49,
+      "minCases": 3,
+      "saving": 6,
+      "ends": "2026-12-24",
+      "image": "coupons/redbull.jpg",
+      "colour": "#1f3c88"
+    },
+    {
+      "id": "cokezero-2-cases-4off",
+      "brand": "Coca-Cola",
+      "title": "£2 off every case of Coca-Cola Zero Sugar 500ml",
+      "offer": "Save £4 on 2",
+      "product": "Coca-Cola Zero Sugar 500ml",
+      "pack": "Case of 24 × 500ml",
+      "casePrice": 18.49,
+      "minCases": 2,
+      "saving": 4,
+      "ends": "2027-01-15",
+      "image": "coupons/cokezero.jpg",
+      "colour": "#c8102e"
+    },
+    {
+      "id": "walkers-grab-2-boxes-3off",
+      "brand": "Walkers",
+      "title": "Buy 2 boxes of Walkers Grab Bags 45g",
+      "offer": "Save £3",
+      "product": "Walkers Cheese and Onion 45g",
+      "pack": "Box of 32 × 45g",
+      "casePrice": 15.49,
+      "minCases": 2,
+      "saving": 3,
+      "ends": "2026-12-31",
+      "image": "coupons/walkers.jpg",
+      "colour": "#1d5fb4"
+    },
+    {
+      "id": "dairymilk-2-outers-4off",
+      "brand": "Cadbury",
+      "title": "Cadbury Dairy Milk 45g: 2 outers",
+      "offer": "£4 off",
+      "product": "Cadbury Dairy Milk 45g",
+      "pack": "Outer of 48 × 45g",
+      "casePrice": 23.99,
+      "minCases": 2,
+      "saving": 4,
+      "ends": "2027-01-31",
+      "image": "coupons/dairymilk.jpg",
+      "colour": "#4b1a7a"
+    },
+    {
+      "id": "lucozade-3-for-30",
+      "brand": "Lucozade",
+      "title": "Lucozade Energy Original 380ml: 3 cases for £30",
+      "offer": "3 for £30",
+      "product": "Lucozade Energy Original 380ml",
+      "pack": "Case of 24 × 380ml",
+      "casePrice": 12.49,
+      "minCases": 3,
+      "saving": 7.47,
+      "ends": "2026-12-31",
+      "image": "coupons/lucozade.jpg",
+      "colour": "#e35205"
+    }
+  ]
+}

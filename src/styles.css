@@ -2292,3 +2292,355 @@ h3,
 .league-row .pill {
   text-align: center;
 }
+
+/* Coupons & order basket ------------------------------------------------------------ */
+.coupon-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--brand);
+  cursor: pointer;
+}
+.coupon-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--bg);
+}
+.cp-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding-top: env(safe-area-inset-top);
+  animation: fade 0.18s ease-out;
+}
+.cp-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.cp-tabs {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+.cp-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--text-2);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.cp-tabs button.on {
+  background: var(--surface);
+  color: var(--brand);
+  box-shadow: var(--shadow-sm);
+}
+.cp-body {
+  flex: 1;
+  overflow: auto;
+  padding: 14px 16px calc(110px + env(safe-area-inset-bottom));
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+}
+.cp-intro {
+  margin: 0 2px 12px;
+}
+.cp-note {
+  margin: 14px 2px;
+  text-align: center;
+}
+.coupon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* A coupon: colour stub on the left, perforated edge, ticket notches. */
+.coupon {
+  --cp: var(--brand);
+  position: relative;
+  display: grid;
+  grid-template-columns: 84px 1fr 28px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 12px 14px 12px 12px;
+  border: 1.5px dashed color-mix(in srgb, var(--cp) 45%, var(--border));
+  border-left: 7px solid var(--cp);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+}
+.coupon::before,
+.coupon::after {
+  content: '';
+  position: absolute;
+  left: 92px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px dashed color-mix(in srgb, var(--cp) 45%, var(--border));
+}
+.coupon::before {
+  top: -8px;
+}
+.coupon::after {
+  bottom: -8px;
+}
+.coupon:active {
+  transform: scale(0.99);
+}
+.coupon.on {
+  background: color-mix(in srgb, var(--cp) 14%, var(--surface));
+  border-style: solid;
+  border-color: var(--cp);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--cp) 35%, transparent);
+}
+.coupon-img {
+  width: 84px;
+  height: 84px;
+  border-radius: 12px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--muted);
+}
+.coupon-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.coupon-img.small {
+  width: 56px;
+  height: 56px;
+  flex: none;
+}
+.coupon-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.coupon-brand {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cp);
+}
+.coupon-offer {
+  font-family: var(--font-head);
+  font-size: 1.45rem;
+  line-height: 1.1;
+  color: var(--text);
+}
+.coupon-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+.coupon-meta {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+.coupon-tick {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.coupon.on .coupon-tick {
+  background: var(--cp);
+  border-color: var(--cp);
+}
+.coupon-flag {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green);
+}
+.cp-bar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  width: min(608px, calc(100% - 24px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 10px 18px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--on-brand);
+  box-shadow: var(--shadow-lg);
+  animation: rise 0.2s ease-out;
+}
+.cp-bar span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.cp-bar small {
+  opacity: 0.85;
+}
+.cp-bar .btn.primary {
+  background: var(--on-brand);
+  color: var(--brand);
+  border-radius: 999px;
+}
+.cp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 48px 0;
+  color: var(--muted);
+}
+.basket-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.basket-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.basket-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.basket-info b {
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+.basket-info small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.basket-info .basket-ok,
+.basket-totals .basket-ok {
+  color: var(--green);
+  font-weight: 700;
+}
+.basket-info .basket-warn {
+  color: var(--amber);
+  font-weight: 700;
+}
+.basket-qty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+.stepper button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  color: var(--brand);
+  cursor: pointer;
+}
+.stepper b {
+  min-width: 20px;
+  text-align: center;
+}
+.basket-totals {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.basket-totals b {
+  font-size: 1.1rem;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+.cp-body .btn.full + .btn.full {
+  margin-top: 8px;
+}
+.cp-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.85rem;
+  max-width: calc(100% - 32px);
+}

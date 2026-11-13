@@ -8,7 +8,7 @@ import { signedInHash } from './auth';
 export const USAGE_URL: string = (import.meta.env.VITE_USAGE_URL as string | undefined)?.trim() || 'https://shelfscan-usage.shelfscan.workers.dev';
 const QUEUE = 'shelfscan.usageQueue';
 
-export type UsageType = 'sign_in' | 'app_open' | 'scan' | 'planogram_check' | 'media_open' | 'pdf_report';
+export type UsageType = 'sign_in' | 'app_open' | 'scan' | 'planogram_check' | 'media_open' | 'pdf_report' | 'coupons_added' | 'basket_sent';
 
 interface Note {
   h: string;

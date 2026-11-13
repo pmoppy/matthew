@@ -1,10 +1,12 @@
 import { signedInAs, signOut } from './lib/auth';
-import { Activity, Download, FolderOpen, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
+import { Activity, Download, FolderOpen, TicketPercent, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CatalogView } from './components/CatalogView';
 import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
 import { UsageView } from './components/UsageView';
+import { CouponsView } from './components/CouponsView';
+import { useCoupons } from './lib/coupons';
 import { trackOpen } from './lib/usage';
 import { enterAdminMode, isAdminUser, leaveAdminMode, readAdminMode } from './lib/admin';
 import { checkForApkUpdate, type UpdateInfo } from './lib/update';
@@ -14,7 +16,7 @@ import { Capacitor } from '@capacitor/core';
 import { loadCatalog, loadSales, saveSales, type CatalogState, type StoredSales } from './lib/catalog';
 import { classifySales, parseSales } from './lib/sales';
 import { loadSettings, saveSettings } from './lib/settings';
-import { fetchLibrarySales, libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
+import { catalogSource, fetchLibrarySales, libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
 import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from './lib/types';
 
 type Tab = 'scan' | 'catalog' | 'usage' | 'settings';
@@ -30,6 +32,7 @@ export default function App() {
   const [admin, setAdmin] = useState(readAdminMode);
   const [tab, setTab] = useState<Tab>('scan');
   const [settings, setSettingsState] = useState<Settings>(loadSettings);
+  const coupons = useCoupons(catalogSource(settings));
   const [catalog, setCatalog] = useState<CatalogState | null>(null);
   const [sales, setSalesState] = useState<StoredSales | null>(null);
   const [library, setLibrary] = useState<LibraryStatus>({ state: 'loading', msg: 'Loading product library', frac: 0 });
@@ -38,6 +41,9 @@ export default function App() {
   const [theme, setTheme] = useState<ThemeChoice>(loadTheme);
   useEffect(() => applyTheme(theme), [theme]);
   const scanBack = useRef<(() => boolean) | null>(null);
+  const [couponsOpen, setCouponsOpen] = useState(false);
+  const couponsRef = useRef(couponsOpen);
+  couponsRef.current = couponsOpen;
   const tabRef = useRef(tab);
   tabRef.current = tab;
 
@@ -47,7 +53,8 @@ export default function App() {
     let remove: (() => void) | undefined;
     import('@capacitor/app').then(({ App: CapApp }) =>
       CapApp.addListener('backButton', () => {
-        if (tabRef.current !== 'scan') setTab('scan');
+        if (couponsRef.current) setCouponsOpen(false);
+        else if (tabRef.current !== 'scan') setTab('scan');
         else if (!scanBack.current?.()) CapApp.exitApp();
       }).then((h) => (remove = () => h.remove())),
     );
@@ -168,6 +175,12 @@ export default function App() {
           <span>ShelfScan</span>
         </div>
         <div className="topbar-actions">
+          {coupons.length > 0 && (
+            <button className="coupon-btn" onClick={() => setCouponsOpen(true)} aria-label={`Offers: ${coupons.length} coupons`} title="Offers & coupons">
+              <TicketPercent size={20} />
+              <span className="coupon-badge">{coupons.length}</span>
+            </button>
+          )}
           <button
             className="theme-btn"
             onClick={() => setTheme(NEXT_THEME[theme])}
@@ -265,6 +278,7 @@ export default function App() {
           Signed in as {signedInAs() ?? 'tester'} · Sign out
         </button>
       )}
+      {couponsOpen && <CouponsView coupons={coupons} onClose={() => setCouponsOpen(false)} />}
       {admin && (
         <nav className="tabbar" aria-label="Main">
           {TABS.map(({ id, label, Icon }) => (

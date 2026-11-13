@@ -45,14 +45,14 @@ function localBase(libraryBase: string): string {
 }
 
 /** Where to look, in order: the live list first, then the copy built into the app. */
-function sources(libraryBase: string): string[] {
+export function sources(libraryBase: string): string[] {
   const own = localBase(libraryBase);
   // A custom library (e.g. the R2 Worker) carries its own media folder.
   const builtIn = /^\/([^/]+\/)*starter$/.test(libraryBase.replace(/\/+$/, '')) || libraryBase.startsWith(location.origin);
   return builtIn ? [LIVE_MEDIA_BASE, own] : [own];
 }
 
-function join(base: string, file: string): string {
+export function join(base: string, file: string): string {
   if (/^https?:/i.test(file)) return file;
   return `${base.replace(/\/+$/, '')}/${file.split('/').map(encodeURIComponent).join('/')}`;
 }

@@ -348,3 +348,20 @@ describe('store league', () => {
     ]);
   });
 });
+
+import { basketLines, basketTotals } from '../coupons';
+
+describe('order basket', () => {
+  it('applies a coupon only once its minimum cases are in the basket', () => {
+    const coupons = [
+      { id: 'm', brand: 'Monster', title: '', offer: 'Save £5', product: 'Monster', pack: '12', casePrice: 14.99, minCases: 2, saving: 5 },
+      { id: 'r', brand: 'Red Bull', title: '', offer: '£6 off', product: 'Red Bull', pack: '24', casePrice: 27.49, minCases: 3, saving: 6 },
+    ];
+    const lines = basketLines({ m: 2, r: 2 }, coupons);
+    expect(lines.map((l) => l.saving)).toEqual([5, 0]);
+    const t = basketTotals(lines);
+    expect(t.subtotal).toBeCloseTo(2 * 14.99 + 2 * 27.49);
+    expect(t.total).toBeCloseTo(t.subtotal - 5);
+    expect(t.cases).toBe(4);
+  });
+});
