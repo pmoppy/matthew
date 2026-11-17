@@ -6,7 +6,7 @@ import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
 import { UsageView } from './components/UsageView';
 import { CouponsView } from './components/CouponsView';
-import { dismissPopup, popupOffer, useCoupons, type Coupon } from './lib/coupons';
+import { bestSellerText, dismissPopup, popupOffer, useCoupons, type BestSeller, type Coupon } from './lib/coupons';
 import { OfferPopup } from './components/OfferPopup';
 import { track } from './lib/usage';
 import { trackOpen } from './lib/usage';
@@ -16,7 +16,7 @@ import { useShoppingList } from './lib/shopping';
 import { applyTheme, loadTheme, NEXT_THEME, type ThemeChoice } from './lib/theme';
 import { Capacitor } from '@capacitor/core';
 import { loadCatalog, loadSales, saveSales, type CatalogState, type StoredSales } from './lib/catalog';
-import { classifySales, parseSales } from './lib/sales';
+import { classifySales, normName, parseSales } from './lib/sales';
 import { loadSettings, saveSettings } from './lib/settings';
 import { catalogSource, fetchLibrarySales, libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
 import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from './lib/types';
@@ -200,6 +200,11 @@ export default function App() {
     }
   }, [sales]);
   const salesMap = useMemo(() => (salesRows.length ? classifySales(salesRows, settings) : null), [salesRows, settings]);
+  /** Offer product's place in the sales ranking (the offer's own sample figure if it isn't ranked). */
+  const bestSellerOf = (c: Coupon): BestSeller | undefined => {
+    const info = salesMap?.get(normName(c.product));
+    return info ? { rank: info.categoryRank, category: info.category } : c.bestSeller;
+  };
 
   return (
     <div className={`app ${admin ? 'is-admin' : ''}`}>
@@ -319,6 +324,7 @@ export default function App() {
           balance={offers.balance}
           balanceNote={offers.balanceNote}
           preselect={preselect}
+          bestSellerOf={bestSellerOf}
           onClose={() => {
             setCouponsOpen(false);
             setPreselect(undefined);
@@ -328,6 +334,7 @@ export default function App() {
       {popup && (
         <OfferPopup
           coupon={popup}
+          best={bestSellerText(bestSellerOf(popup))}
           onClose={() => {
             dismissPopup(popup.id);
             track('offer_popup', `${popup.brand} ${popup.offer} · closed`);

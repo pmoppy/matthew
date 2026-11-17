@@ -25,6 +25,8 @@ export interface Coupon {
   colour?: string;
   /** Paid placement: shown first, with a star, under "Featured offers". */
   featured?: boolean;
+  /** Best-seller position to show when the product isn't in the sales ranking. */
+  bestSeller?: { rank: number; category: string };
   /** The offer to promote in the pop-up when the app opens. */
   popup?: boolean;
   imageUrl?: string;
@@ -196,6 +198,24 @@ export function dismissPopup(id: string) {
   } catch {
     /* ignore */
   }
+}
+
+export interface BestSeller {
+  rank: number;
+  category?: string;
+}
+
+/** "1st", "2nd", "3rd", "11th"... */
+export function ordinal(n: number): string {
+  const t = n % 100;
+  if (t >= 11 && t <= 13) return `${n}th`;
+  return `${n}${({ 1: 'st', 2: 'nd', 3: 'rd' } as Record<number, string>)[n % 10] ?? 'th'}`;
+}
+
+/** Only shown when it reassures: a top-20 seller in its category. */
+export function bestSellerText(b?: BestSeller): string | null {
+  if (!b || !(b.rank > 0) || b.rank > 20) return null;
+  return `${ordinal(b.rank)} best seller${b.category ? ` in ${b.category}` : ''}`;
 }
 
 export const money = (n: number) => `£${n.toFixed(2)}`;

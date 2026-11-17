@@ -1,6 +1,6 @@
-import { ArrowLeft, Check, Minus, Plus, Send, ShoppingBasket, Star, TicketPercent, Trash2, Wallet } from 'lucide-react';
+import { ArrowLeft, Check, Minus, Plus, Send, ShoppingBasket, Star, TicketPercent, Trash2, TrendingUp, Wallet } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { basketLines, basketTotals, loadBasket, money, orderText, saveBasket, type Basket, type Coupon } from '../lib/coupons';
+import { basketLines, basketTotals, bestSellerText, loadBasket, money, orderText, saveBasket, type Basket, type BestSeller, type Coupon } from '../lib/coupons';
 import { shareText } from '../lib/shopping';
 import { loadStore } from '../lib/stores';
 import { track } from '../lib/usage';
@@ -11,7 +11,7 @@ function ends(d?: string) {
   return isNaN(t.getTime()) ? d : `Ends ${t.toLocaleDateString([], { day: 'numeric', month: 'short' })}`;
 }
 
-function CouponCard({ c, selected, inBasket, onToggle }: { c: Coupon; selected: boolean; inBasket: boolean; onToggle: () => void }) {
+function CouponCard({ c, selected, inBasket, onToggle, best }: { c: Coupon; selected: boolean; inBasket: boolean; onToggle: () => void; best?: string | null }) {
   return (
     <button
       className={`coupon ${selected ? 'on' : ''}`}
@@ -21,6 +21,12 @@ function CouponCard({ c, selected, inBasket, onToggle }: { c: Coupon; selected: 
     >
       <span className="coupon-img">{c.imageUrl ? <img src={c.imageUrl} alt="" loading="lazy" /> : <TicketPercent size={28} />}</span>
       <span className="coupon-body">
+        {best && (
+          <span className="coupon-best">
+            <TrendingUp size={13} />
+            {best} <small>in stores like yours</small>
+          </span>
+        )}
         <small className="coupon-brand">
           {c.featured && <Star size={12} className="coupon-star" fill="currentColor" />}
           {c.brand}
@@ -46,6 +52,7 @@ export function CouponsView({
   balanceNote,
   onClose,
   preselect,
+  bestSellerOf,
 }: {
   coupons: Coupon[];
   balance?: number;
@@ -53,6 +60,8 @@ export function CouponsView({
   onClose: () => void;
   /** Offer to have selected already (e.g. from the opening pop-up). */
   preselect?: string;
+  /** Where the product sits in the sales ranking (reassures the retailer it sells). */
+  bestSellerOf?: (c: Coupon) => BestSeller | undefined;
 }) {
   const [tab, setTab] = useState<'offers' | 'basket'>('offers');
   const [picked, setPicked] = useState<Set<string>>(() => new Set(preselect ? [preselect] : []));
@@ -152,7 +161,7 @@ export function CouponsView({
                 {coupons
                   .filter((c) => c.featured)
                   .map((c) => (
-                    <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} />
+                    <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)} />
                   ))}
               </div>
               <h3 className="cp-section">All offers</h3>
@@ -162,7 +171,7 @@ export function CouponsView({
             {coupons
               .filter((c) => !c.featured)
               .map((c) => (
-                <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} />
+                <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)} />
               ))}
           </div>
           <p className="muted small cp-note">Sample offers and prices for this demo.</p>

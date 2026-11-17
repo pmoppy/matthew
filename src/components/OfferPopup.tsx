@@ -1,11 +1,11 @@
-import { Star, TicketPercent, X } from 'lucide-react';
+import { Star, TicketPercent, TrendingUp, X } from 'lucide-react';
 import type { Coupon } from '../lib/coupons';
 
 /**
  * Pop-up on opening the app that promotes one offer (the one marked "popup"
  * in coupons.json, otherwise the first featured offer).
  */
-export function OfferPopup({ coupon, onClose, onGo }: { coupon: Coupon; onClose: () => void; onGo: () => void }) {
+export function OfferPopup({ coupon, onClose, onGo, best }: { coupon: Coupon; onClose: () => void; onGo: () => void; best?: string | null }) {
   return (
     <div className="sheet-backdrop popup-backdrop" onClick={onClose}>
       <div
@@ -25,6 +25,11 @@ export function OfferPopup({ coupon, onClose, onGo }: { coupon: Coupon; onClose:
         <small className="popup-brand">{coupon.brand}</small>
         <b className="popup-offer">{coupon.offer}</b>
         <p className="popup-title">{coupon.title}</p>
+        {best && (
+          <span className="coupon-best popup-best">
+            <TrendingUp size={14} /> {best} in stores like yours
+          </span>
+        )}
         <p className="muted small popup-meta">
           {coupon.pack}
           {coupon.ends ? ` · ends ${new Date(`${coupon.ends}T12:00:00`).toLocaleDateString([], { day: 'numeric', month: 'short' })}` : ''}

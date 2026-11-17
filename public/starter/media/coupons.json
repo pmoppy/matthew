@@ -1,5 +1,5 @@
 {
-  "note": "Sample offers for the demo. Replace with real campaigns; the app reads this file live, no update needed.",
+  "note": "Sample offers for the demo. Replace with real campaigns; the app reads this file live, no update needed. 'bestSeller' is used only when the product isn't in the sales ranking.",
   "currency": "GBP",
   "coupons": [
     {
@@ -16,7 +16,11 @@
       "image": "coupons/doritos.jpg",
       "colour": "#1268b3",
       "featured": true,
-      "popup": true
+      "popup": true,
+      "bestSeller": {
+        "rank": 4,
+        "category": "Crisps"
+      }
     },
     {
       "id": "lucozade-sport-6-cases-8off",
@@ -129,7 +133,11 @@
       "saving": 5,
       "ends": "2026-12-31",
       "image": "coupons/pringles.jpg",
-      "colour": "#c8102e"
+      "colour": "#c8102e",
+      "bestSeller": {
+        "rank": 7,
+        "category": "Crisps"
+      }
     },
     {
       "id": "haribo-4-cases-4off",
@@ -143,7 +151,11 @@
       "saving": 4,
       "ends": "2027-01-15",
       "image": "coupons/haribo.jpg",
-      "colour": "#d4001a"
+      "colour": "#d4001a",
+      "bestSeller": {
+        "rank": 5,
+        "category": "Confectionery"
+      }
     },
     {
       "id": "fanta-5-for-80",
@@ -157,7 +169,11 @@
       "saving": 7.5,
       "ends": "2026-12-31",
       "image": "coupons/fanta.jpg",
-      "colour": "#e4572e"
+      "colour": "#e4572e",
+      "bestSeller": {
+        "rank": 6,
+        "category": "Soft drinks"
+      }
     },
     {
       "id": "mccoys-4-boxes-5off",
@@ -171,7 +187,11 @@
       "saving": 5,
       "ends": "2027-01-31",
       "image": "coupons/mccoys.jpg",
-      "colour": "#a2621e"
+      "colour": "#a2621e",
+      "bestSeller": {
+        "rank": 9,
+        "category": "Crisps"
+      }
     }
   ],
   "balance": 12.5,

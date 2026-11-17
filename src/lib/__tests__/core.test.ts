@@ -365,3 +365,14 @@ describe('order basket', () => {
     expect(t.cases).toBe(4);
   });
 });
+
+import { bestSellerText, ordinal } from '../coupons';
+
+describe('best-seller badge', () => {
+  it('words the rank naturally and only shows top-20 sellers', () => {
+    expect([1, 2, 3, 4, 11, 12, 13, 21, 22, 103].map(ordinal)).toEqual(['1st', '2nd', '3rd', '4th', '11th', '12th', '13th', '21st', '22nd', '103rd']);
+    expect(bestSellerText({ rank: 3, category: 'Energy' })).toBe('3rd best seller in Energy');
+    expect(bestSellerText({ rank: 25, category: 'Crisps' })).toBeNull();
+    expect(bestSellerText(undefined)).toBeNull();
+  });
+});

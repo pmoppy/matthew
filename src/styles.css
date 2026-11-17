@@ -2989,3 +2989,29 @@ h3,
   grid-template-columns: 1fr 1.4fr;
   gap: 8px;
 }
+.coupon-best {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 5px;
+  padding: 3px 9px;
+  border-radius: 10px;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 0.74rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.coupon-best svg {
+  vertical-align: -2px;
+  margin-right: 3px;
+}
+.coupon-best small {
+  font-size: inherit;
+  font-weight: 600;
+}
+.popup-best {
+  align-self: center;
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
