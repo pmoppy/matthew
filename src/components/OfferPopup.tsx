@@ -1,11 +1,21 @@
-import { Star, TicketPercent, TrendingUp, X } from 'lucide-react';
+import { Sparkles, Star, TicketPercent, TrendingUp, X } from 'lucide-react';
 import type { Coupon } from '../lib/coupons';
 
 /**
  * Pop-up on opening the app that promotes one offer (the one marked "popup"
  * in coupons.json, otherwise the first featured offer).
  */
-export function OfferPopup({ coupon, onClose, onGo, best }: { coupon: Coupon; onClose: () => void; onGo: () => void; best?: string | null }) {
+export function OfferPopup({
+  coupon,
+  onClose,
+  onGo,
+  best,
+}: {
+  coupon: Coupon;
+  onClose: () => void;
+  onGo: () => void;
+  best?: string | null;
+}) {
   return (
     <div className="sheet-backdrop popup-backdrop" onClick={onClose}>
       <div
@@ -25,10 +35,17 @@ export function OfferPopup({ coupon, onClose, onGo, best }: { coupon: Coupon; on
         <small className="popup-brand">{coupon.brand}</small>
         <b className="popup-offer">{coupon.offer}</b>
         <p className="popup-title">{coupon.title}</p>
-        {best && (
-          <span className="coupon-best popup-best">
-            <TrendingUp size={14} /> {best} in stores like yours
+        {coupon.label ? (
+          <span className="coupon-best coupon-label popup-best">
+            <Sparkles size={14} /> {coupon.label}
+            {coupon.label === 'NPD' ? ' · new product launch' : ''}
           </span>
+        ) : (
+          best && (
+            <span className="coupon-best popup-best">
+              <TrendingUp size={14} /> {best} in stores like yours
+            </span>
+          )
         )}
         <p className="muted small popup-meta">
           {coupon.pack}

@@ -1,6 +1,30 @@
-import { ArrowLeft, Check, Minus, Plus, Send, ShoppingBasket, Star, TicketPercent, Trash2, TrendingUp, Wallet } from 'lucide-react';
+import {
+  ArrowLeft,
+  Check,
+  Minus,
+  Plus,
+  Send,
+  ShoppingBasket,
+  Sparkles,
+  Star,
+  TicketPercent,
+  Trash2,
+  TrendingUp,
+  Wallet,
+} from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { basketLines, basketTotals, bestSellerText, loadBasket, money, orderText, saveBasket, type Basket, type BestSeller, type Coupon } from '../lib/coupons';
+import {
+  basketLines,
+  basketTotals,
+  bestSellerText,
+  loadBasket,
+  money,
+  orderText,
+  saveBasket,
+  type Basket,
+  type BestSeller,
+  type Coupon,
+} from '../lib/coupons';
 import { shareText } from '../lib/shopping';
 import { loadStore } from '../lib/stores';
 import { track } from '../lib/usage';
@@ -11,7 +35,19 @@ function ends(d?: string) {
   return isNaN(t.getTime()) ? d : `Ends ${t.toLocaleDateString([], { day: 'numeric', month: 'short' })}`;
 }
 
-function CouponCard({ c, selected, inBasket, onToggle, best }: { c: Coupon; selected: boolean; inBasket: boolean; onToggle: () => void; best?: string | null }) {
+function CouponCard({
+  c,
+  selected,
+  inBasket,
+  onToggle,
+  best,
+}: {
+  c: Coupon;
+  selected: boolean;
+  inBasket: boolean;
+  onToggle: () => void;
+  best?: string | null;
+}) {
   return (
     <button
       className={`coupon ${selected ? 'on' : ''}`}
@@ -21,11 +57,18 @@ function CouponCard({ c, selected, inBasket, onToggle, best }: { c: Coupon; sele
     >
       <span className="coupon-img">{c.imageUrl ? <img src={c.imageUrl} alt="" loading="lazy" /> : <TicketPercent size={28} />}</span>
       <span className="coupon-body">
-        {best && (
-          <span className="coupon-best">
-            <TrendingUp size={13} />
-            {best} <small>in stores like yours</small>
+        {c.label ? (
+          <span className="coupon-best coupon-label">
+            <Sparkles size={13} />
+            {c.label} <small>{c.label === 'NPD' ? 'new product launch' : ''}</small>
           </span>
+        ) : (
+          best && (
+            <span className="coupon-best">
+              <TrendingUp size={13} />
+              {best} <small>in stores like yours</small>
+            </span>
+          )
         )}
         <small className="coupon-brand">
           {c.featured && <Star size={12} className="coupon-star" fill="currentColor" />}
@@ -161,7 +204,14 @@ export function CouponsView({
                 {coupons
                   .filter((c) => c.featured)
                   .map((c) => (
-                    <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)} />
+                    <CouponCard
+                      key={c.id}
+                      c={c}
+                      selected={picked.has(c.id)}
+                      inBasket={!!basket[c.id]}
+                      onToggle={() => toggle(c.id)}
+                      best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)}
+                    />
                   ))}
               </div>
               <h3 className="cp-section">All offers</h3>
@@ -171,7 +221,14 @@ export function CouponsView({
             {coupons
               .filter((c) => !c.featured)
               .map((c) => (
-                <CouponCard key={c.id} c={c} selected={picked.has(c.id)} inBasket={!!basket[c.id]} onToggle={() => toggle(c.id)} best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)} />
+                <CouponCard
+                  key={c.id}
+                  c={c}
+                  selected={picked.has(c.id)}
+                  inBasket={!!basket[c.id]}
+                  onToggle={() => toggle(c.id)}
+                  best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)}
+                />
               ))}
           </div>
           <p className="muted small cp-note">Sample offers and prices for this demo.</p>
@@ -255,7 +312,9 @@ export function CouponsView({
               >
                 <Trash2 size={16} /> Empty basket
               </button>
-              <p className="muted small cp-note">Sample offers and prices for this demo. The order opens your share sheet, ready to send.</p>
+              <p className="muted small cp-note">
+                Sample offers and prices for this demo. The order opens your share sheet, ready to send.
+              </p>
             </>
           )}
         </div>

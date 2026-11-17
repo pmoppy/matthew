@@ -3015,3 +3015,7 @@ h3,
   font-size: 0.8rem;
   padding: 4px 10px;
 }
+.coupon-label {
+  background: var(--brand-soft);
+  color: var(--brand);
+}

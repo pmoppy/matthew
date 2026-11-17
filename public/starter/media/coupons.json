@@ -3,6 +3,22 @@
   "currency": "GBP",
   "coupons": [
     {
+      "id": "redbull-pistachio-berries-launch",
+      "brand": "Red Bull",
+      "title": "NEW Red Bull Winter Edition Pistachio & Berries Sugarfree 250ml: 2 cases",
+      "offer": "Save £5",
+      "product": "Red Bull Winter Edition Pistachio & Berries 250ml",
+      "pack": "Case of 24 × 250ml",
+      "casePrice": 27.49,
+      "minCases": 2,
+      "saving": 5,
+      "ends": "2027-02-28",
+      "image": "coupons/redbull-pistachio.jpg",
+      "colour": "#5f9b3a",
+      "featured": true,
+      "label": "NPD"
+    },
+    {
       "id": "doritos-4-boxes-6off",
       "brand": "Doritos",
       "title": "Buy 4 boxes of Doritos Cool Original Grab Bags 44g",

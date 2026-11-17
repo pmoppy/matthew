@@ -25,6 +25,8 @@ export interface Coupon {
   colour?: string;
   /** Paid placement: shown first, with a star, under "Featured offers". */
   featured?: boolean;
+  /** Short label shown instead of the best-seller badge, e.g. "NPD" for a new product launch. */
+  label?: string;
   /** Best-seller position to show when the product isn't in the sales ranking. */
   bestSeller?: { rank: number; category: string };
   /** The offer to promote in the pop-up when the app opens. */
