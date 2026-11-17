@@ -19,7 +19,7 @@ export function OfferPopup({ coupon, onClose, onGo }: { coupon: Coupon; onClose:
           <X size={18} />
         </button>
         <span className="popup-tag">
-          <Star size={13} fill="currentColor" /> Star buy
+          <Star size={13} fill="currentColor" /> {coupon.featured ? 'Star buy' : 'Offer for you'}
         </span>
         <span className="popup-img">{coupon.imageUrl ? <img src={coupon.imageUrl} alt="" /> : <TicketPercent size={40} />}</span>
         <small className="popup-brand">{coupon.brand}</small>

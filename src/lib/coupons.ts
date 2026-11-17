@@ -148,22 +148,45 @@ export function basketTotals(lines: BasketLine[]) {
 }
 
 /**
- * DEMO: the opening pop-up shows on every app start so it can be shown off.
- * Set to false to stop showing an offer once the rep has tapped Close on it.
+ * DEMO: the opening pop-up shows on every app start, with a different random
+ * offer each time, so it can be shown off. Set to false for real use: it then
+ * shows the offer marked "popup" (else the first featured one) and stops once
+ * the rep has tapped Close on it.
  */
 export const POPUP_EVERY_TIME = true;
 const DISMISSED = 'shelfscan.popupDismissed';
 
 /** The offer for the opening pop-up, or null if there is none (or it was closed before). */
 export function popupOffer(coupons: Coupon[]): Coupon | null {
+  if (POPUP_EVERY_TIME) return randomOffer(coupons);
   const c = coupons.find((x) => x.popup) ?? coupons.find((x) => x.featured) ?? null;
-  if (!c || POPUP_EVERY_TIME) return c;
+  if (!c) return null;
   try {
     const seen = JSON.parse(localStorage.getItem(DISMISSED) ?? '[]') as string[];
     return seen.includes(c.id) ? null : c;
   } catch {
     return c;
   }
+}
+
+/** DEMO: a different random offer each time (never the same one twice in a row). */
+function randomOffer(coupons: Coupon[]): Coupon | null {
+  if (!coupons.length) return null;
+  const LAST = 'shelfscan.popupLast';
+  let last: string | null = null;
+  try {
+    last = localStorage.getItem(LAST);
+  } catch {
+    /* ignore */
+  }
+  const pool = coupons.length > 1 ? coupons.filter((c) => c.id !== last) : coupons;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  try {
+    localStorage.setItem(LAST, pick.id);
+  } catch {
+    /* ignore */
+  }
+  return pick;
 }
 
 export function dismissPopup(id: string) {
