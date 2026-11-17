@@ -15,7 +15,8 @@
       "ends": "2027-01-31",
       "image": "coupons/doritos.jpg",
       "colour": "#1268b3",
-      "featured": true
+      "featured": true,
+      "popup": true
     },
     {
       "id": "lucozade-sport-6-cases-8off",

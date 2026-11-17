@@ -25,6 +25,8 @@ export interface Coupon {
   colour?: string;
   /** Paid placement: shown first, with a star, under "Featured offers". */
   featured?: boolean;
+  /** The offer to promote in the pop-up when the app opens. */
+  popup?: boolean;
   imageUrl?: string;
 }
 
@@ -143,6 +145,34 @@ export function basketTotals(lines: BasketLine[]) {
   const subtotal = lines.reduce((n, l) => n + l.cost, 0);
   const savings = lines.reduce((n, l) => n + l.saving, 0);
   return { subtotal, savings, total: subtotal - savings, cases: lines.reduce((n, l) => n + l.cases, 0) };
+}
+
+/**
+ * DEMO: the opening pop-up shows on every app start so it can be shown off.
+ * Set to false to stop showing an offer once the rep has tapped Close on it.
+ */
+export const POPUP_EVERY_TIME = true;
+const DISMISSED = 'shelfscan.popupDismissed';
+
+/** The offer for the opening pop-up, or null if there is none (or it was closed before). */
+export function popupOffer(coupons: Coupon[]): Coupon | null {
+  const c = coupons.find((x) => x.popup) ?? coupons.find((x) => x.featured) ?? null;
+  if (!c || POPUP_EVERY_TIME) return c;
+  try {
+    const seen = JSON.parse(localStorage.getItem(DISMISSED) ?? '[]') as string[];
+    return seen.includes(c.id) ? null : c;
+  } catch {
+    return c;
+  }
+}
+
+export function dismissPopup(id: string) {
+  try {
+    const seen = JSON.parse(localStorage.getItem(DISMISSED) ?? '[]') as string[];
+    localStorage.setItem(DISMISSED, JSON.stringify([...new Set([...seen, id])].slice(-100)));
+  } catch {
+    /* ignore */
+  }
 }
 
 export const money = (n: number) => `£${n.toFixed(2)}`;

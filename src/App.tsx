@@ -6,7 +6,9 @@ import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
 import { UsageView } from './components/UsageView';
 import { CouponsView } from './components/CouponsView';
-import { useCoupons } from './lib/coupons';
+import { dismissPopup, popupOffer, useCoupons, type Coupon } from './lib/coupons';
+import { OfferPopup } from './components/OfferPopup';
+import { track } from './lib/usage';
 import { trackOpen } from './lib/usage';
 import { enterAdminMode, isAdminUser, leaveAdminMode, readAdminMode } from './lib/admin';
 import { checkForApkUpdate, type UpdateInfo } from './lib/update';
@@ -34,6 +36,13 @@ export default function App() {
   const [settings, setSettingsState] = useState<Settings>(loadSettings);
   const offers = useCoupons(catalogSource(settings));
   const coupons = offers.coupons;
+  // Show the opening offer once the offers have loaded (once per app start).
+  useEffect(() => {
+    if (popupDone.current || !coupons.length) return;
+    popupDone.current = true;
+    const c = popupOffer(coupons);
+    if (c) setPopup(c);
+  }, [coupons]);
   const [catalog, setCatalog] = useState<CatalogState | null>(null);
   const [sales, setSalesState] = useState<StoredSales | null>(null);
   const [library, setLibrary] = useState<LibraryStatus>({ state: 'loading', msg: 'Loading product library', frac: 0 });
@@ -45,6 +54,12 @@ export default function App() {
   const [couponsOpen, setCouponsOpen] = useState(false);
   const couponsRef = useRef(couponsOpen);
   couponsRef.current = couponsOpen;
+  const [preselect, setPreselect] = useState<string | undefined>();
+  /** Opening pop-up: at most once per app start. */
+  const [popup, setPopup] = useState<Coupon | null>(null);
+  const popupDone = useRef(false);
+  const popupRef = useRef(popup);
+  popupRef.current = popup;
   const tabRef = useRef(tab);
   tabRef.current = tab;
 
@@ -54,7 +69,8 @@ export default function App() {
     let remove: (() => void) | undefined;
     import('@capacitor/app').then(({ App: CapApp }) =>
       CapApp.addListener('backButton', () => {
-        if (couponsRef.current) setCouponsOpen(false);
+        if (popupRef.current) setPopup(null);
+        else if (couponsRef.current) setCouponsOpen(false);
         else if (tabRef.current !== 'scan') setTab('scan');
         else if (!scanBack.current?.()) CapApp.exitApp();
       }).then((h) => (remove = () => h.remove())),
@@ -297,7 +313,34 @@ export default function App() {
         </button>
       )}
       {tab === 'scan' && <p className="app-version">{__BUILD_NUMBER__ ? `ShelfScan build ${__BUILD_NUMBER__}` : `ShelfScan web · updated ${new Date(__BUILT_AT__).toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`}</p>}
-      {couponsOpen && <CouponsView coupons={coupons} balance={offers.balance} balanceNote={offers.balanceNote} onClose={() => setCouponsOpen(false)} />}
+      {couponsOpen && (
+        <CouponsView
+          coupons={coupons}
+          balance={offers.balance}
+          balanceNote={offers.balanceNote}
+          preselect={preselect}
+          onClose={() => {
+            setCouponsOpen(false);
+            setPreselect(undefined);
+          }}
+        />
+      )}
+      {popup && (
+        <OfferPopup
+          coupon={popup}
+          onClose={() => {
+            dismissPopup(popup.id);
+            track('offer_popup', `${popup.brand} ${popup.offer} · closed`);
+            setPopup(null);
+          }}
+          onGo={() => {
+            track('offer_popup', `${popup.brand} ${popup.offer} · went to offers`);
+            setPreselect(popup.id);
+            setCouponsOpen(true);
+            setPopup(null);
+          }}
+        />
+      )}
       {admin && (
         <nav className="tabbar" aria-label="Main">
           {TABS.map(({ id, label, Icon }) => (

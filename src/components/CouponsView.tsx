@@ -45,14 +45,17 @@ export function CouponsView({
   balance = 0,
   balanceNote,
   onClose,
+  preselect,
 }: {
   coupons: Coupon[];
   balance?: number;
   balanceNote?: string;
   onClose: () => void;
+  /** Offer to have selected already (e.g. from the opening pop-up). */
+  preselect?: string;
 }) {
   const [tab, setTab] = useState<'offers' | 'basket'>('offers');
-  const [picked, setPicked] = useState<Set<string>>(new Set());
+  const [picked, setPicked] = useState<Set<string>>(() => new Set(preselect ? [preselect] : []));
   const [basket, setBasketState] = useState<Basket>(loadBasket);
   const [toast, setToast] = useState<string | null>(null);
   const setBasket = (b: Basket) => {
