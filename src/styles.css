@@ -3019,3 +3019,10 @@ h3,
   background: var(--brand-soft);
   color: var(--brand);
 }
+.amazon-btn {
+  margin-top: 8px;
+  text-decoration: none;
+  background: #ffd814;
+  border-color: #fcd200;
+  color: #0f1111;
+}

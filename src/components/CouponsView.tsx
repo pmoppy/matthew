@@ -1,6 +1,7 @@
 import {
   ArrowLeft,
   Check,
+  ExternalLink,
   Minus,
   Plus,
   Send,
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import {
+  amazonBasketUrl,
   basketLines,
   basketTotals,
   bestSellerText,
@@ -121,6 +123,7 @@ export function CouponsView({
   }, [toast]);
 
   const lines = useMemo(() => basketLines(basket, coupons), [basket, coupons]);
+  const amazon = useMemo(() => amazonBasketUrl(lines), [lines]);
   const totals = basketTotals(lines);
   const pickedSaving = coupons.filter((c) => picked.has(c.id)).reduce((n, c) => n + c.saving, 0);
 
@@ -304,6 +307,23 @@ export function CouponsView({
               <button className="btn primary full" onClick={send}>
                 <Send size={18} /> Send order to wholesaler
               </button>
+              {amazon && (
+                <a
+                  className="btn full amazon-btn"
+                  href={amazon.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => track('basket_amazon', `${amazon.count} item${amazon.count > 1 ? 's' : ''} · ${money(totals.total)}`)}
+                >
+                  <ExternalLink size={18} /> Send to Amazon basket
+                </a>
+              )}
+              {amazon && (
+                <p className="muted small cp-note" style={{ margin: '6px 2px 0' }}>
+                  Proof of concept: opens Amazon UK with {amazon.count} item{amazon.count > 1 ? 's' : ''} in your basket. Amazon prices, coupons not applied.
+                  {amazon.missing.length ? ` Not on Amazon: ${amazon.missing.join(', ')}.` : ''}
+                </p>
+              )}
               <button
                 className="btn ghost full"
                 onClick={() => {

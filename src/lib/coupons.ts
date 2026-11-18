@@ -29,6 +29,8 @@ export interface Coupon {
   label?: string;
   /** Best-seller position to show when the product isn't in the sales ranking. */
   bestSeller?: { rank: number; category: string };
+  /** Matching Amazon UK listing (proof of concept): ASIN and how many Amazon packs make one case. */
+  amazon?: { asin: string; perCase?: number; pack?: string };
   /** The offer to promote in the pop-up when the app opens. */
   popup?: boolean;
   imageUrl?: string;
@@ -218,6 +220,28 @@ export function ordinal(n: number): string {
 export function bestSellerText(b?: BestSeller): string | null {
   if (!b || !(b.rank > 0) || b.rank > 20) return null;
   return `${ordinal(b.rank)} best seller${b.category ? ` in ${b.category}` : ''}`;
+}
+
+/**
+ * Proof of concept: one Amazon UK link that adds every basket line (that has
+ * an Amazon listing) to the retailer's own Amazon basket. They sign in on
+ * Amazon as usual; we never see their login. Coupon prices don't apply there.
+ */
+export function amazonBasketUrl(lines: BasketLine[]): { url: string; count: number; missing: string[] } | null {
+  const params: string[] = [];
+  const missing: string[] = [];
+  let n = 0;
+  for (const l of lines) {
+    const a = l.coupon.amazon;
+    if (!a?.asin) {
+      missing.push(l.coupon.product);
+      continue;
+    }
+    n++;
+    params.push(`ASIN.${n}=${encodeURIComponent(a.asin)}`, `Quantity.${n}=${Math.max(1, l.cases * (a.perCase ?? 1))}`);
+  }
+  if (!n) return null;
+  return { url: `https://www.amazon.co.uk/gp/aws/cart/add.html?${params.join('&')}`, count: n, missing };
 }
 
 export const money = (n: number) => `£${n.toFixed(2)}`;

@@ -13,6 +13,7 @@ const LABEL: Record<string, string> = {
   coupons_added: 'Added offers to basket',
   basket_sent: 'Sent order basket',
   offer_popup: 'Opening offer pop-up',
+  basket_amazon: 'Sent basket to Amazon',
 };
 const PASS_KEY = 'shelfscan.usagePass';
 

@@ -376,3 +376,16 @@ describe('best-seller badge', () => {
     expect(bestSellerText(undefined)).toBeNull();
   });
 });
+
+import { amazonBasketUrl } from '../coupons';
+
+describe('amazon basket link', () => {
+  it('puts each line with an Amazon listing into one add-to-basket URL', () => {
+    const c = (id: string, amazon?: { asin: string; perCase?: number }) =>
+      ({ coupon: { id, product: id, casePrice: 1, minCases: 1, saving: 0, title: '', brand: '', offer: '', pack: '', amazon }, cases: 2, cost: 2, saving: 0 }) as never;
+    const r = amazonBasketUrl([c('a', { asin: 'B0AAA' }), c('b'), c('c', { asin: 'B0CCC', perCase: 2 })])!;
+    expect(r.url).toBe('https://www.amazon.co.uk/gp/aws/cart/add.html?ASIN.1=B0AAA&Quantity.1=2&ASIN.2=B0CCC&Quantity.2=4');
+    expect(r.missing).toEqual(['b']);
+    expect(amazonBasketUrl([c('b')])).toBeNull();
+  });
+});

@@ -16,7 +16,12 @@
       "image": "coupons/redbull-pistachio.jpg",
       "colour": "#5f9b3a",
       "featured": true,
-      "label": "NPD"
+      "label": "NPD",
+      "amazon": {
+        "asin": "B0HKX2451S",
+        "perCase": 2,
+        "pack": "12 × 250ml"
+      }
     },
     {
       "id": "doritos-4-boxes-6off",
@@ -36,6 +41,11 @@
       "bestSeller": {
         "rank": 4,
         "category": "Crisps"
+      },
+      "amazon": {
+        "asin": "B01DY4X1VS",
+        "perCase": 1,
+        "pack": "32 × 40g"
       }
     },
     {
@@ -51,7 +61,12 @@
       "ends": "2027-01-31",
       "image": "coupons/lucozadesport.jpg",
       "colour": "#0b5ea8",
-      "featured": true
+      "featured": true,
+      "amazon": {
+        "asin": "B07W4CCT5W",
+        "perCase": 1,
+        "pack": "12 × 500ml"
+      }
     },
     {
       "id": "monster-2-cases-5off",
@@ -65,7 +80,12 @@
       "saving": 5,
       "ends": "2026-12-31",
       "image": "coupons/monster.jpg",
-      "colour": "#5d8f2a"
+      "colour": "#5d8f2a",
+      "amazon": {
+        "asin": "B08HWPQDN8",
+        "perCase": 1,
+        "pack": "12 × 500ml"
+      }
     },
     {
       "id": "redbull-3-cases-6off",
@@ -79,7 +99,12 @@
       "saving": 6,
       "ends": "2026-12-24",
       "image": "coupons/redbull.jpg",
-      "colour": "#1f3c88"
+      "colour": "#1f3c88",
+      "amazon": {
+        "asin": "B094W6V9XB",
+        "perCase": 1,
+        "pack": "24 × 250ml"
+      }
     },
     {
       "id": "cokezero-2-cases-4off",
@@ -93,7 +118,12 @@
       "saving": 4,
       "ends": "2027-01-15",
       "image": "coupons/cokezero.jpg",
-      "colour": "#c8102e"
+      "colour": "#c8102e",
+      "amazon": {
+        "asin": "B004I3SHQY",
+        "perCase": 1,
+        "pack": "24 × 500ml"
+      }
     },
     {
       "id": "walkers-grab-2-boxes-3off",
@@ -107,7 +137,12 @@
       "saving": 3,
       "ends": "2026-12-31",
       "image": "coupons/walkers.jpg",
-      "colour": "#1d5fb4"
+      "colour": "#1d5fb4",
+      "amazon": {
+        "asin": "B0BW4KVJXM",
+        "perCase": 1,
+        "pack": "32 × 45g"
+      }
     },
     {
       "id": "dairymilk-2-outers-4off",
@@ -121,7 +156,12 @@
       "saving": 4,
       "ends": "2027-01-31",
       "image": "coupons/dairymilk.jpg",
-      "colour": "#4b1a7a"
+      "colour": "#4b1a7a",
+      "amazon": {
+        "asin": "B07NSP8NQJ",
+        "perCase": 1,
+        "pack": "48 × 45g"
+      }
     },
     {
       "id": "lucozade-3-for-30",
@@ -135,7 +175,12 @@
       "saving": 7.47,
       "ends": "2026-12-31",
       "image": "coupons/lucozade.jpg",
-      "colour": "#e35205"
+      "colour": "#e35205",
+      "amazon": {
+        "asin": "B0772WDQPV",
+        "perCase": 1,
+        "pack": "24 × 380ml"
+      }
     },
     {
       "id": "pringles-3-outers-5off",
@@ -153,6 +198,11 @@
       "bestSeller": {
         "rank": 7,
         "category": "Crisps"
+      },
+      "amazon": {
+        "asin": "B07LFGL17W",
+        "perCase": 1,
+        "pack": "6 × 200g"
       }
     },
     {
@@ -171,6 +221,11 @@
       "bestSeller": {
         "rank": 5,
         "category": "Confectionery"
+      },
+      "amazon": {
+        "asin": "B0CMH542HR",
+        "perCase": 1,
+        "pack": "12 × 140g"
       }
     },
     {
@@ -189,6 +244,11 @@
       "bestSeller": {
         "rank": 6,
         "category": "Soft drinks"
+      },
+      "amazon": {
+        "asin": "B0054HGIYQ",
+        "perCase": 1,
+        "pack": "24 × 500ml"
       }
     },
     {
@@ -207,6 +267,11 @@
       "bestSeller": {
         "rank": 9,
         "category": "Crisps"
+      },
+      "amazon": {
+        "asin": "B0CV5RM65R",
+        "perCase": 1,
+        "pack": "36 × 45g"
       }
     }
   ],
