@@ -47,6 +47,8 @@ export default defineConfig(({ mode }) => {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
         // The ONNX Runtime WASM binaries are large; cache them at runtime instead of precaching.
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        // Panko is a separate app published under /panko/ on the same site.
+        navigateFallbackDenylist: [/\/panko\//],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.hostname === 'cdn.jsdelivr.net' && url.pathname.includes('/onnxruntime-web@'),

@@ -1,0 +1,10 @@
+name = "panko-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+[vars]
+# ALLOWED_ORIGIN = "https://pmoppy.github.io"
+
+# Secrets (not stored here):
+#   npx wrangler secret put ANTHROPIC_API_KEY
+#   npx wrangler secret put ACCESS_CODE

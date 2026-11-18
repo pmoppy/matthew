@@ -7,7 +7,7 @@ name: Web app
 on:
   push:
     branches: [main, 'claude/app-planning-development-x0ak8y']
-    paths-ignore: ['**.md', 'training/**', 'worker/**', 'scripts/**', 'library/**', 'android/**']
+    paths-ignore: ['**.md', 'training/**', 'worker/**', 'panko/worker/**', 'scripts/**', 'library/**', 'android/**']
   workflow_dispatch:
 
 permissions:
@@ -29,11 +29,24 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            panko/package-lock.json
       - run: npm ci
       - name: Build web app
         run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
+      - name: Build Panko (served at /<repo>/panko/)
+        working-directory: panko
+        run: |
+          npm ci
+          npm test
+          npm run build
+          cp -r dist ../dist/panko
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/panko/
+          VITE_PANKO_SERVER: ${{ vars.PANKO_SERVER }}
       - uses: actions/configure-pages@v5
         with:
           enablement: true
