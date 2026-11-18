@@ -1,0 +1,82 @@
+name: Panko Android APK
+
+# Builds the Panko Android app whenever panko/ changes and publishes it to a
+# rolling GitHub Release, so there is one stable download link for phones:
+#   https://github.com/<owner>/<repo>/releases/download/panko-latest/panko.apk
+# (It never becomes the repo's "latest" release, which stays ShelfScan's.)
+
+on:
+  push:
+    branches: [main, 'ccr-fa7212c7-licksg']
+    paths: ['panko/**', '.github/workflows/panko-android.yml', '!panko/**.md', '!panko/worker/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: panko-apk
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: panko
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: panko/package-lock.json
+
+      - run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build web app and sync into the Android project
+        run: npm run build:android
+        env:
+          # Repository variable: the Panko server address, so people only type the password.
+          VITE_PANKO_SERVER: ${{ vars.PANKO_SERVER }}
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+          cache-dependency-path: panko/android/**/*.gradle*
+
+      - name: Build APK
+        working-directory: panko/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
+        env:
+          PANKO_BUILD: ${{ github.run_number }}
+
+      - name: Collect APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk panko.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: panko-apk-build-${{ github.run_number }}
+          path: panko/panko.apk
+
+      - name: Publish to the panko-latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NOTES="Panko Android build ${{ github.run_number }} from \`${{ github.ref_name }}\` (${GITHUB_SHA::7}). Install over the previous version – your chats and data are kept."
+          if gh release view panko-latest >/dev/null 2>&1; then
+            gh release upload panko-latest panko.apk --clobber
+            gh release edit panko-latest --title "Panko (Android) build ${{ github.run_number }}" --notes "$NOTES" --latest=false
+          else
+            gh release create panko-latest panko.apk --target "${{ github.sha }}" \
+              --title "Panko (Android) build ${{ github.run_number }}" --notes "$NOTES" --latest=false
+          fi

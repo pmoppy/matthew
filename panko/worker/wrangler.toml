@@ -7,4 +7,4 @@ compatibility_date = "2026-10-01"
 
 # Secrets (not stored here):
 #   npx wrangler secret put ANTHROPIC_API_KEY
-#   npx wrangler secret put ACCESS_CODE
+#   npx wrangler secret put PANKO_PASSWORD   (comma-separate several to give people their own)

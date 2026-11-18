@@ -3,16 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Panko – a chat assistant on top of Claude that reads your data, builds reports and remembers past conversations",
+  "description": "Panko \u2013 a chat assistant on top of Claude that reads your data, builds reports and remembers past conversations",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:android": "tsc --noEmit && vite build && cap sync android"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.10.0",
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/filesystem": "^8.1.5",
+    "@capacitor/share": "^8.0.3",
     "dompurify": "^3.4.18",
     "idb-keyval": "^6.3.0",
     "lucide-react": "^1.75.0",
@@ -21,6 +27,7 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.6.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",

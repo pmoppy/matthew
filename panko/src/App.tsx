@@ -1,10 +1,14 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { ArrowUp, BarChart3, Database, FileText, Menu, MessageSquarePlus, Settings as Cog, Square, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Anthropic_ from '@anthropic-ai/sdk';
+import { Lock } from './components/Lock';
 import { Markdown } from './components/Markdown';
 import { DataPanel, ReportsPanel, SettingsPanel } from './components/Panels';
 import { ReportCard } from './components/ReportCard';
 import { explainError, repairHistory, runTurn } from './lib/agent';
+import { checkPassword } from './lib/auth';
+import { onBackButton } from './lib/native';
 import { parseFile, type Dataset } from './lib/data';
 import * as store from './lib/store';
 import type { Conversation, Memory, MessageParam, Report, ReportSection, Settings } from './lib/store';
@@ -33,6 +37,8 @@ export default function App() {
   const [panel, setPanel] = useState<Panel>(null);
   const [drawer, setDrawer] = useState(false);
   const [draft, setDraft] = useState('');
+  const [locked, setLocked] = useState(true);
+  const [lockMsg, setLockMsg] = useState('');
   const abort = useRef<AbortController | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
   const memRef = useRef<Memory[]>([]);
@@ -64,13 +70,46 @@ export default function App() {
         await store.setFlag('demo');
         loadDemo().catch(() => {});
       }
-      if (s.mode === 'key' ? !s.apiKey : !s.serverUrl) setPanel('settings');
+      if (s.mode === 'key') {
+        setLocked(!s.apiKey);
+        if (!s.apiKey) setPanel('settings');
+      } else if (s.serverUrl && s.accessCode) {
+        // Remembered from last time. Re-check quietly; if the password has been changed, lock.
+        setLocked(false);
+        checkPassword(s.serverUrl, s.accessCode).then((r) => {
+          if (r === 'wrong') lock(s, 'The password has changed. Enter the new one.');
+        });
+      }
     })();
   }, [loadDemo]);
 
   useEffect(() => {
     bottom.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [current?.messages.length, live, activity]);
+
+  function lock(s: Settings, message = '') {
+    const next = { ...s, accessCode: '' };
+    setSettings(next);
+    store.saveSettings(next);
+    setLockMsg(message);
+    setPanel(null);
+    setDrawer(false);
+    setLocked(true);
+  }
+
+  // Android back button: close whatever is open before leaving the app.
+  const backState = useRef({ panel, drawer });
+  backState.current = { panel, drawer };
+  useEffect(
+    () =>
+      onBackButton(() => {
+        if (backState.current.panel) setPanel(null);
+        else if (backState.current.drawer) setDrawer(false);
+        else return false;
+        return true;
+      }),
+    [],
+  );
 
   const setMemories = async (m: Memory[]) => {
     memRef.current = m;
@@ -131,6 +170,7 @@ export default function App() {
         ac.signal,
       );
     } catch (e) {
+      if (e instanceof Anthropic_.PermissionDeniedError && settings.mode === 'server') lock(settings, 'The password has changed. Enter the new one.');
       setError(explainError(e));
       persist({ ...conv, messages: repairHistory(latest), updatedAt: new Date().toISOString() });
     } finally {
@@ -149,6 +189,24 @@ export default function App() {
   };
 
   if (!settings) return <div className="boot">Panko</div>;
+  if (locked && !(settings.mode === 'key' && panel === 'settings'))
+    return (
+      <Lock
+        serverUrl={settings.serverUrl}
+        message={lockMsg}
+        onUnlock={(serverUrl, accessCode) => {
+          const next: Settings = { ...settings, mode: 'server', serverUrl, accessCode };
+          setSettings(next);
+          store.saveSettings(next);
+          setLockMsg('');
+          setLocked(false);
+        }}
+        onOwnKey={() => {
+          setSettings({ ...settings, mode: 'key' });
+          setPanel('settings');
+        }}
+      />
+    );
 
   return (
     <div className={`app ${drawer ? 'drawer-open' : ''}`}>
@@ -340,7 +398,9 @@ export default function App() {
           onSave={(s) => {
             setSettings(s);
             store.saveSettings(s);
+            if (s.mode === 'key') setLocked(!s.apiKey);
           }}
+          onLock={() => lock(settings)}
           onForget={(id) => setMemories(memories.filter((m) => m.id !== id))}
         />
       )}

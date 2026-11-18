@@ -118,11 +118,19 @@ export function reportDocument(r: Report): string {
 <style>body{font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:760px;margin:2rem auto;padding:0 16px;background:#fffdf8}${REPORT_CSS}@media print{body{margin:0}}</style></head><body>${reportBodyHtml(r)}</body></html>`;
 }
 
+const fileName = (r: Report) => `${r.title.replace(/[^\w -]+/g, '').trim() || 'report'}.html`;
+
+/** Android app: hand the report file to the share sheet (save to Drive/Files, email, WhatsApp…). */
+export async function shareReport(r: Report) {
+  const { shareFile } = await import('./native');
+  await shareFile(fileName(r), reportDocument(r), r.title);
+}
+
 export function downloadReport(r: Report) {
   const blob = new Blob([reportDocument(r)], { type: 'text/html' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `${r.title.replace(/[^\w -]+/g, '').trim() || 'report'}.html`;
+  a.download = fileName(r);
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
 }

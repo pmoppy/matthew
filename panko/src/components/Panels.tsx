@@ -1,4 +1,5 @@
-import { Database, Trash2, Upload, X } from 'lucide-react';
+import { Database, Lock as LockIcon, Trash2, Upload, X } from 'lucide-react';
+import { ALLOW_OWN_KEY } from '../lib/auth';
 import { useRef, useState, type ReactNode } from 'react';
 import type { Dataset } from '../lib/data';
 import { MODELS, type Memory, type Report, type Settings } from '../lib/store';
@@ -133,6 +134,7 @@ export function SettingsPanel(props: {
   settings: Settings;
   memories: Memory[];
   onSave(s: Settings): void;
+  onLock(): void;
   onForget(id: string): void;
   onClose(): void;
 }) {
@@ -140,38 +142,16 @@ export function SettingsPanel(props: {
   const up = (p: Partial<Settings>) => setS({ ...s, ...p });
   return (
     <Sheet title="Settings" onClose={props.onClose}>
-      <section className="field-group">
-        <h3>AI connection</h3>
-        <div className="seg">
-          <button className={s.mode === 'server' ? 'on' : ''} onClick={() => up({ mode: 'server' })}>
-            Panko server
-          </button>
-          <button className={s.mode === 'key' ? 'on' : ''} onClick={() => up({ mode: 'key' })}>
-            My own API key
-          </button>
-        </div>
-        {s.mode === 'server' ? (
-          <>
-            <label>
-              Server address
-              <input value={s.serverUrl} onChange={(e) => up({ serverUrl: e.target.value.trim() })} placeholder="https://panko-api.<you>.workers.dev" inputMode="url" />
-            </label>
-            <label>
-              Access code
-              <input value={s.accessCode} onChange={(e) => up({ accessCode: e.target.value })} type="password" autoComplete="off" />
-            </label>
-            <p className="muted small">The team’s server keeps the AI key safe. Ask the admin for the address and access code.</p>
-          </>
-        ) : (
-          <>
-            <label>
-              Anthropic API key
-              <input value={s.apiKey} onChange={(e) => up({ apiKey: e.target.value.trim() })} type="password" placeholder="sk-ant-…" autoComplete="off" />
-            </label>
-            <p className="muted small">Stored on this device only. Fine for trying Panko yourself; for a team, use a Panko server so the key isn’t on every phone.</p>
-          </>
-        )}
-      </section>
+      {ALLOW_OWN_KEY && s.mode === 'key' && (
+        <section className="field-group">
+          <h3>AI connection (developer)</h3>
+          <label>
+            Anthropic API key
+            <input value={s.apiKey} onChange={(e) => up({ apiKey: e.target.value.trim() })} type="password" placeholder="sk-ant-…" autoComplete="off" />
+          </label>
+          <p className="muted small">Only in development builds. Stored on this device.</p>
+        </section>
+      )}
       <section className="field-group">
         <h3>Model</h3>
         {MODELS.map((m) => (
@@ -209,6 +189,15 @@ export function SettingsPanel(props: {
           </ul>
         )}
       </section>
+      {props.settings.mode === 'server' && (
+        <section className="field-group">
+          <h3>Security</h3>
+          <p className="muted small">Panko stays unlocked on this device until you lock it. Lock it before handing the phone to someone else.</p>
+          <button className="ghost" onClick={props.onLock}>
+            <LockIcon size={16} aria-hidden /> Lock Panko
+          </button>
+        </section>
+      )}
     </Sheet>
   );
 }

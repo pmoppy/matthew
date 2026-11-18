@@ -59,7 +59,7 @@ export const MODELS: { id: ModelId; label: string; note: string }[] = [
 const db = createStore('panko', 'kv');
 
 export const defaultSettings = (): Settings => ({
-  mode: import.meta.env.VITE_PANKO_SERVER ? 'server' : 'key',
+  mode: 'server',
   serverUrl: import.meta.env.VITE_PANKO_SERVER || '',
   accessCode: '',
   apiKey: '',
@@ -67,7 +67,11 @@ export const defaultSettings = (): Settings => ({
 });
 
 export async function loadSettings(): Promise<Settings> {
-  return { ...defaultSettings(), ...((await get<Partial<Settings>>('settings', db)) ?? {}) };
+  const s: Settings = { ...defaultSettings(), ...((await get<Partial<Settings>>('settings', db)) ?? {}) };
+  // Real builds always go through the password-protected server.
+  if (!import.meta.env.DEV) s.mode = 'server';
+  if (import.meta.env.VITE_PANKO_SERVER) s.serverUrl = import.meta.env.VITE_PANKO_SERVER;
+  return s;
 }
 export const saveSettings = (s: Settings) => set('settings', s, db);
 

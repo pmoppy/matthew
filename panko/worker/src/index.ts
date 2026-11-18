@@ -7,14 +7,16 @@
  *
  * Secrets (wrangler secret put …):
  *   ANTHROPIC_API_KEY   your Anthropic key
- *   ACCESS_CODE         the code people type into Panko's Settings
+ *   PANKO_PASSWORD      the password people type to unlock Panko. Several can be
+ *                       given, comma-separated (e.g. one per person), so one can
+ *                       be revoked without changing everyone else's.
  * Optional var:
  *   ALLOWED_ORIGIN      e.g. https://pmoppy.github.io (default: any origin)
  */
 
 export interface Env {
   ANTHROPIC_API_KEY: string;
-  ACCESS_CODE?: string;
+  PANKO_PASSWORD?: string;
   ALLOWED_ORIGIN?: string;
 }
 
@@ -38,6 +40,8 @@ function json(status: number, message: string, headers: Record<string, string>) 
   });
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 /** Constant-time string compare. */
 function same(a: string, b: string): boolean {
   const ea = new TextEncoder().encode(a);
@@ -53,10 +57,18 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: h });
     const url = new URL(req.url);
     if (req.method === 'GET' && url.pathname === '/') return new Response('Panko server is running.', { headers: h });
-    if (req.method !== 'POST' || !PATHS.has(url.pathname)) return json(404, 'Not found', h);
+    if (req.method !== 'POST' || (url.pathname !== '/auth' && !PATHS.has(url.pathname))) return json(404, 'Not found', h);
     if (!env.ANTHROPIC_API_KEY) return json(500, 'The server has no ANTHROPIC_API_KEY set.', h);
-    if (env.ACCESS_CODE && !same(req.headers.get('x-panko-access') || '', env.ACCESS_CODE))
-      return json(403, 'Wrong or missing access code.', h);
+
+    // Every request needs a valid password. No password configured = locked shut.
+    const passwords = (env.PANKO_PASSWORD || '').split(',').map((p) => p.trim()).filter(Boolean);
+    if (!passwords.length) return json(500, 'The server has no PANKO_PASSWORD set.', h);
+    const given = req.headers.get('x-panko-access') || '';
+    if (!passwords.some((p) => same(given, p))) {
+      await sleep(800); // slows down guessing
+      return json(403, 'Wrong password.', h);
+    }
+    if (url.pathname === '/auth') return new Response(JSON.stringify({ ok: true }), { headers: { ...h, 'content-type': 'application/json' } });
 
     const headers = new Headers({ 'x-api-key': env.ANTHROPIC_API_KEY });
     for (const k of FORWARD) {
