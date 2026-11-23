@@ -65,12 +65,22 @@ export function RedeemView({
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const camRef = useRef<HTMLInputElement>(null);
+  const [waiting, setWaiting] = useState(false);
+  useEffect(() => {
+    if (waiting && image && catalog?.entries.length) {
+      setWaiting(false);
+      void run(image, coupon);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [waiting, catalog, image]);
 
   const run = async (img: HTMLCanvasElement, c: Coupon) => {
     setDet(null);
     setError(null);
     if (!catalog?.entries.length) {
-      setError('The product library is still loading. Wait a moment, then retake the photo.');
+      // Checked automatically as soon as the library is ready (see effect below).
+      setProgress('Getting the product library ready…');
+      setWaiting(true);
       return;
     }
     setProgress('Checking the shelf…');

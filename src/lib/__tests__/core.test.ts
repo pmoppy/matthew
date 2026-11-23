@@ -389,3 +389,18 @@ describe('amazon basket link', () => {
     expect(amazonBasketUrl([c('b')])).toBeNull();
   });
 });
+
+import { readFileSync, statSync } from 'node:fs';
+
+describe('published library', () => {
+  it('fingerprint index matches its manifest (else phones fall back to slow on-device learning)', () => {
+    const root = new URL('../../../public/starter/', import.meta.url);
+    const m = JSON.parse(readFileSync(new URL('manifest.json', root), 'utf8'));
+    for (const info of Object.values(m.indexes ?? {}) as { file: string; dim: number; hist: number; images: string[] }[]) {
+      const size = statSync(new URL(`file/${info.file}`, root)).size;
+      expect(size).toBe(info.images.length * (info.dim + info.hist));
+      const photos = new Set(m.products.flatMap((p: { images: string[] }) => p.images));
+      expect(info.images.filter((p) => !photos.has(p))).toEqual([]);
+    }
+  });
+});
