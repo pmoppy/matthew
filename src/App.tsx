@@ -1,10 +1,11 @@
 import { signedInAs, signOut } from './lib/auth';
-import { Activity, Download, FolderOpen, TicketPercent, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
+import { Activity, Download, FolderOpen, Receipt, TicketPercent, Monitor, Moon, ScanLine, ShieldCheck, SlidersHorizontal, Sun } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CatalogView } from './components/CatalogView';
 import { ScanView, type LibraryStatus } from './components/ScanView';
 import { SettingsView } from './components/SettingsView';
 import { UsageView } from './components/UsageView';
+import { ClaimsAdminView } from './components/ClaimsAdminView';
 import { CouponsView } from './components/CouponsView';
 import { bestSellerText, dismissPopup, popupOffer, useCoupons, type BestSeller, type Coupon } from './lib/coupons';
 import { OfferPopup } from './components/OfferPopup';
@@ -21,11 +22,12 @@ import { loadSettings, saveSettings } from './lib/settings';
 import { catalogSource, fetchLibrarySales, libraryChanged, modelsCached, needsSync, prepareModels, syncLibrary } from './lib/sync';
 import { DEFAULT_DETECTOR_URL, type SalesRow, type Settings } from './lib/types';
 
-type Tab = 'scan' | 'catalog' | 'usage' | 'settings';
+type Tab = 'scan' | 'catalog' | 'claims' | 'usage' | 'settings';
 
 const TABS = [
   { id: 'scan', label: 'Scan', Icon: ScanLine },
   { id: 'catalog', label: 'Catalogue', Icon: FolderOpen },
+  { id: 'claims', label: 'Claims', Icon: Receipt },
   { id: 'usage', label: 'Usage', Icon: Activity },
   { id: 'settings', label: 'Settings', Icon: SlidersHorizontal },
 ] as const;
@@ -284,6 +286,7 @@ export default function App() {
             onSync={(s) => sync(true, s)}
           />
         )}
+        {admin && tab === 'claims' && <ClaimsAdminView />}
         {admin && tab === 'usage' && <UsageView />}
         {admin && tab === 'settings' && (
           <SettingsView
@@ -325,6 +328,9 @@ export default function App() {
           balanceNote={offers.balanceNote}
           preselect={preselect}
           bestSellerOf={bestSellerOf}
+          catalog={catalog}
+          sales={salesMap}
+          settings={settings}
           onClose={() => {
             setCouponsOpen(false);
             setPreselect(undefined);

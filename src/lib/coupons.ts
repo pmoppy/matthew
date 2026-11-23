@@ -29,6 +29,8 @@ export interface Coupon {
   label?: string;
   /** Best-seller position to show when the product isn't in the sales ranking. */
   bestSeller?: { rank: number; category: string };
+  /** Other recognition-library names for the product (used to spot it in redeem photos). */
+  match?: string[];
   /** Matching Amazon UK listing (proof of concept): ASIN and how many Amazon packs make one case. */
   amazon?: { asin: string; perCase?: number; pack?: string };
   /** The offer to promote in the pop-up when the app opens. */

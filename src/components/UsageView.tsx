@@ -14,6 +14,8 @@ const LABEL: Record<string, string> = {
   basket_sent: 'Sent order basket',
   offer_popup: 'Opening offer pop-up',
   basket_amazon: 'Sent basket to Amazon',
+  offer_claim: 'Redeemed an offer (claim sent)',
+  claim_review: 'Reviewed a claim',
 };
 const PASS_KEY = 'shelfscan.usagePass';
 

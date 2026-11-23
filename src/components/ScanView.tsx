@@ -688,7 +688,7 @@ export function ScanView({ settings, catalog, setCatalog, sales, library, list, 
               </li>
             </ul>
           </details>
-          <p className="footnote">Built with DINOv3 · runs on your phone, photos never leave it</p>
+          <p className="footnote">Built with DINOv3 · scans run on your phone; only photos you send with an offer claim leave it</p>
 
           {tool === 'media' && (
             <ToolPage title="Media hub" onClose={closeTool}>

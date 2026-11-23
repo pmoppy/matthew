@@ -21,7 +21,11 @@
         "asin": "B0HKX2451S",
         "perCase": 2,
         "pack": "12 × 250ml"
-      }
+      },
+      "match": [
+        "Red Bull Winter Edtion Pistachio Berries 250ml",
+        "Red Bull Winter Edtion Pistachio Berries 250ml x 4pk"
+      ]
     },
     {
       "id": "doritos-4-boxes-6off",
@@ -274,7 +278,5 @@
         "pack": "36 × 45g"
       }
     }
-  ],
-  "balance": 12.5,
-  "balanceNote": "Cashback earned from offers you have redeemed"
+  ]
 }

@@ -1,6 +1,12 @@
 import {
   ArrowLeft,
+  Camera,
   Check,
+  CircleAlert,
+  Clock,
+  Receipt,
+  RotateCcw,
+  X,
   ExternalLink,
   Minus,
   Plus,
@@ -30,6 +36,11 @@ import {
 import { shareText } from '../lib/shopping';
 import { loadStore } from '../lib/stores';
 import { track } from '../lib/usage';
+import { claimTotals, latestByOffer, storeClaims, type Claim } from '../lib/claims';
+import type { CatalogState } from '../lib/catalog';
+import type { SalesInfo } from '../lib/sales';
+import type { Settings } from '../lib/types';
+import { RedeemView } from './RedeemView';
 
 function ends(d?: string) {
   if (!d) return '';
@@ -43,18 +54,26 @@ function CouponCard({
   inBasket,
   onToggle,
   best,
+  claim,
+  onRedeem,
 }: {
   c: Coupon;
   selected: boolean;
   inBasket: boolean;
   onToggle: () => void;
   best?: string | null;
+  /** Latest claim for this offer at the current store. */
+  claim?: Claim;
+  onRedeem: () => void;
 }) {
+  const open = claim && claim.status !== 'rejected';
   return (
-    <button
+    <div
       className={`coupon ${selected ? 'on' : ''}`}
       style={{ '--cp': c.colour ?? 'var(--brand)' } as React.CSSProperties}
       onClick={onToggle}
+      role="button"
+      tabIndex={0}
       aria-pressed={selected}
     >
       <span className="coupon-img">{c.imageUrl ? <img src={c.imageUrl} alt="" loading="lazy" /> : <TicketPercent size={28} />}</span>
@@ -86,7 +105,25 @@ function CouponCard({
         {selected ? <Check size={16} strokeWidth={3} /> : null}
       </span>
       {inBasket && !selected && <span className="coupon-flag">In basket</span>}
-    </button>
+      <span className="coupon-acts" onClick={(e) => e.stopPropagation()}>
+        <button className={`btn ${selected ? 'on' : ''}`} onClick={onToggle}>
+          {selected ? <Check size={16} /> : <ShoppingBasket size={16} />} {selected ? 'Selected' : 'Add to basket'}
+        </button>
+        {claim?.status === 'pending' ? (
+          <span className="claim-badge pending">
+            <Clock size={14} /> Claim pending
+          </span>
+        ) : claim?.status === 'approved' ? (
+          <span className="claim-badge approved">
+            <Check size={14} /> Redeemed {money(claim.saving)}
+          </span>
+        ) : (
+          <button className="btn redeem-btn" onClick={onRedeem} disabled={!!open}>
+            {claim?.status === 'rejected' ? <RotateCcw size={16} /> : <Camera size={16} />} {claim?.status === 'rejected' ? 'Resubmit' : 'Redeem'}
+          </button>
+        )}
+      </span>
+    </div>
   );
 }
 
@@ -98,6 +135,9 @@ export function CouponsView({
   onClose,
   preselect,
   bestSellerOf,
+  catalog,
+  sales,
+  settings,
 }: {
   coupons: Coupon[];
   balance?: number;
@@ -107,8 +147,31 @@ export function CouponsView({
   preselect?: string;
   /** Where the product sits in the sales ranking (reassures the retailer it sells). */
   bestSellerOf?: (c: Coupon) => BestSeller | undefined;
+  /** For checking redeem photos with the shelf recognition. */
+  catalog: CatalogState | null;
+  sales: Map<string, SalesInfo> | null;
+  settings: Settings;
 }) {
-  const [tab, setTab] = useState<'offers' | 'basket'>('offers');
+  const [tab, setTab] = useState<'offers' | 'basket' | 'claims'>('offers');
+  const store = loadStore().trim();
+  const [claims, setClaims] = useState<Claim[] | null>(null);
+  const [claimsError, setClaimsError] = useState<string | null>(null);
+  const [redeem, setRedeem] = useState<Coupon | null>(null);
+  const reloadClaims = (s = loadStore().trim()) => {
+    setClaimsError(null);
+    storeClaims(s)
+      .then(setClaims)
+      .catch((e) => {
+        setClaimsError((e as Error).message);
+        setClaims((c) => c ?? []);
+      });
+  };
+  useEffect(() => {
+    reloadClaims();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const byOffer = useMemo(() => latestByOffer(claims ?? []), [claims]);
+  const ct = claimTotals(claims ?? []);
   const [picked, setPicked] = useState<Set<string>>(() => new Set(preselect ? [preselect] : []));
   const [basket, setBasketState] = useState<Basket>(loadBasket);
   const [toast, setToast] = useState<string | null>(null);
@@ -166,14 +229,7 @@ export function CouponsView({
         <button className="btn ghost icon-only" onClick={onClose} aria-label="Back">
           <ArrowLeft size={20} />
         </button>
-        <div className="cp-tabs" role="tablist">
-          <button role="tab" aria-selected={tab === 'offers'} className={tab === 'offers' ? 'on' : ''} onClick={() => setTab('offers')}>
-            <TicketPercent size={16} /> Offers
-          </button>
-          <button role="tab" aria-selected={tab === 'basket'} className={tab === 'basket' ? 'on' : ''} onClick={() => setTab('basket')}>
-            <ShoppingBasket size={16} /> Basket{lines.length ? ` (${lines.length})` : ''}
-          </button>
-        </div>
+        <h2 className="tool-title">{tab === 'offers' ? 'Offers' : tab === 'basket' ? 'Basket' : 'My claims'}</h2>
       </header>
 
       {tab === 'offers' ? (
@@ -192,11 +248,13 @@ export function CouponsView({
               <span className="cp-summary-label">
                 <Wallet size={15} /> Your balance
               </span>
-              <b>{money(balance)}</b>
-              <small>{balanceNote ?? 'Cashback earned'}</small>
+              <b>{money(store ? ct.balance : balance)}</b>
+              <small>
+                {!store ? (balanceNote ?? 'Pick your store on the home screen') : ct.pending ? `${money(ct.pending)} pending` : 'From approved claims'}
+              </small>
             </div>
           </div>
-          <p className="muted small cp-intro">Tap the offers you want, then add them to your basket.</p>
+          <p className="muted small cp-intro">Add offers to your basket to order. Bought one? Tap Redeem and photograph it on your shelf.</p>
           {!coupons.length && <p className="muted">No offers right now. Check back soon.</p>}
           {coupons.some((c) => c.featured) && (
             <>
@@ -214,6 +272,8 @@ export function CouponsView({
                       inBasket={!!basket[c.id]}
                       onToggle={() => toggle(c.id)}
                       best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)}
+                      claim={byOffer.get(c.id)}
+                      onRedeem={() => setRedeem(c)}
                     />
                   ))}
               </div>
@@ -231,6 +291,8 @@ export function CouponsView({
                   inBasket={!!basket[c.id]}
                   onToggle={() => toggle(c.id)}
                   best={bestSellerText(bestSellerOf?.(c) ?? c.bestSeller)}
+                  claim={byOffer.get(c.id)}
+                  onRedeem={() => setRedeem(c)}
                 />
               ))}
           </div>
@@ -247,6 +309,18 @@ export function CouponsView({
             </div>
           )}
         </div>
+      ) : tab === 'claims' ? (
+        <ClaimsTab
+          store={store}
+          claims={claims}
+          error={claimsError}
+          totals={ct}
+          onRefresh={() => reloadClaims()}
+          onResubmit={(id) => {
+            const c = coupons.find((x) => x.id === id);
+            if (c) setRedeem(c);
+          }}
+        />
       ) : (
         <div className="cp-body">
           {!lines.length ? (
@@ -339,7 +413,129 @@ export function CouponsView({
           )}
         </div>
       )}
+      <nav className="cp-tabbar" aria-label="Offers">
+        <button className={tab === 'offers' ? 'on' : ''} onClick={() => setTab('offers')}>
+          <TicketPercent size={20} />
+          <span>Offers</span>
+        </button>
+        <button className={tab === 'basket' ? 'on' : ''} onClick={() => setTab('basket')}>
+          <ShoppingBasket size={20} />
+          <span>Basket</span>
+          {lines.length > 0 && <b className="cp-tab-count">{lines.length}</b>}
+        </button>
+        <button className={tab === 'claims' ? 'on' : ''} onClick={() => setTab('claims')}>
+          <Receipt size={20} />
+          <span>My claims</span>
+          {ct.pendingCount > 0 && <b className="cp-tab-count pending">{ct.pendingCount}</b>}
+        </button>
+      </nav>
+      {redeem && (
+        <RedeemView
+          coupons={coupons}
+          initial={redeem}
+          store={store}
+          catalog={catalog}
+          sales={sales}
+          settings={settings}
+          onClose={() => setRedeem(null)}
+          onSent={(c) => {
+            setRedeem(null);
+            setClaims((cs) => [c, ...(cs ?? []).filter((x) => x.key !== c.key)]);
+            setTab('claims');
+            setToast('Claim sent: we will review it shortly');
+          }}
+        />
+      )}
       {toast && <div className="cp-toast">{toast}</div>}
+    </div>
+  );
+}
+
+function ClaimsTab({
+  store,
+  claims,
+  error,
+  totals,
+  onRefresh,
+  onResubmit,
+}: {
+  store: string;
+  claims: Claim[] | null;
+  error: string | null;
+  totals: ReturnType<typeof claimTotals>;
+  onRefresh: () => void;
+  onResubmit: (offerId: string) => void;
+}) {
+  if (!store) return <div className="cp-body"><p className="muted">Pick your store on the home screen to see its claims.</p></div>;
+  return (
+    <div className="cp-body">
+      <div className="cp-summary">
+        <div>
+          <span className="cp-summary-label">
+            <Clock size={15} /> Pending
+          </span>
+          <b>{money(totals.pending)}</b>
+          <small>
+            {totals.pendingCount} claim{totals.pendingCount === 1 ? '' : 's'}
+          </small>
+        </div>
+        <div>
+          <span className="cp-summary-label">
+            <Wallet size={15} /> Your balance
+          </span>
+          <b>{money(totals.balance)}</b>
+          <small>
+            {totals.paidCount} approved · {store}
+          </small>
+        </div>
+      </div>
+      {error && <div className="notice error">{error}</div>}
+      {!claims ? (
+        <p className="muted">Loading…</p>
+      ) : !claims.length ? (
+        <div className="cp-empty">
+          <Receipt size={36} />
+          <p>No claims yet. Bought an offer? Tap Redeem on it and photograph it on your shelf.</p>
+        </div>
+      ) : (
+        <ul className="claim-list">
+          {claims.map((c) => (
+            <li key={c.key} className="claim-row">
+              <span className="claim-text">
+                <b>{c.title}</b>
+                <small>
+                  {c.product} · sent {new Date(c.at).toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                </small>
+                {c.status === 'rejected' && c.reason && <small className="claim-reason">Not approved: {c.reason}</small>}
+              </span>
+              {c.status === 'pending' ? (
+                <span className="claim-badge pending">
+                  <Clock size={14} /> Pending
+                </span>
+              ) : c.status === 'approved' ? (
+                <span className="claim-badge approved">
+                  <Check size={14} /> {money(c.saving)}
+                </span>
+              ) : (
+                <span className="claim-side">
+                  <span className="claim-badge rejected">
+                    <X size={14} /> Rejected
+                  </span>
+                  <button className="btn ghost" onClick={() => onResubmit(c.offerId)}>
+                    <RotateCcw size={14} /> Resubmit
+                  </button>
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      <button className="btn ghost full" onClick={onRefresh}>
+        <RotateCcw size={16} /> Refresh
+      </button>
+      <p className="muted small cp-note">
+        <CircleAlert size={12} /> Claims are checked by the ShelfScan team. Approved savings are added to your balance.
+      </p>
     </div>
   );
 }

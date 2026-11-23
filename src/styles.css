@@ -3026,3 +3026,295 @@ h3,
   border-color: #fcd200;
   color: #0f1111;
 }
+
+/* Offers section: bottom tabs, redeem, claims ------------------------------------- */
+.cp-screen .cp-body {
+  padding-bottom: calc(150px + env(safe-area-inset-bottom));
+}
+.cp-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 6px 6px calc(8px + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.cp-tabbar button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cp-tabbar button.on {
+  color: var(--brand);
+}
+.cp-tab-count {
+  position: absolute;
+  top: 0;
+  left: calc(50% + 6px);
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-size: 0.68rem;
+  line-height: 18px;
+}
+.cp-tab-count.pending {
+  background: var(--amber);
+  color: #fff;
+}
+.cp-screen:has(.cp-tabbar) .cp-bar {
+  bottom: calc(74px + env(safe-area-inset-bottom));
+}
+.coupon {
+  grid-template-columns: 84px 1fr 28px;
+  cursor: pointer;
+}
+.coupon-acts {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+  cursor: default;
+}
+.coupon-acts .btn {
+  justify-content: center;
+  padding: 9px 8px;
+  font-size: 0.9rem;
+}
+.coupon-acts .btn.on {
+  border-color: var(--cp);
+  color: var(--cp);
+}
+.redeem-btn {
+  background: color-mix(in srgb, var(--brand) 6%, var(--surface));
+  border-color: color-mix(in srgb, var(--brand) 30%, var(--border));
+  color: var(--brand);
+}
+.claim-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.claim-badge.pending {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.claim-badge.approved {
+  background: var(--green-soft);
+  color: var(--green);
+}
+.claim-badge.rejected {
+  background: var(--red-soft);
+  color: var(--red);
+}
+.claim-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.claim-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.claim-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.claim-text small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.claim-text .claim-reason {
+  color: var(--red);
+  font-weight: 600;
+}
+.claim-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.redeem .cp-body {
+  padding-bottom: 40px;
+}
+.redeem-step {
+  margin: 14px 2px 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.redeem-offer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  border: 2px solid var(--brand);
+  border-radius: 16px;
+  background: var(--brand-soft);
+}
+.redeem-offer select {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.redeem-offer-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.redeem-offer-text small,
+.redeem-change {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.redeem-shoot {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 28px 16px;
+  border: 2px dashed color-mix(in srgb, var(--brand) 35%, var(--border));
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--brand) 4%, var(--surface));
+  color: var(--brand);
+  font: inherit;
+  cursor: pointer;
+}
+.redeem-shoot small {
+  color: var(--muted);
+}
+.redeem-card {
+  padding: 10px;
+}
+.redeem-photo,
+.claim-photo canvas {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+.redeem-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+.redeem-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 0.92rem;
+}
+.redeem-result span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.redeem-result small {
+  color: var(--text-2);
+}
+.redeem-result.ok {
+  background: var(--green-soft);
+  color: var(--green);
+}
+.redeem-result.warn {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.redeem-result.busy {
+  background: var(--surface-2);
+  color: var(--text-2);
+  align-items: center;
+}
+.redeem-submit {
+  margin-top: 16px;
+}
+.claims-filter {
+  align-items: center;
+  margin-bottom: 4px;
+}
+.claims-filter .chip.on {
+  background: var(--brand);
+  color: var(--on-brand);
+  border-color: var(--brand);
+}
+.claim-review {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.claim-review h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.claim-review .redeem-result {
+  margin: 0;
+}
+.claim-review .kv {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  font-size: 0.86rem;
+}
+.claim-review .kv span:nth-child(odd) {
+  color: var(--muted);
+}
+.claim-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.claim-actions .btn {
+  justify-content: center;
+}
+.btn.approve {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.btn.reject {
+  color: var(--red);
+  border-color: color-mix(in srgb, var(--red) 30%, var(--border));
+}
