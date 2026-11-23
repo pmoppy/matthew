@@ -390,6 +390,7 @@ describe('amazon basket link', () => {
   });
 });
 
+// @ts-ignore: Node built-in (tests run in Node; the app build has no Node types)
 import { readFileSync, statSync } from 'node:fs';
 
 describe('published library', () => {
